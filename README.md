@@ -38,7 +38,7 @@ cd SPRING
 ./spring -h
 ```
 
-### Example Usage of HARC
+### Example Usage of SPRING
 For compressing file_1.fastq and file_2.fastq losslessly using default 8 threads and qvz for qualities.
 ```bash
 ./spring -c -1 file_1.fastq -2 file_2.fastq -q qvz -i -p -o outputname
