@@ -1,0 +1,291 @@
+#!/bin/bash
+set -e
+
+usage()
+{
+cat << EOF
+
+Compression tool for Fastq files. Works on reads of length less than 256. Maximum number of reads around 4 Billion (2^32). For paired end reads, both files should have same number of reads.
+
+Usage: 
+Compression - compresses FASTQ files.
+./spring -c -1 Fastq_file_1 [-2 Fastq_file_2] [-p] [-t num_threads] [-q mode] [-r qvz_ratio] [-i] -o outputfile
+-2 second file for paired end reads
+-p Preserve order of reads
+-t num_threads - Default 8
+-q Retain quality values. Possible modes:
+	qvz - qvz specify bits/quality ratio using -r flag (default 8.0 lossless)
+	bsc - use bsc compressor. 
+	illumina_binning_bsc - bin into 8 levels and use bsc
+	illumina_binning_qvz - bin into 8 levels and use qvz lossless
+-r bits/quality ratio if -q qvz used [default 8.0 lossless]
+-i Retain read IDs, if not specified fake ids will be generated during decompression
+-o Output file name
+
+Decompression - decompress compressed archive.
+./spring -d compressed_file -o outputfile [-t num_threads]
+-o outputfile name, if compressed with -P flag, two files created: outputfile.1 and outputfile.2. If quality is not retained, FASTA file is produced.
+-t num_threads - Default 8
+
+Help (this message)
+./spring -h
+
+See README and more supplementary information at:
+https://github.com/shubhamchandak94/SPRING
+
+EOF
+exit 0
+}
+
+compress()
+{
+	harcdir=$(dirname $BASH_SOURCE)
+	pathname=$(dirname $filename_1)
+	tempdir=$(mktemp -d -p $pathname)
+	trap "rm -rf $tempdir" EXIT
+	echo "*** Preprocessing ***"
+	/usr/bin/time -v ./$harcdir/bin/preprocess.out $paired_end $preserve_id $preserve_quality $tempdir $filename_1 $filename_2
+	max_readlen=$( cat $tempdir/read_meta.txt )
+	#calculate bitset sizes for reorder and encoder
+	bitset_size_reorder=$(((2*$max_readlen-1)/64*64+64))	
+	bitset_size_encoder=$(((3*$max_readlen-1)/64*64+64))
+	/usr/bin/time -v ./$harcdir/bin/reorder/reorder_$bitset_size_reorder".out" $tempdir $max_readlen $num_thr
+	/usr/bin/time -v ./$harcdir/bin/encoder/encoder_$bitset_size_encoder".out" $tempdir $max_readlen $num_thr
+	rm $tempdir/input_N.dna
+	#tar files produced by the threads
+	mkdir -p $tempdir/read_noise
+	mv $tempdir/read_noise.txt* $tempdir/read_noise
+	mkdir -p $tempdir/read_noisepos
+	mv $tempdir/read_noisepos.txt* $tempdir/read_noisepos
+	mkdir -p $tempdir/read_pos
+	mv $tempdir/read_pos.txt* $tempdir/read_pos
+	mkdir -p $tempdir/read_seq
+	mv $tempdir/read_seq.txt* $tempdir/read_seq
+	mkdir -p $tempdir/read_rev
+	mv $tempdir/read_rev.txt* $tempdir/read_rev
+
+	tar -cf	$tempdir/read_noise.tar -C $tempdir/read_noise .
+	tar -cf	$tempdir/read_noisepos.tar -C $tempdir/read_noisepos .
+	tar -cf	$tempdir/read_pos.tar -C $tempdir/read_pos .
+	tar -cf	$tempdir/read_seq.tar -C $tempdir/read_seq .
+	tar -cf	$tempdir/read_rev.tar -C $tempdir/read_rev .
+	
+	rm -r $tempdir/read_noise
+	rm -r $tempdir/read_noisepos
+	rm -r $tempdir/read_pos
+	rm -r $tempdir/read_seq
+	rm -r $tempdir/read_rev
+	
+	#compress and create tarball
+	./$harcdir/bin/bsc e $tempdir/read_pos.tar $tempdir/read_pos.tar.bsc -b64p -e2 -t$num_thr
+	./$harcdir/bin/bsc e $tempdir/read_noise.tar $tempdir/read_noise.tar.bsc -b64p -e2 -t$num_thr 
+	7z a $tempdir/read_noisepos.tar.7z $tempdir/read_noisepos.tar -mmt=$numt_thr
+	./$harcdir/bin/bsc e $tempdir/unaligned_N.txt $tempdir/unaligned_N.txt.bsc -b64p -e2 -t$num_thr
+	7z a $tempdir/read_meta.txt.7z $tempdir/read_meta.txt -mmt=$num_thr
+	7z a $tempdir/read_rev.tar.7z $tempdir/read_rev.tar -mmt=$num_thr
+	./$harcdir/bin/bsc e $tempdir/read_seq.tar $tempdir/read_seq.tar.bsc -b64p -e2 -t$num_thr 
+	./$harcdir/bin/bsc e $tempdir/unaligned_singleton.txt $tempdir/unaligned_singleton.txt.bsc -b64p -e2 -t$num_thr
+	7z a $tempdir/read_lengths.bin.7z $tempdir/read_lengths.bin -mmt=$num_thr
+	rm $tempdir/read_lengths.bin 
+	rm $tempdir/*.txt $tempdir/*.tar 
+	if [[ $paired_end == "True" ]];then
+		./$harcdir/bin/pe_encode.out $tempdir $preserve_order
+		7z a $tempdir/read_order_paired.bin.7z $tempdir/read_order_paired.bin -mmt=$num_thr
+		rm $tempdir/read_order_paired.bin
+		7z a $tempdir/read_paired_flag_first.bin.7z $tempdir/read_paired_flag_first.bin -mmt=$num_thr
+		rm $tempdir/read_paired_flag_first.bin
+	fi
+	/usr/bin/time -v ./$harcdir/bin/reorder_compress_quality_id_pe.out $tempdir $max_readlen $num_thr $preserve_order $paired_end $preserve_quality $preserve_id $quality_mode $quality_ratio $filename_1 $filename_2 
+	if [[ $preserve_id == "True" ]];then
+		rm $tempdir/*.id
+	fi
+	if [[ $quality_mode == "bsc" || $quality_mode == "illumina_binning_bsc" ]];then
+		./$harcdir/bin/bsc e $tempdir/quality_1.txt $tempdir/quality_1.txt.bsc -b64p -e2 -t$num_thr
+		rm $tempdir/quality_1.txt
+		if [[ $paired_end == "True" ]];then
+			./$harcdir/bin/bsc e $tempdir/quality_2.txt $tempdir/quality_2.txt.bsc -b64p -e2 -t$num_thr
+			rm $tempdir/quality_2.txt
+		fi
+	fi
+	if [[ $preserve_order == "True" ]];then
+		./$harcdir/bin/pack_order.out $tempdir $paired_end
+		7z a $tempdir/read_order.bin.7z $tempdir/read_order.bin -mmt=$num_thr
+	fi
+	rm $tempdir/read_order.bin
+	rm $tempdir/*.singleton
+	echo $preserve_order >> $tempdir/preserve_order
+	echo $paired_end >> $tempdir/paired_end
+	echo $preserve_quality >> $tempdir/preserve_quality
+	echo $preserve_id >> $tempdir/preserve_id
+	echo $quality_mode >> $tempdir/quality_mode
+	tar -cf $outputfilename -C $tempdir .
+	rm -r $tempdir/
+	echo "Done."
+}
+
+decompress()
+{
+	echo "Decompression ..."
+	harcdir=$(dirname $BASH_SOURCE)
+	pathname=$(dirname $compressedfilename)
+	tempdir=$(mktemp -d -p $pathname)
+	trap "rm -rf $tempdir" EXIT
+	tar -xf $compressedfilename -C $tempdir
+	paired_end=$( cat $tempdir/paired_end )
+	preserve_order=$( cat $tempdir/preserve_order )
+	preserve_quality=$( cat $tempdir/preserve_quality )
+	preserve_id=$( cat $tempdir/preserve_id )
+	quality_mode=$( cat $tempdir/quality_mode )
+	
+	./$harcdir/bin/bsc d $tempdir/read_pos.tar.bsc $tempdir/read_pos.tar -t$num_thr
+	./$harcdir/bin/bsc d $tempdir/read_noise.tar.bsc $tempdir/read_noise.tar -t$num_thr
+	7z e $tempdir/read_noisepos.tar.7z -o$tempdir/
+	./$harcdir/bin/bsc d $tempdir/unaligned_N.txt.bsc $tempdir/unaligned_N.txt -t$num_thr
+	7z e $tempdir/read_meta.txt.7z -o$tempdir/
+	7z e $tempdir/read_rev.tar.7z -o$tempdir/
+	./$harcdir/bin/bsc d $tempdir/read_seq.tar.bsc $tempdir/read_seq.tar -t$num_thr
+	./$harcdir/bin/bsc d $tempdir/unaligned_singleton.txt.bsc $tempdir/unaligned_singleton.txt -t$num_thr
+	7z e $tempdir/read_lengths.bin.7z -o$tempdir/
+	
+	
+	tar -xf $tempdir/read_pos.tar -C $tempdir/
+	tar -xf $tempdir/read_noisepos.tar -C $tempdir/
+	tar -xf $tempdir/read_noise.tar -C $tempdir/
+	tar -xf $tempdir/read_rev.tar -C $tempdir/
+	tar -xf $tempdir/read_seq.tar -C $tempdir/
+	
+	num_thr_e=$(ls $tempdir/read_pos.txt* | wc -l) #number of encoding threads
+	max_readlen=$( cat $tempdir/read_meta.txt )
+	#calculate bitset size for decoder
+	bitset_size_decoder=$(((3*$max_readlen-1)/64*64+64))	
+	if [[ $preserve_order == "True" ]];then
+		7z e $tempdir/read_order.bin.7z -o$tempdir/
+		./$harcdir/bin/unpack_order.out $tempdir/
+	fi		
+	if [[ $paired_end == "True" ]];then
+		7z e $tempdir/read_order_paired.bin.7z -o$tempdir/
+		7z e $tempdir/read_paired_flag_first.bin.7z -o$tempdir/
+		./$harcdir/bin/pe_decode.out $tempdir/ $preserve_order
+	fi
+	if [[ $quality_mode == "bsc" || $quality_mode == "illumina_binning_bsc" ]];then
+		./$harcdir/bin/bsc d $tempdir/quality_1.txt.bsc $tempdir/quality_1.txt.0 -t$num_thr
+		if [[ $paired_end == "True" ]];then
+			./$harcdir/bin/bsc d $tempdir/quality_2.txt.bsc $tempdir/quality_2.txt.0 -t$num_thr
+		fi
+	fi
+	if [[ $paired_end == "True" ]];then
+		/usr/bin/time -v ./$harcdir/bin/decompress_quality_id_pe.out $tempdir/ $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $quality_mode
+	else
+		/usr/bin/time -v ./$harcdir/bin/decompress_quality_id_se.out $tempdir/ $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $quality_mode
+	fi
+	if [[ $paired_end == "True" ]];then	
+		/usr/bin/time -v ./$harcdir/bin/decoder_pe/decoder_pe_$bitset_size_decoder".out" $tempdir $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $fast_mode
+	else
+		/usr/bin/time -v ./$harcdir/bin/decoder_se/decoder_se_$bitset_size_decoder".out" $tempdir $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $fast_mode
+	fi
+	if [[ $paired_end == "True" ]];then	
+		mv $tempdir/output_1.txt $outputfilename".1"
+		mv $tempdir/output_2.txt $outputfilename".2"
+	else
+		mv $tempdir/output.txt $outputfilename
+	fi
+	echo "Done!"
+	rm -r $tempdir/
+}
+
+#Initialize variables to default values.
+num_thr=8
+
+#Check the number of arguments. If none are passed, print help and exit.
+NUMARGS=$#
+if [ $NUMARGS -eq 0 ]; then
+ usage
+fi
+
+mode=''
+filename_1=''
+filename_2=''
+compressedfilename=''
+preserve_order="False"
+paired_end="False"
+preserve_quality="False"
+preserve_id="False"
+quality_mode=''
+quality_ratio=''
+outputfilename=''
+fast_mode='False'
+
+while getopts ':c1:2:o:d:t:pq:r:ifh' opt; do
+  case "$opt" in
+    c) [[ -n "$mode" ]] && usage || mode='c';;
+    d) [[ -n "$mode" ]] && usage || mode='d' && compressedfilename=$OPTARG;;
+    1) filename_1=$OPTARG;;	
+    2) paired_end="True" && filename_2=$OPTARG;;
+    o) outputfilename=$OPTARG;;		
+    t) num_thr=$OPTARG;;
+    p) preserve_order="True";;	
+    q) preserve_quality="True" && quality_mode=$OPTARG;;
+    r) quality_ratio=$OPTARG;;	
+    i) preserve_id="True";;	
+    f) fast_mode='True';;
+    h) usage ;;
+    \?) usage ;;
+    *) usage ;;
+  esac
+done
+
+if [[ $mode == 'c' ]];then
+	if [[ $outputfilename == '' ]];then
+		echo "Output file name not given"
+		usage
+		exit 1
+	fi
+	if [[ $filename_1 == '' ]];then
+		echo "File 1 not given"
+		usage
+		exit 1
+	fi
+	if [[ $paired_end == "True" ]];then
+		if [[ $filename_2 == '' ]];then
+			echo "Second file needed in PE mode"
+			usage
+			exit 1
+		fi
+	fi
+	if [[ $preserve_quality == "True" ]];then
+		if [[ $quality_mode == "qvz" ]];then
+			if [[ $quality_ratio == '' ]];then
+				quality_ratio="8.0"
+			fi
+		elif [[	$quality_mode == "illumina_binning_bsc" ]];then
+			quality_ratio="8.0"
+		elif [[	$quality_mode == "illumina_binning_qvz" ]];then
+			quality_ratio="8.0"
+		elif [[ $quality_mode == "bsc" ]];then
+			quality_ratio="8.0"
+		else
+			echo "Invalid quality mode"
+			usage
+			exit 1
+		fi
+	else
+		quality_ratio=''
+	fi			
+	compress
+elif [[ $mode == 'd' ]];then
+	if [[ $outputfilename == '' ]];then
+		echo "Output file name not given"
+		usage
+		exit 1
+	fi
+	if [[ $compressedfilename == '' ]];then
+		echo "Compressed file name not given"
+		usage
+		exit 1
+	fi
+	decompress
+else
+	echo "Either -c or -d required"
+	usage
+	exit 1
+fi;

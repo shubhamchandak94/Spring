@@ -1,0 +1,2201 @@
+16 threads for all experiments
+default params
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 26809400 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 392720093
+Number of singleton reads: 17342174
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+9566822 singleton reads were aligned
+4629027 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 406937600 into 212520432 in 13.515 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 639385600 into 103214368 in 7.925 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 232468480 bytes (222 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 156633957 bytes (150 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 47699280 into 11676060 in 3.347 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 50892800 bytes (49 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 48314684 bytes (47 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)data/fastq/output/read_seq.tar compressed 900044800 into 799429360 in 17.082 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 196327638 into 169229134 in 12.668 seconds.
+	Command being timed: "./harc -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 16971.78
+	System time (seconds): 265.03
+	Percent of CPU this job got: 1130%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 25:24.80
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20605712
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 13892109
+	Voluntary context switches: 245358
+	Involuntary context switches: 18608
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 317614832
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 1501030400 Aug 17 12:43 data/fastq/ERR174310_default.harc
+thresh 2
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 32525354 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 388039983
+Number of singleton reads: 22022284
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+13517910 singleton reads were aligned
+4628753 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 406210560 into 215603590 in 13.716 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 605675520 into 91114276 in 7.047 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 199495680 bytes (191 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 131802559 bytes (126 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 47727228 into 11709436 in 3.519 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 50810880 bytes (49 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 48715886 bytes (47 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)data/fastq/output/read_seq.tar compressed 936427520 into 826095766 in 16.095 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 214735443 into 185546144 in 12.766 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 18336.18
+	System time (seconds): 286.18
+	Percent of CPU this job got: 1142%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 27:10.28
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20605720
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 6675291
+	Voluntary context switches: 278291
+	Involuntary context switches: 19522
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 318634096
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 1510604800 Aug 17 13:12 data/fastq/ERR174310_thresh_2.harc
+thresh 6
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 25274218 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 394235885
+Number of singleton reads: 15826382
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+8283772 singleton reads were aligned
+4618034 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 407152640 into 210251954 in 13.034 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 684574720 into 116074792 in 8.052 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 277432320 bytes (265 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 183212343 bytes (175 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 48820566 into 11914636 in 3.490 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 50923520 bytes (49 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 48020523 bytes (46 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)data/fastq/output/read_seq.tar compressed 890439680 into 795378302 in 16.082 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 190450902 into 164425134 in 12.905 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 16807.22
+	System time (seconds): 378.28
+	Percent of CPU this job got: 1113%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 25:44.02
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20605716
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 17779084
+	Voluntary context switches: 363064
+	Involuntary context switches: 19113
+	Swaps: 0
+	File system inputs: 32
+	File system outputs: 320707288
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 1529292800 Aug 17 13:39 data/fastq/ERR174310_thresh_6.harc
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 24787416 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 394914861
+Number of singleton reads: 15147406
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+7677922 singleton reads were aligned
+4604319 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 407214080 into 207985006 in 13.250 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 732016640 into 128303850 in 8.110 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 324823040 bytes (310 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 208577333 bytes (199 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 50219496 into 12208368 in 3.734 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 50933760 bytes (49 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 47795931 bytes (46 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)data/fastq/output/read_seq.tar compressed 886865920 into 795708672 in 16.253 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 188604471 into 163163680 in 12.808 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 15983.07
+	System time (seconds): 288.19
+	Percent of CPU this job got: 1098%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 24:41.39
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20605708
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 16936947
+	Voluntary context switches: 1460327
+	Involuntary context switches: 12868
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 318621200
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 1563760640 Aug 17 14:53 data/fastq/ERR174310_thresh_8.harc
+thresh 16
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 24506550 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 395986902
+Number of singleton reads: 14075365
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+6622327 singleton reads were aligned
+4547383 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 407173120 into 203141860 in 12.629 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 915732480 into 173060926 in 9.569 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 508579840 bytes (486 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 287115682 bytes (274 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 56026968 into 13396504 in 4.164 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 50923520 bytes (49 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 47208288 bytes (46 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)data/fastq/output/read_seq.tar compressed 884480000 into 801149408 in 16.377 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 188189209 into 164623572 in 12.682 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 15308.11
+	System time (seconds): 270.76
+	Percent of CPU this job got: 1103%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 23:31.73
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20605716
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 12772496
+	Voluntary context switches: 2245647
+	Involuntary context switches: 14433
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 320087456
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 1689712640 Aug 17 16:11 data/fastq/ERR174310_thresh_16.harc
+thresh_s 8
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 26809420 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 392720846
+Number of singleton reads: 17341421
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+8376340 singleton reads were aligned
+4368130 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 405483520 into 212011710 in 13.556 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 602296320 into 93694500 in 6.993 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 196833280 bytes (188 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 140883557 bytes (135 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 74310774 into 17881290 in 7.900 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 50718720 bytes (49 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 48175979 bytes (46 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)data/fastq/output/read_seq.tar compressed 900085760 into 799522864 in 15.450 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 226368295 into 193256636 in 12.445 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 17340.74
+	System time (seconds): 249.97
+	Percent of CPU this job got: 1146%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 25:34.50
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20605708
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 4929957
+	Voluntary context switches: 529376
+	Involuntary context switches: 13433
+	Swaps: 0
+	File system inputs: 32
+	File system outputs: 317682816
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 1505443840 Aug 17 16:45 data/fastq/ERR174310_thresh_s_8.harc
+thresh_s 20
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 26805498 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 392721392
+Number of singleton reads: 17340875
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+9024879 singleton reads were aligned
+4550508 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 406312960 into 212322674 in 13.014 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 621025280 into 98566982 in 7.125 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 214732800 bytes (205 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 149150906 bytes (143 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 55708218 into 13517406 in 4.131 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 50821120 bytes (49 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 48257407 bytes (47 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)data/fastq/output/read_seq.tar compressed 899993600 into 799449364 in 17.056 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 209978899 into 179967760 in 12.737 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 16540.98
+	System time (seconds): 251.53
+	Percent of CPU this job got: 1126%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 24:50.54
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20605716
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 4220568
+	Voluntary context switches: 482907
+	Involuntary context switches: 14803
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 317620936
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 1501245440 Aug 17 17:23 data/fastq/ERR174310_thresh_s_20.harc
+thresh_s 28
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 26808274 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 392720152
+Number of singleton reads: 17342115
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+10105137 singleton reads were aligned
+4669157 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 407511040 into 212638422 in 14.100 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 659179520 into 108102686 in 8.656 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 251688960 bytes (241 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 163827653 bytes (157 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 43606020 into 10747668 in 4.337 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 50974720 bytes (49 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 48353469 bytes (47 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)data/fastq/output/read_seq.tar compressed 900024320 into 799481016 in 17.128 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 182733694 into 159498360 in 13.300 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 16558.94
+	System time (seconds): 249.66
+	Percent of CPU this job got: 1134%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 24:41.71
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20605712
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 5064250
+	Voluntary context switches: 384691
+	Involuntary context switches: 10404
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 317647528
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 1502658560 Aug 17 18:01 data/fastq/ERR174310_thresh_s_28.harc
+thresh_s 32
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 26806615 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 392720809
+Number of singleton reads: 17341458
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+10567341 singleton reads were aligned
+4692531 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 408002560 into 212829102 in 13.764 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 679659520 into 112959250 in 8.472 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 271677440 bytes (260 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 170432505 bytes (163 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 41221872 into 10216704 in 3.295 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 51025920 bytes (49 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 48392282 bytes (47 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)data/fastq/output/read_seq.tar compressed 899993600 into 799414208 in 17.376 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 171046454 into 150917528 in 12.832 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 16078.89
+	System time (seconds): 246.44
+	Percent of CPU this job got: 1113%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 24:26.06
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20605724
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 4097994
+	Voluntary context switches: 438173
+	Involuntary context switches: 16768
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 317704536
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 1505177600 Aug 17 18:49 data/fastq/ERR174310_thresh_s_32.harc
+maxshift 10
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 186500983 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 299996626
+Number of singleton reads: 110065641
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+15282563 singleton reads were aligned
+1959748 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 317255680 into 107444466 in 12.103 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 632494080 into 111167294 in 9.127 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 315258880 bytes (301 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 185978631 bytes (178 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 319965738 into 80161478 in 10.256 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 39690240 bytes (38 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 34648082 bytes (34 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)Compressing data/fastq/output/read_seq.tar(54%)data/fastq/output/read_seq.tar compressed 2096640000 into 1920173666 in 35.533 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)Compressing data/fastq/output/read_singleton.txt(50%)Compressing data/fastq/output/read_singleton.txt(98%)data/fastq/output/read_singleton.txt compressed 2393272719 into 2244492986 in 48.009 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 12927.70
+	System time (seconds): 284.06
+	Percent of CPU this job got: 887%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 24:49.02
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20605712
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 3647945
+	Voluntary context switches: 421056
+	Involuntary context switches: 13986
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 370369584
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 4684083200 Aug 17 19:16 data/fastq/ERR174310_maxshift_10.harc
+maxshift 20
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 91908333 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 366746335
+Number of singleton reads: 43315932
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+10495134 singleton reads were aligned
+3353951 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 380610560 into 173785520 in 13.021 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 630220800 into 103009672 in 8.118 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 249620480 bytes (239 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 161000722 bytes (154 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 177757032 into 44449934 in 9.682 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 47605760 bytes (46 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 44338527 bytes (43 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)Compressing data/fastq/output/read_seq.tar(65%)data/fastq/output/read_seq.tar compressed 1631774720 into 1485456066 in 32.444 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 828725149 into 763988506 in 17.096 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 15794.33
+	System time (seconds): 267.56
+	Percent of CPU this job got: 1066%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 25:06.31
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20605712
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 4176850
+	Voluntary context switches: 883976
+	Involuntary context switches: 14910
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 338741776
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 2776043520 Aug 17 19:43 data/fastq/ERR174310_maxshift_20.harc
+maxshift 30
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 50830805 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 384776246
+Number of singleton reads: 25286021
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+9732184 singleton reads were aligned
+4126874 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 398653440 into 199551480 in 13.108 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 635975680 into 102626872 in 8.049 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 237332480 bytes (227 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 156962011 bytes (150 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 98918886 into 24581708 in 8.626 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 49858560 bytes (48 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 47071333 bytes (45 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)Compressing data/fastq/output/read_seq.tar(95%)data/fastq/output/read_seq.tar compressed 1193728000 into 1076107326 in 29.206 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 392734384 into 351811958 in 14.909 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 16098.23
+	System time (seconds): 253.74
+	Percent of CPU this job got: 1097%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 24:49.64
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20605704
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 4125450
+	Voluntary context switches: 319448
+	Involuntary context switches: 14824
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 325201968
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 1958727680 Aug 17 20:17 data/fastq/ERR174310_maxshift_30.harc
+maxshift 40
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 33744294 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 390522894
+Number of singleton reads: 19539373
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+9648057 singleton reads were aligned
+4480220 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 404674560 into 208813326 in 14.284 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 638720000 into 103010380 in 8.040 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 234065920 bytes (224 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 156759230 bytes (150 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 62877594 into 15478048 in 4.973 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 50616320 bytes (49 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 47969112 bytes (46 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)data/fastq/output/read_seq.tar compressed 981719040 into 877466584 in 17.841 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 249755729 into 217976406 in 13.437 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 16517.52
+	System time (seconds): 252.86
+	Percent of CPU this job got: 1129%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 24:44.75
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20605716
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 4415367
+	Voluntary context switches: 285000
+	Involuntary context switches: 16689
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 319720816
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 1627484160 Aug 17 20:43 data/fastq/ERR174310_maxshift_40.harc
+maxsearch 500
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 26833509 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 392706548
+Number of singleton reads: 17355719
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+9538369 singleton reads were aligned
+4628760 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 406896640 into 212431306 in 14.323 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 638177280 into 102994942 in 8.031 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 231301120 bytes (221 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 156366031 bytes (150 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 47726514 into 11681106 in 3.390 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 50892800 bytes (49 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 48318603 bytes (47 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)data/fastq/output/read_seq.tar compressed 900515840 into 799695766 in 17.070 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 197388087 into 169811548 in 12.537 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 16033.83
+	System time (seconds): 250.87
+	Percent of CPU this job got: 1110%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 24:26.26
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20607748
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 4249753
+	Voluntary context switches: 435694
+	Involuntary context switches: 15149
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 317628488
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 1501317120 Aug 17 21:09 data/fastq/ERR174310_maxsearch_500.harc
+maxsearch 2000
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 26792095 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 392730201
+Number of singleton reads: 17332066
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+9614414 singleton reads were aligned
+4628803 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 406988800 into 212496722 in 13.420 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 640153600 into 103418292 in 8.019 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 233175040 bytes (223 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 156923645 bytes (150 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 47722128 into 11681730 in 3.354 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 50903040 bytes (49 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 48316868 bytes (47 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)data/fastq/output/read_seq.tar compressed 899799040 into 799370824 in 17.335 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 194870713 into 168463474 in 12.086 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 16921.47
+	System time (seconds): 249.75
+	Percent of CPU this job got: 1137%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 25:10.20
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20605716
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 4317167
+	Voluntary context switches: 328503
+	Involuntary context switches: 16861
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 317610440
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 1500682240 Aug 17 21:36 data/fastq/ERR174310_maxsearch_2000.harc
+1 dict stage 1
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 62595260 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 373374382
+Number of singleton reads: 36687885
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+23419438 singleton reads were aligned
+4358896 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 401172480 into 211283836 in 13.874 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 639334400 into 104376628 in 8.615 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 238182400 bytes (228 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 156132308 bytes (149 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 75252642 into 18732952 in 8.062 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 50176000 bytes (48 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 46414688 bytes (45 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)Compressing data/fastq/output/read_seq.tar(98%)data/fastq/output/read_seq.tar compressed 1300172800 into 1158723356 in 30.579 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 335028286 into 301485522 in 14.838 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 13542.44
+	System time (seconds): 242.95
+	Percent of CPU this job got: 1059%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 21:41.30
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 16974776
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 3246112
+	Voluntary context switches: 199490
+	Involuntary context switches: 8344
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 312653688
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 1997158400 Aug 17 22:04 data/fastq/ERR174310_numdict_1.harc
+dictlen 20 stage 1
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 23731868 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 394908084
+Number of singleton reads: 15154183
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+7821353 singleton reads were aligned
+4638574 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 407388160 into 212410576 in 14.411 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 647823360 into 105916348 in 9.530 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 240455680 bytes (230 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 164138207 bytes (157 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 46725486 into 11425084 in 3.602 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 50954240 bytes (49 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 48269655 bytes (47 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)data/fastq/output/read_seq.tar compressed 881899520 into 782928672 in 18.283 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 185153957 into 159107682 in 13.781 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 27524.51
+	System time (seconds): 265.88
+	Percent of CPU this job got: 1263%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 36:39.80
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20265668
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 7379674
+	Voluntary context switches: 656681
+	Involuntary context switches: 27977
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 317011368
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 1484206080 Aug 17 22:43 data/fastq/ERR174310_dictlen_20_stage_1.harc
+numdict_s 1
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 26805632 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 392721224
+Number of singleton reads: 17341043
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+8145583 singleton reads were aligned
+1509444 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 402391040 into 211005712 in 14.992 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 602716160 into 91431236 in 7.931 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 200345600 bytes (192 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 138981229 bytes (133 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 365896746 into 86882984 in 10.757 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 50329600 bytes (48 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 47767872 bytes (46 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)data/fastq/output/read_seq.tar compressed 899993600 into 799397272 in 16.759 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 232185365 into 200842012 in 12.844 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 14708.36
+	System time (seconds): 258.75
+	Percent of CPU this job got: 1069%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 23:18.83
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20605716
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 5795419
+	Voluntary context switches: 476791
+	Involuntary context switches: 22420
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 317774032
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+ls: cannot access data/fastq/ERR174310_dictlen_numdict_s_1.harc: No such file or directory
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 1576325120 Aug 17 23:17 data/fastq/ERR174310_numdict_s_1.harc
+second stage dict 0-14,15-29
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 26806030 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 392721667
+Number of singleton reads: 17340600
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+10123689 singleton reads were aligned
+4647245 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 407511040 into 212681316 in 14.779 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 651530240 into 106381876 in 8.187 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 244039680 bytes (233 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 163063726 bytes (156 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 45841044 into 11218002 in 4.377 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 50974720 bytes (49 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 48373637 bytes (47 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)data/fastq/output/read_seq.tar compressed 900014080 into 799418074 in 18.570 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 182227002 into 155676464 in 14.208 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 19055.39
+	System time (seconds): 261.01
+	Percent of CPU this job got: 1149%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 27:59.91
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20609896
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 7705139
+	Voluntary context switches: 233398
+	Involuntary context switches: 26353
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 317550232
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 1496832000 Aug 17 23:48 data/fastq/ERR174310_dict_0_14_15_29_stage_2.harc
+second stage dict 0-20,21-41,42-62
+*** Preprocessing ***
+data/fastq/ERR174310.fastq
+Read length: 101
+Total number of reads: 415158934
+Total number of reads without N: 410062267
+Preprocessing Done!
+Reading file: data/fastq/output/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 26807545 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of non-singleton reads: 392720929
+Number of singleton reads: 17341338
+Number of reads with N: 5096667
+Encoding reads
+Encoding done:
+10227200 singleton reads were aligned
+4717861 reads with N were aligned
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_pos.tar(00%)data/fastq/output/read_pos.tar compressed 407685120 into 212792116 in 14.959 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_noise.tar(00%)data/fastq/output/read_noise.tar compressed 651151360 into 106393322 in 9.149 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 243486720 bytes (233 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 162018367 bytes (155 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/input_N.dna(00%)data/fastq/output/input_N.dna compressed 38638212 into 9475480 in 3.103 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 50995200 bytes (49 MiB)
+
+Creating archive: data/fastq/output/read_rev.tar.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 48408324 bytes (47 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.tar(00%)data/fastq/output/read_seq.tar compressed 900024320 into 799441650 in 17.309 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_singleton.txt(00%)data/fastq/output/read_singleton.txt compressed 179631984 into 154837708 in 13.435 seconds.
+	Command being timed: "./harc_copy_experiment -c data/fastq/ERR174310.fastq -t 16"
+	User time (seconds): 20035.58
+	System time (seconds): 262.51
+	Percent of CPU this job got: 1169%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 28:56.23
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20605724
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 8250130
+	Voluntary context switches: 220471
+	Involuntary context switches: 30202
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 318284816
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 1493381120 Aug 18 00:20 data/fastq/ERR174310_dict_0_20_21_41_42_62_stage_2.harc

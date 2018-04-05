@@ -1,0 +1,1386 @@
+*** Preprocessing ***
+Max Read length: 100
+Total number of reads: 71505746
+Total number of reads without N: 42454059
+Paired id match code: 1
+Preprocessing Done!
+	Command being timed: "././bin/preprocess.out True True True data/tmp.F9gjTYwSLM data/ERR532393_1.fastq data/ERR532393_2.fastq"
+	User time (seconds): 57.07
+	System time (seconds): 16.76
+	Percent of CPU this job got: 75%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:37.62
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 3316
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 6
+	Minor (reclaiming a frame) page faults: 387
+	Voluntary context switches: 695
+	Involuntary context switches: 128
+	Swaps: 0
+	File system inputs: 37664696
+	File system outputs: 23506216
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Reading file: data/tmp.F9gjTYwSLM/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 7062599 were unmatched
+Writing to file
+Done!
+	Command being timed: "././bin/reorder/reorder_256.out data/tmp.F9gjTYwSLM 100 8"
+	User time (seconds): 1183.04
+	System time (seconds): 20.14
+	Percent of CPU this job got: 718%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:47.40
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2250976
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 679417
+	Voluntary context switches: 8870
+	Involuntary context switches: 2266
+	Swaps: 0
+	File system inputs: 512
+	File system outputs: 13574752
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Maximum Read length: 100
+Number of non-singleton reads: 36572039
+Number of singleton reads: 5882020
+Number of reads with N: 29051687
+Encoding reads
+Encoding done:
+2260239 singleton reads were aligned
+23402650 reads with N were aligned
+	Command being timed: "././bin/encoder/encoder_320.out data/tmp.F9gjTYwSLM 100 8"
+	User time (seconds): 402.72
+	System time (seconds): 10.10
+	Percent of CPU this job got: 446%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:32.45
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2669384
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 544621
+	Voluntary context switches: 20606
+	Involuntary context switches: 933
+	Swaps: 0
+	File system inputs: 256
+	File system outputs: 7349136
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.F9gjTYwSLM/read_pos.tar(00%)data/tmp.F9gjTYwSLM/read_pos.tar compressed 62248960 into 17361672 in 6.294 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.F9gjTYwSLM/read_noise.tar(00%)data/tmp.F9gjTYwSLM/read_noise.tar compressed 169236480 into 36068262 in 12.599 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.F9gjTYwSLM/read_noisepos.tar.7z
+
+Compressing  data/tmp.F9gjTYwSLM/read_noisepos.tar
+
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.F9gjTYwSLM/unaligned_N.txt(00%)Compressing data/tmp.F9gjTYwSLM/unaligned_N.txt(95%)data/tmp.F9gjTYwSLM/unaligned_N.txt compressed 564903700 into 139958428 in 18.575 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.F9gjTYwSLM/read_meta.txt.7z
+
+Compressing  data/tmp.F9gjTYwSLM/read_meta.txt
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.F9gjTYwSLM/read_rev.tar.7z
+
+Compressing  data/tmp.F9gjTYwSLM/read_rev.tar
+
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.F9gjTYwSLM/read_seq.tar(00%)data/tmp.F9gjTYwSLM/read_seq.tar compressed 60917760 into 59240686 in 5.267 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.F9gjTYwSLM/unaligned_singleton.txt(00%)data/tmp.F9gjTYwSLM/unaligned_singleton.txt compressed 90544525 into 88481338 in 20.952 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.F9gjTYwSLM/read_lengths.bin.7z
+
+Compressing  data/tmp.F9gjTYwSLM/read_lengths.bin
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.F9gjTYwSLM/read_order_paired.bin.7z
+
+Compressing  data/tmp.F9gjTYwSLM/read_order_paired.bin
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.F9gjTYwSLM/read_paired_flag_first.bin.7z
+
+Compressing  data/tmp.F9gjTYwSLM/read_paired_flag_first.bin
+
+Everything is Ok
+Compressing qualities and/or ids
+	Command being timed: "././bin/reorder_compress_quality_id_pe.out data/tmp.F9gjTYwSLM 100 8 True True True True qvz 8.0 data/ERR532393_1.fastq data/ERR532393_2.fastq"
+	User time (seconds): 2606.88
+	System time (seconds): 12.52
+	Percent of CPU this job got: 722%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 6:02.71
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4669948
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 2808918
+	Voluntary context switches: 28717
+	Involuntary context switches: 3488
+	Swaps: 0
+	File system inputs: 248
+	File system outputs: 5264328
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.F9gjTYwSLM/read_order.bin.7z
+
+Compressing  data/tmp.F9gjTYwSLM/read_order.bin
+
+Everything is Ok
+Done.
+	Command being timed: "./harc -c -1 data/ERR532393_1.fastq -2 data/ERR532393_2.fastq -q qvz -i -t 8 -p -o data/ERR532393_op.harc"
+	User time (seconds): 4689.36
+	System time (seconds): 70.13
+	Percent of CPU this job got: 518%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 15:17.07
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4669948
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 24
+	Minor (reclaiming a frame) page faults: 4322440
+	Voluntary context switches: 194999
+	Involuntary context switches: 7799
+	Swaps: 0
+	File system inputs: 37667456
+	File system outputs: 58598720
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+*** Preprocessing ***
+Max Read length: 100
+Total number of reads: 71505746
+Total number of reads without N: 42454059
+Preprocessing Done!
+	Command being timed: "././bin/preprocess.out True False True data/tmp.HYQO3AB5A8 data/ERR532393_1.fastq data/ERR532393_2.fastq"
+	User time (seconds): 34.83
+	System time (seconds): 10.73
+	Percent of CPU this job got: 80%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:56.29
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 3300
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 455
+	Voluntary context switches: 116
+	Involuntary context switches: 86
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 14332632
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Reading file: data/tmp.HYQO3AB5A8/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 7062606 were unmatched
+Writing to file
+Done!
+	Command being timed: "././bin/reorder/reorder_256.out data/tmp.HYQO3AB5A8 100 8"
+	User time (seconds): 1174.56
+	System time (seconds): 19.18
+	Percent of CPU this job got: 723%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:45.00
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2250940
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 653711
+	Voluntary context switches: 13088
+	Involuntary context switches: 3269
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 13574840
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Maximum Read length: 100
+Number of non-singleton reads: 36572040
+Number of singleton reads: 5882019
+Number of reads with N: 29051687
+Encoding reads
+Encoding done:
+2260235 singleton reads were aligned
+23402646 reads with N were aligned
+	Command being timed: "././bin/encoder/encoder_320.out data/tmp.HYQO3AB5A8 100 8"
+	User time (seconds): 403.24
+	System time (seconds): 9.79
+	Percent of CPU this job got: 446%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:32.56
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2655832
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 529756
+	Voluntary context switches: 18847
+	Involuntary context switches: 1395
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 7348808
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.HYQO3AB5A8/read_pos.tar(00%)data/tmp.HYQO3AB5A8/read_pos.tar compressed 62248960 into 17361556 in 6.238 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.HYQO3AB5A8/read_noise.tar(39%)data/tmp.HYQO3AB5A8/read_noise.tar compressed 169236480 into 36069560 in 12.573 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.HYQO3AB5A8/read_noisepos.tar.7z
+
+Compressing  data/tmp.HYQO3AB5A8/read_noisepos.tar
+
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.HYQO3AB5A8/unaligned_N.txt(83%)data/tmp.HYQO3AB5A8/unaligned_N.txt compressed 564904100 into 139958702 in 18.035 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.HYQO3AB5A8/read_meta.txt.7z
+
+Compressing  data/tmp.HYQO3AB5A8/read_meta.txt
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.HYQO3AB5A8/read_rev.tar.7z
+
+Compressing  data/tmp.HYQO3AB5A8/read_rev.tar
+
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.HYQO3AB5A8/read_seq.tar(00%)data/tmp.HYQO3AB5A8/read_seq.tar compressed 60928000 into 59243760 in 5.356 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.HYQO3AB5A8/unaligned_singleton.txt(00%)data/tmp.HYQO3AB5A8/unaligned_singleton.txt compressed 90544600 into 88481892 in 19.514 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.HYQO3AB5A8/read_lengths.bin.7z
+
+Compressing  data/tmp.HYQO3AB5A8/read_lengths.bin
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.HYQO3AB5A8/read_order_paired.bin.7z
+
+Compressing  data/tmp.HYQO3AB5A8/read_order_paired.bin
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.HYQO3AB5A8/read_paired_flag_first.bin.7z
+
+Compressing  data/tmp.HYQO3AB5A8/read_paired_flag_first.bin
+
+Everything is Ok
+Compressing qualities and/or ids
+	Command being timed: "././bin/reorder_compress_quality_id_pe.out data/tmp.HYQO3AB5A8 100 8 False True True False illumina_binning_qvz 8.0 data/ERR532393_1.fastq data/ERR532393_2.fastq"
+	User time (seconds): 2450.56
+	System time (seconds): 9.07
+	Percent of CPU this job got: 724%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 5:39.63
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4284092
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 527647
+	Voluntary context switches: 29762
+	Involuntary context switches: 3159
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 2778616
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Done.
+	Command being timed: "./harc -c -1 data/ERR532393_1.fastq -2 data/ERR532393_2.fastq -q illumina_binning_qvz -t 8 -o data/ERR532393_pe.harc"
+	User time (seconds): 4466.76
+	System time (seconds): 56.18
+	Percent of CPU this job got: 546%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 13:47.21
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4284092
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 1895752
+	Voluntary context switches: 174591
+	Involuntary context switches: 8838
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 43505336
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Error: invalid number of input files specified in PE mode
+Command exited with non-zero status 255
+	Command being timed: "./../FaStore/bin/fastore_bin e -z -H -q0 -t8 -i"data/ERR532393_1.fastq data/ERR532393_2.fastq" -odata/ERR532393_lossless.fastore.bin"
+	User time (seconds): 0.00
+	System time (seconds): 0.00
+	Percent of CPU this job got: ?%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1740
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 62
+	Voluntary context switches: 1
+	Involuntary context switches: 1
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 255
+Error: Cannot open file to read: data/ERR532393_lossless.fastore.bin.bmeta
+Command exited with non-zero status 255
+	Command being timed: "./../FaStore/bin/fastore_rebin e -z -idata/ERR532393_lossless.fastore.bin -odata/ERR532393_lossless.fastore.rebin -t8"
+	User time (seconds): 0.00
+	System time (seconds): 0.00
+	Percent of CPU this job got: 0%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2296
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 89
+	Voluntary context switches: 1
+	Involuntary context switches: 1
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 255
+Error: Cannot open file to read: data/ERR532393_lossless.fastore.rebin.bmeta
+Command exited with non-zero status 255
+	Command being timed: "./../FaStore/bin/fastore_pack e -z -idata/ERR532393_lossless.fastore.rebin -odata/ERR532393_lossless.fastore -v -t8"
+	User time (seconds): 0.00
+	System time (seconds): 0.00
+	Percent of CPU this job got: 0%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2380
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 92
+	Voluntary context switches: 1
+	Involuntary context switches: 1
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 255
+Error: invalid number of input files specified in PE mode
+Command exited with non-zero status 255
+	Command being timed: "./../FaStore/bin/fastore_bin e -z -q2 -t8 -i"data/ERR532393_1.fastq data/ERR532393_2.fastq" -odata/ERR532393_lossy.fastore.bin"
+	User time (seconds): 0.00
+	System time (seconds): 0.00
+	Percent of CPU this job got: ?%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1740
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 63
+	Voluntary context switches: 1
+	Involuntary context switches: 1
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 255
+Error: Cannot open file to read: data/ERR532393_lossy.fastore.bin.bmeta
+Command exited with non-zero status 255
+	Command being timed: "./../FaStore/bin/fastore_rebin e -z -idata/ERR532393_lossy.fastore.bin -odata/ERR532393_lossy.fastore.rebin -t8"
+	User time (seconds): 0.00
+	System time (seconds): 0.00
+	Percent of CPU this job got: 0%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2296
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 90
+	Voluntary context switches: 1
+	Involuntary context switches: 1
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 255
+Error: Cannot open file to read: data/ERR532393_lossy.fastore.rebin.bmeta
+Command exited with non-zero status 255
+	Command being timed: "./../FaStore/bin/fastore_pack e -z -idata/ERR532393_lossy.fastore.rebin -odata/ERR532393_lossy.fastore -v -t8"
+	User time (seconds): 0.00
+	System time (seconds): 0.00
+	Percent of CPU this job got: 66%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2376
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 92
+	Voluntary context switches: 1
+	Involuntary context switches: 1
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 255
+Error: no output file(s) specified for PE mode
+Command exited with non-zero status 255
+	Command being timed: "./../FaStore/bin/fastore_pack d -z -idata/ERR532393_lossless.fastore -o"data/ERR532393_1.fastq.lossless.d data/ERR532393_2.fastq.lossless.d" -v -t8"
+	User time (seconds): 0.00
+	System time (seconds): 0.00
+	Percent of CPU this job got: ?%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1792
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 64
+	Voluntary context switches: 1
+	Involuntary context switches: 1
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 255
+Error: no output file(s) specified for PE mode
+Command exited with non-zero status 255
+	Command being timed: "./../FaStore/bin/fastore_pack d -z -idata/ERR532393_lossy.fastore -o"data/ERR532393_1.fastq.lossy.d data/ERR532393_2.fastq.lossy.d" -v -t8"
+	User time (seconds): 0.00
+	System time (seconds): 0.00
+	Percent of CPU this job got: ?%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1792
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 64
+	Voluntary context switches: 1
+	Involuntary context switches: 1
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 255
+	Command being timed: "./../FaStore/bin/fastore_bin e -z -H -q0 -t8 -idata/ERR532393_1.fastq data/ERR532393_2.fastq -odata/ERR532393_lossless.fastore.bin"
+	User time (seconds): 434.52
+	System time (seconds): 32.48
+	Percent of CPU this job got: 725%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:04.34
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 17932092
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 2018934
+	Voluntary context switches: 90708
+	Involuntary context switches: 925
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 18580184
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../FaStore/bin/fastore_rebin e -z -idata/ERR532393_lossless.fastore.bin -odata/ERR532393_lossless.fastore.rebin -t8"
+	User time (seconds): 365.13
+	System time (seconds): 21.96
+	Percent of CPU this job got: 636%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:00.85
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2351488
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 2882879
+	Voluntary context switches: 28934
+	Involuntary context switches: 831
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 18541592
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Parts processed: 1 (0%)Parts processed: 2 (0%)Parts processed: 3 (0%)Parts processed: 4 (0%)Parts processed: 5 (0%)Parts processed: 6 (0%)Parts processed: 7 (0%)Parts processed: 8 (0%)Parts processed: 9 (0%)Parts processed: 10 (0%)Parts processed: 11 (0%)Parts processed: 12 (0%)Parts processed: 13 (0%)Parts processed: 14 (0%)Parts processed: 15 (0%)Parts processed: 16 (0%)Parts processed: 17 (0%)Parts processed: 18 (0%)Parts processed: 19 (0%)Parts processed: 20 (0%)Parts processed: 21 (0%)Parts processed: 22 (0%)Parts processed: 23 (0%)Parts processed: 24 (0%)Parts processed: 25 (0%)Parts processed: 26 (0%)Parts processed: 27 (0%)Parts processed: 28 (1%)Parts processed: 29 (1%)Parts processed: 30 (1%)Parts processed: 31 (1%)Parts processed: 32 (1%)Parts processed: 33 (1%)Parts processed: 34 (1%)Parts processed: 35 (1%)Parts processed: 36 (1%)Parts processed: 37 (1%)Parts processed: 38 (1%)Parts processed: 39 (1%)Parts processed: 40 (1%)Parts processed: 41 (1%)Parts processed: 42 (1%)Parts processed: 43 (1%)Parts processed: 44 (1%)Parts processed: 45 (1%)Parts processed: 46 (1%)Parts processed: 47 (1%)Parts processed: 48 (1%)Parts processed: 49 (1%)Parts processed: 50 (1%)Parts processed: 51 (1%)Parts processed: 52 (1%)Parts processed: 53 (1%)Parts processed: 54 (1%)Parts processed: 55 (2%)Parts processed: 56 (2%)Parts processed: 57 (2%)Parts processed: 58 (2%)Parts processed: 59 (2%)Parts processed: 60 (2%)Parts processed: 61 (2%)Parts processed: 62 (2%)Parts processed: 63 (2%)Parts processed: 64 (2%)Parts processed: 65 (2%)Parts processed: 66 (2%)Parts processed: 67 (2%)Parts processed: 68 (2%)Parts processed: 69 (2%)Parts processed: 70 (2%)Parts processed: 71 (2%)Parts processed: 72 (2%)Parts processed: 73 (2%)Parts processed: 74 (2%)Parts processed: 75 (2%)Parts processed: 76 (2%)Parts processed: 77 (2%)Parts processed: 78 (2%)Parts processed: 79 (2%)Parts processed: 80 (2%)Parts processed: 81 (2%)Parts processed: 82 (3%)Parts processed: 83 (3%)Parts processed: 84 (3%)Parts processed: 85 (3%)Parts processed: 86 (3%)Parts processed: 87 (3%)Parts processed: 88 (3%)Parts processed: 89 (3%)Parts processed: 90 (3%)Parts processed: 91 (3%)Parts processed: 92 (3%)Parts processed: 93 (3%)Parts processed: 94 (3%)Parts processed: 95 (3%)Parts processed: 96 (3%)Parts processed: 97 (3%)Parts processed: 98 (3%)Parts processed: 99 (3%)Parts processed: 100 (3%)Parts processed: 101 (3%)Parts processed: 102 (3%)Parts processed: 103 (3%)Parts processed: 104 (3%)Parts processed: 105 (3%)Parts processed: 106 (3%)Parts processed: 107 (3%)Parts processed: 108 (3%)Parts processed: 109 (4%)Parts processed: 110 (4%)Parts processed: 111 (4%)Parts processed: 112 (4%)Parts processed: 113 (4%)Parts processed: 114 (4%)Parts processed: 115 (4%)Parts processed: 116 (4%)Parts processed: 117 (4%)Parts processed: 118 (4%)Parts processed: 119 (4%)Parts processed: 120 (4%)Parts processed: 121 (4%)Parts processed: 122 (4%)Parts processed: 123 (4%)Parts processed: 124 (4%)Parts processed: 125 (4%)Parts processed: 126 (4%)Parts processed: 127 (4%)Parts processed: 128 (4%)Parts processed: 129 (4%)Parts processed: 130 (4%)Parts processed: 131 (4%)Parts processed: 132 (4%)Parts processed: 133 (4%)Parts processed: 134 (4%)Parts processed: 135 (4%)Parts processed: 136 (4%)Parts processed: 137 (5%)Parts processed: 138 (5%)Parts processed: 139 (5%)Parts processed: 140 (5%)Parts processed: 141 (5%)Parts processed: 142 (5%)Parts processed: 143 (5%)Parts processed: 144 (5%)Parts processed: 145 (5%)Parts processed: 146 (5%)Parts processed: 147 (5%)Parts processed: 148 (5%)Parts processed: 149 (5%)Parts processed: 150 (5%)Parts processed: 151 (5%)Parts processed: 152 (5%)Parts processed: 153 (5%)Parts processed: 154 (5%)Parts processed: 155 (5%)Parts processed: 156 (5%)Parts processed: 157 (5%)Parts processed: 158 (5%)Parts processed: 159 (5%)Parts processed: 160 (5%)Parts processed: 161 (5%)Parts processed: 162 (5%)Parts processed: 163 (5%)Parts processed: 164 (6%)Parts processed: 165 (6%)Parts processed: 166 (6%)Parts processed: 167 (6%)Parts processed: 168 (6%)Parts processed: 169 (6%)Parts processed: 170 (6%)Parts processed: 171 (6%)Parts processed: 172 (6%)Parts processed: 173 (6%)Parts processed: 174 (6%)Parts processed: 175 (6%)Parts processed: 176 (6%)Parts processed: 177 (6%)Parts processed: 178 (6%)Parts processed: 179 (6%)Parts processed: 180 (6%)Parts processed: 181 (6%)Parts processed: 182 (6%)Parts processed: 183 (6%)Parts processed: 184 (6%)Parts processed: 185 (6%)Parts processed: 186 (6%)Parts processed: 187 (6%)Parts processed: 188 (6%)Parts processed: 189 (6%)Parts processed: 190 (6%)Parts processed: 191 (7%)Parts processed: 192 (7%)Parts processed: 193 (7%)Parts processed: 194 (7%)Parts processed: 195 (7%)Parts processed: 196 (7%)Parts processed: 197 (7%)Parts processed: 198 (7%)Parts processed: 199 (7%)Parts processed: 200 (7%)Parts processed: 201 (7%)Parts processed: 202 (7%)Parts processed: 203 (7%)Parts processed: 204 (7%)Parts processed: 205 (7%)Parts processed: 206 (7%)Parts processed: 207 (7%)Parts processed: 208 (7%)Parts processed: 209 (7%)Parts processed: 210 (7%)Parts processed: 211 (7%)Parts processed: 212 (7%)Parts processed: 213 (7%)Parts processed: 214 (7%)Parts processed: 215 (7%)Parts processed: 216 (7%)Parts processed: 217 (7%)Parts processed: 218 (8%)Parts processed: 219 (8%)Parts processed: 220 (8%)Parts processed: 221 (8%)Parts processed: 222 (8%)Parts processed: 223 (8%)Parts processed: 224 (8%)Parts processed: 225 (8%)Parts processed: 226 (8%)Parts processed: 227 (8%)Parts processed: 228 (8%)Parts processed: 229 (8%)Parts processed: 230 (8%)Parts processed: 231 (8%)Parts processed: 232 (8%)Parts processed: 233 (8%)Parts processed: 234 (8%)Parts processed: 235 (8%)Parts processed: 236 (8%)Parts processed: 237 (8%)Parts processed: 238 (8%)Parts processed: 239 (8%)Parts processed: 240 (8%)Parts processed: 241 (8%)Parts processed: 242 (8%)Parts processed: 243 (8%)Parts processed: 244 (8%)Parts processed: 245 (8%)Parts processed: 246 (9%)Parts processed: 247 (9%)Parts processed: 248 (9%)Parts processed: 249 (9%)Parts processed: 250 (9%)Parts processed: 251 (9%)Parts processed: 252 (9%)Parts processed: 253 (9%)Parts processed: 254 (9%)Parts processed: 255 (9%)Parts processed: 256 (9%)Parts processed: 257 (9%)Parts processed: 258 (9%)Parts processed: 259 (9%)Parts processed: 260 (9%)Parts processed: 261 (9%)Parts processed: 262 (9%)Parts processed: 263 (9%)Parts processed: 264 (9%)Parts processed: 265 (9%)Parts processed: 266 (9%)Parts processed: 267 (9%)Parts processed: 268 (9%)Parts processed: 269 (9%)Parts processed: 270 (9%)Parts processed: 271 (9%)Parts processed: 272 (9%)Parts processed: 273 (10%)Parts processed: 274 (10%)Parts processed: 275 (10%)Parts processed: 276 (10%)Parts processed: 277 (10%)Parts processed: 278 (10%)Parts processed: 279 (10%)Parts processed: 280 (10%)Parts processed: 281 (10%)Parts processed: 282 (10%)Parts processed: 283 (10%)Parts processed: 284 (10%)Parts processed: 285 (10%)Parts processed: 286 (10%)Parts processed: 287 (10%)Parts processed: 288 (10%)Parts processed: 289 (10%)Parts processed: 290 (10%)Parts processed: 291 (10%)Parts processed: 292 (10%)Parts processed: 293 (10%)Parts processed: 294 (10%)Parts processed: 295 (10%)Parts processed: 296 (10%)Parts processed: 297 (10%)Parts processed: 298 (10%)Parts processed: 299 (10%)Parts processed: 300 (11%)Parts processed: 301 (11%)Parts processed: 302 (11%)Parts processed: 303 (11%)Parts processed: 304 (11%)Parts processed: 305 (11%)Parts processed: 306 (11%)Parts processed: 307 (11%)Parts processed: 308 (11%)Parts processed: 309 (11%)Parts processed: 310 (11%)Parts processed: 311 (11%)Parts processed: 312 (11%)Parts processed: 313 (11%)Parts processed: 314 (11%)Parts processed: 315 (11%)Parts processed: 316 (11%)Parts processed: 317 (11%)Parts processed: 318 (11%)Parts processed: 319 (11%)Parts processed: 320 (11%)Parts processed: 321 (11%)Parts processed: 322 (11%)Parts processed: 323 (11%)Parts processed: 324 (11%)Parts processed: 325 (11%)Parts processed: 326 (11%)Parts processed: 327 (12%)Parts processed: 328 (12%)Parts processed: 329 (12%)Parts processed: 330 (12%)Parts processed: 331 (12%)Parts processed: 332 (12%)Parts processed: 333 (12%)Parts processed: 334 (12%)Parts processed: 335 (12%)Parts processed: 336 (12%)Parts processed: 337 (12%)Parts processed: 338 (12%)Parts processed: 339 (12%)Parts processed: 340 (12%)Parts processed: 341 (12%)Parts processed: 342 (12%)Parts processed: 343 (12%)Parts processed: 344 (12%)Parts processed: 345 (12%)Parts processed: 346 (12%)Parts processed: 347 (12%)Parts processed: 348 (12%)Parts processed: 349 (12%)Parts processed: 350 (12%)Parts processed: 351 (12%)Parts processed: 352 (12%)Parts processed: 353 (12%)Parts processed: 354 (13%)Parts processed: 355 (13%)Parts processed: 356 (13%)Parts processed: 357 (13%)Parts processed: 358 (13%)Parts processed: 359 (13%)Parts processed: 360 (13%)Parts processed: 361 (13%)Parts processed: 362 (13%)Parts processed: 363 (13%)Parts processed: 364 (13%)Parts processed: 365 (13%)Parts processed: 366 (13%)Parts processed: 367 (13%)Parts processed: 368 (13%)Parts processed: 369 (13%)Parts processed: 370 (13%)Parts processed: 371 (13%)Parts processed: 372 (13%)Parts processed: 373 (13%)Parts processed: 374 (13%)Parts processed: 375 (13%)Parts processed: 376 (13%)Parts processed: 377 (13%)Parts processed: 378 (13%)Parts processed: 379 (13%)Parts processed: 380 (13%)Parts processed: 381 (13%)Parts processed: 382 (14%)Parts processed: 383 (14%)Parts processed: 384 (14%)Parts processed: 385 (14%)Parts processed: 386 (14%)Parts processed: 387 (14%)Parts processed: 388 (14%)Parts processed: 389 (14%)Parts processed: 390 (14%)Parts processed: 391 (14%)Parts processed: 392 (14%)Parts processed: 393 (14%)Parts processed: 394 (14%)Parts processed: 395 (14%)Parts processed: 396 (14%)Parts processed: 397 (14%)Parts processed: 398 (14%)Parts processed: 399 (14%)Parts processed: 400 (14%)Parts processed: 401 (14%)Parts processed: 402 (14%)Parts processed: 403 (14%)Parts processed: 404 (14%)Parts processed: 405 (14%)Parts processed: 406 (14%)Parts processed: 407 (14%)Parts processed: 408 (14%)Parts processed: 409 (15%)Parts processed: 410 (15%)Parts processed: 411 (15%)Parts processed: 412 (15%)Parts processed: 413 (15%)Parts processed: 414 (15%)Parts processed: 415 (15%)Parts processed: 416 (15%)Parts processed: 417 (15%)Parts processed: 418 (15%)Parts processed: 419 (15%)Parts processed: 420 (15%)Parts processed: 421 (15%)Parts processed: 422 (15%)Parts processed: 423 (15%)Parts processed: 424 (15%)Parts processed: 425 (15%)Parts processed: 426 (15%)Parts processed: 427 (15%)Parts processed: 428 (15%)Parts processed: 429 (15%)Parts processed: 430 (15%)Parts processed: 431 (15%)Parts processed: 432 (15%)Parts processed: 433 (15%)Parts processed: 434 (15%)Parts processed: 435 (15%)Parts processed: 436 (16%)Parts processed: 437 (16%)Parts processed: 438 (16%)Parts processed: 439 (16%)Parts processed: 440 (16%)Parts processed: 441 (16%)Parts processed: 442 (16%)Parts processed: 443 (16%)Parts processed: 444 (16%)Parts processed: 445 (16%)Parts processed: 446 (16%)Parts processed: 447 (16%)Parts processed: 448 (16%)Parts processed: 449 (16%)Parts processed: 450 (16%)Parts processed: 451 (16%)Parts processed: 452 (16%)Parts processed: 453 (16%)Parts processed: 454 (16%)Parts processed: 455 (16%)Parts processed: 456 (16%)Parts processed: 457 (16%)Parts processed: 458 (16%)Parts processed: 459 (16%)Parts processed: 460 (16%)Parts processed: 461 (16%)Parts processed: 462 (16%)Parts processed: 463 (17%)Parts processed: 464 (17%)Parts processed: 465 (17%)Parts processed: 466 (17%)Parts processed: 467 (17%)Parts processed: 468 (17%)Parts processed: 469 (17%)Parts processed: 470 (17%)Parts processed: 471 (17%)Parts processed: 472 (17%)Parts processed: 473 (17%)Parts processed: 474 (17%)Parts processed: 475 (17%)Parts processed: 476 (17%)Parts processed: 477 (17%)Parts processed: 478 (17%)Parts processed: 479 (17%)Parts processed: 480 (17%)Parts processed: 481 (17%)Parts processed: 482 (17%)Parts processed: 483 (17%)Parts processed: 484 (17%)Parts processed: 485 (17%)Parts processed: 486 (17%)Parts processed: 487 (17%)Parts processed: 488 (17%)Parts processed: 489 (17%)Parts processed: 490 (17%)Parts processed: 491 (18%)Parts processed: 492 (18%)Parts processed: 493 (18%)Parts processed: 494 (18%)Parts processed: 495 (18%)Parts processed: 496 (18%)Parts processed: 497 (18%)Parts processed: 498 (18%)Parts processed: 499 (18%)Parts processed: 500 (18%)Parts processed: 501 (18%)Parts processed: 502 (18%)Parts processed: 503 (18%)Parts processed: 504 (18%)Parts processed: 505 (18%)Parts processed: 506 (18%)Parts processed: 507 (18%)Parts processed: 508 (18%)Parts processed: 509 (18%)Parts processed: 510 (18%)Parts processed: 511 (18%)Parts processed: 512 (18%)Parts processed: 513 (18%)Parts processed: 514 (18%)Parts processed: 515 (18%)Parts processed: 516 (18%)Parts processed: 517 (18%)Parts processed: 518 (19%)Parts processed: 519 (19%)Parts processed: 520 (19%)Parts processed: 521 (19%)Parts processed: 522 (19%)Parts processed: 523 (19%)Parts processed: 524 (19%)Parts processed: 525 (19%)Parts processed: 526 (19%)Parts processed: 527 (19%)Parts processed: 528 (19%)Parts processed: 529 (19%)Parts processed: 530 (19%)Parts processed: 531 (19%)Parts processed: 532 (19%)Parts processed: 533 (19%)Parts processed: 534 (19%)Parts processed: 535 (19%)Parts processed: 536 (19%)Parts processed: 537 (19%)Parts processed: 538 (19%)Parts processed: 539 (19%)Parts processed: 540 (19%)Parts processed: 541 (19%)Parts processed: 542 (19%)Parts processed: 543 (19%)Parts processed: 544 (19%)Parts processed: 545 (20%)Parts processed: 546 (20%)Parts processed: 547 (20%)Parts processed: 548 (20%)Parts processed: 549 (20%)Parts processed: 550 (20%)Parts processed: 551 (20%)Parts processed: 552 (20%)Parts processed: 553 (20%)Parts processed: 554 (20%)Parts processed: 555 (20%)Parts processed: 556 (20%)Parts processed: 557 (20%)Parts processed: 558 (20%)Parts processed: 559 (20%)Parts processed: 560 (20%)Parts processed: 561 (20%)Parts processed: 562 (20%)Parts processed: 563 (20%)Parts processed: 564 (20%)Parts processed: 565 (20%)Parts processed: 566 (20%)Parts processed: 567 (20%)Parts processed: 568 (20%)Parts processed: 569 (20%)Parts processed: 570 (20%)Parts processed: 571 (20%)Parts processed: 572 (21%)Parts processed: 573 (21%)Parts processed: 574 (21%)Parts processed: 575 (21%)Parts processed: 576 (21%)Parts processed: 577 (21%)Parts processed: 578 (21%)Parts processed: 579 (21%)Parts processed: 580 (21%)Parts processed: 581 (21%)Parts processed: 582 (21%)Parts processed: 583 (21%)Parts processed: 584 (21%)Parts processed: 585 (21%)Parts processed: 586 (21%)Parts processed: 587 (21%)Parts processed: 588 (21%)Parts processed: 589 (21%)Parts processed: 590 (21%)Parts processed: 591 (21%)Parts processed: 592 (21%)Parts processed: 593 (21%)Parts processed: 594 (21%)Parts processed: 595 (21%)Parts processed: 596 (21%)Parts processed: 597 (21%)Parts processed: 598 (21%)Parts processed: 599 (21%)Parts processed: 600 (22%)Parts processed: 601 (22%)Parts processed: 602 (22%)Parts processed: 603 (22%)Parts processed: 604 (22%)Parts processed: 605 (22%)Parts processed: 606 (22%)Parts processed: 607 (22%)Parts processed: 608 (22%)Parts processed: 609 (22%)Parts processed: 610 (22%)Parts processed: 611 (22%)Parts processed: 612 (22%)Parts processed: 613 (22%)Parts processed: 614 (22%)Parts processed: 615 (22%)Parts processed: 616 (22%)Parts processed: 617 (22%)Parts processed: 618 (22%)Parts processed: 619 (22%)Parts processed: 620 (22%)Parts processed: 621 (22%)Parts processed: 622 (22%)Parts processed: 623 (22%)Parts processed: 624 (22%)Parts processed: 625 (22%)Parts processed: 626 (22%)Parts processed: 627 (23%)Parts processed: 628 (23%)Parts processed: 629 (23%)Parts processed: 630 (23%)Parts processed: 631 (23%)Parts processed: 632 (23%)Parts processed: 633 (23%)Parts processed: 634 (23%)Parts processed: 635 (23%)Parts processed: 636 (23%)Parts processed: 637 (23%)Parts processed: 638 (23%)Parts processed: 639 (23%)Parts processed: 640 (23%)Parts processed: 641 (23%)Parts processed: 642 (23%)Parts processed: 643 (23%)Parts processed: 644 (23%)Parts processed: 645 (23%)Parts processed: 646 (23%)Parts processed: 647 (23%)Parts processed: 648 (23%)Parts processed: 649 (23%)Parts processed: 650 (23%)Parts processed: 651 (23%)Parts processed: 652 (23%)Parts processed: 653 (23%)Parts processed: 654 (24%)Parts processed: 655 (24%)Parts processed: 656 (24%)Parts processed: 657 (24%)Parts processed: 658 (24%)Parts processed: 659 (24%)Parts processed: 660 (24%)Parts processed: 661 (24%)Parts processed: 662 (24%)Parts processed: 663 (24%)Parts processed: 664 (24%)Parts processed: 665 (24%)Parts processed: 666 (24%)Parts processed: 667 (24%)Parts processed: 668 (24%)Parts processed: 669 (24%)Parts processed: 670 (24%)Parts processed: 671 (24%)Parts processed: 672 (24%)Parts processed: 673 (24%)Parts processed: 674 (24%)Parts processed: 675 (24%)Parts processed: 676 (24%)Parts processed: 677 (24%)Parts processed: 678 (24%)Parts processed: 679 (24%)Parts processed: 680 (24%)Parts processed: 681 (25%)Parts processed: 682 (25%)Parts processed: 683 (25%)Parts processed: 684 (25%)Parts processed: 685 (25%)Parts processed: 686 (25%)Parts processed: 687 (25%)Parts processed: 688 (25%)Parts processed: 689 (25%)Parts processed: 690 (25%)Parts processed: 691 (25%)Parts processed: 692 (25%)Parts processed: 693 (25%)Parts processed: 694 (25%)Parts processed: 695 (25%)Parts processed: 696 (25%)Parts processed: 697 (25%)Parts processed: 698 (25%)Parts processed: 699 (25%)Parts processed: 700 (25%)Parts processed: 701 (25%)Parts processed: 702 (25%)Parts processed: 703 (25%)Parts processed: 704 (25%)Parts processed: 705 (25%)Parts processed: 706 (25%)Parts processed: 707 (25%)Parts processed: 708 (26%)Parts processed: 709 (26%)Parts processed: 710 (26%)Parts processed: 711 (26%)Parts processed: 712 (26%)Parts processed: 713 (26%)Parts processed: 714 (26%)Parts processed: 715 (26%)Parts processed: 716 (26%)Parts processed: 717 (26%)Parts processed: 718 (26%)Parts processed: 719 (26%)Parts processed: 720 (26%)Parts processed: 721 (26%)Parts processed: 722 (26%)Parts processed: 723 (26%)Parts processed: 724 (26%)Parts processed: 725 (26%)Parts processed: 726 (26%)Parts processed: 727 (26%)Parts processed: 728 (26%)Parts processed: 729 (26%)Parts processed: 730 (26%)Parts processed: 731 (26%)Parts processed: 732 (26%)Parts processed: 733 (26%)Parts processed: 734 (26%)Parts processed: 735 (26%)Parts processed: 736 (27%)Parts processed: 737 (27%)Parts processed: 738 (27%)Parts processed: 739 (27%)Parts processed: 740 (27%)Parts processed: 741 (27%)Parts processed: 742 (27%)Parts processed: 743 (27%)Parts processed: 744 (27%)Parts processed: 745 (27%)Parts processed: 746 (27%)Parts processed: 747 (27%)Parts processed: 748 (27%)Parts processed: 749 (27%)Parts processed: 750 (27%)Parts processed: 751 (27%)Parts processed: 752 (27%)Parts processed: 753 (27%)Parts processed: 754 (27%)Parts processed: 755 (27%)Parts processed: 756 (27%)Parts processed: 757 (27%)Parts processed: 758 (27%)Parts processed: 759 (27%)Parts processed: 760 (27%)Parts processed: 761 (27%)Parts processed: 762 (27%)Parts processed: 763 (28%)Parts processed: 764 (28%)Parts processed: 765 (28%)Parts processed: 766 (28%)Parts processed: 767 (28%)Parts processed: 768 (28%)Parts processed: 769 (28%)Parts processed: 770 (28%)Parts processed: 771 (28%)Parts processed: 772 (28%)Parts processed: 773 (28%)Parts processed: 774 (28%)Parts processed: 775 (28%)Parts processed: 776 (28%)Parts processed: 777 (28%)Parts processed: 778 (28%)Parts processed: 779 (28%)Parts processed: 780 (28%)Parts processed: 781 (28%)Parts processed: 782 (28%)Parts processed: 783 (28%)Parts processed: 784 (28%)Parts processed: 785 (28%)Parts processed: 786 (28%)Parts processed: 787 (28%)Parts processed: 788 (28%)Parts processed: 789 (28%)Parts processed: 790 (29%)Parts processed: 791 (29%)Parts processed: 792 (29%)Parts processed: 793 (29%)Parts processed: 794 (29%)Parts processed: 795 (29%)Parts processed: 796 (29%)Parts processed: 797 (29%)Parts processed: 798 (29%)Parts processed: 799 (29%)Parts processed: 800 (29%)Parts processed: 801 (29%)Parts processed: 802 (29%)Parts processed: 803 (29%)Parts processed: 804 (29%)Parts processed: 805 (29%)Parts processed: 806 (29%)Parts processed: 807 (29%)Parts processed: 808 (29%)Parts processed: 809 (29%)Parts processed: 810 (29%)Parts processed: 811 (29%)Parts processed: 812 (29%)Parts processed: 813 (29%)Parts processed: 814 (29%)Parts processed: 815 (29%)Parts processed: 816 (29%)Parts processed: 817 (30%)Parts processed: 818 (30%)Parts processed: 819 (30%)Parts processed: 820 (30%)Parts processed: 821 (30%)Parts processed: 822 (30%)Parts processed: 823 (30%)Parts processed: 824 (30%)Parts processed: 825 (30%)Parts processed: 826 (30%)Parts processed: 827 (30%)Parts processed: 828 (30%)Parts processed: 829 (30%)Parts processed: 830 (30%)Parts processed: 831 (30%)Parts processed: 832 (30%)Parts processed: 833 (30%)Parts processed: 834 (30%)Parts processed: 835 (30%)Parts processed: 836 (30%)Parts processed: 837 (30%)Parts processed: 838 (30%)Parts processed: 839 (30%)Parts processed: 840 (30%)Parts processed: 841 (30%)Parts processed: 842 (30%)Parts processed: 843 (30%)Parts processed: 844 (30%)Parts processed: 845 (31%)Parts processed: 846 (31%)Parts processed: 847 (31%)Parts processed: 848 (31%)Parts processed: 849 (31%)Parts processed: 850 (31%)Parts processed: 851 (31%)Parts processed: 852 (31%)Parts processed: 853 (31%)Parts processed: 854 (31%)Parts processed: 855 (31%)Parts processed: 856 (31%)Parts processed: 857 (31%)Parts processed: 858 (31%)Parts processed: 859 (31%)Parts processed: 860 (31%)Parts processed: 861 (31%)Parts processed: 862 (31%)Parts processed: 863 (31%)Parts processed: 864 (31%)Parts processed: 865 (31%)Parts processed: 866 (31%)Parts processed: 867 (31%)Parts processed: 868 (31%)Parts processed: 869 (31%)Parts processed: 870 (31%)Parts processed: 871 (31%)Parts processed: 872 (32%)Parts processed: 873 (32%)Parts processed: 874 (32%)Parts processed: 875 (32%)Parts processed: 876 (32%)Parts processed: 877 (32%)Parts processed: 878 (32%)Parts processed: 879 (32%)Parts processed: 880 (32%)Parts processed: 881 (32%)Parts processed: 882 (32%)Parts processed: 883 (32%)Parts processed: 884 (32%)Parts processed: 885 (32%)Parts processed: 886 (32%)Parts processed: 887 (32%)Parts processed: 888 (32%)Parts processed: 889 (32%)Parts processed: 890 (32%)Parts processed: 891 (32%)Parts processed: 892 (32%)Parts processed: 893 (32%)Parts processed: 894 (32%)Parts processed: 895 (32%)Parts processed: 896 (32%)Parts processed: 897 (32%)Parts processed: 898 (32%)Parts processed: 899 (33%)Parts processed: 900 (33%)Parts processed: 901 (33%)Parts processed: 902 (33%)Parts processed: 903 (33%)Parts processed: 904 (33%)Parts processed: 905 (33%)Parts processed: 906 (33%)Parts processed: 907 (33%)Parts processed: 908 (33%)Parts processed: 909 (33%)Parts processed: 910 (33%)Parts processed: 911 (33%)Parts processed: 912 (33%)Parts processed: 913 (33%)Parts processed: 914 (33%)Parts processed: 915 (33%)Parts processed: 916 (33%)Parts processed: 917 (33%)Parts processed: 918 (33%)Parts processed: 919 (33%)Parts processed: 920 (33%)Parts processed: 921 (33%)Parts processed: 922 (33%)Parts processed: 923 (33%)Parts processed: 924 (33%)Parts processed: 925 (33%)Parts processed: 926 (34%)Parts processed: 927 (34%)Parts processed: 928 (34%)Parts processed: 929 (34%)Parts processed: 930 (34%)Parts processed: 931 (34%)Parts processed: 932 (34%)Parts processed: 933 (34%)Parts processed: 934 (34%)Parts processed: 935 (34%)Parts processed: 936 (34%)Parts processed: 937 (34%)Parts processed: 938 (34%)Parts processed: 939 (34%)Parts processed: 940 (34%)Parts processed: 941 (34%)Parts processed: 942 (34%)Parts processed: 943 (34%)Parts processed: 944 (34%)Parts processed: 945 (34%)Parts processed: 946 (34%)Parts processed: 947 (34%)Parts processed: 948 (34%)Parts processed: 949 (34%)Parts processed: 950 (34%)Parts processed: 951 (34%)Parts processed: 952 (34%)Parts processed: 953 (34%)Parts processed: 954 (35%)Parts processed: 955 (35%)Parts processed: 956 (35%)Parts processed: 957 (35%)Parts processed: 958 (35%)Parts processed: 959 (35%)Parts processed: 960 (35%)Parts processed: 961 (35%)Parts processed: 962 (35%)Parts processed: 963 (35%)Parts processed: 964 (35%)Parts processed: 965 (35%)Parts processed: 966 (35%)Parts processed: 967 (35%)Parts processed: 968 (35%)Parts processed: 969 (35%)Parts processed: 970 (35%)Parts processed: 971 (35%)Parts processed: 972 (35%)Parts processed: 973 (35%)Parts processed: 974 (35%)Parts processed: 975 (35%)Parts processed: 976 (35%)Parts processed: 977 (35%)Parts processed: 978 (35%)Parts processed: 979 (35%)Parts processed: 980 (35%)Parts processed: 981 (36%)Parts processed: 982 (36%)Parts processed: 983 (36%)Parts processed: 984 (36%)Parts processed: 985 (36%)Parts processed: 986 (36%)Parts processed: 987 (36%)Parts processed: 988 (36%)Parts processed: 989 (36%)Parts processed: 990 (36%)Parts processed: 991 (36%)Parts processed: 992 (36%)Parts processed: 993 (36%)Parts processed: 994 (36%)Parts processed: 995 (36%)Parts processed: 996 (36%)Parts processed: 997 (36%)Parts processed: 998 (36%)Parts processed: 999 (36%)Parts processed: 1000 (36%)Parts processed: 1001 (36%)Parts processed: 1002 (36%)Parts processed: 1003 (36%)Parts processed: 1004 (36%)Parts processed: 1005 (36%)Parts processed: 1006 (36%)Parts processed: 1007 (36%)Parts processed: 1008 (37%)Parts processed: 1009 (37%)Parts processed: 1010 (37%)Parts processed: 1011 (37%)Parts processed: 1012 (37%)Parts processed: 1013 (37%)Parts processed: 1014 (37%)Parts processed: 1015 (37%)Parts processed: 1016 (37%)Parts processed: 1017 (37%)Parts processed: 1018 (37%)Parts processed: 1019 (37%)Parts processed: 1020 (37%)Parts processed: 1021 (37%)Parts processed: 1022 (37%)Parts processed: 1023 (37%)Parts processed: 1024 (37%)Parts processed: 1025 (37%)Parts processed: 1026 (37%)Parts processed: 1027 (37%)Parts processed: 1028 (37%)Parts processed: 1029 (37%)Parts processed: 1030 (37%)Parts processed: 1031 (37%)Parts processed: 1032 (37%)Parts processed: 1033 (37%)Parts processed: 1034 (37%)Parts processed: 1035 (38%)Parts processed: 1036 (38%)Parts processed: 1037 (38%)Parts processed: 1038 (38%)Parts processed: 1039 (38%)Parts processed: 1040 (38%)Parts processed: 1041 (38%)Parts processed: 1042 (38%)Parts processed: 1043 (38%)Parts processed: 1044 (38%)Parts processed: 1045 (38%)Parts processed: 1046 (38%)Parts processed: 1047 (38%)Parts processed: 1048 (38%)Parts processed: 1049 (38%)Parts processed: 1050 (38%)Parts processed: 1051 (38%)Parts processed: 1052 (38%)Parts processed: 1053 (38%)Parts processed: 1054 (38%)Parts processed: 1055 (38%)Parts processed: 1056 (38%)Parts processed: 1057 (38%)Parts processed: 1058 (38%)Parts processed: 1059 (38%)Parts processed: 1060 (38%)Parts processed: 1061 (38%)Parts processed: 1062 (39%)Parts processed: 1063 (39%)Parts processed: 1064 (39%)Parts processed: 1065 (39%)Parts processed: 1066 (39%)Parts processed: 1067 (39%)Parts processed: 1068 (39%)Parts processed: 1069 (39%)Parts processed: 1070 (39%)Parts processed: 1071 (39%)Parts processed: 1072 (39%)Parts processed: 1073 (39%)Parts processed: 1074 (39%)Parts processed: 1075 (39%)Parts processed: 1076 (39%)Parts processed: 1077 (39%)Parts processed: 1078 (39%)Parts processed: 1079 (39%)Parts processed: 1080 (39%)Parts processed: 1081 (39%)Parts processed: 1082 (39%)Parts processed: 1083 (39%)Parts processed: 1084 (39%)Parts processed: 1085 (39%)Parts processed: 1086 (39%)Parts processed: 1087 (39%)Parts processed: 1088 (39%)Parts processed: 1089 (39%)Parts processed: 1090 (40%)Parts processed: 1091 (40%)Parts processed: 1092 (40%)Parts processed: 1093 (40%)Parts processed: 1094 (40%)Parts processed: 1095 (40%)Parts processed: 1096 (40%)Parts processed: 1097 (40%)Parts processed: 1098 (40%)Parts processed: 1099 (40%)Parts processed: 1100 (40%)Parts processed: 1101 (40%)Parts processed: 1102 (40%)Parts processed: 1103 (40%)Parts processed: 1104 (40%)Parts processed: 1105 (40%)Parts processed: 1106 (40%)Parts processed: 1107 (40%)Parts processed: 1108 (40%)Parts processed: 1109 (40%)Parts processed: 1110 (40%)Parts processed: 1111 (40%)Parts processed: 1112 (40%)Parts processed: 1113 (40%)Parts processed: 1114 (40%)Parts processed: 1115 (40%)Parts processed: 1116 (40%)Parts processed: 1117 (41%)Parts processed: 1118 (41%)Parts processed: 1119 (41%)Parts processed: 1120 (41%)Parts processed: 1121 (41%)Parts processed: 1122 (41%)Parts processed: 1123 (41%)Parts processed: 1124 (41%)Parts processed: 1125 (41%)Parts processed: 1126 (41%)Parts processed: 1127 (41%)Parts processed: 1128 (41%)Parts processed: 1129 (41%)Parts processed: 1130 (41%)Parts processed: 1131 (41%)Parts processed: 1132 (41%)Parts processed: 1133 (41%)Parts processed: 1134 (41%)Parts processed: 1135 (41%)Parts processed: 1136 (41%)Parts processed: 1137 (41%)Parts processed: 1138 (41%)Parts processed: 1139 (41%)Parts processed: 1140 (41%)Parts processed: 1141 (41%)Parts processed: 1142 (41%)Parts processed: 1143 (41%)Parts processed: 1144 (42%)Parts processed: 1145 (42%)Parts processed: 1146 (42%)Parts processed: 1147 (42%)Parts processed: 1148 (42%)Parts processed: 1149 (42%)Parts processed: 1150 (42%)Parts processed: 1151 (42%)Parts processed: 1152 (42%)Parts processed: 1153 (42%)Parts processed: 1154 (42%)Parts processed: 1155 (42%)Parts processed: 1156 (42%)Parts processed: 1157 (42%)Parts processed: 1158 (42%)Parts processed: 1159 (42%)Parts processed: 1160 (42%)Parts processed: 1161 (42%)Parts processed: 1162 (42%)Parts processed: 1163 (42%)Parts processed: 1164 (42%)Parts processed: 1165 (42%)Parts processed: 1166 (42%)Parts processed: 1167 (42%)Parts processed: 1168 (42%)Parts processed: 1169 (42%)Parts processed: 1170 (42%)Parts processed: 1171 (43%)Parts processed: 1172 (43%)Parts processed: 1173 (43%)Parts processed: 1174 (43%)Parts processed: 1175 (43%)Parts processed: 1176 (43%)Parts processed: 1177 (43%)Parts processed: 1178 (43%)Parts processed: 1179 (43%)Parts processed: 1180 (43%)Parts processed: 1181 (43%)Parts processed: 1182 (43%)Parts processed: 1183 (43%)Parts processed: 1184 (43%)Parts processed: 1185 (43%)Parts processed: 1186 (43%)Parts processed: 1187 (43%)Parts processed: 1188 (43%)Parts processed: 1189 (43%)Parts processed: 1190 (43%)Parts processed: 1191 (43%)Parts processed: 1192 (43%)Parts processed: 1193 (43%)Parts processed: 1194 (43%)Parts processed: 1195 (43%)Parts processed: 1196 (43%)Parts processed: 1197 (43%)Parts processed: 1198 (43%)Parts processed: 1199 (44%)Parts processed: 1200 (44%)Parts processed: 1201 (44%)Parts processed: 1202 (44%)Parts processed: 1203 (44%)Parts processed: 1204 (44%)Parts processed: 1205 (44%)Parts processed: 1206 (44%)Parts processed: 1207 (44%)Parts processed: 1208 (44%)Parts processed: 1209 (44%)Parts processed: 1210 (44%)Parts processed: 1211 (44%)Parts processed: 1212 (44%)Parts processed: 1213 (44%)Parts processed: 1214 (44%)Parts processed: 1215 (44%)Parts processed: 1216 (44%)Parts processed: 1217 (44%)Parts processed: 1218 (44%)Parts processed: 1219 (44%)Parts processed: 1220 (44%)Parts processed: 1221 (44%)Parts processed: 1222 (44%)Parts processed: 1223 (44%)Parts processed: 1224 (44%)Parts processed: 1225 (44%)Parts processed: 1226 (45%)Parts processed: 1227 (45%)Parts processed: 1228 (45%)Parts processed: 1229 (45%)Parts processed: 1230 (45%)Parts processed: 1231 (45%)Parts processed: 1232 (45%)Parts processed: 1233 (45%)Parts processed: 1234 (45%)Parts processed: 1235 (45%)Parts processed: 1236 (45%)Parts processed: 1237 (45%)Parts processed: 1238 (45%)Parts processed: 1239 (45%)Parts processed: 1240 (45%)Parts processed: 1241 (45%)Parts processed: 1242 (45%)Parts processed: 1243 (45%)Parts processed: 1244 (45%)Parts processed: 1245 (45%)Parts processed: 1246 (45%)Parts processed: 1247 (45%)Parts processed: 1248 (45%)Parts processed: 1249 (45%)Parts processed: 1250 (45%)Parts processed: 1251 (45%)Parts processed: 1252 (45%)Parts processed: 1253 (46%)Parts processed: 1254 (46%)Parts processed: 1255 (46%)Parts processed: 1256 (46%)Parts processed: 1257 (46%)Parts processed: 1258 (46%)Parts processed: 1259 (46%)Parts processed: 1260 (46%)Parts processed: 1261 (46%)Parts processed: 1262 (46%)Parts processed: 1263 (46%)Parts processed: 1264 (46%)Parts processed: 1265 (46%)Parts processed: 1266 (46%)Parts processed: 1267 (46%)Parts processed: 1268 (46%)Parts processed: 1269 (46%)Parts processed: 1270 (46%)Parts processed: 1271 (46%)Parts processed: 1272 (46%)Parts processed: 1273 (46%)Parts processed: 1274 (46%)Parts processed: 1275 (46%)Parts processed: 1276 (46%)Parts processed: 1277 (46%)Parts processed: 1278 (46%)Parts processed: 1279 (46%)Parts processed: 1280 (47%)Parts processed: 1281 (47%)Parts processed: 1282 (47%)Parts processed: 1283 (47%)Parts processed: 1284 (47%)Parts processed: 1285 (47%)Parts processed: 1286 (47%)Parts processed: 1287 (47%)Parts processed: 1288 (47%)Parts processed: 1289 (47%)Parts processed: 1290 (47%)Parts processed: 1291 (47%)Parts processed: 1292 (47%)Parts processed: 1293 (47%)Parts processed: 1294 (47%)Parts processed: 1295 (47%)Parts processed: 1296 (47%)Parts processed: 1297 (47%)Parts processed: 1298 (47%)Parts processed: 1299 (47%)Parts processed: 1300 (47%)Parts processed: 1301 (47%)Parts processed: 1302 (47%)Parts processed: 1303 (47%)Parts processed: 1304 (47%)Parts processed: 1305 (47%)Parts processed: 1306 (47%)Parts processed: 1307 (47%)Parts processed: 1308 (48%)Parts processed: 1309 (48%)Parts processed: 1310 (48%)Parts processed: 1311 (48%)Parts processed: 1312 (48%)Parts processed: 1313 (48%)Parts processed: 1314 (48%)Parts processed: 1315 (48%)Parts processed: 1316 (48%)Parts processed: 1317 (48%)Parts processed: 1318 (48%)Parts processed: 1319 (48%)Parts processed: 1320 (48%)Parts processed: 1321 (48%)Parts processed: 1322 (48%)Parts processed: 1323 (48%)Parts processed: 1324 (48%)Parts processed: 1325 (48%)Parts processed: 1326 (48%)Parts processed: 1327 (48%)Parts processed: 1328 (48%)Parts processed: 1329 (48%)Parts processed: 1330 (48%)Parts processed: 1331 (48%)Parts processed: 1332 (48%)Parts processed: 1333 (48%)Parts processed: 1334 (48%)Parts processed: 1335 (49%)Parts processed: 1336 (49%)Parts processed: 1337 (49%)Parts processed: 1338 (49%)Parts processed: 1339 (49%)Parts processed: 1340 (49%)Parts processed: 1341 (49%)Parts processed: 1342 (49%)Parts processed: 1343 (49%)Parts processed: 1344 (49%)Parts processed: 1345 (49%)Parts processed: 1346 (49%)Parts processed: 1347 (49%)Parts processed: 1348 (49%)Parts processed: 1349 (49%)Parts processed: 1350 (49%)Parts processed: 1351 (49%)Parts processed: 1352 (49%)Parts processed: 1353 (49%)Parts processed: 1354 (49%)Parts processed: 1355 (49%)Parts processed: 1356 (49%)Parts processed: 1357 (49%)Parts processed: 1358 (49%)Parts processed: 1359 (49%)Parts processed: 1360 (49%)Parts processed: 1361 (49%)Parts processed: 1362 (50%)Parts processed: 1363 (50%)Parts processed: 1364 (50%)Parts processed: 1365 (50%)Parts processed: 1366 (50%)Parts processed: 1367 (50%)Parts processed: 1368 (50%)Parts processed: 1369 (50%)Parts processed: 1370 (50%)Parts processed: 1371 (50%)Parts processed: 1372 (50%)Parts processed: 1373 (50%)Parts processed: 1374 (50%)Parts processed: 1375 (50%)Parts processed: 1376 (50%)Parts processed: 1377 (50%)Parts processed: 1378 (50%)Parts processed: 1379 (50%)Parts processed: 1380 (50%)Parts processed: 1381 (50%)Parts processed: 1382 (50%)Parts processed: 1383 (50%)Parts processed: 1384 (50%)Parts processed: 1385 (50%)Parts processed: 1386 (50%)Parts processed: 1387 (50%)Parts processed: 1388 (50%)Parts processed: 1389 (51%)Parts processed: 1390 (51%)Parts processed: 1391 (51%)Parts processed: 1392 (51%)Parts processed: 1393 (51%)Parts processed: 1394 (51%)Parts processed: 1395 (51%)Parts processed: 1396 (51%)Parts processed: 1397 (51%)Parts processed: 1398 (51%)Parts processed: 1399 (51%)Parts processed: 1400 (51%)Parts processed: 1401 (51%)Parts processed: 1402 (51%)Parts processed: 1403 (51%)Parts processed: 1404 (51%)Parts processed: 1405 (51%)Parts processed: 1406 (51%)Parts processed: 1407 (51%)Parts processed: 1408 (51%)Parts processed: 1409 (51%)Parts processed: 1410 (51%)Parts processed: 1411 (51%)Parts processed: 1412 (51%)Parts processed: 1413 (51%)Parts processed: 1414 (51%)Parts processed: 1415 (51%)Parts processed: 1416 (52%)Parts processed: 1417 (52%)Parts processed: 1418 (52%)Parts processed: 1419 (52%)Parts processed: 1420 (52%)Parts processed: 1421 (52%)Parts processed: 1422 (52%)Parts processed: 1423 (52%)Parts processed: 1424 (52%)Parts processed: 1425 (52%)Parts processed: 1426 (52%)Parts processed: 1427 (52%)Parts processed: 1428 (52%)Parts processed: 1429 (52%)Parts processed: 1430 (52%)Parts processed: 1431 (52%)Parts processed: 1432 (52%)Parts processed: 1433 (52%)Parts processed: 1434 (52%)Parts processed: 1435 (52%)Parts processed: 1436 (52%)Parts processed: 1437 (52%)Parts processed: 1438 (52%)Parts processed: 1439 (52%)Parts processed: 1440 (52%)Parts processed: 1441 (52%)Parts processed: 1442 (52%)Parts processed: 1443 (52%)Parts processed: 1444 (53%)Parts processed: 1445 (53%)Parts processed: 1446 (53%)Parts processed: 1447 (53%)Parts processed: 1448 (53%)Parts processed: 1449 (53%)Parts processed: 1450 (53%)Parts processed: 1451 (53%)Parts processed: 1452 (53%)Parts processed: 1453 (53%)Parts processed: 1454 (53%)Parts processed: 1455 (53%)Parts processed: 1456 (53%)Parts processed: 1457 (53%)Parts processed: 1458 (53%)Parts processed: 1459 (53%)Parts processed: 1460 (53%)Parts processed: 1461 (53%)Parts processed: 1462 (53%)Parts processed: 1463 (53%)Parts processed: 1464 (53%)Parts processed: 1465 (53%)Parts processed: 1466 (53%)Parts processed: 1467 (53%)Parts processed: 1468 (53%)Parts processed: 1469 (53%)Parts processed: 1470 (53%)Parts processed: 1471 (54%)Parts processed: 1472 (54%)Parts processed: 1473 (54%)Parts processed: 1474 (54%)Parts processed: 1475 (54%)Parts processed: 1476 (54%)Parts processed: 1477 (54%)Parts processed: 1478 (54%)Parts processed: 1479 (54%)Parts processed: 1480 (54%)Parts processed: 1481 (54%)Parts processed: 1482 (54%)Parts processed: 1483 (54%)Parts processed: 1484 (54%)Parts processed: 1485 (54%)Parts processed: 1486 (54%)Parts processed: 1487 (54%)Parts processed: 1488 (54%)Parts processed: 1489 (54%)Parts processed: 1490 (54%)Parts processed: 1491 (54%)Parts processed: 1492 (54%)Parts processed: 1493 (54%)Parts processed: 1494 (54%)Parts processed: 1495 (54%)Parts processed: 1496 (54%)Parts processed: 1497 (54%)Parts processed: 1498 (55%)Parts processed: 1499 (55%)Parts processed: 1500 (55%)Parts processed: 1501 (55%)Parts processed: 1502 (55%)Parts processed: 1503 (55%)Parts processed: 1504 (55%)Parts processed: 1505 (55%)Parts processed: 1506 (55%)Parts processed: 1507 (55%)Parts processed: 1508 (55%)Parts processed: 1509 (55%)Parts processed: 1510 (55%)Parts processed: 1511 (55%)Parts processed: 1512 (55%)Parts processed: 1513 (55%)Parts processed: 1514 (55%)Parts processed: 1515 (55%)Parts processed: 1516 (55%)Parts processed: 1517 (55%)Parts processed: 1518 (55%)Parts processed: 1519 (55%)Parts processed: 1520 (55%)Parts processed: 1521 (55%)Parts processed: 1522 (55%)Parts processed: 1523 (55%)Parts processed: 1524 (55%)Parts processed: 1525 (56%)Parts processed: 1526 (56%)Parts processed: 1527 (56%)Parts processed: 1528 (56%)Parts processed: 1529 (56%)Parts processed: 1530 (56%)Parts processed: 1531 (56%)Parts processed: 1532 (56%)Parts processed: 1533 (56%)Parts processed: 1534 (56%)Parts processed: 1535 (56%)Parts processed: 1536 (56%)Parts processed: 1537 (56%)Parts processed: 1538 (56%)Parts processed: 1539 (56%)Parts processed: 1540 (56%)Parts processed: 1541 (56%)Parts processed: 1542 (56%)Parts processed: 1543 (56%)Parts processed: 1544 (56%)Parts processed: 1545 (56%)Parts processed: 1546 (56%)Parts processed: 1547 (56%)Parts processed: 1548 (56%)Parts processed: 1549 (56%)Parts processed: 1550 (56%)Parts processed: 1551 (56%)Parts processed: 1552 (56%)Parts processed: 1553 (57%)Parts processed: 1554 (57%)Parts processed: 1555 (57%)Parts processed: 1556 (57%)Parts processed: 1557 (57%)Parts processed: 1558 (57%)Parts processed: 1559 (57%)Parts processed: 1560 (57%)Parts processed: 1561 (57%)Parts processed: 1562 (57%)Parts processed: 1563 (57%)Parts processed: 1564 (57%)Parts processed: 1565 (57%)Parts processed: 1566 (57%)Parts processed: 1567 (57%)Parts processed: 1568 (57%)Parts processed: 1569 (57%)Parts processed: 1570 (57%)Parts processed: 1571 (57%)Parts processed: 1572 (57%)Parts processed: 1573 (57%)Parts processed: 1574 (57%)Parts processed: 1575 (57%)Parts processed: 1576 (57%)Parts processed: 1577 (57%)Parts processed: 1578 (57%)Parts processed: 1579 (57%)Parts processed: 1580 (58%)Parts processed: 1581 (58%)Parts processed: 1582 (58%)Parts processed: 1583 (58%)Parts processed: 1584 (58%)Parts processed: 1585 (58%)Parts processed: 1586 (58%)Parts processed: 1587 (58%)Parts processed: 1588 (58%)Parts processed: 1589 (58%)Parts processed: 1590 (58%)Parts processed: 1591 (58%)Parts processed: 1592 (58%)Parts processed: 1593 (58%)Parts processed: 1594 (58%)Parts processed: 1595 (58%)Parts processed: 1596 (58%)Parts processed: 1597 (58%)Parts processed: 1598 (58%)Parts processed: 1599 (58%)Parts processed: 1600 (58%)Parts processed: 1601 (58%)Parts processed: 1602 (58%)Parts processed: 1603 (58%)Parts processed: 1604 (58%)Parts processed: 1605 (58%)Parts processed: 1606 (58%)Parts processed: 1607 (59%)Parts processed: 1608 (59%)Parts processed: 1609 (59%)Parts processed: 1610 (59%)Parts processed: 1611 (59%)Parts processed: 1612 (59%)Parts processed: 1613 (59%)Parts processed: 1614 (59%)Parts processed: 1615 (59%)Parts processed: 1616 (59%)Parts processed: 1617 (59%)Parts processed: 1618 (59%)Parts processed: 1619 (59%)Parts processed: 1620 (59%)Parts processed: 1621 (59%)Parts processed: 1622 (59%)Parts processed: 1623 (59%)Parts processed: 1624 (59%)Parts processed: 1625 (59%)Parts processed: 1626 (59%)Parts processed: 1627 (59%)Parts processed: 1628 (59%)Parts processed: 1629 (59%)Parts processed: 1630 (59%)Parts processed: 1631 (59%)Parts processed: 1632 (59%)Parts processed: 1633 (59%)Parts processed: 1634 (60%)Parts processed: 1635 (60%)Parts processed: 1636 (60%)Parts processed: 1637 (60%)Parts processed: 1638 (60%)Parts processed: 1639 (60%)Parts processed: 1640 (60%)Parts processed: 1641 (60%)Parts processed: 1642 (60%)Parts processed: 1643 (60%)Parts processed: 1644 (60%)Parts processed: 1645 (60%)Parts processed: 1646 (60%)Parts processed: 1647 (60%)Parts processed: 1648 (60%)Parts processed: 1649 (60%)Parts processed: 1650 (60%)Parts processed: 1651 (60%)Parts processed: 1652 (60%)Parts processed: 1653 (60%)Parts processed: 1654 (60%)Parts processed: 1655 (60%)Parts processed: 1656 (60%)Parts processed: 1657 (60%)Parts processed: 1658 (60%)Parts processed: 1659 (60%)Parts processed: 1660 (60%)Parts processed: 1661 (60%)Parts processed: 1662 (61%)Parts processed: 1663 (61%)Parts processed: 1664 (61%)Parts processed: 1665 (61%)Parts processed: 1666 (61%)Parts processed: 1667 (61%)Parts processed: 1668 (61%)Parts processed: 1669 (61%)Parts processed: 1670 (61%)Parts processed: 1671 (61%)Parts processed: 1672 (61%)Parts processed: 1673 (61%)Parts processed: 1674 (61%)Parts processed: 1675 (61%)Parts processed: 1676 (61%)Parts processed: 1677 (61%)Parts processed: 1678 (61%)Parts processed: 1679 (61%)Parts processed: 1680 (61%)Parts processed: 1681 (61%)Parts processed: 1682 (61%)Parts processed: 1683 (61%)Parts processed: 1684 (61%)Parts processed: 1685 (61%)Parts processed: 1686 (61%)Parts processed: 1687 (61%)Parts processed: 1688 (61%)Parts processed: 1689 (62%)Parts processed: 1690 (62%)Parts processed: 1691 (62%)Parts processed: 1692 (62%)Parts processed: 1693 (62%)Parts processed: 1694 (62%)Parts processed: 1695 (62%)Parts processed: 1696 (62%)Parts processed: 1697 (62%)Parts processed: 1698 (62%)Parts processed: 1699 (62%)Parts processed: 1700 (62%)Parts processed: 1701 (62%)Parts processed: 1702 (62%)Parts processed: 1703 (62%)Parts processed: 1704 (62%)Parts processed: 1705 (62%)Parts processed: 1706 (62%)Parts processed: 1707 (62%)Parts processed: 1708 (62%)Parts processed: 1709 (62%)Parts processed: 1710 (62%)Parts processed: 1711 (62%)Parts processed: 1712 (62%)Parts processed: 1713 (62%)Parts processed: 1714 (62%)Parts processed: 1715 (62%)Parts processed: 1716 (63%)Parts processed: 1717 (63%)Parts processed: 1718 (63%)Parts processed: 1719 (63%)Parts processed: 1720 (63%)Parts processed: 1721 (63%)Parts processed: 1722 (63%)Parts processed: 1723 (63%)Parts processed: 1724 (63%)Parts processed: 1725 (63%)Parts processed: 1726 (63%)Parts processed: 1727 (63%)Parts processed: 1728 (63%)Parts processed: 1729 (63%)Parts processed: 1730 (63%)Parts processed: 1731 (63%)Parts processed: 1732 (63%)Parts processed: 1733 (63%)Parts processed: 1734 (63%)Parts processed: 1735 (63%)Parts processed: 1736 (63%)Parts processed: 1737 (63%)Parts processed: 1738 (63%)Parts processed: 1739 (63%)Parts processed: 1740 (63%)Parts processed: 1741 (63%)Parts processed: 1742 (63%)Parts processed: 1743 (64%)Parts processed: 1744 (64%)Parts processed: 1745 (64%)Parts processed: 1746 (64%)Parts processed: 1747 (64%)Parts processed: 1748 (64%)Parts processed: 1749 (64%)Parts processed: 1750 (64%)Parts processed: 1751 (64%)Parts processed: 1752 (64%)Parts processed: 1753 (64%)Parts processed: 1754 (64%)Parts processed: 1755 (64%)Parts processed: 1756 (64%)Parts processed: 1757 (64%)Parts processed: 1758 (64%)Parts processed: 1759 (64%)Parts processed: 1760 (64%)Parts processed: 1761 (64%)Parts processed: 1762 (64%)Parts processed: 1763 (64%)Parts processed: 1764 (64%)Parts processed: 1765 (64%)Parts processed: 1766 (64%)Parts processed: 1767 (64%)Parts processed: 1768 (64%)Parts processed: 1769 (64%)Parts processed: 1770 (65%)Parts processed: 1771 (65%)Parts processed: 1772 (65%)Parts processed: 1773 (65%)Parts processed: 1774 (65%)Parts processed: 1775 (65%)Parts processed: 1776 (65%)Parts processed: 1777 (65%)Parts processed: 1778 (65%)Parts processed: 1779 (65%)Parts processed: 1780 (65%)Parts processed: 1781 (65%)Parts processed: 1782 (65%)Parts processed: 1783 (65%)Parts processed: 1784 (65%)Parts processed: 1785 (65%)Parts processed: 1786 (65%)Parts processed: 1787 (65%)Parts processed: 1788 (65%)Parts processed: 1789 (65%)Parts processed: 1790 (65%)Parts processed: 1791 (65%)Parts processed: 1792 (65%)Parts processed: 1793 (65%)Parts processed: 1794 (65%)Parts processed: 1795 (65%)Parts processed: 1796 (65%)Parts processed: 1797 (65%)Parts processed: 1798 (66%)Parts processed: 1799 (66%)Parts processed: 1800 (66%)Parts processed: 1801 (66%)Parts processed: 1802 (66%)Parts processed: 1803 (66%)Parts processed: 1804 (66%)Parts processed: 1805 (66%)Parts processed: 1806 (66%)Parts processed: 1807 (66%)Parts processed: 1808 (66%)Parts processed: 1809 (66%)Parts processed: 1810 (66%)Parts processed: 1811 (66%)Parts processed: 1812 (66%)Parts processed: 1813 (66%)Parts processed: 1814 (66%)Parts processed: 1815 (66%)Parts processed: 1816 (66%)Parts processed: 1817 (66%)Parts processed: 1818 (66%)Parts processed: 1819 (66%)Parts processed: 1820 (66%)Parts processed: 1821 (66%)Parts processed: 1822 (66%)Parts processed: 1823 (66%)Parts processed: 1824 (66%)Parts processed: 1825 (67%)Parts processed: 1826 (67%)Parts processed: 1827 (67%)Parts processed: 1828 (67%)Parts processed: 1829 (67%)Parts processed: 1830 (67%)Parts processed: 1831 (67%)Parts processed: 1832 (67%)Parts processed: 1833 (67%)Parts processed: 1834 (67%)Parts processed: 1835 (67%)Parts processed: 1836 (67%)Parts processed: 1837 (67%)Parts processed: 1838 (67%)Parts processed: 1839 (67%)Parts processed: 1840 (67%)Parts processed: 1841 (67%)Parts processed: 1842 (67%)Parts processed: 1843 (67%)Parts processed: 1844 (67%)Parts processed: 1845 (67%)Parts processed: 1846 (67%)Parts processed: 1847 (67%)Parts processed: 1848 (67%)Parts processed: 1849 (67%)Parts processed: 1850 (67%)Parts processed: 1851 (67%)Parts processed: 1852 (68%)Parts processed: 1853 (68%)Parts processed: 1854 (68%)Parts processed: 1855 (68%)Parts processed: 1856 (68%)Parts processed: 1857 (68%)Parts processed: 1858 (68%)Parts processed: 1859 (68%)Parts processed: 1860 (68%)Parts processed: 1861 (68%)Parts processed: 1862 (68%)Parts processed: 1863 (68%)Parts processed: 1864 (68%)Parts processed: 1865 (68%)Parts processed: 1866 (68%)Parts processed: 1867 (68%)Parts processed: 1868 (68%)Parts processed: 1869 (68%)Parts processed: 1870 (68%)Parts processed: 1871 (68%)Parts processed: 1872 (68%)Parts processed: 1873 (68%)Parts processed: 1874 (68%)Parts processed: 1875 (68%)Parts processed: 1876 (68%)Parts processed: 1877 (68%)Parts processed: 1878 (68%)Parts processed: 1879 (69%)Parts processed: 1880 (69%)Parts processed: 1881 (69%)Parts processed: 1882 (69%)Parts processed: 1883 (69%)Parts processed: 1884 (69%)Parts processed: 1885 (69%)Parts processed: 1886 (69%)Parts processed: 1887 (69%)Parts processed: 1888 (69%)Parts processed: 1889 (69%)Parts processed: 1890 (69%)Parts processed: 1891 (69%)Parts processed: 1892 (69%)Parts processed: 1893 (69%)Parts processed: 1894 (69%)Parts processed: 1895 (69%)Parts processed: 1896 (69%)Parts processed: 1897 (69%)Parts processed: 1898 (69%)Parts processed: 1899 (69%)Parts processed: 1900 (69%)Parts processed: 1901 (69%)Parts processed: 1902 (69%)Parts processed: 1903 (69%)Parts processed: 1904 (69%)Parts processed: 1905 (69%)Parts processed: 1906 (69%)Parts processed: 1907 (70%)Parts processed: 1908 (70%)Parts processed: 1909 (70%)Parts processed: 1910 (70%)Parts processed: 1911 (70%)Parts processed: 1912 (70%)Parts processed: 1913 (70%)Parts processed: 1914 (70%)Parts processed: 1915 (70%)Parts processed: 1916 (70%)Parts processed: 1917 (70%)Parts processed: 1918 (70%)Parts processed: 1919 (70%)Parts processed: 1920 (70%)Parts processed: 1921 (70%)Parts processed: 1922 (70%)Parts processed: 1923 (70%)Parts processed: 1924 (70%)Parts processed: 1925 (70%)Parts processed: 1926 (70%)Parts processed: 1927 (70%)Parts processed: 1928 (70%)Parts processed: 1929 (70%)Parts processed: 1930 (70%)Parts processed: 1931 (70%)Parts processed: 1932 (70%)Parts processed: 1933 (70%)Parts processed: 1934 (71%)Parts processed: 1935 (71%)Parts processed: 1936 (71%)Parts processed: 1937 (71%)Parts processed: 1938 (71%)Parts processed: 1939 (71%)Parts processed: 1940 (71%)Parts processed: 1941 (71%)Parts processed: 1942 (71%)Parts processed: 1943 (71%)Parts processed: 1944 (71%)Parts processed: 1945 (71%)Parts processed: 1946 (71%)Parts processed: 1947 (71%)Parts processed: 1948 (71%)Parts processed: 1949 (71%)Parts processed: 1950 (71%)Parts processed: 1951 (71%)Parts processed: 1952 (71%)Parts processed: 1953 (71%)Parts processed: 1954 (71%)Parts processed: 1955 (71%)Parts processed: 1956 (71%)Parts processed: 1957 (71%)Parts processed: 1958 (71%)Parts processed: 1959 (71%)Parts processed: 1960 (71%)Parts processed: 1961 (72%)Parts processed: 1962 (72%)Parts processed: 1963 (72%)Parts processed: 1964 (72%)Parts processed: 1965 (72%)Parts processed: 1966 (72%)Parts processed: 1967 (72%)Parts processed: 1968 (72%)Parts processed: 1969 (72%)Parts processed: 1970 (72%)Parts processed: 1971 (72%)Parts processed: 1972 (72%)Parts processed: 1973 (72%)Parts processed: 1974 (72%)Parts processed: 1975 (72%)Parts processed: 1976 (72%)Parts processed: 1977 (72%)Parts processed: 1978 (72%)Parts processed: 1979 (72%)Parts processed: 1980 (72%)Parts processed: 1981 (72%)Parts processed: 1982 (72%)Parts processed: 1983 (72%)Parts processed: 1984 (72%)Parts processed: 1985 (72%)Parts processed: 1986 (72%)Parts processed: 1987 (72%)Parts processed: 1988 (73%)Parts processed: 1989 (73%)Parts processed: 1990 (73%)Parts processed: 1991 (73%)Parts processed: 1992 (73%)Parts processed: 1993 (73%)Parts processed: 1994 (73%)Parts processed: 1995 (73%)Parts processed: 1996 (73%)Parts processed: 1997 (73%)Parts processed: 1998 (73%)Parts processed: 1999 (73%)Parts processed: 2000 (73%)Parts processed: 2001 (73%)Parts processed: 2002 (73%)Parts processed: 2003 (73%)Parts processed: 2004 (73%)Parts processed: 2005 (73%)Parts processed: 2006 (73%)Parts processed: 2007 (73%)Parts processed: 2008 (73%)Parts processed: 2009 (73%)Parts processed: 2010 (73%)Parts processed: 2011 (73%)Parts processed: 2012 (73%)Parts processed: 2013 (73%)Parts processed: 2014 (73%)Parts processed: 2015 (73%)Parts processed: 2016 (74%)Parts processed: 2017 (74%)Parts processed: 2018 (74%)Parts processed: 2019 (74%)Parts processed: 2020 (74%)Parts processed: 2021 (74%)Parts processed: 2022 (74%)Parts processed: 2023 (74%)Parts processed: 2024 (74%)Parts processed: 2025 (74%)Parts processed: 2026 (74%)Parts processed: 2027 (74%)Parts processed: 2028 (74%)Parts processed: 2029 (74%)Parts processed: 2030 (74%)Parts processed: 2031 (74%)Parts processed: 2032 (74%)Parts processed: 2033 (74%)Parts processed: 2034 (74%)Parts processed: 2035 (74%)Parts processed: 2036 (74%)Parts processed: 2037 (74%)Parts processed: 2038 (74%)Parts processed: 2039 (74%)Parts processed: 2040 (74%)Parts processed: 2041 (74%)Parts processed: 2042 (74%)Parts processed: 2043 (75%)Parts processed: 2044 (75%)Parts processed: 2045 (75%)Parts processed: 2046 (75%)Parts processed: 2047 (75%)Parts processed: 2048 (75%)Parts processed: 2049 (75%)Parts processed: 2050 (75%)Parts processed: 2051 (75%)Parts processed: 2052 (75%)Parts processed: 2053 (75%)Parts processed: 2054 (75%)Parts processed: 2055 (75%)Parts processed: 2056 (75%)Parts processed: 2057 (75%)Parts processed: 2058 (75%)Parts processed: 2059 (75%)Parts processed: 2060 (75%)Parts processed: 2061 (75%)Parts processed: 2062 (75%)Parts processed: 2063 (75%)Parts processed: 2064 (75%)Parts processed: 2065 (75%)Parts processed: 2066 (75%)Parts processed: 2067 (75%)Parts processed: 2068 (75%)Parts processed: 2069 (75%)Parts processed: 2070 (76%)Parts processed: 2071 (76%)Parts processed: 2072 (76%)Parts processed: 2073 (76%)Parts processed: 2074 (76%)Parts processed: 2075 (76%)Parts processed: 2076 (76%)Parts processed: 2077 (76%)Parts processed: 2078 (76%)Parts processed: 2079 (76%)Parts processed: 2080 (76%)Parts processed: 2081 (76%)Parts processed: 2082 (76%)Parts processed: 2083 (76%)Parts processed: 2084 (76%)Parts processed: 2085 (76%)Parts processed: 2086 (76%)Parts processed: 2087 (76%)Parts processed: 2088 (76%)Parts processed: 2089 (76%)Parts processed: 2090 (76%)Parts processed: 2091 (76%)Parts processed: 2092 (76%)Parts processed: 2093 (76%)Parts processed: 2094 (76%)Parts processed: 2095 (76%)Parts processed: 2096 (76%)Parts processed: 2097 (77%)Parts processed: 2098 (77%)Parts processed: 2099 (77%)Parts processed: 2100 (77%)Parts processed: 2101 (77%)Parts processed: 2102 (77%)Parts processed: 2103 (77%)Parts processed: 2104 (77%)Parts processed: 2105 (77%)Parts processed: 2106 (77%)Parts processed: 2107 (77%)Parts processed: 2108 (77%)Parts processed: 2109 (77%)Parts processed: 2110 (77%)Parts processed: 2111 (77%)Parts processed: 2112 (77%)Parts processed: 2113 (77%)Parts processed: 2114 (77%)Parts processed: 2115 (77%)Parts processed: 2116 (77%)Parts processed: 2117 (77%)Parts processed: 2118 (77%)Parts processed: 2119 (77%)Parts processed: 2120 (77%)Parts processed: 2121 (77%)Parts processed: 2122 (77%)Parts processed: 2123 (77%)Parts processed: 2124 (78%)Parts processed: 2125 (78%)Parts processed: 2126 (78%)Parts processed: 2127 (78%)Parts processed: 2128 (78%)Parts processed: 2129 (78%)Parts processed: 2130 (78%)Parts processed: 2131 (78%)Parts processed: 2132 (78%)Parts processed: 2133 (78%)Parts processed: 2134 (78%)Parts processed: 2135 (78%)Parts processed: 2136 (78%)Parts processed: 2137 (78%)Parts processed: 2138 (78%)Parts processed: 2139 (78%)Parts processed: 2140 (78%)Parts processed: 2141 (78%)Parts processed: 2142 (78%)Parts processed: 2143 (78%)Parts processed: 2144 (78%)Parts processed: 2145 (78%)Parts processed: 2146 (78%)Parts processed: 2147 (78%)Parts processed: 2148 (78%)Parts processed: 2149 (78%)Parts processed: 2150 (78%)Parts processed: 2151 (78%)Parts processed: 2152 (79%)Parts processed: 2153 (79%)Parts processed: 2154 (79%)Parts processed: 2155 (79%)Parts processed: 2156 (79%)Parts processed: 2157 (79%)Parts processed: 2158 (79%)Parts processed: 2159 (79%)Parts processed: 2160 (79%)Parts processed: 2161 (79%)Parts processed: 2162 (79%)Parts processed: 2163 (79%)Parts processed: 2164 (79%)Parts processed: 2165 (79%)Parts processed: 2166 (79%)Parts processed: 2167 (79%)Parts processed: 2168 (79%)Parts processed: 2169 (79%)Parts processed: 2170 (79%)Parts processed: 2171 (79%)Parts processed: 2172 (79%)Parts processed: 2173 (79%)Parts processed: 2174 (79%)Parts processed: 2175 (79%)Parts processed: 2176 (79%)Parts processed: 2177 (79%)Parts processed: 2178 (79%)Parts processed: 2179 (80%)Parts processed: 2180 (80%)Parts processed: 2181 (80%)Parts processed: 2182 (80%)Parts processed: 2183 (80%)Parts processed: 2184 (80%)Parts processed: 2185 (80%)Parts processed: 2186 (80%)Parts processed: 2187 (80%)Parts processed: 2188 (80%)Parts processed: 2189 (80%)Parts processed: 2190 (80%)Parts processed: 2191 (80%)Parts processed: 2192 (80%)Parts processed: 2193 (80%)Parts processed: 2194 (80%)Parts processed: 2195 (80%)Parts processed: 2196 (80%)Parts processed: 2197 (80%)Parts processed: 2198 (80%)Parts processed: 2199 (80%)Parts processed: 2200 (80%)Parts processed: 2201 (80%)Parts processed: 2202 (80%)Parts processed: 2203 (80%)Parts processed: 2204 (80%)Parts processed: 2205 (80%)Parts processed: 2206 (81%)Parts processed: 2207 (81%)Parts processed: 2208 (81%)Parts processed: 2209 (81%)Parts processed: 2210 (81%)Parts processed: 2211 (81%)Parts processed: 2212 (81%)Parts processed: 2213 (81%)Parts processed: 2214 (81%)Parts processed: 2215 (81%)Parts processed: 2216 (81%)Parts processed: 2217 (81%)Parts processed: 2218 (81%)Parts processed: 2219 (81%)Parts processed: 2220 (81%)Parts processed: 2221 (81%)Parts processed: 2222 (81%)Parts processed: 2223 (81%)Parts processed: 2224 (81%)Parts processed: 2225 (81%)Parts processed: 2226 (81%)Parts processed: 2227 (81%)Parts processed: 2228 (81%)Parts processed: 2229 (81%)Parts processed: 2230 (81%)Parts processed: 2231 (81%)Parts processed: 2232 (81%)Parts processed: 2233 (82%)Parts processed: 2234 (82%)Parts processed: 2235 (82%)Parts processed: 2236 (82%)Parts processed: 2237 (82%)Parts processed: 2238 (82%)Parts processed: 2239 (82%)Parts processed: 2240 (82%)Parts processed: 2241 (82%)Parts processed: 2242 (82%)Parts processed: 2243 (82%)Parts processed: 2244 (82%)Parts processed: 2245 (82%)Parts processed: 2246 (82%)Parts processed: 2247 (82%)Parts processed: 2248 (82%)Parts processed: 2249 (82%)Parts processed: 2250 (82%)Parts processed: 2251 (82%)Parts processed: 2252 (82%)Parts processed: 2253 (82%)Parts processed: 2254 (82%)Parts processed: 2255 (82%)Parts processed: 2256 (82%)Parts processed: 2257 (82%)Parts processed: 2258 (82%)Parts processed: 2259 (82%)Parts processed: 2260 (82%)Parts processed: 2261 (83%)Parts processed: 2262 (83%)Parts processed: 2263 (83%)Parts processed: 2264 (83%)Parts processed: 2265 (83%)Parts processed: 2266 (83%)Parts processed: 2267 (83%)Parts processed: 2268 (83%)Parts processed: 2269 (83%)Parts processed: 2270 (83%)Parts processed: 2271 (83%)Parts processed: 2272 (83%)Parts processed: 2273 (83%)Parts processed: 2274 (83%)Parts processed: 2275 (83%)Parts processed: 2276 (83%)Parts processed: 2277 (83%)Parts processed: 2278 (83%)Parts processed: 2279 (83%)Parts processed: 2280 (83%)Parts processed: 2281 (83%)Parts processed: 2282 (83%)Parts processed: 2283 (83%)Parts processed: 2284 (83%)Parts processed: 2285 (83%)Parts processed: 2286 (83%)Parts processed: 2287 (83%)Parts processed: 2288 (84%)Parts processed: 2289 (84%)Parts processed: 2290 (84%)Parts processed: 2291 (84%)Parts processed: 2292 (84%)Parts processed: 2293 (84%)Parts processed: 2294 (84%)Parts processed: 2295 (84%)Parts processed: 2296 (84%)Parts processed: 2297 (84%)Parts processed: 2298 (84%)Parts processed: 2299 (84%)Parts processed: 2300 (84%)Parts processed: 2301 (84%)Parts processed: 2302 (84%)Parts processed: 2303 (84%)Parts processed: 2304 (84%)Parts processed: 2305 (84%)Parts processed: 2306 (84%)Parts processed: 2307 (84%)Parts processed: 2308 (84%)Parts processed: 2309 (84%)Parts processed: 2310 (84%)Parts processed: 2311 (84%)Parts processed: 2312 (84%)Parts processed: 2313 (84%)Parts processed: 2314 (84%)Parts processed: 2315 (85%)Parts processed: 2316 (85%)Parts processed: 2317 (85%)Parts processed: 2318 (85%)Parts processed: 2319 (85%)Parts processed: 2320 (85%)Parts processed: 2321 (85%)Parts processed: 2322 (85%)Parts processed: 2323 (85%)Parts processed: 2324 (85%)Parts processed: 2325 (85%)Parts processed: 2326 (85%)Parts processed: 2327 (85%)Parts processed: 2328 (85%)Parts processed: 2329 (85%)Parts processed: 2330 (85%)Parts processed: 2331 (85%)Parts processed: 2332 (85%)Parts processed: 2333 (85%)Parts processed: 2334 (85%)Parts processed: 2335 (85%)Parts processed: 2336 (85%)Parts processed: 2337 (85%)Parts processed: 2338 (85%)Parts processed: 2339 (85%)Parts processed: 2340 (85%)Parts processed: 2341 (85%)Parts processed: 2342 (86%)Parts processed: 2343 (86%)Parts processed: 2344 (86%)Parts processed: 2345 (86%)Parts processed: 2346 (86%)Parts processed: 2347 (86%)Parts processed: 2348 (86%)Parts processed: 2349 (86%)Parts processed: 2350 (86%)Parts processed: 2351 (86%)Parts processed: 2352 (86%)Parts processed: 2353 (86%)Parts processed: 2354 (86%)Parts processed: 2355 (86%)Parts processed: 2356 (86%)Parts processed: 2357 (86%)Parts processed: 2358 (86%)Parts processed: 2359 (86%)Parts processed: 2360 (86%)Parts processed: 2361 (86%)Parts processed: 2362 (86%)Parts processed: 2363 (86%)Parts processed: 2364 (86%)Parts processed: 2365 (86%)Parts processed: 2366 (86%)Parts processed: 2367 (86%)Parts processed: 2368 (86%)Parts processed: 2369 (86%)Parts processed: 2370 (87%)Parts processed: 2371 (87%)Parts processed: 2372 (87%)Parts processed: 2373 (87%)Parts processed: 2374 (87%)Parts processed: 2375 (87%)Parts processed: 2376 (87%)Parts processed: 2377 (87%)Parts processed: 2378 (87%)Parts processed: 2379 (87%)Parts processed: 2380 (87%)Parts processed: 2381 (87%)Parts processed: 2382 (87%)Parts processed: 2383 (87%)Parts processed: 2384 (87%)Parts processed: 2385 (87%)Parts processed: 2386 (87%)Parts processed: 2387 (87%)Parts processed: 2388 (87%)Parts processed: 2389 (87%)Parts processed: 2390 (87%)Parts processed: 2391 (87%)Parts processed: 2392 (87%)Parts processed: 2393 (87%)Parts processed: 2394 (87%)Parts processed: 2395 (87%)Parts processed: 2396 (87%)Parts processed: 2397 (88%)Parts processed: 2398 (88%)Parts processed: 2399 (88%)Parts processed: 2400 (88%)Parts processed: 2401 (88%)Parts processed: 2402 (88%)Parts processed: 2403 (88%)Parts processed: 2404 (88%)Parts processed: 2405 (88%)Parts processed: 2406 (88%)Parts processed: 2407 (88%)Parts processed: 2408 (88%)Parts processed: 2409 (88%)Parts processed: 2410 (88%)Parts processed: 2411 (88%)Parts processed: 2412 (88%)Parts processed: 2413 (88%)Parts processed: 2414 (88%)Parts processed: 2415 (88%)Parts processed: 2416 (88%)Parts processed: 2417 (88%)Parts processed: 2418 (88%)Parts processed: 2419 (88%)Parts processed: 2420 (88%)Parts processed: 2421 (88%)Parts processed: 2422 (88%)Parts processed: 2423 (88%)Parts processed: 2424 (89%)Parts processed: 2425 (89%)Parts processed: 2426 (89%)Parts processed: 2427 (89%)Parts processed: 2428 (89%)Parts processed: 2429 (89%)Parts processed: 2430 (89%)Parts processed: 2431 (89%)Parts processed: 2432 (89%)Parts processed: 2433 (89%)Parts processed: 2434 (89%)Parts processed: 2435 (89%)Parts processed: 2436 (89%)Parts processed: 2437 (89%)Parts processed: 2438 (89%)Parts processed: 2439 (89%)Parts processed: 2440 (89%)Parts processed: 2441 (89%)Parts processed: 2442 (89%)Parts processed: 2443 (89%)Parts processed: 2444 (89%)Parts processed: 2445 (89%)Parts processed: 2446 (89%)Parts processed: 2447 (89%)Parts processed: 2448 (89%)Parts processed: 2449 (89%)Parts processed: 2450 (89%)Parts processed: 2451 (90%)Parts processed: 2452 (90%)Parts processed: 2453 (90%)Parts processed: 2454 (90%)Parts processed: 2455 (90%)Parts processed: 2456 (90%)Parts processed: 2457 (90%)Parts processed: 2458 (90%)Parts processed: 2459 (90%)Parts processed: 2460 (90%)Parts processed: 2461 (90%)Parts processed: 2462 (90%)Parts processed: 2463 (90%)Parts processed: 2464 (90%)Parts processed: 2465 (90%)Parts processed: 2466 (90%)Parts processed: 2467 (90%)Parts processed: 2468 (90%)Parts processed: 2469 (90%)Parts processed: 2470 (90%)Parts processed: 2471 (90%)Parts processed: 2472 (90%)Parts processed: 2473 (90%)Parts processed: 2474 (90%)Parts processed: 2475 (90%)Parts processed: 2476 (90%)Parts processed: 2477 (90%)Parts processed: 2478 (91%)Parts processed: 2479 (91%)Parts processed: 2480 (91%)Parts processed: 2481 (91%)Parts processed: 2482 (91%)Parts processed: 2483 (91%)Parts processed: 2484 (91%)Parts processed: 2485 (91%)Parts processed: 2486 (91%)Parts processed: 2487 (91%)Parts processed: 2488 (91%)Parts processed: 2489 (91%)Parts processed: 2490 (91%)Parts processed: 2491 (91%)Parts processed: 2492 (91%)Parts processed: 2493 (91%)Parts processed: 2494 (91%)Parts processed: 2495 (91%)Parts processed: 2496 (91%)Parts processed: 2497 (91%)Parts processed: 2498 (91%)Parts processed: 2499 (91%)Parts processed: 2500 (91%)Parts processed: 2501 (91%)Parts processed: 2502 (91%)Parts processed: 2503 (91%)Parts processed: 2504 (91%)Parts processed: 2505 (91%)Parts processed: 2506 (92%)Parts processed: 2507 (92%)Parts processed: 2508 (92%)Parts processed: 2509 (92%)Parts processed: 2510 (92%)Parts processed: 2511 (92%)Parts processed: 2512 (92%)Parts processed: 2513 (92%)Parts processed: 2514 (92%)Parts processed: 2515 (92%)Parts processed: 2516 (92%)Parts processed: 2517 (92%)Parts processed: 2518 (92%)Parts processed: 2519 (92%)Parts processed: 2520 (92%)Parts processed: 2521 (92%)Parts processed: 2522 (92%)Parts processed: 2523 (92%)Parts processed: 2524 (92%)Parts processed: 2525 (92%)Parts processed: 2526 (92%)Parts processed: 2527 (92%)Parts processed: 2528 (92%)Parts processed: 2529 (92%)Parts processed: 2530 (92%)Parts processed: 2531 (92%)Parts processed: 2532 (92%)Parts processed: 2533 (93%)Parts processed: 2534 (93%)Parts processed: 2535 (93%)Parts processed: 2536 (93%)Parts processed: 2537 (93%)Parts processed: 2538 (93%)Parts processed: 2539 (93%)Parts processed: 2540 (93%)Parts processed: 2541 (93%)Parts processed: 2542 (93%)Parts processed: 2543 (93%)Parts processed: 2544 (93%)Parts processed: 2545 (93%)Parts processed: 2546 (93%)Parts processed: 2547 (93%)Parts processed: 2548 (93%)Parts processed: 2549 (93%)Parts processed: 2550 (93%)Parts processed: 2551 (93%)Parts processed: 2552 (93%)Parts processed: 2553 (93%)Parts processed: 2554 (93%)Parts processed: 2555 (93%)Parts processed: 2556 (93%)Parts processed: 2557 (93%)Parts processed: 2558 (93%)Parts processed: 2559 (93%)Parts processed: 2560 (94%)Parts processed: 2561 (94%)Parts processed: 2562 (94%)Parts processed: 2563 (94%)Parts processed: 2564 (94%)Parts processed: 2565 (94%)Parts processed: 2566 (94%)Parts processed: 2567 (94%)Parts processed: 2568 (94%)Parts processed: 2569 (94%)Parts processed: 2570 (94%)Parts processed: 2571 (94%)Parts processed: 2572 (94%)Parts processed: 2573 (94%)Parts processed: 2574 (94%)Parts processed: 2575 (94%)Parts processed: 2576 (94%)Parts processed: 2577 (94%)Parts processed: 2578 (94%)Parts processed: 2579 (94%)Parts processed: 2580 (94%)Parts processed: 2581 (94%)Parts processed: 2582 (94%)Parts processed: 2583 (94%)Parts processed: 2584 (94%)Parts processed: 2585 (94%)Parts processed: 2586 (94%)Parts processed: 2587 (95%)Parts processed: 2588 (95%)Parts processed: 2589 (95%)Parts processed: 2590 (95%)Parts processed: 2591 (95%)Parts processed: 2592 (95%)Parts processed: 2593 (95%)Parts processed: 2594 (95%)Parts processed: 2595 (95%)Parts processed: 2596 (95%)Parts processed: 2597 (95%)Parts processed: 2598 (95%)Parts processed: 2599 (95%)Parts processed: 2600 (95%)Parts processed: 2601 (95%)Parts processed: 2602 (95%)Parts processed: 2603 (95%)Parts processed: 2604 (95%)Parts processed: 2605 (95%)Parts processed: 2606 (95%)Parts processed: 2607 (95%)Parts processed: 2608 (95%)Parts processed: 2609 (95%)Parts processed: 2610 (95%)Parts processed: 2611 (95%)Parts processed: 2612 (95%)Parts processed: 2613 (95%)Parts processed: 2614 (95%)Parts processed: 2615 (96%)Parts processed: 2616 (96%)Parts processed: 2617 (96%)Parts processed: 2618 (96%)Parts processed: 2619 (96%)Parts processed: 2620 (96%)Parts processed: 2621 (96%)Parts processed: 2622 (96%)Parts processed: 2623 (96%)Parts processed: 2624 (96%)Parts processed: 2625 (96%)Parts processed: 2626 (96%)Parts processed: 2627 (96%)Parts processed: 2628 (96%)Parts processed: 2629 (96%)Parts processed: 2630 (96%)Parts processed: 2631 (96%)Parts processed: 2632 (96%)Parts processed: 2633 (96%)Parts processed: 2634 (96%)Parts processed: 2635 (96%)Parts processed: 2636 (96%)Parts processed: 2637 (96%)Parts processed: 2638 (96%)Parts processed: 2639 (96%)Parts processed: 2640 (96%)Parts processed: 2641 (96%)Parts processed: 2642 (97%)Parts processed: 2643 (97%)Parts processed: 2644 (97%)Parts processed: 2645 (97%)Parts processed: 2646 (97%)Parts processed: 2647 (97%)Parts processed: 2648 (97%)Parts processed: 2649 (97%)Parts processed: 2650 (97%)Parts processed: 2651 (97%)Parts processed: 2652 (97%)Parts processed: 2653 (97%)Parts processed: 2654 (97%)Parts processed: 2655 (97%)Parts processed: 2656 (97%)Parts processed: 2657 (97%)Parts processed: 2658 (97%)Parts processed: 2659 (97%)Parts processed: 2660 (97%)Parts processed: 2661 (97%)Parts processed: 2662 (97%)Parts processed: 2663 (97%)Parts processed: 2664 (97%)Parts processed: 2665 (97%)Parts processed: 2666 (97%)Parts processed: 2667 (97%)Parts processed: 2668 (97%)Parts processed: 2669 (98%)Parts processed: 2670 (98%)Parts processed: 2671 (98%)Parts processed: 2672 (98%)Parts processed: 2673 (98%)Parts processed: 2674 (98%)Parts processed: 2675 (98%)Parts processed: 2676 (98%)Parts processed: 2677 (98%)Parts processed: 2678 (98%)Parts processed: 2679 (98%)Parts processed: 2680 (98%)Parts processed: 2681 (98%)Parts processed: 2682 (98%)Parts processed: 2683 (98%)Parts processed: 2684 (98%)Parts processed: 2685 (98%)Parts processed: 2686 (98%)Parts processed: 2687 (98%)Parts processed: 2688 (98%)Parts processed: 2689 (98%)Parts processed: 2690 (98%)Parts processed: 2691 (98%)Parts processed: 2692 (98%)Parts processed: 2693 (98%)Parts processed: 2694 (98%)Parts processed: 2695 (98%)Parts processed: 2696 (99%)Parts processed: 2697 (99%)Parts processed: 2698 (99%)Parts processed: 2699 (99%)Parts processed: 2700 (99%)Parts processed: 2701 (99%)Parts processed: 2702 (99%)Parts processed: 2703 (99%)Parts processed: 2704 (99%)Parts processed: 2705 (99%)Parts processed: 2706 (99%)Parts processed: 2707 (99%)Parts processed: 2708 (99%)Parts processed: 2709 (99%)Parts processed: 2710 (99%)Parts processed: 2711 (99%)Parts processed: 2712 (99%)Parts processed: 2713 (99%)Parts processed: 2714 (99%)Parts processed: 2715 (99%)Parts processed: 2716 (99%)Parts processed: 2717 (99%)Parts processed: 2718 (99%)Parts processed: 2719 (99%)Parts processed: 2720 (99%)Parts processed: 2721 (99%)Parts processed: 2722 (99%)Parts processed: 2723 (100%)
+StreamSizes:
+Flag 8390586
+LettersX 36759562
+Rev 4292390
+HardReads 147906618
+LzId 5634124
+Shift 10593072
+Match 12761153
+MatchBinary 9656398
+TreeShift 1707311
+CMatch 215682
+CShift 2915243
+CLetters 10145772
+Quality 2650913110
+ReadIdToken 21784
+ReadIdValue 306471341
+PE_Flag 8766263
+PE_LettersX 78775232
+PE_Swap 4571176
+PE_Hard 231677689
+PE_LzId 19849062
+PE_Shift 17697079
+PE_MatchRLE 16157289
+PE_MatchBinary 14992311
+NDna: 8287792
+NQua: 13238715
+NReadIdToken: 8
+NReadIdValue: 1482081
+
+**** **** **** ****
+	Command being timed: "./../FaStore/bin/fastore_pack e -z -idata/ERR532393_lossless.fastore.rebin -odata/ERR532393_lossless.fastore -v -t8"
+	User time (seconds): 2357.54
+	System time (seconds): 64.05
+	Percent of CPU this job got: 792%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 5:05.55
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2986592
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 7656753
+	Voluntary context switches: 25781
+	Involuntary context switches: 4928
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 7080152
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../FaStore/bin/fastore_bin e -z -q2 -t8 -idata/ERR532393_1.fastq data/ERR532393_2.fastq -odata/ERR532393_lossy.fastore.bin"
+	User time (seconds): 371.11
+	System time (seconds): 21.84
+	Percent of CPU this job got: 696%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:56.40
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 16931472
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 1463605
+	Voluntary context switches: 84267
+	Involuntary context switches: 753
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 9381808
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../FaStore/bin/fastore_rebin e -z -idata/ERR532393_lossy.fastore.bin -odata/ERR532393_lossy.fastore.rebin -t8"
+	User time (seconds): 313.76
+	System time (seconds): 11.86
+	Percent of CPU this job got: 664%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:49.03
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1887348
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 2079578
+	Voluntary context switches: 30940
+	Involuntary context switches: 537
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 9342632
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Parts processed: 1 (0%)Parts processed: 2 (0%)Parts processed: 3 (0%)Parts processed: 4 (0%)Parts processed: 5 (0%)Parts processed: 6 (0%)Parts processed: 7 (0%)Parts processed: 8 (0%)Parts processed: 9 (0%)Parts processed: 10 (0%)Parts processed: 11 (0%)Parts processed: 12 (0%)Parts processed: 13 (0%)Parts processed: 14 (0%)Parts processed: 15 (0%)Parts processed: 16 (0%)Parts processed: 17 (0%)Parts processed: 18 (0%)Parts processed: 19 (0%)Parts processed: 20 (0%)Parts processed: 21 (0%)Parts processed: 22 (0%)Parts processed: 23 (0%)Parts processed: 24 (0%)Parts processed: 25 (0%)Parts processed: 26 (0%)Parts processed: 27 (0%)Parts processed: 28 (1%)Parts processed: 29 (1%)Parts processed: 30 (1%)Parts processed: 31 (1%)Parts processed: 32 (1%)Parts processed: 33 (1%)Parts processed: 34 (1%)Parts processed: 35 (1%)Parts processed: 36 (1%)Parts processed: 37 (1%)Parts processed: 38 (1%)Parts processed: 39 (1%)Parts processed: 40 (1%)Parts processed: 41 (1%)Parts processed: 42 (1%)Parts processed: 43 (1%)Parts processed: 44 (1%)Parts processed: 45 (1%)Parts processed: 46 (1%)Parts processed: 47 (1%)Parts processed: 48 (1%)Parts processed: 49 (1%)Parts processed: 50 (1%)Parts processed: 51 (1%)Parts processed: 52 (1%)Parts processed: 53 (1%)Parts processed: 54 (1%)Parts processed: 55 (2%)Parts processed: 56 (2%)Parts processed: 57 (2%)Parts processed: 58 (2%)Parts processed: 59 (2%)Parts processed: 60 (2%)Parts processed: 61 (2%)Parts processed: 62 (2%)Parts processed: 63 (2%)Parts processed: 64 (2%)Parts processed: 65 (2%)Parts processed: 66 (2%)Parts processed: 67 (2%)Parts processed: 68 (2%)Parts processed: 69 (2%)Parts processed: 70 (2%)Parts processed: 71 (2%)Parts processed: 72 (2%)Parts processed: 73 (2%)Parts processed: 74 (2%)Parts processed: 75 (2%)Parts processed: 76 (2%)Parts processed: 77 (2%)Parts processed: 78 (2%)Parts processed: 79 (2%)Parts processed: 80 (2%)Parts processed: 81 (2%)Parts processed: 82 (3%)Parts processed: 83 (3%)Parts processed: 84 (3%)Parts processed: 85 (3%)Parts processed: 86 (3%)Parts processed: 87 (3%)Parts processed: 88 (3%)Parts processed: 89 (3%)Parts processed: 90 (3%)Parts processed: 91 (3%)Parts processed: 92 (3%)Parts processed: 93 (3%)Parts processed: 94 (3%)Parts processed: 95 (3%)Parts processed: 96 (3%)Parts processed: 97 (3%)Parts processed: 98 (3%)Parts processed: 99 (3%)Parts processed: 100 (3%)Parts processed: 101 (3%)Parts processed: 102 (3%)Parts processed: 103 (3%)Parts processed: 104 (3%)Parts processed: 105 (3%)Parts processed: 106 (3%)Parts processed: 107 (3%)Parts processed: 108 (3%)Parts processed: 109 (4%)Parts processed: 110 (4%)Parts processed: 111 (4%)Parts processed: 112 (4%)Parts processed: 113 (4%)Parts processed: 114 (4%)Parts processed: 115 (4%)Parts processed: 116 (4%)Parts processed: 117 (4%)Parts processed: 118 (4%)Parts processed: 119 (4%)Parts processed: 120 (4%)Parts processed: 121 (4%)Parts processed: 122 (4%)Parts processed: 123 (4%)Parts processed: 124 (4%)Parts processed: 125 (4%)Parts processed: 126 (4%)Parts processed: 127 (4%)Parts processed: 128 (4%)Parts processed: 129 (4%)Parts processed: 130 (4%)Parts processed: 131 (4%)Parts processed: 132 (4%)Parts processed: 133 (4%)Parts processed: 134 (4%)Parts processed: 135 (4%)Parts processed: 136 (4%)Parts processed: 137 (5%)Parts processed: 138 (5%)Parts processed: 139 (5%)Parts processed: 140 (5%)Parts processed: 141 (5%)Parts processed: 142 (5%)Parts processed: 143 (5%)Parts processed: 144 (5%)Parts processed: 145 (5%)Parts processed: 146 (5%)Parts processed: 147 (5%)Parts processed: 148 (5%)Parts processed: 149 (5%)Parts processed: 150 (5%)Parts processed: 151 (5%)Parts processed: 152 (5%)Parts processed: 153 (5%)Parts processed: 154 (5%)Parts processed: 155 (5%)Parts processed: 156 (5%)Parts processed: 157 (5%)Parts processed: 158 (5%)Parts processed: 159 (5%)Parts processed: 160 (5%)Parts processed: 161 (5%)Parts processed: 162 (5%)Parts processed: 163 (5%)Parts processed: 164 (6%)Parts processed: 165 (6%)Parts processed: 166 (6%)Parts processed: 167 (6%)Parts processed: 168 (6%)Parts processed: 169 (6%)Parts processed: 170 (6%)Parts processed: 171 (6%)Parts processed: 172 (6%)Parts processed: 173 (6%)Parts processed: 174 (6%)Parts processed: 175 (6%)Parts processed: 176 (6%)Parts processed: 177 (6%)Parts processed: 178 (6%)Parts processed: 179 (6%)Parts processed: 180 (6%)Parts processed: 181 (6%)Parts processed: 182 (6%)Parts processed: 183 (6%)Parts processed: 184 (6%)Parts processed: 185 (6%)Parts processed: 186 (6%)Parts processed: 187 (6%)Parts processed: 188 (6%)Parts processed: 189 (6%)Parts processed: 190 (6%)Parts processed: 191 (7%)Parts processed: 192 (7%)Parts processed: 193 (7%)Parts processed: 194 (7%)Parts processed: 195 (7%)Parts processed: 196 (7%)Parts processed: 197 (7%)Parts processed: 198 (7%)Parts processed: 199 (7%)Parts processed: 200 (7%)Parts processed: 201 (7%)Parts processed: 202 (7%)Parts processed: 203 (7%)Parts processed: 204 (7%)Parts processed: 205 (7%)Parts processed: 206 (7%)Parts processed: 207 (7%)Parts processed: 208 (7%)Parts processed: 209 (7%)Parts processed: 210 (7%)Parts processed: 211 (7%)Parts processed: 212 (7%)Parts processed: 213 (7%)Parts processed: 214 (7%)Parts processed: 215 (7%)Parts processed: 216 (7%)Parts processed: 217 (7%)Parts processed: 218 (8%)Parts processed: 219 (8%)Parts processed: 220 (8%)Parts processed: 221 (8%)Parts processed: 222 (8%)Parts processed: 223 (8%)Parts processed: 224 (8%)Parts processed: 225 (8%)Parts processed: 226 (8%)Parts processed: 227 (8%)Parts processed: 228 (8%)Parts processed: 229 (8%)Parts processed: 230 (8%)Parts processed: 231 (8%)Parts processed: 232 (8%)Parts processed: 233 (8%)Parts processed: 234 (8%)Parts processed: 235 (8%)Parts processed: 236 (8%)Parts processed: 237 (8%)Parts processed: 238 (8%)Parts processed: 239 (8%)Parts processed: 240 (8%)Parts processed: 241 (8%)Parts processed: 242 (8%)Parts processed: 243 (8%)Parts processed: 244 (8%)Parts processed: 245 (8%)Parts processed: 246 (9%)Parts processed: 247 (9%)Parts processed: 248 (9%)Parts processed: 249 (9%)Parts processed: 250 (9%)Parts processed: 251 (9%)Parts processed: 252 (9%)Parts processed: 253 (9%)Parts processed: 254 (9%)Parts processed: 255 (9%)Parts processed: 256 (9%)Parts processed: 257 (9%)Parts processed: 258 (9%)Parts processed: 259 (9%)Parts processed: 260 (9%)Parts processed: 261 (9%)Parts processed: 262 (9%)Parts processed: 263 (9%)Parts processed: 264 (9%)Parts processed: 265 (9%)Parts processed: 266 (9%)Parts processed: 267 (9%)Parts processed: 268 (9%)Parts processed: 269 (9%)Parts processed: 270 (9%)Parts processed: 271 (9%)Parts processed: 272 (9%)Parts processed: 273 (10%)Parts processed: 274 (10%)Parts processed: 275 (10%)Parts processed: 276 (10%)Parts processed: 277 (10%)Parts processed: 278 (10%)Parts processed: 279 (10%)Parts processed: 280 (10%)Parts processed: 281 (10%)Parts processed: 282 (10%)Parts processed: 283 (10%)Parts processed: 284 (10%)Parts processed: 285 (10%)Parts processed: 286 (10%)Parts processed: 287 (10%)Parts processed: 288 (10%)Parts processed: 289 (10%)Parts processed: 290 (10%)Parts processed: 291 (10%)Parts processed: 292 (10%)Parts processed: 293 (10%)Parts processed: 294 (10%)Parts processed: 295 (10%)Parts processed: 296 (10%)Parts processed: 297 (10%)Parts processed: 298 (10%)Parts processed: 299 (10%)Parts processed: 300 (11%)Parts processed: 301 (11%)Parts processed: 302 (11%)Parts processed: 303 (11%)Parts processed: 304 (11%)Parts processed: 305 (11%)Parts processed: 306 (11%)Parts processed: 307 (11%)Parts processed: 308 (11%)Parts processed: 309 (11%)Parts processed: 310 (11%)Parts processed: 311 (11%)Parts processed: 312 (11%)Parts processed: 313 (11%)Parts processed: 314 (11%)Parts processed: 315 (11%)Parts processed: 316 (11%)Parts processed: 317 (11%)Parts processed: 318 (11%)Parts processed: 319 (11%)Parts processed: 320 (11%)Parts processed: 321 (11%)Parts processed: 322 (11%)Parts processed: 323 (11%)Parts processed: 324 (11%)Parts processed: 325 (11%)Parts processed: 326 (11%)Parts processed: 327 (12%)Parts processed: 328 (12%)Parts processed: 329 (12%)Parts processed: 330 (12%)Parts processed: 331 (12%)Parts processed: 332 (12%)Parts processed: 333 (12%)Parts processed: 334 (12%)Parts processed: 335 (12%)Parts processed: 336 (12%)Parts processed: 337 (12%)Parts processed: 338 (12%)Parts processed: 339 (12%)Parts processed: 340 (12%)Parts processed: 341 (12%)Parts processed: 342 (12%)Parts processed: 343 (12%)Parts processed: 344 (12%)Parts processed: 345 (12%)Parts processed: 346 (12%)Parts processed: 347 (12%)Parts processed: 348 (12%)Parts processed: 349 (12%)Parts processed: 350 (12%)Parts processed: 351 (12%)Parts processed: 352 (12%)Parts processed: 353 (12%)Parts processed: 354 (13%)Parts processed: 355 (13%)Parts processed: 356 (13%)Parts processed: 357 (13%)Parts processed: 358 (13%)Parts processed: 359 (13%)Parts processed: 360 (13%)Parts processed: 361 (13%)Parts processed: 362 (13%)Parts processed: 363 (13%)Parts processed: 364 (13%)Parts processed: 365 (13%)Parts processed: 366 (13%)Parts processed: 367 (13%)Parts processed: 368 (13%)Parts processed: 369 (13%)Parts processed: 370 (13%)Parts processed: 371 (13%)Parts processed: 372 (13%)Parts processed: 373 (13%)Parts processed: 374 (13%)Parts processed: 375 (13%)Parts processed: 376 (13%)Parts processed: 377 (13%)Parts processed: 378 (13%)Parts processed: 379 (13%)Parts processed: 380 (13%)Parts processed: 381 (13%)Parts processed: 382 (14%)Parts processed: 383 (14%)Parts processed: 384 (14%)Parts processed: 385 (14%)Parts processed: 386 (14%)Parts processed: 387 (14%)Parts processed: 388 (14%)Parts processed: 389 (14%)Parts processed: 390 (14%)Parts processed: 391 (14%)Parts processed: 392 (14%)Parts processed: 393 (14%)Parts processed: 394 (14%)Parts processed: 395 (14%)Parts processed: 396 (14%)Parts processed: 397 (14%)Parts processed: 398 (14%)Parts processed: 399 (14%)Parts processed: 400 (14%)Parts processed: 401 (14%)Parts processed: 402 (14%)Parts processed: 403 (14%)Parts processed: 404 (14%)Parts processed: 405 (14%)Parts processed: 406 (14%)Parts processed: 407 (14%)Parts processed: 408 (14%)Parts processed: 409 (15%)Parts processed: 410 (15%)Parts processed: 411 (15%)Parts processed: 412 (15%)Parts processed: 413 (15%)Parts processed: 414 (15%)Parts processed: 415 (15%)Parts processed: 416 (15%)Parts processed: 417 (15%)Parts processed: 418 (15%)Parts processed: 419 (15%)Parts processed: 420 (15%)Parts processed: 421 (15%)Parts processed: 422 (15%)Parts processed: 423 (15%)Parts processed: 424 (15%)Parts processed: 425 (15%)Parts processed: 426 (15%)Parts processed: 427 (15%)Parts processed: 428 (15%)Parts processed: 429 (15%)Parts processed: 430 (15%)Parts processed: 431 (15%)Parts processed: 432 (15%)Parts processed: 433 (15%)Parts processed: 434 (15%)Parts processed: 435 (15%)Parts processed: 436 (16%)Parts processed: 437 (16%)Parts processed: 438 (16%)Parts processed: 439 (16%)Parts processed: 440 (16%)Parts processed: 441 (16%)Parts processed: 442 (16%)Parts processed: 443 (16%)Parts processed: 444 (16%)Parts processed: 445 (16%)Parts processed: 446 (16%)Parts processed: 447 (16%)Parts processed: 448 (16%)Parts processed: 449 (16%)Parts processed: 450 (16%)Parts processed: 451 (16%)Parts processed: 452 (16%)Parts processed: 453 (16%)Parts processed: 454 (16%)Parts processed: 455 (16%)Parts processed: 456 (16%)Parts processed: 457 (16%)Parts processed: 458 (16%)Parts processed: 459 (16%)Parts processed: 460 (16%)Parts processed: 461 (16%)Parts processed: 462 (16%)Parts processed: 463 (17%)Parts processed: 464 (17%)Parts processed: 465 (17%)Parts processed: 466 (17%)Parts processed: 467 (17%)Parts processed: 468 (17%)Parts processed: 469 (17%)Parts processed: 470 (17%)Parts processed: 471 (17%)Parts processed: 472 (17%)Parts processed: 473 (17%)Parts processed: 474 (17%)Parts processed: 475 (17%)Parts processed: 476 (17%)Parts processed: 477 (17%)Parts processed: 478 (17%)Parts processed: 479 (17%)Parts processed: 480 (17%)Parts processed: 481 (17%)Parts processed: 482 (17%)Parts processed: 483 (17%)Parts processed: 484 (17%)Parts processed: 485 (17%)Parts processed: 486 (17%)Parts processed: 487 (17%)Parts processed: 488 (17%)Parts processed: 489 (17%)Parts processed: 490 (17%)Parts processed: 491 (18%)Parts processed: 492 (18%)Parts processed: 493 (18%)Parts processed: 494 (18%)Parts processed: 495 (18%)Parts processed: 496 (18%)Parts processed: 497 (18%)Parts processed: 498 (18%)Parts processed: 499 (18%)Parts processed: 500 (18%)Parts processed: 501 (18%)Parts processed: 502 (18%)Parts processed: 503 (18%)Parts processed: 504 (18%)Parts processed: 505 (18%)Parts processed: 506 (18%)Parts processed: 507 (18%)Parts processed: 508 (18%)Parts processed: 509 (18%)Parts processed: 510 (18%)Parts processed: 511 (18%)Parts processed: 512 (18%)Parts processed: 513 (18%)Parts processed: 514 (18%)Parts processed: 515 (18%)Parts processed: 516 (18%)Parts processed: 517 (18%)Parts processed: 518 (19%)Parts processed: 519 (19%)Parts processed: 520 (19%)Parts processed: 521 (19%)Parts processed: 522 (19%)Parts processed: 523 (19%)Parts processed: 524 (19%)Parts processed: 525 (19%)Parts processed: 526 (19%)Parts processed: 527 (19%)Parts processed: 528 (19%)Parts processed: 529 (19%)Parts processed: 530 (19%)Parts processed: 531 (19%)Parts processed: 532 (19%)Parts processed: 533 (19%)Parts processed: 534 (19%)Parts processed: 535 (19%)Parts processed: 536 (19%)Parts processed: 537 (19%)Parts processed: 538 (19%)Parts processed: 539 (19%)Parts processed: 540 (19%)Parts processed: 541 (19%)Parts processed: 542 (19%)Parts processed: 543 (19%)Parts processed: 544 (19%)Parts processed: 545 (20%)Parts processed: 546 (20%)Parts processed: 547 (20%)Parts processed: 548 (20%)Parts processed: 549 (20%)Parts processed: 550 (20%)Parts processed: 551 (20%)Parts processed: 552 (20%)Parts processed: 553 (20%)Parts processed: 554 (20%)Parts processed: 555 (20%)Parts processed: 556 (20%)Parts processed: 557 (20%)Parts processed: 558 (20%)Parts processed: 559 (20%)Parts processed: 560 (20%)Parts processed: 561 (20%)Parts processed: 562 (20%)Parts processed: 563 (20%)Parts processed: 564 (20%)Parts processed: 565 (20%)Parts processed: 566 (20%)Parts processed: 567 (20%)Parts processed: 568 (20%)Parts processed: 569 (20%)Parts processed: 570 (20%)Parts processed: 571 (20%)Parts processed: 572 (21%)Parts processed: 573 (21%)Parts processed: 574 (21%)Parts processed: 575 (21%)Parts processed: 576 (21%)Parts processed: 577 (21%)Parts processed: 578 (21%)Parts processed: 579 (21%)Parts processed: 580 (21%)Parts processed: 581 (21%)Parts processed: 582 (21%)Parts processed: 583 (21%)Parts processed: 584 (21%)Parts processed: 585 (21%)Parts processed: 586 (21%)Parts processed: 587 (21%)Parts processed: 588 (21%)Parts processed: 589 (21%)Parts processed: 590 (21%)Parts processed: 591 (21%)Parts processed: 592 (21%)Parts processed: 593 (21%)Parts processed: 594 (21%)Parts processed: 595 (21%)Parts processed: 596 (21%)Parts processed: 597 (21%)Parts processed: 598 (21%)Parts processed: 599 (21%)Parts processed: 600 (22%)Parts processed: 601 (22%)Parts processed: 602 (22%)Parts processed: 603 (22%)Parts processed: 604 (22%)Parts processed: 605 (22%)Parts processed: 606 (22%)Parts processed: 607 (22%)Parts processed: 608 (22%)Parts processed: 609 (22%)Parts processed: 610 (22%)Parts processed: 611 (22%)Parts processed: 612 (22%)Parts processed: 613 (22%)Parts processed: 614 (22%)Parts processed: 615 (22%)Parts processed: 616 (22%)Parts processed: 617 (22%)Parts processed: 618 (22%)Parts processed: 619 (22%)Parts processed: 620 (22%)Parts processed: 621 (22%)Parts processed: 622 (22%)Parts processed: 623 (22%)Parts processed: 624 (22%)Parts processed: 625 (22%)Parts processed: 626 (22%)Parts processed: 627 (23%)Parts processed: 628 (23%)Parts processed: 629 (23%)Parts processed: 630 (23%)Parts processed: 631 (23%)Parts processed: 632 (23%)Parts processed: 633 (23%)Parts processed: 634 (23%)Parts processed: 635 (23%)Parts processed: 636 (23%)Parts processed: 637 (23%)Parts processed: 638 (23%)Parts processed: 639 (23%)Parts processed: 640 (23%)Parts processed: 641 (23%)Parts processed: 642 (23%)Parts processed: 643 (23%)Parts processed: 644 (23%)Parts processed: 645 (23%)Parts processed: 646 (23%)Parts processed: 647 (23%)Parts processed: 648 (23%)Parts processed: 649 (23%)Parts processed: 650 (23%)Parts processed: 651 (23%)Parts processed: 652 (23%)Parts processed: 653 (23%)Parts processed: 654 (24%)Parts processed: 655 (24%)Parts processed: 656 (24%)Parts processed: 657 (24%)Parts processed: 658 (24%)Parts processed: 659 (24%)Parts processed: 660 (24%)Parts processed: 661 (24%)Parts processed: 662 (24%)Parts processed: 663 (24%)Parts processed: 664 (24%)Parts processed: 665 (24%)Parts processed: 666 (24%)Parts processed: 667 (24%)Parts processed: 668 (24%)Parts processed: 669 (24%)Parts processed: 670 (24%)Parts processed: 671 (24%)Parts processed: 672 (24%)Parts processed: 673 (24%)Parts processed: 674 (24%)Parts processed: 675 (24%)Parts processed: 676 (24%)Parts processed: 677 (24%)Parts processed: 678 (24%)Parts processed: 679 (24%)Parts processed: 680 (24%)Parts processed: 681 (25%)Parts processed: 682 (25%)Parts processed: 683 (25%)Parts processed: 684 (25%)Parts processed: 685 (25%)Parts processed: 686 (25%)Parts processed: 687 (25%)Parts processed: 688 (25%)Parts processed: 689 (25%)Parts processed: 690 (25%)Parts processed: 691 (25%)Parts processed: 692 (25%)Parts processed: 693 (25%)Parts processed: 694 (25%)Parts processed: 695 (25%)Parts processed: 696 (25%)Parts processed: 697 (25%)Parts processed: 698 (25%)Parts processed: 699 (25%)Parts processed: 700 (25%)Parts processed: 701 (25%)Parts processed: 702 (25%)Parts processed: 703 (25%)Parts processed: 704 (25%)Parts processed: 705 (25%)Parts processed: 706 (25%)Parts processed: 707 (25%)Parts processed: 708 (26%)Parts processed: 709 (26%)Parts processed: 710 (26%)Parts processed: 711 (26%)Parts processed: 712 (26%)Parts processed: 713 (26%)Parts processed: 714 (26%)Parts processed: 715 (26%)Parts processed: 716 (26%)Parts processed: 717 (26%)Parts processed: 718 (26%)Parts processed: 719 (26%)Parts processed: 720 (26%)Parts processed: 721 (26%)Parts processed: 722 (26%)Parts processed: 723 (26%)Parts processed: 724 (26%)Parts processed: 725 (26%)Parts processed: 726 (26%)Parts processed: 727 (26%)Parts processed: 728 (26%)Parts processed: 729 (26%)Parts processed: 730 (26%)Parts processed: 731 (26%)Parts processed: 732 (26%)Parts processed: 733 (26%)Parts processed: 734 (26%)Parts processed: 735 (26%)Parts processed: 736 (27%)Parts processed: 737 (27%)Parts processed: 738 (27%)Parts processed: 739 (27%)Parts processed: 740 (27%)Parts processed: 741 (27%)Parts processed: 742 (27%)Parts processed: 743 (27%)Parts processed: 744 (27%)Parts processed: 745 (27%)Parts processed: 746 (27%)Parts processed: 747 (27%)Parts processed: 748 (27%)Parts processed: 749 (27%)Parts processed: 750 (27%)Parts processed: 751 (27%)Parts processed: 752 (27%)Parts processed: 753 (27%)Parts processed: 754 (27%)Parts processed: 755 (27%)Parts processed: 756 (27%)Parts processed: 757 (27%)Parts processed: 758 (27%)Parts processed: 759 (27%)Parts processed: 760 (27%)Parts processed: 761 (27%)Parts processed: 762 (27%)Parts processed: 763 (28%)Parts processed: 764 (28%)Parts processed: 765 (28%)Parts processed: 766 (28%)Parts processed: 767 (28%)Parts processed: 768 (28%)Parts processed: 769 (28%)Parts processed: 770 (28%)Parts processed: 771 (28%)Parts processed: 772 (28%)Parts processed: 773 (28%)Parts processed: 774 (28%)Parts processed: 775 (28%)Parts processed: 776 (28%)Parts processed: 777 (28%)Parts processed: 778 (28%)Parts processed: 779 (28%)Parts processed: 780 (28%)Parts processed: 781 (28%)Parts processed: 782 (28%)Parts processed: 783 (28%)Parts processed: 784 (28%)Parts processed: 785 (28%)Parts processed: 786 (28%)Parts processed: 787 (28%)Parts processed: 788 (28%)Parts processed: 789 (28%)Parts processed: 790 (29%)Parts processed: 791 (29%)Parts processed: 792 (29%)Parts processed: 793 (29%)Parts processed: 794 (29%)Parts processed: 795 (29%)Parts processed: 796 (29%)Parts processed: 797 (29%)Parts processed: 798 (29%)Parts processed: 799 (29%)Parts processed: 800 (29%)Parts processed: 801 (29%)Parts processed: 802 (29%)Parts processed: 803 (29%)Parts processed: 804 (29%)Parts processed: 805 (29%)Parts processed: 806 (29%)Parts processed: 807 (29%)Parts processed: 808 (29%)Parts processed: 809 (29%)Parts processed: 810 (29%)Parts processed: 811 (29%)Parts processed: 812 (29%)Parts processed: 813 (29%)Parts processed: 814 (29%)Parts processed: 815 (29%)Parts processed: 816 (29%)Parts processed: 817 (30%)Parts processed: 818 (30%)Parts processed: 819 (30%)Parts processed: 820 (30%)Parts processed: 821 (30%)Parts processed: 822 (30%)Parts processed: 823 (30%)Parts processed: 824 (30%)Parts processed: 825 (30%)Parts processed: 826 (30%)Parts processed: 827 (30%)Parts processed: 828 (30%)Parts processed: 829 (30%)Parts processed: 830 (30%)Parts processed: 831 (30%)Parts processed: 832 (30%)Parts processed: 833 (30%)Parts processed: 834 (30%)Parts processed: 835 (30%)Parts processed: 836 (30%)Parts processed: 837 (30%)Parts processed: 838 (30%)Parts processed: 839 (30%)Parts processed: 840 (30%)Parts processed: 841 (30%)Parts processed: 842 (30%)Parts processed: 843 (30%)Parts processed: 844 (30%)Parts processed: 845 (31%)Parts processed: 846 (31%)Parts processed: 847 (31%)Parts processed: 848 (31%)Parts processed: 849 (31%)Parts processed: 850 (31%)Parts processed: 851 (31%)Parts processed: 852 (31%)Parts processed: 853 (31%)Parts processed: 854 (31%)Parts processed: 855 (31%)Parts processed: 856 (31%)Parts processed: 857 (31%)Parts processed: 858 (31%)Parts processed: 859 (31%)Parts processed: 860 (31%)Parts processed: 861 (31%)Parts processed: 862 (31%)Parts processed: 863 (31%)Parts processed: 864 (31%)Parts processed: 865 (31%)Parts processed: 866 (31%)Parts processed: 867 (31%)Parts processed: 868 (31%)Parts processed: 869 (31%)Parts processed: 870 (31%)Parts processed: 871 (31%)Parts processed: 872 (32%)Parts processed: 873 (32%)Parts processed: 874 (32%)Parts processed: 875 (32%)Parts processed: 876 (32%)Parts processed: 877 (32%)Parts processed: 878 (32%)Parts processed: 879 (32%)Parts processed: 880 (32%)Parts processed: 881 (32%)Parts processed: 882 (32%)Parts processed: 883 (32%)Parts processed: 884 (32%)Parts processed: 885 (32%)Parts processed: 886 (32%)Parts processed: 887 (32%)Parts processed: 888 (32%)Parts processed: 889 (32%)Parts processed: 890 (32%)Parts processed: 891 (32%)Parts processed: 892 (32%)Parts processed: 893 (32%)Parts processed: 894 (32%)Parts processed: 895 (32%)Parts processed: 896 (32%)Parts processed: 897 (32%)Parts processed: 898 (32%)Parts processed: 899 (33%)Parts processed: 900 (33%)Parts processed: 901 (33%)Parts processed: 902 (33%)Parts processed: 903 (33%)Parts processed: 904 (33%)Parts processed: 905 (33%)Parts processed: 906 (33%)Parts processed: 907 (33%)Parts processed: 908 (33%)Parts processed: 909 (33%)Parts processed: 910 (33%)Parts processed: 911 (33%)Parts processed: 912 (33%)Parts processed: 913 (33%)Parts processed: 914 (33%)Parts processed: 915 (33%)Parts processed: 916 (33%)Parts processed: 917 (33%)Parts processed: 918 (33%)Parts processed: 919 (33%)Parts processed: 920 (33%)Parts processed: 921 (33%)Parts processed: 922 (33%)Parts processed: 923 (33%)Parts processed: 924 (33%)Parts processed: 925 (33%)Parts processed: 926 (34%)Parts processed: 927 (34%)Parts processed: 928 (34%)Parts processed: 929 (34%)Parts processed: 930 (34%)Parts processed: 931 (34%)Parts processed: 932 (34%)Parts processed: 933 (34%)Parts processed: 934 (34%)Parts processed: 935 (34%)Parts processed: 936 (34%)Parts processed: 937 (34%)Parts processed: 938 (34%)Parts processed: 939 (34%)Parts processed: 940 (34%)Parts processed: 941 (34%)Parts processed: 942 (34%)Parts processed: 943 (34%)Parts processed: 944 (34%)Parts processed: 945 (34%)Parts processed: 946 (34%)Parts processed: 947 (34%)Parts processed: 948 (34%)Parts processed: 949 (34%)Parts processed: 950 (34%)Parts processed: 951 (34%)Parts processed: 952 (34%)Parts processed: 953 (34%)Parts processed: 954 (35%)Parts processed: 955 (35%)Parts processed: 956 (35%)Parts processed: 957 (35%)Parts processed: 958 (35%)Parts processed: 959 (35%)Parts processed: 960 (35%)Parts processed: 961 (35%)Parts processed: 962 (35%)Parts processed: 963 (35%)Parts processed: 964 (35%)Parts processed: 965 (35%)Parts processed: 966 (35%)Parts processed: 967 (35%)Parts processed: 968 (35%)Parts processed: 969 (35%)Parts processed: 970 (35%)Parts processed: 971 (35%)Parts processed: 972 (35%)Parts processed: 973 (35%)Parts processed: 974 (35%)Parts processed: 975 (35%)Parts processed: 976 (35%)Parts processed: 977 (35%)Parts processed: 978 (35%)Parts processed: 979 (35%)Parts processed: 980 (35%)Parts processed: 981 (36%)Parts processed: 982 (36%)Parts processed: 983 (36%)Parts processed: 984 (36%)Parts processed: 985 (36%)Parts processed: 986 (36%)Parts processed: 987 (36%)Parts processed: 988 (36%)Parts processed: 989 (36%)Parts processed: 990 (36%)Parts processed: 991 (36%)Parts processed: 992 (36%)Parts processed: 993 (36%)Parts processed: 994 (36%)Parts processed: 995 (36%)Parts processed: 996 (36%)Parts processed: 997 (36%)Parts processed: 998 (36%)Parts processed: 999 (36%)Parts processed: 1000 (36%)Parts processed: 1001 (36%)Parts processed: 1002 (36%)Parts processed: 1003 (36%)Parts processed: 1004 (36%)Parts processed: 1005 (36%)Parts processed: 1006 (36%)Parts processed: 1007 (36%)Parts processed: 1008 (37%)Parts processed: 1009 (37%)Parts processed: 1010 (37%)Parts processed: 1011 (37%)Parts processed: 1012 (37%)Parts processed: 1013 (37%)Parts processed: 1014 (37%)Parts processed: 1015 (37%)Parts processed: 1016 (37%)Parts processed: 1017 (37%)Parts processed: 1018 (37%)Parts processed: 1019 (37%)Parts processed: 1020 (37%)Parts processed: 1021 (37%)Parts processed: 1022 (37%)Parts processed: 1023 (37%)Parts processed: 1024 (37%)Parts processed: 1025 (37%)Parts processed: 1026 (37%)Parts processed: 1027 (37%)Parts processed: 1028 (37%)Parts processed: 1029 (37%)Parts processed: 1030 (37%)Parts processed: 1031 (37%)Parts processed: 1032 (37%)Parts processed: 1033 (37%)Parts processed: 1034 (37%)Parts processed: 1035 (38%)Parts processed: 1036 (38%)Parts processed: 1037 (38%)Parts processed: 1038 (38%)Parts processed: 1039 (38%)Parts processed: 1040 (38%)Parts processed: 1041 (38%)Parts processed: 1042 (38%)Parts processed: 1043 (38%)Parts processed: 1044 (38%)Parts processed: 1045 (38%)Parts processed: 1046 (38%)Parts processed: 1047 (38%)Parts processed: 1048 (38%)Parts processed: 1049 (38%)Parts processed: 1050 (38%)Parts processed: 1051 (38%)Parts processed: 1052 (38%)Parts processed: 1053 (38%)Parts processed: 1054 (38%)Parts processed: 1055 (38%)Parts processed: 1056 (38%)Parts processed: 1057 (38%)Parts processed: 1058 (38%)Parts processed: 1059 (38%)Parts processed: 1060 (38%)Parts processed: 1061 (38%)Parts processed: 1062 (39%)Parts processed: 1063 (39%)Parts processed: 1064 (39%)Parts processed: 1065 (39%)Parts processed: 1066 (39%)Parts processed: 1067 (39%)Parts processed: 1068 (39%)Parts processed: 1069 (39%)Parts processed: 1070 (39%)Parts processed: 1071 (39%)Parts processed: 1072 (39%)Parts processed: 1073 (39%)Parts processed: 1074 (39%)Parts processed: 1075 (39%)Parts processed: 1076 (39%)Parts processed: 1077 (39%)Parts processed: 1078 (39%)Parts processed: 1079 (39%)Parts processed: 1080 (39%)Parts processed: 1081 (39%)Parts processed: 1082 (39%)Parts processed: 1083 (39%)Parts processed: 1084 (39%)Parts processed: 1085 (39%)Parts processed: 1086 (39%)Parts processed: 1087 (39%)Parts processed: 1088 (39%)Parts processed: 1089 (39%)Parts processed: 1090 (40%)Parts processed: 1091 (40%)Parts processed: 1092 (40%)Parts processed: 1093 (40%)Parts processed: 1094 (40%)Parts processed: 1095 (40%)Parts processed: 1096 (40%)Parts processed: 1097 (40%)Parts processed: 1098 (40%)Parts processed: 1099 (40%)Parts processed: 1100 (40%)Parts processed: 1101 (40%)Parts processed: 1102 (40%)Parts processed: 1103 (40%)Parts processed: 1104 (40%)Parts processed: 1105 (40%)Parts processed: 1106 (40%)Parts processed: 1107 (40%)Parts processed: 1108 (40%)Parts processed: 1109 (40%)Parts processed: 1110 (40%)Parts processed: 1111 (40%)Parts processed: 1112 (40%)Parts processed: 1113 (40%)Parts processed: 1114 (40%)Parts processed: 1115 (40%)Parts processed: 1116 (40%)Parts processed: 1117 (41%)Parts processed: 1118 (41%)Parts processed: 1119 (41%)Parts processed: 1120 (41%)Parts processed: 1121 (41%)Parts processed: 1122 (41%)Parts processed: 1123 (41%)Parts processed: 1124 (41%)Parts processed: 1125 (41%)Parts processed: 1126 (41%)Parts processed: 1127 (41%)Parts processed: 1128 (41%)Parts processed: 1129 (41%)Parts processed: 1130 (41%)Parts processed: 1131 (41%)Parts processed: 1132 (41%)Parts processed: 1133 (41%)Parts processed: 1134 (41%)Parts processed: 1135 (41%)Parts processed: 1136 (41%)Parts processed: 1137 (41%)Parts processed: 1138 (41%)Parts processed: 1139 (41%)Parts processed: 1140 (41%)Parts processed: 1141 (41%)Parts processed: 1142 (41%)Parts processed: 1143 (41%)Parts processed: 1144 (42%)Parts processed: 1145 (42%)Parts processed: 1146 (42%)Parts processed: 1147 (42%)Parts processed: 1148 (42%)Parts processed: 1149 (42%)Parts processed: 1150 (42%)Parts processed: 1151 (42%)Parts processed: 1152 (42%)Parts processed: 1153 (42%)Parts processed: 1154 (42%)Parts processed: 1155 (42%)Parts processed: 1156 (42%)Parts processed: 1157 (42%)Parts processed: 1158 (42%)Parts processed: 1159 (42%)Parts processed: 1160 (42%)Parts processed: 1161 (42%)Parts processed: 1162 (42%)Parts processed: 1163 (42%)Parts processed: 1164 (42%)Parts processed: 1165 (42%)Parts processed: 1166 (42%)Parts processed: 1167 (42%)Parts processed: 1168 (42%)Parts processed: 1169 (42%)Parts processed: 1170 (42%)Parts processed: 1171 (43%)Parts processed: 1172 (43%)Parts processed: 1173 (43%)Parts processed: 1174 (43%)Parts processed: 1175 (43%)Parts processed: 1176 (43%)Parts processed: 1177 (43%)Parts processed: 1178 (43%)Parts processed: 1179 (43%)Parts processed: 1180 (43%)Parts processed: 1181 (43%)Parts processed: 1182 (43%)Parts processed: 1183 (43%)Parts processed: 1184 (43%)Parts processed: 1185 (43%)Parts processed: 1186 (43%)Parts processed: 1187 (43%)Parts processed: 1188 (43%)Parts processed: 1189 (43%)Parts processed: 1190 (43%)Parts processed: 1191 (43%)Parts processed: 1192 (43%)Parts processed: 1193 (43%)Parts processed: 1194 (43%)Parts processed: 1195 (43%)Parts processed: 1196 (43%)Parts processed: 1197 (43%)Parts processed: 1198 (43%)Parts processed: 1199 (44%)Parts processed: 1200 (44%)Parts processed: 1201 (44%)Parts processed: 1202 (44%)Parts processed: 1203 (44%)Parts processed: 1204 (44%)Parts processed: 1205 (44%)Parts processed: 1206 (44%)Parts processed: 1207 (44%)Parts processed: 1208 (44%)Parts processed: 1209 (44%)Parts processed: 1210 (44%)Parts processed: 1211 (44%)Parts processed: 1212 (44%)Parts processed: 1213 (44%)Parts processed: 1214 (44%)Parts processed: 1215 (44%)Parts processed: 1216 (44%)Parts processed: 1217 (44%)Parts processed: 1218 (44%)Parts processed: 1219 (44%)Parts processed: 1220 (44%)Parts processed: 1221 (44%)Parts processed: 1222 (44%)Parts processed: 1223 (44%)Parts processed: 1224 (44%)Parts processed: 1225 (44%)Parts processed: 1226 (45%)Parts processed: 1227 (45%)Parts processed: 1228 (45%)Parts processed: 1229 (45%)Parts processed: 1230 (45%)Parts processed: 1231 (45%)Parts processed: 1232 (45%)Parts processed: 1233 (45%)Parts processed: 1234 (45%)Parts processed: 1235 (45%)Parts processed: 1236 (45%)Parts processed: 1237 (45%)Parts processed: 1238 (45%)Parts processed: 1239 (45%)Parts processed: 1240 (45%)Parts processed: 1241 (45%)Parts processed: 1242 (45%)Parts processed: 1243 (45%)Parts processed: 1244 (45%)Parts processed: 1245 (45%)Parts processed: 1246 (45%)Parts processed: 1247 (45%)Parts processed: 1248 (45%)Parts processed: 1249 (45%)Parts processed: 1250 (45%)Parts processed: 1251 (45%)Parts processed: 1252 (45%)Parts processed: 1253 (46%)Parts processed: 1254 (46%)Parts processed: 1255 (46%)Parts processed: 1256 (46%)Parts processed: 1257 (46%)Parts processed: 1258 (46%)Parts processed: 1259 (46%)Parts processed: 1260 (46%)Parts processed: 1261 (46%)Parts processed: 1262 (46%)Parts processed: 1263 (46%)Parts processed: 1264 (46%)Parts processed: 1265 (46%)Parts processed: 1266 (46%)Parts processed: 1267 (46%)Parts processed: 1268 (46%)Parts processed: 1269 (46%)Parts processed: 1270 (46%)Parts processed: 1271 (46%)Parts processed: 1272 (46%)Parts processed: 1273 (46%)Parts processed: 1274 (46%)Parts processed: 1275 (46%)Parts processed: 1276 (46%)Parts processed: 1277 (46%)Parts processed: 1278 (46%)Parts processed: 1279 (46%)Parts processed: 1280 (47%)Parts processed: 1281 (47%)Parts processed: 1282 (47%)Parts processed: 1283 (47%)Parts processed: 1284 (47%)Parts processed: 1285 (47%)Parts processed: 1286 (47%)Parts processed: 1287 (47%)Parts processed: 1288 (47%)Parts processed: 1289 (47%)Parts processed: 1290 (47%)Parts processed: 1291 (47%)Parts processed: 1292 (47%)Parts processed: 1293 (47%)Parts processed: 1294 (47%)Parts processed: 1295 (47%)Parts processed: 1296 (47%)Parts processed: 1297 (47%)Parts processed: 1298 (47%)Parts processed: 1299 (47%)Parts processed: 1300 (47%)Parts processed: 1301 (47%)Parts processed: 1302 (47%)Parts processed: 1303 (47%)Parts processed: 1304 (47%)Parts processed: 1305 (47%)Parts processed: 1306 (47%)Parts processed: 1307 (47%)Parts processed: 1308 (48%)Parts processed: 1309 (48%)Parts processed: 1310 (48%)Parts processed: 1311 (48%)Parts processed: 1312 (48%)Parts processed: 1313 (48%)Parts processed: 1314 (48%)Parts processed: 1315 (48%)Parts processed: 1316 (48%)Parts processed: 1317 (48%)Parts processed: 1318 (48%)Parts processed: 1319 (48%)Parts processed: 1320 (48%)Parts processed: 1321 (48%)Parts processed: 1322 (48%)Parts processed: 1323 (48%)Parts processed: 1324 (48%)Parts processed: 1325 (48%)Parts processed: 1326 (48%)Parts processed: 1327 (48%)Parts processed: 1328 (48%)Parts processed: 1329 (48%)Parts processed: 1330 (48%)Parts processed: 1331 (48%)Parts processed: 1332 (48%)Parts processed: 1333 (48%)Parts processed: 1334 (48%)Parts processed: 1335 (49%)Parts processed: 1336 (49%)Parts processed: 1337 (49%)Parts processed: 1338 (49%)Parts processed: 1339 (49%)Parts processed: 1340 (49%)Parts processed: 1341 (49%)Parts processed: 1342 (49%)Parts processed: 1343 (49%)Parts processed: 1344 (49%)Parts processed: 1345 (49%)Parts processed: 1346 (49%)Parts processed: 1347 (49%)Parts processed: 1348 (49%)Parts processed: 1349 (49%)Parts processed: 1350 (49%)Parts processed: 1351 (49%)Parts processed: 1352 (49%)Parts processed: 1353 (49%)Parts processed: 1354 (49%)Parts processed: 1355 (49%)Parts processed: 1356 (49%)Parts processed: 1357 (49%)Parts processed: 1358 (49%)Parts processed: 1359 (49%)Parts processed: 1360 (49%)Parts processed: 1361 (49%)Parts processed: 1362 (50%)Parts processed: 1363 (50%)Parts processed: 1364 (50%)Parts processed: 1365 (50%)Parts processed: 1366 (50%)Parts processed: 1367 (50%)Parts processed: 1368 (50%)Parts processed: 1369 (50%)Parts processed: 1370 (50%)Parts processed: 1371 (50%)Parts processed: 1372 (50%)Parts processed: 1373 (50%)Parts processed: 1374 (50%)Parts processed: 1375 (50%)Parts processed: 1376 (50%)Parts processed: 1377 (50%)Parts processed: 1378 (50%)Parts processed: 1379 (50%)Parts processed: 1380 (50%)Parts processed: 1381 (50%)Parts processed: 1382 (50%)Parts processed: 1383 (50%)Parts processed: 1384 (50%)Parts processed: 1385 (50%)Parts processed: 1386 (50%)Parts processed: 1387 (50%)Parts processed: 1388 (50%)Parts processed: 1389 (51%)Parts processed: 1390 (51%)Parts processed: 1391 (51%)Parts processed: 1392 (51%)Parts processed: 1393 (51%)Parts processed: 1394 (51%)Parts processed: 1395 (51%)Parts processed: 1396 (51%)Parts processed: 1397 (51%)Parts processed: 1398 (51%)Parts processed: 1399 (51%)Parts processed: 1400 (51%)Parts processed: 1401 (51%)Parts processed: 1402 (51%)Parts processed: 1403 (51%)Parts processed: 1404 (51%)Parts processed: 1405 (51%)Parts processed: 1406 (51%)Parts processed: 1407 (51%)Parts processed: 1408 (51%)Parts processed: 1409 (51%)Parts processed: 1410 (51%)Parts processed: 1411 (51%)Parts processed: 1412 (51%)Parts processed: 1413 (51%)Parts processed: 1414 (51%)Parts processed: 1415 (51%)Parts processed: 1416 (52%)Parts processed: 1417 (52%)Parts processed: 1418 (52%)Parts processed: 1419 (52%)Parts processed: 1420 (52%)Parts processed: 1421 (52%)Parts processed: 1422 (52%)Parts processed: 1423 (52%)Parts processed: 1424 (52%)Parts processed: 1425 (52%)Parts processed: 1426 (52%)Parts processed: 1427 (52%)Parts processed: 1428 (52%)Parts processed: 1429 (52%)Parts processed: 1430 (52%)Parts processed: 1431 (52%)Parts processed: 1432 (52%)Parts processed: 1433 (52%)Parts processed: 1434 (52%)Parts processed: 1435 (52%)Parts processed: 1436 (52%)Parts processed: 1437 (52%)Parts processed: 1438 (52%)Parts processed: 1439 (52%)Parts processed: 1440 (52%)Parts processed: 1441 (52%)Parts processed: 1442 (52%)Parts processed: 1443 (52%)Parts processed: 1444 (53%)Parts processed: 1445 (53%)Parts processed: 1446 (53%)Parts processed: 1447 (53%)Parts processed: 1448 (53%)Parts processed: 1449 (53%)Parts processed: 1450 (53%)Parts processed: 1451 (53%)Parts processed: 1452 (53%)Parts processed: 1453 (53%)Parts processed: 1454 (53%)Parts processed: 1455 (53%)Parts processed: 1456 (53%)Parts processed: 1457 (53%)Parts processed: 1458 (53%)Parts processed: 1459 (53%)Parts processed: 1460 (53%)Parts processed: 1461 (53%)Parts processed: 1462 (53%)Parts processed: 1463 (53%)Parts processed: 1464 (53%)Parts processed: 1465 (53%)Parts processed: 1466 (53%)Parts processed: 1467 (53%)Parts processed: 1468 (53%)Parts processed: 1469 (53%)Parts processed: 1470 (53%)Parts processed: 1471 (54%)Parts processed: 1472 (54%)Parts processed: 1473 (54%)Parts processed: 1474 (54%)Parts processed: 1475 (54%)Parts processed: 1476 (54%)Parts processed: 1477 (54%)Parts processed: 1478 (54%)Parts processed: 1479 (54%)Parts processed: 1480 (54%)Parts processed: 1481 (54%)Parts processed: 1482 (54%)Parts processed: 1483 (54%)Parts processed: 1484 (54%)Parts processed: 1485 (54%)Parts processed: 1486 (54%)Parts processed: 1487 (54%)Parts processed: 1488 (54%)Parts processed: 1489 (54%)Parts processed: 1490 (54%)Parts processed: 1491 (54%)Parts processed: 1492 (54%)Parts processed: 1493 (54%)Parts processed: 1494 (54%)Parts processed: 1495 (54%)Parts processed: 1496 (54%)Parts processed: 1497 (54%)Parts processed: 1498 (55%)Parts processed: 1499 (55%)Parts processed: 1500 (55%)Parts processed: 1501 (55%)Parts processed: 1502 (55%)Parts processed: 1503 (55%)Parts processed: 1504 (55%)Parts processed: 1505 (55%)Parts processed: 1506 (55%)Parts processed: 1507 (55%)Parts processed: 1508 (55%)Parts processed: 1509 (55%)Parts processed: 1510 (55%)Parts processed: 1511 (55%)Parts processed: 1512 (55%)Parts processed: 1513 (55%)Parts processed: 1514 (55%)Parts processed: 1515 (55%)Parts processed: 1516 (55%)Parts processed: 1517 (55%)Parts processed: 1518 (55%)Parts processed: 1519 (55%)Parts processed: 1520 (55%)Parts processed: 1521 (55%)Parts processed: 1522 (55%)Parts processed: 1523 (55%)Parts processed: 1524 (55%)Parts processed: 1525 (56%)Parts processed: 1526 (56%)Parts processed: 1527 (56%)Parts processed: 1528 (56%)Parts processed: 1529 (56%)Parts processed: 1530 (56%)Parts processed: 1531 (56%)Parts processed: 1532 (56%)Parts processed: 1533 (56%)Parts processed: 1534 (56%)Parts processed: 1535 (56%)Parts processed: 1536 (56%)Parts processed: 1537 (56%)Parts processed: 1538 (56%)Parts processed: 1539 (56%)Parts processed: 1540 (56%)Parts processed: 1541 (56%)Parts processed: 1542 (56%)Parts processed: 1543 (56%)Parts processed: 1544 (56%)Parts processed: 1545 (56%)Parts processed: 1546 (56%)Parts processed: 1547 (56%)Parts processed: 1548 (56%)Parts processed: 1549 (56%)Parts processed: 1550 (56%)Parts processed: 1551 (56%)Parts processed: 1552 (56%)Parts processed: 1553 (57%)Parts processed: 1554 (57%)Parts processed: 1555 (57%)Parts processed: 1556 (57%)Parts processed: 1557 (57%)Parts processed: 1558 (57%)Parts processed: 1559 (57%)Parts processed: 1560 (57%)Parts processed: 1561 (57%)Parts processed: 1562 (57%)Parts processed: 1563 (57%)Parts processed: 1564 (57%)Parts processed: 1565 (57%)Parts processed: 1566 (57%)Parts processed: 1567 (57%)Parts processed: 1568 (57%)Parts processed: 1569 (57%)Parts processed: 1570 (57%)Parts processed: 1571 (57%)Parts processed: 1572 (57%)Parts processed: 1573 (57%)Parts processed: 1574 (57%)Parts processed: 1575 (57%)Parts processed: 1576 (57%)Parts processed: 1577 (57%)Parts processed: 1578 (57%)Parts processed: 1579 (57%)Parts processed: 1580 (58%)Parts processed: 1581 (58%)Parts processed: 1582 (58%)Parts processed: 1583 (58%)Parts processed: 1584 (58%)Parts processed: 1585 (58%)Parts processed: 1586 (58%)Parts processed: 1587 (58%)Parts processed: 1588 (58%)Parts processed: 1589 (58%)Parts processed: 1590 (58%)Parts processed: 1591 (58%)Parts processed: 1592 (58%)Parts processed: 1593 (58%)Parts processed: 1594 (58%)Parts processed: 1595 (58%)Parts processed: 1596 (58%)Parts processed: 1597 (58%)Parts processed: 1598 (58%)Parts processed: 1599 (58%)Parts processed: 1600 (58%)Parts processed: 1601 (58%)Parts processed: 1602 (58%)Parts processed: 1603 (58%)Parts processed: 1604 (58%)Parts processed: 1605 (58%)Parts processed: 1606 (58%)Parts processed: 1607 (59%)Parts processed: 1608 (59%)Parts processed: 1609 (59%)Parts processed: 1610 (59%)Parts processed: 1611 (59%)Parts processed: 1612 (59%)Parts processed: 1613 (59%)Parts processed: 1614 (59%)Parts processed: 1615 (59%)Parts processed: 1616 (59%)Parts processed: 1617 (59%)Parts processed: 1618 (59%)Parts processed: 1619 (59%)Parts processed: 1620 (59%)Parts processed: 1621 (59%)Parts processed: 1622 (59%)Parts processed: 1623 (59%)Parts processed: 1624 (59%)Parts processed: 1625 (59%)Parts processed: 1626 (59%)Parts processed: 1627 (59%)Parts processed: 1628 (59%)Parts processed: 1629 (59%)Parts processed: 1630 (59%)Parts processed: 1631 (59%)Parts processed: 1632 (59%)Parts processed: 1633 (59%)Parts processed: 1634 (60%)Parts processed: 1635 (60%)Parts processed: 1636 (60%)Parts processed: 1637 (60%)Parts processed: 1638 (60%)Parts processed: 1639 (60%)Parts processed: 1640 (60%)Parts processed: 1641 (60%)Parts processed: 1642 (60%)Parts processed: 1643 (60%)Parts processed: 1644 (60%)Parts processed: 1645 (60%)Parts processed: 1646 (60%)Parts processed: 1647 (60%)Parts processed: 1648 (60%)Parts processed: 1649 (60%)Parts processed: 1650 (60%)Parts processed: 1651 (60%)Parts processed: 1652 (60%)Parts processed: 1653 (60%)Parts processed: 1654 (60%)Parts processed: 1655 (60%)Parts processed: 1656 (60%)Parts processed: 1657 (60%)Parts processed: 1658 (60%)Parts processed: 1659 (60%)Parts processed: 1660 (60%)Parts processed: 1661 (60%)Parts processed: 1662 (61%)Parts processed: 1663 (61%)Parts processed: 1664 (61%)Parts processed: 1665 (61%)Parts processed: 1666 (61%)Parts processed: 1667 (61%)Parts processed: 1668 (61%)Parts processed: 1669 (61%)Parts processed: 1670 (61%)Parts processed: 1671 (61%)Parts processed: 1672 (61%)Parts processed: 1673 (61%)Parts processed: 1674 (61%)Parts processed: 1675 (61%)Parts processed: 1676 (61%)Parts processed: 1677 (61%)Parts processed: 1678 (61%)Parts processed: 1679 (61%)Parts processed: 1680 (61%)Parts processed: 1681 (61%)Parts processed: 1682 (61%)Parts processed: 1683 (61%)Parts processed: 1684 (61%)Parts processed: 1685 (61%)Parts processed: 1686 (61%)Parts processed: 1687 (61%)Parts processed: 1688 (61%)Parts processed: 1689 (62%)Parts processed: 1690 (62%)Parts processed: 1691 (62%)Parts processed: 1692 (62%)Parts processed: 1693 (62%)Parts processed: 1694 (62%)Parts processed: 1695 (62%)Parts processed: 1696 (62%)Parts processed: 1697 (62%)Parts processed: 1698 (62%)Parts processed: 1699 (62%)Parts processed: 1700 (62%)Parts processed: 1701 (62%)Parts processed: 1702 (62%)Parts processed: 1703 (62%)Parts processed: 1704 (62%)Parts processed: 1705 (62%)Parts processed: 1706 (62%)Parts processed: 1707 (62%)Parts processed: 1708 (62%)Parts processed: 1709 (62%)Parts processed: 1710 (62%)Parts processed: 1711 (62%)Parts processed: 1712 (62%)Parts processed: 1713 (62%)Parts processed: 1714 (62%)Parts processed: 1715 (62%)Parts processed: 1716 (63%)Parts processed: 1717 (63%)Parts processed: 1718 (63%)Parts processed: 1719 (63%)Parts processed: 1720 (63%)Parts processed: 1721 (63%)Parts processed: 1722 (63%)Parts processed: 1723 (63%)Parts processed: 1724 (63%)Parts processed: 1725 (63%)Parts processed: 1726 (63%)Parts processed: 1727 (63%)Parts processed: 1728 (63%)Parts processed: 1729 (63%)Parts processed: 1730 (63%)Parts processed: 1731 (63%)Parts processed: 1732 (63%)Parts processed: 1733 (63%)Parts processed: 1734 (63%)Parts processed: 1735 (63%)Parts processed: 1736 (63%)Parts processed: 1737 (63%)Parts processed: 1738 (63%)Parts processed: 1739 (63%)Parts processed: 1740 (63%)Parts processed: 1741 (63%)Parts processed: 1742 (63%)Parts processed: 1743 (64%)Parts processed: 1744 (64%)Parts processed: 1745 (64%)Parts processed: 1746 (64%)Parts processed: 1747 (64%)Parts processed: 1748 (64%)Parts processed: 1749 (64%)Parts processed: 1750 (64%)Parts processed: 1751 (64%)Parts processed: 1752 (64%)Parts processed: 1753 (64%)Parts processed: 1754 (64%)Parts processed: 1755 (64%)Parts processed: 1756 (64%)Parts processed: 1757 (64%)Parts processed: 1758 (64%)Parts processed: 1759 (64%)Parts processed: 1760 (64%)Parts processed: 1761 (64%)Parts processed: 1762 (64%)Parts processed: 1763 (64%)Parts processed: 1764 (64%)Parts processed: 1765 (64%)Parts processed: 1766 (64%)Parts processed: 1767 (64%)Parts processed: 1768 (64%)Parts processed: 1769 (64%)Parts processed: 1770 (65%)Parts processed: 1771 (65%)Parts processed: 1772 (65%)Parts processed: 1773 (65%)Parts processed: 1774 (65%)Parts processed: 1775 (65%)Parts processed: 1776 (65%)Parts processed: 1777 (65%)Parts processed: 1778 (65%)Parts processed: 1779 (65%)Parts processed: 1780 (65%)Parts processed: 1781 (65%)Parts processed: 1782 (65%)Parts processed: 1783 (65%)Parts processed: 1784 (65%)Parts processed: 1785 (65%)Parts processed: 1786 (65%)Parts processed: 1787 (65%)Parts processed: 1788 (65%)Parts processed: 1789 (65%)Parts processed: 1790 (65%)Parts processed: 1791 (65%)Parts processed: 1792 (65%)Parts processed: 1793 (65%)Parts processed: 1794 (65%)Parts processed: 1795 (65%)Parts processed: 1796 (65%)Parts processed: 1797 (65%)Parts processed: 1798 (66%)Parts processed: 1799 (66%)Parts processed: 1800 (66%)Parts processed: 1801 (66%)Parts processed: 1802 (66%)Parts processed: 1803 (66%)Parts processed: 1804 (66%)Parts processed: 1805 (66%)Parts processed: 1806 (66%)Parts processed: 1807 (66%)Parts processed: 1808 (66%)Parts processed: 1809 (66%)Parts processed: 1810 (66%)Parts processed: 1811 (66%)Parts processed: 1812 (66%)Parts processed: 1813 (66%)Parts processed: 1814 (66%)Parts processed: 1815 (66%)Parts processed: 1816 (66%)Parts processed: 1817 (66%)Parts processed: 1818 (66%)Parts processed: 1819 (66%)Parts processed: 1820 (66%)Parts processed: 1821 (66%)Parts processed: 1822 (66%)Parts processed: 1823 (66%)Parts processed: 1824 (66%)Parts processed: 1825 (67%)Parts processed: 1826 (67%)Parts processed: 1827 (67%)Parts processed: 1828 (67%)Parts processed: 1829 (67%)Parts processed: 1830 (67%)Parts processed: 1831 (67%)Parts processed: 1832 (67%)Parts processed: 1833 (67%)Parts processed: 1834 (67%)Parts processed: 1835 (67%)Parts processed: 1836 (67%)Parts processed: 1837 (67%)Parts processed: 1838 (67%)Parts processed: 1839 (67%)Parts processed: 1840 (67%)Parts processed: 1841 (67%)Parts processed: 1842 (67%)Parts processed: 1843 (67%)Parts processed: 1844 (67%)Parts processed: 1845 (67%)Parts processed: 1846 (67%)Parts processed: 1847 (67%)Parts processed: 1848 (67%)Parts processed: 1849 (67%)Parts processed: 1850 (67%)Parts processed: 1851 (67%)Parts processed: 1852 (68%)Parts processed: 1853 (68%)Parts processed: 1854 (68%)Parts processed: 1855 (68%)Parts processed: 1856 (68%)Parts processed: 1857 (68%)Parts processed: 1858 (68%)Parts processed: 1859 (68%)Parts processed: 1860 (68%)Parts processed: 1861 (68%)Parts processed: 1862 (68%)Parts processed: 1863 (68%)Parts processed: 1864 (68%)Parts processed: 1865 (68%)Parts processed: 1866 (68%)Parts processed: 1867 (68%)Parts processed: 1868 (68%)Parts processed: 1869 (68%)Parts processed: 1870 (68%)Parts processed: 1871 (68%)Parts processed: 1872 (68%)Parts processed: 1873 (68%)Parts processed: 1874 (68%)Parts processed: 1875 (68%)Parts processed: 1876 (68%)Parts processed: 1877 (68%)Parts processed: 1878 (68%)Parts processed: 1879 (69%)Parts processed: 1880 (69%)Parts processed: 1881 (69%)Parts processed: 1882 (69%)Parts processed: 1883 (69%)Parts processed: 1884 (69%)Parts processed: 1885 (69%)Parts processed: 1886 (69%)Parts processed: 1887 (69%)Parts processed: 1888 (69%)Parts processed: 1889 (69%)Parts processed: 1890 (69%)Parts processed: 1891 (69%)Parts processed: 1892 (69%)Parts processed: 1893 (69%)Parts processed: 1894 (69%)Parts processed: 1895 (69%)Parts processed: 1896 (69%)Parts processed: 1897 (69%)Parts processed: 1898 (69%)Parts processed: 1899 (69%)Parts processed: 1900 (69%)Parts processed: 1901 (69%)Parts processed: 1902 (69%)Parts processed: 1903 (69%)Parts processed: 1904 (69%)Parts processed: 1905 (69%)Parts processed: 1906 (69%)Parts processed: 1907 (70%)Parts processed: 1908 (70%)Parts processed: 1909 (70%)Parts processed: 1910 (70%)Parts processed: 1911 (70%)Parts processed: 1912 (70%)Parts processed: 1913 (70%)Parts processed: 1914 (70%)Parts processed: 1915 (70%)Parts processed: 1916 (70%)Parts processed: 1917 (70%)Parts processed: 1918 (70%)Parts processed: 1919 (70%)Parts processed: 1920 (70%)Parts processed: 1921 (70%)Parts processed: 1922 (70%)Parts processed: 1923 (70%)Parts processed: 1924 (70%)Parts processed: 1925 (70%)Parts processed: 1926 (70%)Parts processed: 1927 (70%)Parts processed: 1928 (70%)Parts processed: 1929 (70%)Parts processed: 1930 (70%)Parts processed: 1931 (70%)Parts processed: 1932 (70%)Parts processed: 1933 (70%)Parts processed: 1934 (71%)Parts processed: 1935 (71%)Parts processed: 1936 (71%)Parts processed: 1937 (71%)Parts processed: 1938 (71%)Parts processed: 1939 (71%)Parts processed: 1940 (71%)Parts processed: 1941 (71%)Parts processed: 1942 (71%)Parts processed: 1943 (71%)Parts processed: 1944 (71%)Parts processed: 1945 (71%)Parts processed: 1946 (71%)Parts processed: 1947 (71%)Parts processed: 1948 (71%)Parts processed: 1949 (71%)Parts processed: 1950 (71%)Parts processed: 1951 (71%)Parts processed: 1952 (71%)Parts processed: 1953 (71%)Parts processed: 1954 (71%)Parts processed: 1955 (71%)Parts processed: 1956 (71%)Parts processed: 1957 (71%)Parts processed: 1958 (71%)Parts processed: 1959 (71%)Parts processed: 1960 (71%)Parts processed: 1961 (72%)Parts processed: 1962 (72%)Parts processed: 1963 (72%)Parts processed: 1964 (72%)Parts processed: 1965 (72%)Parts processed: 1966 (72%)Parts processed: 1967 (72%)Parts processed: 1968 (72%)Parts processed: 1969 (72%)Parts processed: 1970 (72%)Parts processed: 1971 (72%)Parts processed: 1972 (72%)Parts processed: 1973 (72%)Parts processed: 1974 (72%)Parts processed: 1975 (72%)Parts processed: 1976 (72%)Parts processed: 1977 (72%)Parts processed: 1978 (72%)Parts processed: 1979 (72%)Parts processed: 1980 (72%)Parts processed: 1981 (72%)Parts processed: 1982 (72%)Parts processed: 1983 (72%)Parts processed: 1984 (72%)Parts processed: 1985 (72%)Parts processed: 1986 (72%)Parts processed: 1987 (72%)Parts processed: 1988 (73%)Parts processed: 1989 (73%)Parts processed: 1990 (73%)Parts processed: 1991 (73%)Parts processed: 1992 (73%)Parts processed: 1993 (73%)Parts processed: 1994 (73%)Parts processed: 1995 (73%)Parts processed: 1996 (73%)Parts processed: 1997 (73%)Parts processed: 1998 (73%)Parts processed: 1999 (73%)Parts processed: 2000 (73%)Parts processed: 2001 (73%)Parts processed: 2002 (73%)Parts processed: 2003 (73%)Parts processed: 2004 (73%)Parts processed: 2005 (73%)Parts processed: 2006 (73%)Parts processed: 2007 (73%)Parts processed: 2008 (73%)Parts processed: 2009 (73%)Parts processed: 2010 (73%)Parts processed: 2011 (73%)Parts processed: 2012 (73%)Parts processed: 2013 (73%)Parts processed: 2014 (73%)Parts processed: 2015 (73%)Parts processed: 2016 (74%)Parts processed: 2017 (74%)Parts processed: 2018 (74%)Parts processed: 2019 (74%)Parts processed: 2020 (74%)Parts processed: 2021 (74%)Parts processed: 2022 (74%)Parts processed: 2023 (74%)Parts processed: 2024 (74%)Parts processed: 2025 (74%)Parts processed: 2026 (74%)Parts processed: 2027 (74%)Parts processed: 2028 (74%)Parts processed: 2029 (74%)Parts processed: 2030 (74%)Parts processed: 2031 (74%)Parts processed: 2032 (74%)Parts processed: 2033 (74%)Parts processed: 2034 (74%)Parts processed: 2035 (74%)Parts processed: 2036 (74%)Parts processed: 2037 (74%)Parts processed: 2038 (74%)Parts processed: 2039 (74%)Parts processed: 2040 (74%)Parts processed: 2041 (74%)Parts processed: 2042 (74%)Parts processed: 2043 (75%)Parts processed: 2044 (75%)Parts processed: 2045 (75%)Parts processed: 2046 (75%)Parts processed: 2047 (75%)Parts processed: 2048 (75%)Parts processed: 2049 (75%)Parts processed: 2050 (75%)Parts processed: 2051 (75%)Parts processed: 2052 (75%)Parts processed: 2053 (75%)Parts processed: 2054 (75%)Parts processed: 2055 (75%)Parts processed: 2056 (75%)Parts processed: 2057 (75%)Parts processed: 2058 (75%)Parts processed: 2059 (75%)Parts processed: 2060 (75%)Parts processed: 2061 (75%)Parts processed: 2062 (75%)Parts processed: 2063 (75%)Parts processed: 2064 (75%)Parts processed: 2065 (75%)Parts processed: 2066 (75%)Parts processed: 2067 (75%)Parts processed: 2068 (75%)Parts processed: 2069 (75%)Parts processed: 2070 (76%)Parts processed: 2071 (76%)Parts processed: 2072 (76%)Parts processed: 2073 (76%)Parts processed: 2074 (76%)Parts processed: 2075 (76%)Parts processed: 2076 (76%)Parts processed: 2077 (76%)Parts processed: 2078 (76%)Parts processed: 2079 (76%)Parts processed: 2080 (76%)Parts processed: 2081 (76%)Parts processed: 2082 (76%)Parts processed: 2083 (76%)Parts processed: 2084 (76%)Parts processed: 2085 (76%)Parts processed: 2086 (76%)Parts processed: 2087 (76%)Parts processed: 2088 (76%)Parts processed: 2089 (76%)Parts processed: 2090 (76%)Parts processed: 2091 (76%)Parts processed: 2092 (76%)Parts processed: 2093 (76%)Parts processed: 2094 (76%)Parts processed: 2095 (76%)Parts processed: 2096 (76%)Parts processed: 2097 (77%)Parts processed: 2098 (77%)Parts processed: 2099 (77%)Parts processed: 2100 (77%)Parts processed: 2101 (77%)Parts processed: 2102 (77%)Parts processed: 2103 (77%)Parts processed: 2104 (77%)Parts processed: 2105 (77%)Parts processed: 2106 (77%)Parts processed: 2107 (77%)Parts processed: 2108 (77%)Parts processed: 2109 (77%)Parts processed: 2110 (77%)Parts processed: 2111 (77%)Parts processed: 2112 (77%)Parts processed: 2113 (77%)Parts processed: 2114 (77%)Parts processed: 2115 (77%)Parts processed: 2116 (77%)Parts processed: 2117 (77%)Parts processed: 2118 (77%)Parts processed: 2119 (77%)Parts processed: 2120 (77%)Parts processed: 2121 (77%)Parts processed: 2122 (77%)Parts processed: 2123 (77%)Parts processed: 2124 (78%)Parts processed: 2125 (78%)Parts processed: 2126 (78%)Parts processed: 2127 (78%)Parts processed: 2128 (78%)Parts processed: 2129 (78%)Parts processed: 2130 (78%)Parts processed: 2131 (78%)Parts processed: 2132 (78%)Parts processed: 2133 (78%)Parts processed: 2134 (78%)Parts processed: 2135 (78%)Parts processed: 2136 (78%)Parts processed: 2137 (78%)Parts processed: 2138 (78%)Parts processed: 2139 (78%)Parts processed: 2140 (78%)Parts processed: 2141 (78%)Parts processed: 2142 (78%)Parts processed: 2143 (78%)Parts processed: 2144 (78%)Parts processed: 2145 (78%)Parts processed: 2146 (78%)Parts processed: 2147 (78%)Parts processed: 2148 (78%)Parts processed: 2149 (78%)Parts processed: 2150 (78%)Parts processed: 2151 (78%)Parts processed: 2152 (79%)Parts processed: 2153 (79%)Parts processed: 2154 (79%)Parts processed: 2155 (79%)Parts processed: 2156 (79%)Parts processed: 2157 (79%)Parts processed: 2158 (79%)Parts processed: 2159 (79%)Parts processed: 2160 (79%)Parts processed: 2161 (79%)Parts processed: 2162 (79%)Parts processed: 2163 (79%)Parts processed: 2164 (79%)Parts processed: 2165 (79%)Parts processed: 2166 (79%)Parts processed: 2167 (79%)Parts processed: 2168 (79%)Parts processed: 2169 (79%)Parts processed: 2170 (79%)Parts processed: 2171 (79%)Parts processed: 2172 (79%)Parts processed: 2173 (79%)Parts processed: 2174 (79%)Parts processed: 2175 (79%)Parts processed: 2176 (79%)Parts processed: 2177 (79%)Parts processed: 2178 (79%)Parts processed: 2179 (80%)Parts processed: 2180 (80%)Parts processed: 2181 (80%)Parts processed: 2182 (80%)Parts processed: 2183 (80%)Parts processed: 2184 (80%)Parts processed: 2185 (80%)Parts processed: 2186 (80%)Parts processed: 2187 (80%)Parts processed: 2188 (80%)Parts processed: 2189 (80%)Parts processed: 2190 (80%)Parts processed: 2191 (80%)Parts processed: 2192 (80%)Parts processed: 2193 (80%)Parts processed: 2194 (80%)Parts processed: 2195 (80%)Parts processed: 2196 (80%)Parts processed: 2197 (80%)Parts processed: 2198 (80%)Parts processed: 2199 (80%)Parts processed: 2200 (80%)Parts processed: 2201 (80%)Parts processed: 2202 (80%)Parts processed: 2203 (80%)Parts processed: 2204 (80%)Parts processed: 2205 (80%)Parts processed: 2206 (81%)Parts processed: 2207 (81%)Parts processed: 2208 (81%)Parts processed: 2209 (81%)Parts processed: 2210 (81%)Parts processed: 2211 (81%)Parts processed: 2212 (81%)Parts processed: 2213 (81%)Parts processed: 2214 (81%)Parts processed: 2215 (81%)Parts processed: 2216 (81%)Parts processed: 2217 (81%)Parts processed: 2218 (81%)Parts processed: 2219 (81%)Parts processed: 2220 (81%)Parts processed: 2221 (81%)Parts processed: 2222 (81%)Parts processed: 2223 (81%)Parts processed: 2224 (81%)Parts processed: 2225 (81%)Parts processed: 2226 (81%)Parts processed: 2227 (81%)Parts processed: 2228 (81%)Parts processed: 2229 (81%)Parts processed: 2230 (81%)Parts processed: 2231 (81%)Parts processed: 2232 (81%)Parts processed: 2233 (82%)Parts processed: 2234 (82%)Parts processed: 2235 (82%)Parts processed: 2236 (82%)Parts processed: 2237 (82%)Parts processed: 2238 (82%)Parts processed: 2239 (82%)Parts processed: 2240 (82%)Parts processed: 2241 (82%)Parts processed: 2242 (82%)Parts processed: 2243 (82%)Parts processed: 2244 (82%)Parts processed: 2245 (82%)Parts processed: 2246 (82%)Parts processed: 2247 (82%)Parts processed: 2248 (82%)Parts processed: 2249 (82%)Parts processed: 2250 (82%)Parts processed: 2251 (82%)Parts processed: 2252 (82%)Parts processed: 2253 (82%)Parts processed: 2254 (82%)Parts processed: 2255 (82%)Parts processed: 2256 (82%)Parts processed: 2257 (82%)Parts processed: 2258 (82%)Parts processed: 2259 (82%)Parts processed: 2260 (82%)Parts processed: 2261 (83%)Parts processed: 2262 (83%)Parts processed: 2263 (83%)Parts processed: 2264 (83%)Parts processed: 2265 (83%)Parts processed: 2266 (83%)Parts processed: 2267 (83%)Parts processed: 2268 (83%)Parts processed: 2269 (83%)Parts processed: 2270 (83%)Parts processed: 2271 (83%)Parts processed: 2272 (83%)Parts processed: 2273 (83%)Parts processed: 2274 (83%)Parts processed: 2275 (83%)Parts processed: 2276 (83%)Parts processed: 2277 (83%)Parts processed: 2278 (83%)Parts processed: 2279 (83%)Parts processed: 2280 (83%)Parts processed: 2281 (83%)Parts processed: 2282 (83%)Parts processed: 2283 (83%)Parts processed: 2284 (83%)Parts processed: 2285 (83%)Parts processed: 2286 (83%)Parts processed: 2287 (83%)Parts processed: 2288 (84%)Parts processed: 2289 (84%)Parts processed: 2290 (84%)Parts processed: 2291 (84%)Parts processed: 2292 (84%)Parts processed: 2293 (84%)Parts processed: 2294 (84%)Parts processed: 2295 (84%)Parts processed: 2296 (84%)Parts processed: 2297 (84%)Parts processed: 2298 (84%)Parts processed: 2299 (84%)Parts processed: 2300 (84%)Parts processed: 2301 (84%)Parts processed: 2302 (84%)Parts processed: 2303 (84%)Parts processed: 2304 (84%)Parts processed: 2305 (84%)Parts processed: 2306 (84%)Parts processed: 2307 (84%)Parts processed: 2308 (84%)Parts processed: 2309 (84%)Parts processed: 2310 (84%)Parts processed: 2311 (84%)Parts processed: 2312 (84%)Parts processed: 2313 (84%)Parts processed: 2314 (84%)Parts processed: 2315 (85%)Parts processed: 2316 (85%)Parts processed: 2317 (85%)Parts processed: 2318 (85%)Parts processed: 2319 (85%)Parts processed: 2320 (85%)Parts processed: 2321 (85%)Parts processed: 2322 (85%)Parts processed: 2323 (85%)Parts processed: 2324 (85%)Parts processed: 2325 (85%)Parts processed: 2326 (85%)Parts processed: 2327 (85%)Parts processed: 2328 (85%)Parts processed: 2329 (85%)Parts processed: 2330 (85%)Parts processed: 2331 (85%)Parts processed: 2332 (85%)Parts processed: 2333 (85%)Parts processed: 2334 (85%)Parts processed: 2335 (85%)Parts processed: 2336 (85%)Parts processed: 2337 (85%)Parts processed: 2338 (85%)Parts processed: 2339 (85%)Parts processed: 2340 (85%)Parts processed: 2341 (85%)Parts processed: 2342 (86%)Parts processed: 2343 (86%)Parts processed: 2344 (86%)Parts processed: 2345 (86%)Parts processed: 2346 (86%)Parts processed: 2347 (86%)Parts processed: 2348 (86%)Parts processed: 2349 (86%)Parts processed: 2350 (86%)Parts processed: 2351 (86%)Parts processed: 2352 (86%)Parts processed: 2353 (86%)Parts processed: 2354 (86%)Parts processed: 2355 (86%)Parts processed: 2356 (86%)Parts processed: 2357 (86%)Parts processed: 2358 (86%)Parts processed: 2359 (86%)Parts processed: 2360 (86%)Parts processed: 2361 (86%)Parts processed: 2362 (86%)Parts processed: 2363 (86%)Parts processed: 2364 (86%)Parts processed: 2365 (86%)Parts processed: 2366 (86%)Parts processed: 2367 (86%)Parts processed: 2368 (86%)Parts processed: 2369 (86%)Parts processed: 2370 (87%)Parts processed: 2371 (87%)Parts processed: 2372 (87%)Parts processed: 2373 (87%)Parts processed: 2374 (87%)Parts processed: 2375 (87%)Parts processed: 2376 (87%)Parts processed: 2377 (87%)Parts processed: 2378 (87%)Parts processed: 2379 (87%)Parts processed: 2380 (87%)Parts processed: 2381 (87%)Parts processed: 2382 (87%)Parts processed: 2383 (87%)Parts processed: 2384 (87%)Parts processed: 2385 (87%)Parts processed: 2386 (87%)Parts processed: 2387 (87%)Parts processed: 2388 (87%)Parts processed: 2389 (87%)Parts processed: 2390 (87%)Parts processed: 2391 (87%)Parts processed: 2392 (87%)Parts processed: 2393 (87%)Parts processed: 2394 (87%)Parts processed: 2395 (87%)Parts processed: 2396 (87%)Parts processed: 2397 (88%)Parts processed: 2398 (88%)Parts processed: 2399 (88%)Parts processed: 2400 (88%)Parts processed: 2401 (88%)Parts processed: 2402 (88%)Parts processed: 2403 (88%)Parts processed: 2404 (88%)Parts processed: 2405 (88%)Parts processed: 2406 (88%)Parts processed: 2407 (88%)Parts processed: 2408 (88%)Parts processed: 2409 (88%)Parts processed: 2410 (88%)Parts processed: 2411 (88%)Parts processed: 2412 (88%)Parts processed: 2413 (88%)Parts processed: 2414 (88%)Parts processed: 2415 (88%)Parts processed: 2416 (88%)Parts processed: 2417 (88%)Parts processed: 2418 (88%)Parts processed: 2419 (88%)Parts processed: 2420 (88%)Parts processed: 2421 (88%)Parts processed: 2422 (88%)Parts processed: 2423 (88%)Parts processed: 2424 (89%)Parts processed: 2425 (89%)Parts processed: 2426 (89%)Parts processed: 2427 (89%)Parts processed: 2428 (89%)Parts processed: 2429 (89%)Parts processed: 2430 (89%)Parts processed: 2431 (89%)Parts processed: 2432 (89%)Parts processed: 2433 (89%)Parts processed: 2434 (89%)Parts processed: 2435 (89%)Parts processed: 2436 (89%)Parts processed: 2437 (89%)Parts processed: 2438 (89%)Parts processed: 2439 (89%)Parts processed: 2440 (89%)Parts processed: 2441 (89%)Parts processed: 2442 (89%)Parts processed: 2443 (89%)Parts processed: 2444 (89%)Parts processed: 2445 (89%)Parts processed: 2446 (89%)Parts processed: 2447 (89%)Parts processed: 2448 (89%)Parts processed: 2449 (89%)Parts processed: 2450 (89%)Parts processed: 2451 (90%)Parts processed: 2452 (90%)Parts processed: 2453 (90%)Parts processed: 2454 (90%)Parts processed: 2455 (90%)Parts processed: 2456 (90%)Parts processed: 2457 (90%)Parts processed: 2458 (90%)Parts processed: 2459 (90%)Parts processed: 2460 (90%)Parts processed: 2461 (90%)Parts processed: 2462 (90%)Parts processed: 2463 (90%)Parts processed: 2464 (90%)Parts processed: 2465 (90%)Parts processed: 2466 (90%)Parts processed: 2467 (90%)Parts processed: 2468 (90%)Parts processed: 2469 (90%)Parts processed: 2470 (90%)Parts processed: 2471 (90%)Parts processed: 2472 (90%)Parts processed: 2473 (90%)Parts processed: 2474 (90%)Parts processed: 2475 (90%)Parts processed: 2476 (90%)Parts processed: 2477 (90%)Parts processed: 2478 (91%)Parts processed: 2479 (91%)Parts processed: 2480 (91%)Parts processed: 2481 (91%)Parts processed: 2482 (91%)Parts processed: 2483 (91%)Parts processed: 2484 (91%)Parts processed: 2485 (91%)Parts processed: 2486 (91%)Parts processed: 2487 (91%)Parts processed: 2488 (91%)Parts processed: 2489 (91%)Parts processed: 2490 (91%)Parts processed: 2491 (91%)Parts processed: 2492 (91%)Parts processed: 2493 (91%)Parts processed: 2494 (91%)Parts processed: 2495 (91%)Parts processed: 2496 (91%)Parts processed: 2497 (91%)Parts processed: 2498 (91%)Parts processed: 2499 (91%)Parts processed: 2500 (91%)Parts processed: 2501 (91%)Parts processed: 2502 (91%)Parts processed: 2503 (91%)Parts processed: 2504 (91%)Parts processed: 2505 (91%)Parts processed: 2506 (92%)Parts processed: 2507 (92%)Parts processed: 2508 (92%)Parts processed: 2509 (92%)Parts processed: 2510 (92%)Parts processed: 2511 (92%)Parts processed: 2512 (92%)Parts processed: 2513 (92%)Parts processed: 2514 (92%)Parts processed: 2515 (92%)Parts processed: 2516 (92%)Parts processed: 2517 (92%)Parts processed: 2518 (92%)Parts processed: 2519 (92%)Parts processed: 2520 (92%)Parts processed: 2521 (92%)Parts processed: 2522 (92%)Parts processed: 2523 (92%)Parts processed: 2524 (92%)Parts processed: 2525 (92%)Parts processed: 2526 (92%)Parts processed: 2527 (92%)Parts processed: 2528 (92%)Parts processed: 2529 (92%)Parts processed: 2530 (92%)Parts processed: 2531 (92%)Parts processed: 2532 (92%)Parts processed: 2533 (93%)Parts processed: 2534 (93%)Parts processed: 2535 (93%)Parts processed: 2536 (93%)Parts processed: 2537 (93%)Parts processed: 2538 (93%)Parts processed: 2539 (93%)Parts processed: 2540 (93%)Parts processed: 2541 (93%)Parts processed: 2542 (93%)Parts processed: 2543 (93%)Parts processed: 2544 (93%)Parts processed: 2545 (93%)Parts processed: 2546 (93%)Parts processed: 2547 (93%)Parts processed: 2548 (93%)Parts processed: 2549 (93%)Parts processed: 2550 (93%)Parts processed: 2551 (93%)Parts processed: 2552 (93%)Parts processed: 2553 (93%)Parts processed: 2554 (93%)Parts processed: 2555 (93%)Parts processed: 2556 (93%)Parts processed: 2557 (93%)Parts processed: 2558 (93%)Parts processed: 2559 (93%)Parts processed: 2560 (94%)Parts processed: 2561 (94%)Parts processed: 2562 (94%)Parts processed: 2563 (94%)Parts processed: 2564 (94%)Parts processed: 2565 (94%)Parts processed: 2566 (94%)Parts processed: 2567 (94%)Parts processed: 2568 (94%)Parts processed: 2569 (94%)Parts processed: 2570 (94%)Parts processed: 2571 (94%)Parts processed: 2572 (94%)Parts processed: 2573 (94%)Parts processed: 2574 (94%)Parts processed: 2575 (94%)Parts processed: 2576 (94%)Parts processed: 2577 (94%)Parts processed: 2578 (94%)Parts processed: 2579 (94%)Parts processed: 2580 (94%)Parts processed: 2581 (94%)Parts processed: 2582 (94%)Parts processed: 2583 (94%)Parts processed: 2584 (94%)Parts processed: 2585 (94%)Parts processed: 2586 (94%)Parts processed: 2587 (95%)Parts processed: 2588 (95%)Parts processed: 2589 (95%)Parts processed: 2590 (95%)Parts processed: 2591 (95%)Parts processed: 2592 (95%)Parts processed: 2593 (95%)Parts processed: 2594 (95%)Parts processed: 2595 (95%)Parts processed: 2596 (95%)Parts processed: 2597 (95%)Parts processed: 2598 (95%)Parts processed: 2599 (95%)Parts processed: 2600 (95%)Parts processed: 2601 (95%)Parts processed: 2602 (95%)Parts processed: 2603 (95%)Parts processed: 2604 (95%)Parts processed: 2605 (95%)Parts processed: 2606 (95%)Parts processed: 2607 (95%)Parts processed: 2608 (95%)Parts processed: 2609 (95%)Parts processed: 2610 (95%)Parts processed: 2611 (95%)Parts processed: 2612 (95%)Parts processed: 2613 (95%)Parts processed: 2614 (95%)Parts processed: 2615 (96%)Parts processed: 2616 (96%)Parts processed: 2617 (96%)Parts processed: 2618 (96%)Parts processed: 2619 (96%)Parts processed: 2620 (96%)Parts processed: 2621 (96%)Parts processed: 2622 (96%)Parts processed: 2623 (96%)Parts processed: 2624 (96%)Parts processed: 2625 (96%)Parts processed: 2626 (96%)Parts processed: 2627 (96%)Parts processed: 2628 (96%)Parts processed: 2629 (96%)Parts processed: 2630 (96%)Parts processed: 2631 (96%)Parts processed: 2632 (96%)Parts processed: 2633 (96%)Parts processed: 2634 (96%)Parts processed: 2635 (96%)Parts processed: 2636 (96%)Parts processed: 2637 (96%)Parts processed: 2638 (96%)Parts processed: 2639 (96%)Parts processed: 2640 (96%)Parts processed: 2641 (96%)Parts processed: 2642 (97%)Parts processed: 2643 (97%)Parts processed: 2644 (97%)Parts processed: 2645 (97%)Parts processed: 2646 (97%)Parts processed: 2647 (97%)Parts processed: 2648 (97%)Parts processed: 2649 (97%)Parts processed: 2650 (97%)Parts processed: 2651 (97%)Parts processed: 2652 (97%)Parts processed: 2653 (97%)Parts processed: 2654 (97%)Parts processed: 2655 (97%)Parts processed: 2656 (97%)Parts processed: 2657 (97%)Parts processed: 2658 (97%)Parts processed: 2659 (97%)Parts processed: 2660 (97%)Parts processed: 2661 (97%)Parts processed: 2662 (97%)Parts processed: 2663 (97%)Parts processed: 2664 (97%)Parts processed: 2665 (97%)Parts processed: 2666 (97%)Parts processed: 2667 (97%)Parts processed: 2668 (97%)Parts processed: 2669 (98%)Parts processed: 2670 (98%)Parts processed: 2671 (98%)Parts processed: 2672 (98%)Parts processed: 2673 (98%)Parts processed: 2674 (98%)Parts processed: 2675 (98%)Parts processed: 2676 (98%)Parts processed: 2677 (98%)Parts processed: 2678 (98%)Parts processed: 2679 (98%)Parts processed: 2680 (98%)Parts processed: 2681 (98%)Parts processed: 2682 (98%)Parts processed: 2683 (98%)Parts processed: 2684 (98%)Parts processed: 2685 (98%)Parts processed: 2686 (98%)Parts processed: 2687 (98%)Parts processed: 2688 (98%)Parts processed: 2689 (98%)Parts processed: 2690 (98%)Parts processed: 2691 (98%)Parts processed: 2692 (98%)Parts processed: 2693 (98%)Parts processed: 2694 (98%)Parts processed: 2695 (98%)Parts processed: 2696 (99%)Parts processed: 2697 (99%)Parts processed: 2698 (99%)Parts processed: 2699 (99%)Parts processed: 2700 (99%)Parts processed: 2701 (99%)Parts processed: 2702 (99%)Parts processed: 2703 (99%)Parts processed: 2704 (99%)Parts processed: 2705 (99%)Parts processed: 2706 (99%)Parts processed: 2707 (99%)Parts processed: 2708 (99%)Parts processed: 2709 (99%)Parts processed: 2710 (99%)Parts processed: 2711 (99%)Parts processed: 2712 (99%)Parts processed: 2713 (99%)Parts processed: 2714 (99%)Parts processed: 2715 (99%)Parts processed: 2716 (99%)Parts processed: 2717 (99%)Parts processed: 2718 (99%)Parts processed: 2719 (99%)Parts processed: 2720 (99%)Parts processed: 2721 (99%)Parts processed: 2722 (99%)Parts processed: 2723 (100%)
+StreamSizes:
+Flag 8390655
+LettersX 36759474
+Rev 4292375
+HardReads 147906952
+LzId 5634127
+Shift 10593114
+Match 12761181
+MatchBinary 9656272
+TreeShift 1707307
+CMatch 215683
+CShift 2915256
+CLetters 10145838
+Quality 1288105514
+ReadIdToken 0
+ReadIdValue 0
+PE_Flag 8766236
+PE_LettersX 78775119
+PE_Swap 4571152
+PE_Hard 231678509
+PE_LzId 19849042
+PE_Shift 17697067
+PE_MatchRLE 16157304
+PE_MatchBinary 14992254
+NDna: 8288505
+NQua: 6136443
+NReadIdToken: 0
+NReadIdValue: 0
+
+**** **** **** ****
+	Command being timed: "./../FaStore/bin/fastore_pack e -z -idata/ERR532393_lossy.fastore.rebin -odata/ERR532393_lossy.fastore -v -t8"
+	User time (seconds): 1653.17
+	System time (seconds): 33.02
+	Percent of CPU this job got: 793%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 3:32.50
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2048676
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 3135481
+	Voluntary context switches: 17536
+	Involuntary context switches: 3029
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 3803032
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../FaStore/bin/fastore_pack d -z -idata/ERR532393_lossless.fastore -odata/ERR532393_1.fastq.lossless.d data/ERR532393_2.fastq.lossless.d -v -t8"
+	User time (seconds): 1257.08
+	System time (seconds): 49.11
+	Percent of CPU this job got: 788%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:45.63
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2032100
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 2182822
+	Voluntary context switches: 11526
+	Involuntary context switches: 2418
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 37664128
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../FaStore/bin/fastore_pack d -z -idata/ERR532393_lossy.fastore -odata/ERR532393_1.fastq.lossy.d data/ERR532393_2.fastq.lossy.d -v -t8"
+	User time (seconds): 653.48
+	System time (seconds): 25.01
+	Percent of CPU this job got: 721%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:34.08
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1512316
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 686367
+	Voluntary context switches: 8154
+	Involuntary context switches: 1363
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 30689760
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Decompression ...
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Decompressing data/tmp.cCqwSPTYzc/read_pos.tar.bsc(00%)data/tmp.cCqwSPTYzc/read_pos.tar.bsc decompressed 17361672 into 62248960 in 2.249 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Decompressing data/tmp.cCqwSPTYzc/read_noise.tar.bsc(60%)data/tmp.cCqwSPTYzc/read_noise.tar.bsc decompressed 36068262 into 169236480 in 8.198 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+
+Processing archive: data/tmp.cCqwSPTYzc/read_noisepos.tar.7z
+
+Extracting  data/tmp.F9gjTYwSLM/read_noisepos.tar
+
+Everything is Ok
+
+Size:       106997760
+Compressed: 52948158
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Decompressing data/tmp.cCqwSPTYzc/unaligned_N.txt.bsc(34%)data/tmp.cCqwSPTYzc/unaligned_N.txt.bsc decompressed 139958428 into 564903700 in 12.264 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+
+Processing archive: data/tmp.cCqwSPTYzc/read_meta.txt.7z
+
+Extracting  data/tmp.F9gjTYwSLM/read_meta.txt
+
+Everything is Ok
+
+Size:       4
+Compressed: 170
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+
+Processing archive: data/tmp.cCqwSPTYzc/read_rev.tar.7z
+
+Extracting  data/tmp.F9gjTYwSLM/read_rev.tar
+
+Everything is Ok
+
+Size:       7802880
+Compressed: 7575306
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Decompressing data/tmp.cCqwSPTYzc/read_seq.tar.bsc(00%)data/tmp.cCqwSPTYzc/read_seq.tar.bsc decompressed 59240686 into 60917760 in 4.439 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Decompressing data/tmp.cCqwSPTYzc/unaligned_singleton.txt.bsc(00%)data/tmp.cCqwSPTYzc/unaligned_singleton.txt.bsc decompressed 88481338 into 90544525 in 20.903 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+
+Processing archive: data/tmp.cCqwSPTYzc/read_lengths.bin.7z
+
+Extracting  data/tmp.F9gjTYwSLM/read_lengths.bin
+
+Everything is Ok
+
+Size:       71505746
+Compressed: 10329
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+
+Processing archive: data/tmp.cCqwSPTYzc/read_order.bin.7z
+
+Extracting  data/tmp.F9gjTYwSLM/read_order.bin
+
+Everything is Ok
+
+Size:       116196816
+Compressed: 113123760
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+
+Processing archive: data/tmp.cCqwSPTYzc/read_order_paired.bin.7z
+
+Extracting  data/tmp.F9gjTYwSLM/read_order_paired.bin
+
+Everything is Ok
+
+Size:       143011492
+Compressed: 59508429
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+
+Processing archive: data/tmp.cCqwSPTYzc/read_paired_flag_first.bin.7z
+
+Extracting  data/tmp.F9gjTYwSLM/read_paired_flag_first.bin
+
+Everything is Ok
+
+Size:       4469109
+Compressed: 4198840
+Decompressing Quality and/or IDs
+	Command being timed: "././bin/decompress_quality_id_pe.out data/tmp.cCqwSPTYzc/ 100 8 8 True True True qvz"
+	User time (seconds): 1488.67
+	System time (seconds): 11.47
+	Percent of CPU this job got: 759%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 3:17.45
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 643196
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 983144
+	Voluntary context switches: 116762
+	Involuntary context switches: 2433
+	Swaps: 0
+	File system inputs: 224
+	File system outputs: 18692544
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Decoding reads
+Decoding done
+Restoring order
+Restoring order
+	Command being timed: "././bin/decoder_pe/decoder_pe_320.out data/tmp.cCqwSPTYzc 100 8 8 True True True False"
+	User time (seconds): 140.14
+	System time (seconds): 76.24
+	Percent of CPU this job got: 107%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 3:21.78
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1575900
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 16068
+	Voluntary context switches: 584
+	Involuntary context switches: 337
+	Swaps: 0
+	File system inputs: 32
+	File system outputs: 49678704
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Done!
+	Command being timed: "./harc -d data/ERR532393_op.harc -o data/ERR532393_op.harc.fastq.d"
+	User time (seconds): 1822.14
+	System time (seconds): 100.36
+	Percent of CPU this job got: 391%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 8:11.51
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2656148
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 16
+	Minor (reclaiming a frame) page faults: 1544537
+	Voluntary context switches: 119491
+	Involuntary context switches: 3203
+	Swaps: 0
+	File system inputs: 6116856
+	File system outputs: 79897224
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Decompression ...
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Decompressing data/tmp.E5pBtUk1Jl/read_pos.tar.bsc(00%)data/tmp.E5pBtUk1Jl/read_pos.tar.bsc decompressed 17361556 into 62248960 in 2.311 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Decompressing data/tmp.E5pBtUk1Jl/read_noise.tar.bsc(00%)data/tmp.E5pBtUk1Jl/read_noise.tar.bsc decompressed 36069560 into 169236480 in 7.780 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+
+Processing archive: data/tmp.E5pBtUk1Jl/read_noisepos.tar.7z
+
+Extracting  data/tmp.HYQO3AB5A8/read_noisepos.tar
+
+Everything is Ok
+
+Size:       106997760
+Compressed: 52948922
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Decompressing data/tmp.E5pBtUk1Jl/unaligned_N.txt.bsc(23%)data/tmp.E5pBtUk1Jl/unaligned_N.txt.bsc decompressed 139958702 into 564904100 in 11.726 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+
+Processing archive: data/tmp.E5pBtUk1Jl/read_meta.txt.7z
+
+Extracting  data/tmp.HYQO3AB5A8/read_meta.txt
+
+Everything is Ok
+
+Size:       4
+Compressed: 170
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+
+Processing archive: data/tmp.E5pBtUk1Jl/read_rev.tar.7z
+
+Extracting  data/tmp.HYQO3AB5A8/read_rev.tar
+
+Everything is Ok
+
+Size:       7802880
+Compressed: 7575385
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Decompressing data/tmp.E5pBtUk1Jl/read_seq.tar.bsc(00%)data/tmp.E5pBtUk1Jl/read_seq.tar.bsc decompressed 59243760 into 60928000 in 4.369 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Decompressing data/tmp.E5pBtUk1Jl/unaligned_singleton.txt.bsc(00%)data/tmp.E5pBtUk1Jl/unaligned_singleton.txt.bsc decompressed 88481892 into 90544600 in 20.772 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+
+Processing archive: data/tmp.E5pBtUk1Jl/read_lengths.bin.7z
+
+Extracting  data/tmp.HYQO3AB5A8/read_lengths.bin
+
+Everything is Ok
+
+Size:       71505746
+Compressed: 10329
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+
+Processing archive: data/tmp.E5pBtUk1Jl/read_order_paired.bin.7z
+
+Extracting  data/tmp.HYQO3AB5A8/read_order_paired.bin
+
+Everything is Ok
+
+Size:       143011492
+Compressed: 59499696
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+
+Processing archive: data/tmp.E5pBtUk1Jl/read_paired_flag_first.bin.7z
+
+Extracting  data/tmp.HYQO3AB5A8/read_paired_flag_first.bin
+
+Everything is Ok
+
+Size:       4469109
+Compressed: 4200441
+Decompressing Quality and/or IDs
+	Command being timed: "././bin/decompress_quality_id_pe.out data/tmp.E5pBtUk1Jl/ 100 8 8 False True False illumina_binning_qvz"
+	User time (seconds): 1097.42
+	System time (seconds): 8.95
+	Percent of CPU this job got: 770%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:23.53
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 643204
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 335619
+	Voluntary context switches: 109452
+	Involuntary context switches: 1901
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 14105728
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Decoding reads
+Decoding done
+Restoring order
+	Command being timed: "././bin/decoder_pe/decoder_pe_320.out data/tmp.E5pBtUk1Jl 100 8 8 False True False False"
+	User time (seconds): 113.69
+	System time (seconds): 44.56
+	Percent of CPU this job got: 137%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:55.43
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1575952
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 27164
+	Voluntary context switches: 386
+	Involuntary context switches: 448
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 39274648
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Done!
+	Command being timed: "./harc -d data/ERR532393_pe.harc -o data/ERR532393_pe.harc.fastq.d"
+	User time (seconds): 1390.66
+	System time (seconds): 61.02
+	Percent of CPU this job got: 433%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 5:34.52
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2655296
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 496317
+	Voluntary context switches: 112348
+	Involuntary context switches: 2806
+	Swaps: 0
+	File system inputs: 3408192
+	File system outputs: 61414168
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../pigz-2.4/pigz -p 8 data/ERR532393_1.fastq data/ERR532393_2.fastq"
+	User time (seconds): 1845.90
+	System time (seconds): 26.39
+	Percent of CPU this job got: 736%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 4:14.15
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 9744
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 40370
+	Voluntary context switches: 378002
+	Involuntary context switches: 2225
+	Swaps: 0
+	File system inputs: 37665496
+	File system outputs: 13498032
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../pigz-2.4/unpigz -p 8 -k data/ERR532393_1.fastq.gz data/ERR532393_2.fastq.gz"
+	User time (seconds): 131.53
+	System time (seconds): 28.67
+	Percent of CPU this job got: 150%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:46.58
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2244
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 656
+	Voluntary context switches: 1388647
+	Involuntary context switches: 191
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 37664128
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Compressed streams sizes (in bytes)
+TAG:        109943058 /       2312675873
+DNA:        994041824 /       3575287300
+QUA:       1455021360 /       3575287300
+
+	Command being timed: "./../DSRC/bin/dsrc c -t8 -v data/ERR532393_1.fastq data/ERR532393_1.fastq.dsrc"
+	User time (seconds): 161.52
+	System time (seconds): 10.66
+	Percent of CPU this job got: 377%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:45.58
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 212188
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 249913
+	Voluntary context switches: 14871
+	Involuntary context switches: 424
+	Swaps: 0
+	File system inputs: 18832064
+	File system outputs: 4998088
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Compressed streams sizes (in bytes)
+TAG:        109943058 /       2312675873
+DNA:        990657003 /       3575287300
+QUA:       1495873601 /       3575287300
+
+	Command being timed: "./../DSRC/bin/dsrc c -t8 -v data/ERR532393_2.fastq data/ERR532393_2.fastq.dsrc"
+	User time (seconds): 156.40
+	System time (seconds): 11.58
+	Percent of CPU this job got: 640%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:26.24
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 205376
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 284974
+	Voluntary context switches: 12172
+	Involuntary context switches: 445
+	Swaps: 0
+	File system inputs: 18832064
+	File system outputs: 5071248
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Warning: passing a FASTQ file without '.fastq' extension
+	Command being timed: "./../DSRC/bin/dsrc d -t8 -v data/ERR532393_1.fastq.dsrc data/ERR532393_1.fastq.d"
+	User time (seconds): 152.48
+	System time (seconds): 12.62
+	Percent of CPU this job got: 840%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:19.65
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 295332
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 241365
+	Voluntary context switches: 2108
+	Involuntary context switches: 279
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 18832064
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Warning: passing a FASTQ file without '.fastq' extension
+	Command being timed: "./../DSRC/bin/dsrc d -t8 -v data/ERR532393_2.fastq.dsrc data/ERR532393_2.fastq.d"
+	User time (seconds): 154.45
+	System time (seconds): 12.46
+	Percent of CPU this job got: 837%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:19.93
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 311116
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 304190
+	Voluntary context switches: 2225
+	Involuntary context switches: 288
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 18832064
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

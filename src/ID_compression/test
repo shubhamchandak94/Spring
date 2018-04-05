@@ -1,0 +1,5 @@
+#!/bin/bash
+#./compress
+#./decompress
+echo "Checking for differences" 
+python test.py ../mpeg/NA21144.chrom11/short.sam uncompressed
