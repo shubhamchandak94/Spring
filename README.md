@@ -1,6 +1,6 @@
 # SPRING
 
-Compression tool for Fastq files. For paired end reads, both files should have same number of reads. Achieves near-optimal compression ratios and fast decompression. Supports upto 4.29 Billion fixed-length reads with lengths at most 256. The algorithm requires C++11 and g++ compiler and works on Linux. p7zip should already be installed ( on linux, run: sudo apt-get install p7zip-full).
+Compression tool for Fastq files. For paired end reads, both files should have same number of reads. Achieves near-optimal compression ratios and fast decompression. Supports upto 4.29 Billion fixed-length reads with lengths at most 256. The algorithm requires C++11 and g++ compiler and works on Linux. p7zip should already be installed (on Linux, run: sudo apt-get install p7zip-full).
 
 ### Installation
 ```bash
