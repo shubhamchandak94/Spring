@@ -14,13 +14,14 @@ cd SPRING
 ```bash
 ./spring -c -1 Fastq_file_1 [-2 Fastq_file_2] [-p] [-t num_threads] [-q mode] [-r qvz_ratio] [-i] -o outputfile
 -2 second file for paired end reads
--p Preserve order of reads
+-p Preserve order of reads. If not specified, read pairing information is still preserved
+   for paired-end datasets.
 -t num_threads - Default 8
 -q Retain quality values. Possible modes:
 	qvz - qvz specify bits/quality ratio using -r flag (default 8.0 lossless)
 	bsc - use bsc compressor. 
-	illumina_binning_bsc - bin into 8 levels and use bsc
-	illumina_binning_qvz - bin into 8 levels and use qvz lossless
+	illumina_binning_bsc - bin quality using Illumina 8 level binning and compress with bsc
+	illumina_binning_qvz - bin quality using Illumina 8 level binning and compress with qvz lossless
 -r bits/quality ratio if -q qvz used [default 8.0 lossless]
 -i Retain read IDs, if not specified fake ids will be generated during decompression
 -o Output file name
@@ -29,7 +30,7 @@ cd SPRING
 ##### Decompression - decompress compressed archive.
 ```bash
 ./spring -d compressed_file -o outputfile [-t num_threads]
--o outputfile name, if compressed with -P flag, two files created: outputfile.1 and outputfile.2. If quality is not retained, FASTA file is produced.
+-o outputfile name. For paired-end datasets, two files created: outputfile.1 and outputfile.2.
 -t num_threads - Default 8
 ```
 
@@ -39,21 +40,17 @@ cd SPRING
 ```
 
 ### Example Usage of SPRING
-For compressing file_1.fastq and file_2.fastq losslessly using default 8 threads and qvz for qualities.
+For compressing file_1.fastq and file_2.fastq losslessly using default 8 threads and qvz for qualities (Perfectly lossless).
 ```bash
 ./spring -c -1 file_1.fastq -2 file_2.fastq -q qvz -i -p -o outputname
 ```
-Using BSC instead of QVZ, 16 threads.
+Using BSC instead of QVZ, 16 threads (Perfectly lossless).
 ```bash
 ./spring -c -1 file_1.fastq -2 file_2.fastq -q bsc -i -p -o outputname -t 16
 ```
-Compressing with only paired end info preserved, ids not stored.
+Compressing with only paired end info preserved, ids not stored, qualities compressed after Illumina binning (Information-preserving mode).
 ```bash
-./spring -c -1 file_1.fastq -2 file_2.fastq -q qvz -o outputname
-```
-Compressing with Illumina binning followed by qvz.
-```bash
-./spring -c -1 file_1.fastq -2 file_2.fastq -q illumina_binning_qvz -i -p -o outputname
+./spring -c -1 file_1.fastq -2 file_2.fastq -q illumina_binning_qvz -o outputname
 ```
 Compressing with Illumina binning followed by BSC.
 ```bash
