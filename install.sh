@@ -12,9 +12,9 @@ g++ src/preprocess.cpp -O3 -march=native -fopenmp -std=c++11 -o bin/preprocess.o
 g++ src/pack_order.cpp -O3 -march=native -fopenmp -std=c++11 -o bin/pack_order.out
 g++ src/pe_encode.cpp -O3 -march=native -fopenmp -std=c++11 -o bin/pe_encode.out
 g++ src/unpack_order.cpp -O3 -march=native -fopenmp -std=c++11 -o bin/unpack_order.out
-g++ src/reorder_compress_quality_id_pe.cpp src/ID_compression/src/*.c src/qvz/src/*.c -O3 -march=native -fopenmp -Isrc/ID_compression/include -Isrc/qvz/include -DLINUX -std=c++11 -o bin/reorder_compress_quality_id_pe.out
-g++ src/decompress_quality_id_pe.cpp src/ID_compression/src/*.c src/qvz/src/*.c -O3 -march=native -fopenmp -Isrc/ID_compression/include -Isrc/qvz/include -std=c++11 -DLINUX -o bin/decompress_quality_id_pe.out
-g++ src/decompress_quality_id_se.cpp src/ID_compression/src/*.c src/qvz/src/*.c -O3 -march=native -fopenmp -Isrc/ID_compression/include -Isrc/qvz/include -std=c++11 -DLINUX -o bin/decompress_quality_id_se.out
+g++ src/reorder_compress_quality_id_pe.cpp src/ID_compression/src/*.c src/qvz/src/*.c -O3 -march=native -fopenmp -Isrc/ID_compression/include -Isrc/qvz/include -DLINUX -std=c++11 -o bin/reorder_compress_quality_id_pe.out -lrt
+g++ src/decompress_quality_id_pe.cpp src/ID_compression/src/*.c src/qvz/src/*.c -O3 -march=native -fopenmp -Isrc/ID_compression/include -Isrc/qvz/include -std=c++11 -DLINUX -o bin/decompress_quality_id_pe.out -lrt
+g++ src/decompress_quality_id_se.cpp src/ID_compression/src/*.c src/qvz/src/*.c -O3 -march=native -fopenmp -Isrc/ID_compression/include -Isrc/qvz/include -std=c++11 -DLINUX -o bin/decompress_quality_id_se.out -lrt
 g++ src/pe_decode.cpp -O3 -march=native -fopenmp -std=c++11 -o bin/pe_decode.out
 
 #The files below use bitset which needs size at compile time, so we compile for multiple sizes here
