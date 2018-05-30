@@ -25,8 +25,7 @@ cd SPRING
 -r bits/quality ratio if -q qvz used [default 8.0 lossless]
 -i Retain read IDs, if not specified fake ids will be generated during decompression
 -o Output file name
--w Working directory where temporary files are generated (should have sufficient space and write permissio
-n). By default, it is the directory where the first fastq file is located.
+-w Working directory where temporary files are generated (should have sufficient space and write permission). By default, it is the directory where the first fastq file is located.
 ```
 
 ##### Decompression - decompress compressed archive.
