@@ -12,7 +12,7 @@ cd SPRING
 ### Usage
 ##### Compression - compresses FASTQ files.
 ```bash
-./spring -c -1 Fastq_file_1 [-2 Fastq_file_2] [-p] [-t num_threads] [-q mode] [-r qvz_ratio] [-i] -o outputfile
+./spring -c -1 Fastq_file_1 [-2 Fastq_file_2] [-p] [-t num_threads] [-q mode] [-r qvz_ratio] [-i] -o outputfile [-w working_dir]
 -2 second file for paired end reads
 -p Preserve order of reads. If not specified, read pairing information is still preserved
    for paired-end datasets.
@@ -25,6 +25,8 @@ cd SPRING
 -r bits/quality ratio if -q qvz used [default 8.0 lossless]
 -i Retain read IDs, if not specified fake ids will be generated during decompression
 -o Output file name
+-w Working directory where temporary files are generated (should have sufficient space and write permissio
+n). By default, it is the directory where the first fastq file is located.
 ```
 
 ##### Decompression - decompress compressed archive.

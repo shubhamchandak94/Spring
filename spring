@@ -9,7 +9,7 @@ Compression tool for Fastq files. Works on reads of length less than 256. Maximu
 
 Usage: 
 Compression - compresses FASTQ files.
-./spring -c -1 Fastq_file_1 [-2 Fastq_file_2] [-p] [-t num_threads] [-q mode] [-r qvz_ratio] [-i] -o outputfile
+./spring -c -1 Fastq_file_1 [-2 Fastq_file_2] [-p] [-t num_threads] [-q mode] [-r qvz_ratio] [-i] -o outputfile [-w working_dir]
 -2 second file for paired end reads
 -p Preserve order of reads. If not specified, read pairing information is still preserved
    for paired-end datasets.
@@ -22,6 +22,7 @@ Compression - compresses FASTQ files.
 -r bits/quality ratio if -q qvz used [default 8.0 lossless]
 -i Retain read IDs, if not specified fake ids will be generated during decompression
 -o Output file name
+-w Working directory where temporary files are generated (should have sufficient space and write permission). By default, it is the directory where the first fastq file is located.
 
 Decompression - decompress compressed archive.
 ./spring -d compressed_file -o outputfile [-t num_threads]
@@ -42,7 +43,10 @@ compress()
 {
 	harcdir=$(dirname $BASH_SOURCE)
 	pathname=$(dirname $filename_1)
-	tempdir=$(mktemp -d -p $pathname)
+	if [[ $working_dir == "None" ]];then
+		working_dir=$pathname
+	fi
+	tempdir=$(mktemp -d -p $working_dir)
 	trap "rm -rf $tempdir" EXIT
 	echo "*** Preprocessing ***"
 	/usr/bin/time -v ./$harcdir/bin/preprocess.out $paired_end $preserve_id $preserve_quality $tempdir $filename_1 $filename_2
@@ -215,8 +219,9 @@ quality_mode=''
 quality_ratio=''
 outputfilename=''
 fast_mode='False'
+working_dir='None'
 
-while getopts ':c1:2:o:d:t:pq:r:ifh' opt; do
+while getopts ':cw:1:2:o:d:t:pq:r:ifh' opt; do
   case "$opt" in
     c) [[ -n "$mode" ]] && usage || mode='c';;
     d) [[ -n "$mode" ]] && usage || mode='d' && compressedfilename=$OPTARG;;
@@ -229,6 +234,7 @@ while getopts ':c1:2:o:d:t:pq:r:ifh' opt; do
     r) quality_ratio=$OPTARG;;	
     i) preserve_id="True";;	
     f) fast_mode='True';;
+    w) working_dir=$OPTARG;;
     h) usage ;;
     \?) usage ;;
     *) usage ;;
