@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <cstring>
 #include <string>
+#include <numeric>
 #include "config.h"
 #include "BooPHF.h"
 #include <omp.h>
