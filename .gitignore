@@ -1,0 +1,8 @@
+# Directory attributes files
+.directory
+.DS_Store
+
+# Regeneratables
+build/
+data/
+
