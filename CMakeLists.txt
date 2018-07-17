@@ -21,7 +21,7 @@ if (UNIX)
 
 	set(BOOST_ROOT ${boost_root_dir})
 	set(Boost_NO_SYSTEM_PATHS "ON")
-	find_package(Boost REQUIRED COMPONENTS filesystem system)
+	find_package(Boost COMPONENTS filesystem system)
 
 	if (NOT Boost_FOUND)
 	    set(boost_git_repository https://github.com/boostorg/boost.git)
