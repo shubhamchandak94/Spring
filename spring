@@ -9,7 +9,7 @@ Compression tool for Fastq files. Works on reads of length less than 256. Maximu
 
 Usage: 
 Compression - compresses FASTQ files.
-./spring -c -1 Fastq_file_1 [-2 Fastq_file_2] [-p] [-t num_threads] [-q mode] [-r qvz_ratio] [-i] -o outputfile [-w working_dir]
+./spring -c -1 Fastq_file_1 [-2 Fastq_file_2] [-p] [-t num_threads] [-q mode] [-r qvz_ratio] [-i] -o outputfile [-w working_dir] [-7 path_to_7z]
 -2 second file for paired end reads
 -p Preserve order of reads. If not specified, read pairing information is still preserved
    for paired-end datasets.
@@ -23,11 +23,13 @@ Compression - compresses FASTQ files.
 -i Retain read IDs, if not specified fake ids will be generated during decompression
 -o Output file name
 -w Working directory where temporary files are generated (should have sufficient space and write permission). By default, it is the directory where the first fastq file is located.
+-7 path_to_7z - By default, just 7z (probably installed at /usr/bin/7z). 
 
 Decompression - decompress compressed archive.
-./spring -d compressed_file -o outputfile [-t num_threads]
+./spring -d compressed_file -o outputfile [-t num_threads] [-7 path_to_7z]
 -o outputfile name. For paired-end datasets, two files created: outputfile.1 and outputfile.2.
 -t num_threads - Default 8
+-7 path_to_7z - By default, just 7z (probably installed at /usr/bin/7z). 
 
 Help (this message)
 ./spring -h
@@ -84,20 +86,20 @@ compress()
 	#compress and create tarball
 	./$harcdir/bin/bsc e $tempdir/read_pos.tar $tempdir/read_pos.tar.bsc -b64p -e2 -t$num_thr
 	./$harcdir/bin/bsc e $tempdir/read_noise.tar $tempdir/read_noise.tar.bsc -b64p -e2 -t$num_thr 
-	7z a $tempdir/read_noisepos.tar.7z $tempdir/read_noisepos.tar -mmt=$numt_thr
+	$path_7z a $tempdir/read_noisepos.tar.7z $tempdir/read_noisepos.tar -mmt=$numt_thr
 	./$harcdir/bin/bsc e $tempdir/unaligned_N.txt $tempdir/unaligned_N.txt.bsc -b64p -e2 -t$num_thr
-	7z a $tempdir/read_meta.txt.7z $tempdir/read_meta.txt -mmt=$num_thr
-	7z a $tempdir/read_rev.tar.7z $tempdir/read_rev.tar -mmt=$num_thr
+	$path_7z a $tempdir/read_meta.txt.7z $tempdir/read_meta.txt -mmt=$num_thr
+	$path_7z a $tempdir/read_rev.tar.7z $tempdir/read_rev.tar -mmt=$num_thr
 	./$harcdir/bin/bsc e $tempdir/read_seq.tar $tempdir/read_seq.tar.bsc -b64p -e2 -t$num_thr 
 	./$harcdir/bin/bsc e $tempdir/unaligned_singleton.txt $tempdir/unaligned_singleton.txt.bsc -b64p -e2 -t$num_thr
-	7z a $tempdir/read_lengths.bin.7z $tempdir/read_lengths.bin -mmt=$num_thr
+	$path_7z a $tempdir/read_lengths.bin.7z $tempdir/read_lengths.bin -mmt=$num_thr
 	rm $tempdir/read_lengths.bin 
 	rm $tempdir/*.txt $tempdir/*.tar 
 	if [[ $paired_end == "True" ]];then
 		./$harcdir/bin/pe_encode.out $tempdir $preserve_order
-		7z a $tempdir/read_order_paired.bin.7z $tempdir/read_order_paired.bin -mmt=$num_thr
+		$path_7z a $tempdir/read_order_paired.bin.7z $tempdir/read_order_paired.bin -mmt=$num_thr
 		rm $tempdir/read_order_paired.bin
-		7z a $tempdir/read_paired_flag_first.bin.7z $tempdir/read_paired_flag_first.bin -mmt=$num_thr
+		$path_7z a $tempdir/read_paired_flag_first.bin.7z $tempdir/read_paired_flag_first.bin -mmt=$num_thr
 		rm $tempdir/read_paired_flag_first.bin
 	fi
 	/usr/bin/time -v ./$harcdir/bin/reorder_compress_quality_id_pe.out $tempdir $max_readlen $num_thr $preserve_order $paired_end $preserve_quality $preserve_id $quality_mode $quality_ratio $filename_1 $filename_2 
@@ -114,7 +116,7 @@ compress()
 	fi
 	if [[ $preserve_order == "True" ]];then
 		./$harcdir/bin/pack_order.out $tempdir $paired_end
-		7z a $tempdir/read_order.bin.7z $tempdir/read_order.bin -mmt=$num_thr
+		$path_7z a $tempdir/read_order.bin.7z $tempdir/read_order.bin -mmt=$num_thr
 	fi
 	rm $tempdir/read_order.bin
 	rm $tempdir/*.singleton
@@ -144,13 +146,13 @@ decompress()
 	
 	./$harcdir/bin/bsc d $tempdir/read_pos.tar.bsc $tempdir/read_pos.tar -t$num_thr
 	./$harcdir/bin/bsc d $tempdir/read_noise.tar.bsc $tempdir/read_noise.tar -t$num_thr
-	7z e $tempdir/read_noisepos.tar.7z -o$tempdir/
+	$path_7z e $tempdir/read_noisepos.tar.7z -o$tempdir/
 	./$harcdir/bin/bsc d $tempdir/unaligned_N.txt.bsc $tempdir/unaligned_N.txt -t$num_thr
-	7z e $tempdir/read_meta.txt.7z -o$tempdir/
-	7z e $tempdir/read_rev.tar.7z -o$tempdir/
+	$path_7z e $tempdir/read_meta.txt.7z -o$tempdir/
+	$path_7z e $tempdir/read_rev.tar.7z -o$tempdir/
 	./$harcdir/bin/bsc d $tempdir/read_seq.tar.bsc $tempdir/read_seq.tar -t$num_thr
 	./$harcdir/bin/bsc d $tempdir/unaligned_singleton.txt.bsc $tempdir/unaligned_singleton.txt -t$num_thr
-	7z e $tempdir/read_lengths.bin.7z -o$tempdir/
+	$path_7z e $tempdir/read_lengths.bin.7z -o$tempdir/
 	
 	
 	tar -xf $tempdir/read_pos.tar -C $tempdir/
@@ -164,12 +166,12 @@ decompress()
 	#calculate bitset size for decoder
 	bitset_size_decoder=$(((3*$max_readlen-1)/64*64+64))	
 	if [[ $preserve_order == "True" ]];then
-		7z e $tempdir/read_order.bin.7z -o$tempdir/
+		$path_7z e $tempdir/read_order.bin.7z -o$tempdir/
 		./$harcdir/bin/unpack_order.out $tempdir/
 	fi		
 	if [[ $paired_end == "True" ]];then
-		7z e $tempdir/read_order_paired.bin.7z -o$tempdir/
-		7z e $tempdir/read_paired_flag_first.bin.7z -o$tempdir/
+		$path_7z e $tempdir/read_order_paired.bin.7z -o$tempdir/
+		$path_7z e $tempdir/read_paired_flag_first.bin.7z -o$tempdir/
 		./$harcdir/bin/pe_decode.out $tempdir/ $preserve_order
 	fi
 	if [[ $quality_mode == "bsc" || $quality_mode == "illumina_binning_bsc" ]];then
@@ -220,13 +222,15 @@ quality_ratio=''
 outputfilename=''
 fast_mode='False'
 working_dir='None'
+path_7z='7z'
 
-while getopts ':cw:1:2:o:d:t:pq:r:ifh' opt; do
+while getopts ':cw:1:2:7:o:d:t:pq:r:ifh' opt; do
   case "$opt" in
     c) [[ -n "$mode" ]] && usage || mode='c';;
     d) [[ -n "$mode" ]] && usage || mode='d' && compressedfilename=$OPTARG;;
     1) filename_1=$OPTARG;;	
     2) paired_end="True" && filename_2=$OPTARG;;
+    7) path_7z=$OPTARG;;
     o) outputfilename=$OPTARG;;		
     t) num_thr=$OPTARG;;
     p) preserve_order="True";;	
