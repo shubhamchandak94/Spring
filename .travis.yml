@@ -72,8 +72,7 @@ matrix:
     - os: osx
       osx_image: xcode8
       env:
-        - MATRIX_EVAL="brew update && brew install llvm && CC=clang && CXX=clang++"
-
+        - MATRIX_EVAL="brew update && brew install llvm && CC=/usr/local/opt/llvm/bin/clang && CXX=${CC}++"
 
 before_install:
     - eval "${MATRIX_EVAL}"
