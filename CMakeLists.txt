@@ -28,7 +28,6 @@ message(STATUS "** CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 
 add_subdirectory(boost-cmake)
 
-
 set(source_dir ${CMAKE_SOURCE_DIR}/src)
 set(include_dir ${CMAKE_SOURCE_DIR}/src)
 set(source_files ${source_files} ${source_dir}/test.cpp)
