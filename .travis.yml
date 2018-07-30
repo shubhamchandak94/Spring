@@ -3,7 +3,6 @@ language: cpp
 # OS
 os:
   - linux
-  - osx
 # Compiler selection
 compiler:
   - clang
