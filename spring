@@ -56,8 +56,8 @@ compress()
 	#calculate bitset sizes for reorder and encoder
 	bitset_size_reorder=$(((2*$max_readlen-1)/64*64+64))	
 	bitset_size_encoder=$(((3*$max_readlen-1)/64*64+64))
-	./$harcdir/bin/reorder/reorder_$bitset_size_reorder".out" $tempdir $max_readlen $num_thr
-	./$harcdir/bin/encoder/encoder_$bitset_size_encoder".out" $tempdir $max_readlen $num_thr
+	$harcdir/bin/reorder/reorder_$bitset_size_reorder".out" $tempdir $max_readlen $num_thr
+	$harcdir/bin/encoder/encoder_$bitset_size_encoder".out" $tempdir $max_readlen $num_thr
 	rm $tempdir/input_N.dna
 	#tar files produced by the threads
 	mkdir -p $tempdir/read_noise
@@ -84,14 +84,14 @@ compress()
 	rm -r $tempdir/read_rev
 	
 	#compress and create tarball
-	./$harcdir/bin/bsc e $tempdir/read_pos.tar $tempdir/read_pos.tar.bsc -b64p -e2 -t$num_thr
-	./$harcdir/bin/bsc e $tempdir/read_noise.tar $tempdir/read_noise.tar.bsc -b64p -e2 -t$num_thr 
+	$harcdir/bin/bsc e $tempdir/read_pos.tar $tempdir/read_pos.tar.bsc -b64p -e2 -t$num_thr
+	$harcdir/bin/bsc e $tempdir/read_noise.tar $tempdir/read_noise.tar.bsc -b64p -e2 -t$num_thr 
 	$path_7z a $tempdir/read_noisepos.tar.7z $tempdir/read_noisepos.tar -mmt=$numt_thr
-	./$harcdir/bin/bsc e $tempdir/unaligned_N.txt $tempdir/unaligned_N.txt.bsc -b64p -e2 -t$num_thr
+	$harcdir/bin/bsc e $tempdir/unaligned_N.txt $tempdir/unaligned_N.txt.bsc -b64p -e2 -t$num_thr
 	$path_7z a $tempdir/read_meta.txt.7z $tempdir/read_meta.txt -mmt=$num_thr
 	$path_7z a $tempdir/read_rev.tar.7z $tempdir/read_rev.tar -mmt=$num_thr
-	./$harcdir/bin/bsc e $tempdir/read_seq.tar $tempdir/read_seq.tar.bsc -b64p -e2 -t$num_thr 
-	./$harcdir/bin/bsc e $tempdir/unaligned_singleton.txt $tempdir/unaligned_singleton.txt.bsc -b64p -e2 -t$num_thr
+	$harcdir/bin/bsc e $tempdir/read_seq.tar $tempdir/read_seq.tar.bsc -b64p -e2 -t$num_thr 
+	$harcdir/bin/bsc e $tempdir/unaligned_singleton.txt $tempdir/unaligned_singleton.txt.bsc -b64p -e2 -t$num_thr
 	$path_7z a $tempdir/read_lengths.bin.7z $tempdir/read_lengths.bin -mmt=$num_thr
 	rm $tempdir/read_lengths.bin 
 	rm $tempdir/*.txt $tempdir/*.tar 
@@ -102,7 +102,7 @@ compress()
 		$path_7z a $tempdir/read_paired_flag_first.bin.7z $tempdir/read_paired_flag_first.bin -mmt=$num_thr
 		rm $tempdir/read_paired_flag_first.bin
 	fi
-	./$harcdir/bin/reorder_compress_quality_id_pe.out $tempdir $max_readlen $num_thr $preserve_order $paired_end $preserve_quality $preserve_id $quality_mode $quality_ratio $filename_1 $filename_2 
+	$harcdir/bin/reorder_compress_quality_id_pe.out $tempdir $max_readlen $num_thr $preserve_order $paired_end $preserve_quality $preserve_id $quality_mode $quality_ratio $filename_1 $filename_2 
 	if [[ $preserve_id == "True" ]];then
 		rm $tempdir/*.id
 	fi
@@ -144,14 +144,14 @@ decompress()
 	preserve_id=$( cat $tempdir/preserve_id )
 	quality_mode=$( cat $tempdir/quality_mode )
 	
-	./$harcdir/bin/bsc d $tempdir/read_pos.tar.bsc $tempdir/read_pos.tar -t$num_thr
-	./$harcdir/bin/bsc d $tempdir/read_noise.tar.bsc $tempdir/read_noise.tar -t$num_thr
+	$harcdir/bin/bsc d $tempdir/read_pos.tar.bsc $tempdir/read_pos.tar -t$num_thr
+	$harcdir/bin/bsc d $tempdir/read_noise.tar.bsc $tempdir/read_noise.tar -t$num_thr
 	$path_7z e $tempdir/read_noisepos.tar.7z -o$tempdir/
-	./$harcdir/bin/bsc d $tempdir/unaligned_N.txt.bsc $tempdir/unaligned_N.txt -t$num_thr
+	$harcdir/bin/bsc d $tempdir/unaligned_N.txt.bsc $tempdir/unaligned_N.txt -t$num_thr
 	$path_7z e $tempdir/read_meta.txt.7z -o$tempdir/
 	$path_7z e $tempdir/read_rev.tar.7z -o$tempdir/
-	./$harcdir/bin/bsc d $tempdir/read_seq.tar.bsc $tempdir/read_seq.tar -t$num_thr
-	./$harcdir/bin/bsc d $tempdir/unaligned_singleton.txt.bsc $tempdir/unaligned_singleton.txt -t$num_thr
+	$harcdir/bin/bsc d $tempdir/read_seq.tar.bsc $tempdir/read_seq.tar -t$num_thr
+	$harcdir/bin/bsc d $tempdir/unaligned_singleton.txt.bsc $tempdir/unaligned_singleton.txt -t$num_thr
 	$path_7z e $tempdir/read_lengths.bin.7z -o$tempdir/
 	
 	
@@ -167,28 +167,28 @@ decompress()
 	bitset_size_decoder=$(((3*$max_readlen-1)/64*64+64))	
 	if [[ $preserve_order == "True" ]];then
 		$path_7z e $tempdir/read_order.bin.7z -o$tempdir/
-		./$harcdir/bin/unpack_order.out $tempdir/
+		$harcdir/bin/unpack_order.out $tempdir/
 	fi		
 	if [[ $paired_end == "True" ]];then
 		$path_7z e $tempdir/read_order_paired.bin.7z -o$tempdir/
 		$path_7z e $tempdir/read_paired_flag_first.bin.7z -o$tempdir/
-		./$harcdir/bin/pe_decode.out $tempdir/ $preserve_order
+		$harcdir/bin/pe_decode.out $tempdir/ $preserve_order
 	fi
 	if [[ $quality_mode == "bsc" || $quality_mode == "illumina_binning_bsc" ]];then
-		./$harcdir/bin/bsc d $tempdir/quality_1.txt.bsc $tempdir/quality_1.txt.0 -t$num_thr
+		$harcdir/bin/bsc d $tempdir/quality_1.txt.bsc $tempdir/quality_1.txt.0 -t$num_thr
 		if [[ $paired_end == "True" ]];then
-			./$harcdir/bin/bsc d $tempdir/quality_2.txt.bsc $tempdir/quality_2.txt.0 -t$num_thr
+			$harcdir/bin/bsc d $tempdir/quality_2.txt.bsc $tempdir/quality_2.txt.0 -t$num_thr
 		fi
 	fi
 	if [[ $paired_end == "True" ]];then
-		./$harcdir/bin/decompress_quality_id_pe.out $tempdir/ $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $quality_mode
+		$harcdir/bin/decompress_quality_id_pe.out $tempdir/ $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $quality_mode
 	else
-		./$harcdir/bin/decompress_quality_id_se.out $tempdir/ $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $quality_mode
+		$harcdir/bin/decompress_quality_id_se.out $tempdir/ $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $quality_mode
 	fi
 	if [[ $paired_end == "True" ]];then	
-		./$harcdir/bin/decoder_pe/decoder_pe_$bitset_size_decoder".out" $tempdir $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $fast_mode
+		$harcdir/bin/decoder_pe/decoder_pe_$bitset_size_decoder".out" $tempdir $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $fast_mode
 	else
-		./$harcdir/bin/decoder_se/decoder_se_$bitset_size_decoder".out" $tempdir $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $fast_mode
+		$harcdir/bin/decoder_se/decoder_se_$bitset_size_decoder".out" $tempdir $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $fast_mode
 	fi
 	if [[ $paired_end == "True" ]];then	
 		mv $tempdir/output_1.txt $outputfilename".1"
