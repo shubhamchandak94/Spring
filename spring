@@ -51,13 +51,13 @@ compress()
 	tempdir=$(mktemp -d -p $working_dir)
 	trap "rm -rf $tempdir" EXIT
 	echo "*** Preprocessing ***"
-	/usr/bin/time -v ./$harcdir/bin/preprocess.out $paired_end $preserve_id $preserve_quality $tempdir $filename_1 $filename_2
+	./$harcdir/bin/preprocess.out $paired_end $preserve_id $preserve_quality $tempdir $filename_1 $filename_2
 	max_readlen=$( cat $tempdir/read_meta.txt )
 	#calculate bitset sizes for reorder and encoder
 	bitset_size_reorder=$(((2*$max_readlen-1)/64*64+64))	
 	bitset_size_encoder=$(((3*$max_readlen-1)/64*64+64))
-	/usr/bin/time -v ./$harcdir/bin/reorder/reorder_$bitset_size_reorder".out" $tempdir $max_readlen $num_thr
-	/usr/bin/time -v ./$harcdir/bin/encoder/encoder_$bitset_size_encoder".out" $tempdir $max_readlen $num_thr
+	./$harcdir/bin/reorder/reorder_$bitset_size_reorder".out" $tempdir $max_readlen $num_thr
+	./$harcdir/bin/encoder/encoder_$bitset_size_encoder".out" $tempdir $max_readlen $num_thr
 	rm $tempdir/input_N.dna
 	#tar files produced by the threads
 	mkdir -p $tempdir/read_noise
@@ -102,7 +102,7 @@ compress()
 		$path_7z a $tempdir/read_paired_flag_first.bin.7z $tempdir/read_paired_flag_first.bin -mmt=$num_thr
 		rm $tempdir/read_paired_flag_first.bin
 	fi
-	/usr/bin/time -v ./$harcdir/bin/reorder_compress_quality_id_pe.out $tempdir $max_readlen $num_thr $preserve_order $paired_end $preserve_quality $preserve_id $quality_mode $quality_ratio $filename_1 $filename_2 
+	./$harcdir/bin/reorder_compress_quality_id_pe.out $tempdir $max_readlen $num_thr $preserve_order $paired_end $preserve_quality $preserve_id $quality_mode $quality_ratio $filename_1 $filename_2 
 	if [[ $preserve_id == "True" ]];then
 		rm $tempdir/*.id
 	fi
@@ -181,14 +181,14 @@ decompress()
 		fi
 	fi
 	if [[ $paired_end == "True" ]];then
-		/usr/bin/time -v ./$harcdir/bin/decompress_quality_id_pe.out $tempdir/ $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $quality_mode
+		./$harcdir/bin/decompress_quality_id_pe.out $tempdir/ $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $quality_mode
 	else
-		/usr/bin/time -v ./$harcdir/bin/decompress_quality_id_se.out $tempdir/ $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $quality_mode
+		./$harcdir/bin/decompress_quality_id_se.out $tempdir/ $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $quality_mode
 	fi
 	if [[ $paired_end == "True" ]];then	
-		/usr/bin/time -v ./$harcdir/bin/decoder_pe/decoder_pe_$bitset_size_decoder".out" $tempdir $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $fast_mode
+		./$harcdir/bin/decoder_pe/decoder_pe_$bitset_size_decoder".out" $tempdir $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $fast_mode
 	else
-		/usr/bin/time -v ./$harcdir/bin/decoder_se/decoder_se_$bitset_size_decoder".out" $tempdir $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $fast_mode
+		./$harcdir/bin/decoder_se/decoder_se_$bitset_size_decoder".out" $tempdir $max_readlen $num_thr $num_thr_e $preserve_order $preserve_quality $preserve_id $fast_mode
 	fi
 	if [[ $paired_end == "True" ]];then	
 		mv $tempdir/output_1.txt $outputfilename".1"
