@@ -6,12 +6,10 @@
 #include <bitset>
 #include <fstream>
 #include <string>
-#include "algorithms/SPRING/BooPHF.h"
+#include "BooPHF.h"
 
 namespace spring {
 
-const int MAX_READ_LEN = 255;
-const uint32_t MAX_NUM_READS = 4294967290;
 typedef boomphf::SingleHashFunctor<u_int64_t> hasher_t;
 typedef boomphf::mphf<u_int64_t, hasher_t> boophf_t;
 
@@ -41,7 +39,7 @@ class bbhashdict {
 };
 
 template <size_t bitset_size>
-void stringtobitset(std::string s, uint8_t readlen, std::bitset<bitset_size> &b,
+void stringtobitset(std::string s, uint16_t readlen, std::bitset<bitset_size> &b,
                     std::bitset<bitset_size> basemask[256][128]) {
   for (int i = 0; i < readlen; i++) b |= basemask[i][(uint8_t)s[i]];
 }
@@ -58,7 +56,7 @@ void generateindexmasks(std::bitset<bitset_size> *mask1, bbhashdict *dict,
 
 template <size_t bitset_size>
 void constructdictionary(std::bitset<bitset_size> *read, bbhashdict *dict,
-                         uint8_t *read_lengths, int numdict, uint32_t numreads,
+                         uint16_t *read_lengths, int numdict, uint32_t numreads,
                          int bpb, std::string &basedir, int num_thr) {
   std::bitset<bitset_size> mask[numdict];
   generateindexmasks<bitset_size>(mask, dict, numdict, bpb);

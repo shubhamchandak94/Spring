@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mikel Hernaez. All rights reserved.
 //
 
-#include "algorithms/SPRING/ID_compression/include/stream_model.h"
+#include "ID_compression/include/stream_model.h"
 #include <stdbool.h>
 #define DEBUG false
 

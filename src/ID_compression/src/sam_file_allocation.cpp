@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mikel Hernaez. All rights reserved.
 //
 
-#include "algorithms/SPRING/ID_compression/include/sam_block.h"
+#include "ID_compression/include/sam_block.h"
 
 // devuelve la longitud del PRIMER read?
 // se asume que todos lso reads son de la misma longitud.

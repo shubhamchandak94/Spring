@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Mikel Hernaez. All rights reserved.
 //
 
-#ifndef XC_s2fastqIO_stream_stats_h
-#define XC_s2fastqIO_stream_stats_h
+#ifndef SPRING_XC_s2fastqIO_stream_stats_h
+#define SPRING_XC_s2fastqIO_stream_stats_h
 
-#include "algorithms/SPRING/ID_compression/include/Arithmetic_stream.h"
+#include "ID_compression/include/Arithmetic_stream.h"
 
 namespace spring {
 namespace id_comp {

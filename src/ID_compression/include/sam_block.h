@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Mikel Hernaez. All rights reserved.
 //
 
-#ifndef XC_s2fastqIO_sam_line_h
-#define XC_s2fastqIO_sam_line_h
+#ifndef SPRING_XC_s2fastqIO_sam_line_h
+#define SPRING_XC_s2fastqIO_sam_line_h
 
 #include <stdio.h>
 
@@ -21,7 +21,7 @@
 
 #include <pthread.h>
 
-#include "algorithms/SPRING/ID_compression/include/stream_model.h"
+#include "ID_compression/include/stream_model.h"
 //#include "pmf.h"
 //#include "qv_codebook.h"
 //#include "util.h"

@@ -22,7 +22,7 @@ namespace qvz {
  *
  */
 void encode(FILE *fout, struct qv_options_t *opts, uint32_t max_readlen,
-            uint32_t numreads, char *quality_array, uint8_t *read_lengths,
+            uint32_t numreads, char *quality_array, uint16_t *read_lengths,
             std::string &infile_order, uint64_t startpos) {
   struct quality_file_t qv_info;
   struct distortion_t *dist;
@@ -139,7 +139,7 @@ void encode(FILE *fout, struct qv_options_t *opts, uint32_t max_readlen,
  *
  */
 void decode(char *input_file, char *output_file, struct qv_options_t *opts,
-            uint8_t *read_lengths) {
+            uint16_t *read_lengths) {
   FILE *fin, *fout;
   struct quality_file_t qv_info;
   struct alphabet_t *A = alloc_alphabet(ALPHABET_SIZE);

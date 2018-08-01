@@ -34,11 +34,11 @@ void reorder_id(reorder_compress_quality_id_global &rg);
 
 namespace qvz {
 void encode(FILE *fout, struct qv_options_t *opts, uint32_t max_readlen,
-            uint32_t numreads, char *quality_array, uint8_t *read_lengths,
+            uint32_t numreads, char *quality_array, uint16_t *read_lengths,
             std::string &infile_order, uint64_t startpos);
 } // namespace qvz
 
-void illumina_binning(char *quality, uint8_t readlen, reorder_compress_quality_id_global &rg);
+void illumina_binning(char *quality, uint16_t readlen, reorder_compress_quality_id_global &rg);
 void generate_illumina_binning_table(reorder_compress_quality_id_global &rg);
 
 int reorder_compress_quality_id(std::string &temp_dir, int max_readlen,

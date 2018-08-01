@@ -15,7 +15,7 @@ namespace spring {
 int main(int argc, char** argv)
 {
 	namespace po = boost::program_options;
-	bool help_flag, compress_flag, decompress_flag, pairing_only_flag, no_quality_flag, no_ids_flag, ill_bin_flag;
+	bool help_flag, compress_flag, decompress_flag, pairing_only_flag, no_quality_flag, no_ids_flag, ill_bin_flag, long_flag;
 	std::vector<std::string> infile_vec, outfile_vec;
 	std::string working_dir, quality_compressor;
 	int num_thr;
@@ -35,6 +35,7 @@ int main(int argc, char** argv)
 	("ill-bin",po::bool_switch(&ill_bin_flag), "apply Illumina binning to quality scores before compression")
     	("quality-compressor", po::value<std::string>(&quality_compressor), "compressor to use for quality values: bsc or qvz")
     	("quality-ratio", po::value<double>(&quality_ratio), "specify bits/quality value for qvz lossy compression (default 8.0, i.e, lossless)")->default(8.0)
+	("long",po::bool_switch(&long_flag), "Use BSC for read and quality compression. Allows arbitrarily long read lengths. Can also provide better compression for reads with significant number of indels.")
 	;
 	po::parse_command_line(argc, argv, desc);
 	if(help_flag) {
@@ -58,7 +59,7 @@ int main(int argc, char** argv)
 	}
 	std::cout << "Temporary directory: " << temp_dir << "\n";
 	if(compress_flag) 
-		compress(temp_dir, infile_vec, outfile_vec, num_thr, pairing_only_flag, no_quality_flag, no_ids_flag, ill_bin_flag, quality_compressor, quality_ratio);
+		compress(temp_dir, infile_vec, outfile_vec, num_thr, pairing_only_flag, no_quality_flag, no_ids_flag, ill_bin_flag, quality_compressor, quality_ratio, long_flag);
 	else 
 		decompress();
 
@@ -73,7 +74,7 @@ int main(int argc, char** argv)
 	return 0;	
 }
 
-void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::vector<std::string>& outfile_vec, int &num_thr, bool &pairing_only_flag, bool &no_quality_flag, bool &no_ids_flag, bool &ill_bin_flag, std::string &quality_compressor, std::string &quality_ratio) {
+void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::vector<std::string>& outfile_vec, int &num_thr, bool &pairing_only_flag, bool &no_quality_flag, bool &no_ids_flag, bool &ill_bin_flag, std::string &quality_compressor, std::string &quality_ratio, bool &long_flag) {
 
 	std::string infile_1, infile_2, outfile;
 	bool paired_end, preserve_quality, preserve_id, preserve_order;
@@ -122,76 +123,136 @@ void decompress() {
 	return 0;
 }
 
-void call_reorder(const std::string &working_dir, int max_readlen, int num_thr) {
+void call_reorder(const std::string &temp_dir, int max_readlen, int num_thr) {
   size_t bitset_size_reorder = (2 * max_readlen - 1) / 64 * 64 + 64;
   switch (bitset_size_reorder) {
     case 64:
-      reorder_main<64>(working_dir, max_readlen, num_thr);
+      reorder_main<64>(temp_dir, max_readlen, num_thr);
       break;
     case 128:
-      reorder_main<128>(working_dir, max_readlen, num_thr);
+      reorder_main<128>(temp_dir, max_readlen, num_thr);
       break;
     case 192:
-      reorder_main<192>(working_dir, max_readlen, num_thr);
+      reorder_main<192>(temp_dir, max_readlen, num_thr);
       break;
     case 256:
-      reorder_main<256>(working_dir, max_readlen, num_thr);
+      reorder_main<256>(temp_dir, max_readlen, num_thr);
       break;
     case 320:
-      reorder_main<320>(working_dir, max_readlen, num_thr);
+      reorder_main<320>(temp_dir, max_readlen, num_thr);
       break;
     case 384:
-      reorder_main<384>(working_dir, max_readlen, num_thr);
+      reorder_main<384>(temp_dir, max_readlen, num_thr);
       break;
     case 448:
-      reorder_main<448>(working_dir, max_readlen, num_thr);
+      reorder_main<448>(temp_dir, max_readlen, num_thr);
       break;
     case 512:
-      reorder_main<512>(working_dir, max_readlen, num_thr);
+      reorder_main<512>(temp_dir, max_readlen, num_thr);
+      break;
+    case 576:
+      reorder_main<576>(temp_dir, max_readlen, num_thr);
+      break;
+    case 640:
+      reorder_main<640>(temp_dir, max_readlen, num_thr);
+      break;
+    case 704:
+      reorder_main<704>(temp_dir, max_readlen, num_thr);
+      break;
+    case 768:
+      reorder_main<768>(temp_dir, max_readlen, num_thr);
+      break;
+    case 832:
+      reorder_main<832>(temp_dir, max_readlen, num_thr);
+      break;
+    case 896:
+      reorder_main<896>(temp_dir, max_readlen, num_thr);
+      break;
+    case 960:
+      reorder_main<960>(temp_dir, max_readlen, num_thr);
+      break;
+    case 1024:
+      reorder_main<1024>(temp_dir, max_readlen, num_thr);
       break;
     default:
       throw std::runtime_error("Wrong bitset size.");
   }
 }
 
-void call_encoder(const std::string &working_dir, int max_readlen, int num_thr) {
+void call_encoder(const std::string &temp_dir, int max_readlen, int num_thr) {
   size_t bitset_size_encoder = (3 * max_readlen - 1) / 64 * 64 + 64;
   switch (bitset_size_encoder) {
     case 64:
-      encoder_main<64>(working_dir, max_readlen, num_thr);
+      encoder_main<64>(temp_dir, max_readlen, num_thr);
       break;
     case 128:
-      encoder_main<128>(working_dir, max_readlen, num_thr);
+      encoder_main<128>(temp_dir, max_readlen, num_thr);
       break;
     case 192:
-      encoder_main<192>(working_dir, max_readlen, num_thr);
+      encoder_main<192>(temp_dir, max_readlen, num_thr);
       break;
     case 256:
-      encoder_main<256>(working_dir, max_readlen, num_thr);
+      encoder_main<256>(temp_dir, max_readlen, num_thr);
       break;
     case 320:
-      encoder_main<320>(working_dir, max_readlen, num_thr);
+      encoder_main<320>(temp_dir, max_readlen, num_thr);
       break;
     case 384:
-      encoder_main<384>(working_dir, max_readlen, num_thr);
+      encoder_main<384>(temp_dir, max_readlen, num_thr);
       break;
     case 448:
-      encoder_main<448>(working_dir, max_readlen, num_thr);
+      encoder_main<448>(temp_dir, max_readlen, num_thr);
       break;
     case 512:
-      encoder_main<512>(working_dir, max_readlen, num_thr);
+      encoder_main<512>(temp_dir, max_readlen, num_thr);
       break;
     case 576:
-      encoder_main<576>(working_dir, max_readlen, num_thr);
+      encoder_main<576>(temp_dir, max_readlen, num_thr);
       break;
     case 640:
-      encoder_main<640>(working_dir, max_readlen, num_thr);
+      encoder_main<640>(temp_dir, max_readlen, num_thr);
       break;
     case 704:
-      encoder_main<704>(working_dir, max_readlen, num_thr);
+      encoder_main<704>(temp_dir, max_readlen, num_thr);
       break;
     case 768:
-      encoder_main<768>(working_dir, max_readlen, num_thr);
+      encoder_main<768>(temp_dir, max_readlen, num_thr);
+      break;
+    case 832:
+      encoder_main<832>(temp_dir, max_readlen, num_thr);
+      break;
+    case 896:
+      encoder_main<896>(temp_dir, max_readlen, num_thr);
+      break;
+    case 960:
+      encoder_main<960>(temp_dir, max_readlen, num_thr);
+      break;
+    case 1024:
+      encoder_main<1024>(temp_dir, max_readlen, num_thr);
+      break;
+    case 1088:
+      encoder_main<1088>(temp_dir, max_readlen, num_thr);
+      break;
+    case 1152:
+      encoder_main<1152>(temp_dir, max_readlen, num_thr);
+      break;
+    case 1216:
+      encoder_main<1216>(temp_dir, max_readlen, num_thr);
+      break;
+    case 1280:
+      encoder_main<1280>(temp_dir, max_readlen, num_thr);
+      break;
+    case 1344:
+      encoder_main<1344>(temp_dir, max_readlen, num_thr);
+      break;
+    case 1408:
+      encoder_main<1408>(temp_dir, max_readlen, num_thr);
+      break;
+    case 1472:
+      encoder_main<1472>(temp_dir, max_readlen, num_thr);
+      break;
+    case 1536:
+      encoder_main<1536>(temp_dir, max_readlen, num_thr);
       break;
     default:
       throw std::runtime_error("Wrong bitset size.");

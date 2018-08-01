@@ -1,11 +1,12 @@
 #include<iostream>
 #include<fstream>
 #include<string>
-
+#include<vector>
 int fun_1(std::string &infile);
 int fun_2(std::string &infile, std::string &infile_2);
 int fun_3(std::string &infile, std::string &infile_2,int block_size);
 int fun_4();
+int fun_5(std::string &infile,int block_size);
 
 int main(int argc, char** argv)
 {
@@ -17,8 +18,9 @@ int main(int argc, char** argv)
 	if(argc > 2)
 		infile_2 = std::string(argv[2]);
 //	fun_2(infile, infile_2);
-//	fun_3(infile,infile_2,1000000);
-	fun_4();
+//	fun_3(infile,infile_2,10000000);
+//	fun_4();
+	fun_5(infile,10000000);
 }
 
 int fun_1(std::string &infile) {
@@ -92,3 +94,35 @@ int fun_4() {
 		f_out << std::string (100,'r') << "\n";
 }
 	
+int fun_5(std::string &infile, int block_size) {
+	std::ifstream f_in(infile);
+	std::vector<std::string> reads(block_size);
+	std::vector<std::string> quality(block_size);
+	std::vector<std::string> id(block_size);
+	std::ofstream f1("a"), f2("b"), f3("c");
+	std::string a;
+	int numread;
+	while(true) {
+		numread = 0;
+		//read block_size reads
+		for(int i = 0; i < block_size; i++) {
+			if(!std::getline(f_in,a))
+				break;
+			id[i] = a;
+			std::getline(f_in,a);
+			reads[i] = a;
+			std::getline(f_in,a);
+			std::getline(f_in,a);
+			quality[i] = a;
+			numread++;
+		}
+		for(int i = 0; i < numread; i++)
+			f1 << id[i]<<"\n";
+		for(int i = 0; i < numread; i++)
+			f2 << reads[i]<<"\n";
+		for(int i = 0; i < numread; i++)
+			f3 << quality[i]<<"\n";
+		if(numread < block_size)
+			break;
+	}
+}

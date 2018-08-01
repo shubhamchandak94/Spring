@@ -10,7 +10,7 @@
 // Mahonney and Bonfiled (2012)
 
 #include <stdio.h>
-#include "algorithms/SPRING/ID_compression/include/sam_block.h"
+#include "ID_compression/include/sam_block.h"
 
 namespace spring {
 namespace id_comp {

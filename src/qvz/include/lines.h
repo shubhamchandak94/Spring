@@ -41,7 +41,7 @@ struct line_block_t {
   uint32_t count;
   //	struct line_t *lines;
   char *quality_array;
-  uint8_t *read_lengths;
+  uint16_t *read_lengths;
   std::string *infile_order;
   uint64_t startpos;
 };

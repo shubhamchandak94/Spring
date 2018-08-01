@@ -2,7 +2,6 @@
 #define SPRING_PACK_ORDER_H_ 
 
 #include <string>
-#include "pack_order.h"
 
 namespace spring {
 

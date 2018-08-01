@@ -13,18 +13,19 @@
 #include <string>
 #include <vector>
 #include "util.h"
+#include "params.h"
 
 namespace spring {
 
 template <size_t bitset_size>
 struct reorder_global {
   uint32_t num_locks =
-      0x1000000;  // limits on number of locks (power of 2 for fast mod)
+      NUM_LOCKS_REORDER;  // limits on number of locks (power of 2 for fast mod)
 
   uint32_t numreads = 0;
 
-  int maxshift, numdict = 2, maxsearch = 1000, num_thr, max_readlen;
-  uint thresh = 4;
+  int maxshift, numdict = NUM_DICT, maxsearch = MAX_SEARCH_REORDER, num_thr, max_readlen;
+  uint thresh = THRESH_REORDER;
   std::string basedir;
   std::string infile;
   std::string infilenumreads;
@@ -50,7 +51,7 @@ struct reorder_global {
 };
 
 template <size_t bitset_size>
-void bitsettostring(std::bitset<bitset_size> b, char *s, uint8_t readlen,
+void bitsettostring(std::bitset<bitset_size> b, char *s, uint16_t readlen,
                     reorder_global<bitset_size> &rg) {
   unsigned long long ull;
   for (int i = 0; i < 2 * readlen / 64 + 1; i++) {
@@ -94,7 +95,7 @@ template <size_t bitset_size>
 void updaterefcount(std::bitset<bitset_size> &cur,
                     std::bitset<bitset_size> &ref,
                     std::bitset<bitset_size> &revref, int count[][MAX_READ_LEN],
-                    bool resetcount, bool rev, int shift, uint8_t cur_readlen,
+                    bool resetcount, bool rev, int shift, uint16_t cur_readlen,
                     int &ref_len, reorder_global<bitset_size> &rg)
 // for var length, shift represents shift of start positions, if read length is
 // small, may not need to shift actually
@@ -195,7 +196,7 @@ void updaterefcount(std::bitset<bitset_size> &cur,
 }
 
 template <size_t bitset_size>
-void readDnaFile(std::bitset<bitset_size> *read, uint8_t *read_lengths,
+void readDnaFile(std::bitset<bitset_size> *read, uint16_t *read_lengths,
                  reorder_global<bitset_size> &rg) {
 #pragma omp parallel
   {
@@ -205,7 +206,7 @@ void readDnaFile(std::bitset<bitset_size> *read, uint8_t *read_lengths,
     uint32_t i = 0;
     while (std::getline(f, s)) {
       if (i % rg.num_thr == tid) {
-        read_lengths[i] = (uint8_t)s.length();
+        read_lengths[i] = (uint16_t)s.length();
         stringtobitset<bitset_size>(s, read_lengths[i], read[i], rg.basemask);
         i++;
       } else {
@@ -224,7 +225,7 @@ bool search_match(std::bitset<bitset_size> &ref,
                   std::bitset<bitset_size> *mask1, omp_lock_t *dict_lock,
                   omp_lock_t *read_lock,
                   std::bitset<bitset_size> mask[MAX_READ_LEN][MAX_READ_LEN],
-                  uint8_t *read_lengths, bool *remainingreads,
+                  uint16_t *read_lengths, bool *remainingreads,
                   std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t &k,
                   bool rev, int shift, int &ref_len,
                   reorder_global<bitset_size> &rg) {
@@ -294,7 +295,7 @@ bool search_match(std::bitset<bitset_size> &ref,
 
 template <size_t bitset_size>
 void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
-             uint8_t *read_lengths, reorder_global<bitset_size> &rg) {
+             uint16_t *read_lengths, reorder_global<bitset_size> &rg) {
   omp_lock_t *dict_lock = new omp_lock_t[rg.num_locks];
   omp_lock_t *read_lock = new omp_lock_t[rg.num_locks];
   for (uint j = 0; j < rg.num_locks; j++) {
@@ -415,13 +416,13 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
             foutflag << 0;  // for unmatched
             int64_t zero = 0;
             foutpos.write((char *)&zero, sizeof(int64_t));
-            foutlength.write((char *)&read_lengths[prev], sizeof(uint8_t));
+            foutlength.write((char *)&read_lengths[prev], sizeof(uint16_t));
           }
           foutRC << (left_search ? 'r' : 'd');
           foutorder.write((char *)&current, sizeof(uint32_t));
           foutflag << 1;  // for matched
           foutpos.write((char *)&cur_read_pos, sizeof(int64_t));
-          foutlength.write((char *)&read_lengths[current], sizeof(uint8_t));
+          foutlength.write((char *)&read_lengths[current], sizeof(uint16_t));
 
           prev_unmatched = false;
           break;
@@ -452,13 +453,13 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
             foutflag << 0;  // for unmatched
             int64_t zero = 0;
             foutpos.write((char *)&zero, sizeof(int64_t));
-            foutlength.write((char *)&read_lengths[prev], sizeof(uint8_t));
+            foutlength.write((char *)&read_lengths[prev], sizeof(uint16_t));
           }
           foutRC << (left_search ? 'd' : 'r');
           foutorder.write((char *)&current, sizeof(uint32_t));
           foutflag << 1;  // for matched
           foutpos.write((char *)&cur_read_pos, sizeof(int64_t));
-          foutlength.write((char *)&read_lengths[current], sizeof(uint8_t));
+          foutlength.write((char *)&read_lengths[current], sizeof(uint16_t));
 
           prev_unmatched = false;
           break;
@@ -541,7 +542,7 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
 }
 
 template <size_t bitset_size>
-void writetofile(std::bitset<bitset_size> *read, uint8_t *read_lengths,
+void writetofile(std::bitset<bitset_size> *read, uint16_t *read_lengths,
                  reorder_global<bitset_size> &rg) {
 // convert bitset to string for all num_thr files in parallel
 #pragma omp parallel
@@ -646,7 +647,7 @@ void reorder_main(const std::string &temp_dir, int max_readlen, int num_thr) {
   omp_set_num_threads(rg.num_thr);
   setglobalarrays(rg);
   std::bitset<bitset_size> *read = new std::bitset<bitset_size>[rg.numreads];
-  uint8_t *read_lengths = new uint8_t[rg.numreads];
+  uint8_t *read_lengths = new uint16_t[rg.numreads];
   std::cout << "Reading file: " << rg.infile << std::endl;
   readDnaFile<bitset_size>(read, read_lengths, rg);
 

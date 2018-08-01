@@ -1,15 +1,15 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#define readlen 101
+#define readlen 147
 
 std::string infile;
 std::string outfile;
 
 void computecounts();
 
-#define num_clusters 4
-int clusterboundary[] = {10,20,30};
+#define num_clusters 1
+int clusterboundary[] = {};
 
 int main(int argc, char** argv)
 {

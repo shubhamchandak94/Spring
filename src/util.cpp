@@ -1,4 +1,5 @@
-#include "algorithms/SPRING/util.h"
+#include "util.h"
+#include "params.h"
 #include <string>
 
 namespace spring {

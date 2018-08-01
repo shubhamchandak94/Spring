@@ -1,8 +1,8 @@
-#ifndef ID_COMPRESSION_H
-#define ID_COMPRESSION_H
+#ifndef SPRING_ID_COMPRESSION_H
+#define SPRING_ID_COMPRESSION_H
 
-#include "algorithms/SPRING/ID_compression/include/Arithmetic_stream.h"
-#include "algorithms/SPRING/ID_compression/include/sam_block.h"
+#include "ID_compression/include/Arithmetic_stream.h"
+#include "ID_compression/include/sam_block.h"
 
 namespace spring {
 namespace id_comp {

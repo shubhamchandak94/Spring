@@ -16,6 +16,7 @@
 #include <string>
 #include <vector>
 #include "util.h"
+#include "params.h"
 
 namespace spring {
 
@@ -31,9 +32,9 @@ struct encoder_global_b {
 
 struct encoder_global {
   uint32_t numreads, numreads_s, numreads_N;
-  int numdict_s = 2;
-  int thresh_s = 24;
-  int maxsearch = 1000;
+  int numdict_s = NUM_DICT_ENCODER;
+  int thresh_s = THRESH_ENCODER;
+  int maxsearch = MAX_SEARCH_ENCODER;
   int max_readlen, num_thr;
 
   std::string basedir;
@@ -69,7 +70,7 @@ struct contig_reads {
   int64_t pos;
   char RC;
   uint32_t order;
-  uint8_t read_length;
+  uint16_t read_length;
 };
 
 std::string buildcontig(std::list<contig_reads> &current_contig,
@@ -88,7 +89,7 @@ void getDataParams(encoder_global &eg);
 void correct_order(uint32_t *order_s, encoder_global &eg);
 
 template <size_t bitset_size>
-std::string bitsettostring(std::bitset<bitset_size> b, uint8_t readlen,
+std::string bitsettostring(std::bitset<bitset_size> b, uint16_t readlen,
                            encoder_global &eg,
                            encoder_global_b<bitset_size> &egb) {
   char s[MAX_READ_LEN + 1];
@@ -157,7 +158,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
     char c, rc;
     std::list<contig_reads> current_contig;
     int64_t p;
-    uint8_t rl;
+    uint16_t rl;
     uint32_t ord, list_size = 0;  // list_size variable introduced because
                                   // list::size() was running very slowly
                                   // on UIUC machine
@@ -170,7 +171,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
         rc = in_RC.get();
         in_pos.read((char *)&p, sizeof(int64_t));
         in_order.read((char *)&ord, sizeof(uint32_t));
-        in_readlength.read((char *)&rl, sizeof(uint8_t));
+        in_readlength.read((char *)&rl, sizeof(uint16_t));
       }
       if (c == '0' || done || list_size > 10000000)  // limit on list size so
                                                      // that memory doesn't get
@@ -380,7 +381,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
     if (remainingreads[i] == 1) {
       matched_s--;
       f_order.write((char *)&order_s[i], sizeof(uint32_t));
-      f_readlength.write((char *)&read_lengths_s[i], sizeof(uint8_t));
+      f_readlength.write((char *)&read_lengths_s[i], sizeof(uint16_t));
       f_singleton << bitsettostring<bitset_size>(read[i], read_lengths_s[i], eg,
                                                  egb);
     }
@@ -390,7 +391,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
       matched_N--;
       f_N << bitsettostring<bitset_size>(read[i], read_lengths_s[i], eg, egb);
       f_order.write((char *)&order_s[i], sizeof(uint32_t));
-      f_readlength.write((char *)&read_lengths_s[i], sizeof(uint8_t));
+      f_readlength.write((char *)&read_lengths_s[i], sizeof(uint16_t));
     }
   f_order.close();
   f_readlength.close();
@@ -464,7 +465,7 @@ void setglobalarrays(encoder_global &eg, encoder_global_b<bitset_size> &egb) {
 
 template <size_t bitset_size>
 void readsingletons(std::bitset<bitset_size> *read, uint32_t *order_s,
-                    uint8_t *read_lengths_s, encoder_global &eg,
+                    uint16_t *read_lengths_s, encoder_global &eg,
                     encoder_global_b<bitset_size> &egb) {
   // not parallelized right now since these are very small number of reads
   std::ifstream f(eg.infile + ".singleton", std::ifstream::in);
@@ -524,7 +525,7 @@ void encoder_main(const std::string &temp_dir, int max_readlen, int num_thr) {
   std::bitset<bitset_size> *read =
       new std::bitset<bitset_size>[eg.numreads_s + eg.numreads_N];
   uint32_t *order_s = new uint32_t[eg.numreads_s + eg.numreads_N];
-  uint8_t *read_lengths_s = new uint8_t[eg.numreads_s + eg.numreads_N];
+  uint16_t *read_lengths_s = new uint16_t[eg.numreads_s + eg.numreads_N];
   readsingletons<bitset_size>(read, order_s, read_lengths_s, eg, egb);
   correct_order(order_s, eg);
 

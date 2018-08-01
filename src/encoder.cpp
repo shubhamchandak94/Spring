@@ -58,6 +58,7 @@ void writecontig(std::string &ref, std::list<contig_reads> &current_contig,
                  std::ofstream &f_readlength, encoder_global &eg) {
   f_seq << ref;
   char c;
+  uint16_t pos_var;
   long prevj = 0;
   auto current_contig_it = current_contig.begin();
   long currentpos, prevpos = 0;
@@ -68,19 +69,19 @@ void writecontig(std::string &ref, std::list<contig_reads> &current_contig,
       if ((*current_contig_it).read[j] != ref[currentpos + j]) {
         f_noise << eg.enc_noise[(uint8_t)ref[currentpos + j]]
                                [(uint8_t)(*current_contig_it).read[j]];
-        c = j - prevj;
-        f_noisepos << c;
+        pos_var = j - prevj;
+	f_noisepos.write((char*)&pos_var,sizeof(uint16_t));
         prevj = j;
       }
     f_noise << "\n";
     if (current_contig_it == current_contig.begin())
-      c = eg.max_readlen;
+      pos_var = eg.max_readlen;
     else
-      c = currentpos - prevpos;
-    f_pos << c;
+      pos_var = currentpos - prevpos;
+    f_pos.write((char*)&pos_var,sizeof(uint16_t));
     f_order.write((char *)&((*current_contig_it).order), sizeof(uint32_t));
     f_readlength.write((char *)&((*current_contig_it).read_length),
-                       sizeof(uint8_t));
+                       sizeof(uint16_t));
     f_RC << (*current_contig_it).RC;
     prevpos = currentpos;
   }

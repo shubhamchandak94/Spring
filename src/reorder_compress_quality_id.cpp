@@ -99,7 +99,7 @@ void reorder_quality(dsg::input::fastq::FastqFileReader *fastqFileReader1,
                      dsg::input::fastq::FastqFileReader *fastqFileReader2,
                      reorder_compress_quality_id_global &rg) {
   char line_ch[rg.max_readlen + 1];
-  uint8_t cur_readlen;
+  uint16_t cur_readlen;
   if ((rg.quality_mode == "bsc" || rg.quality_mode == "illumina_binning_bsc") &&
       rg.preserve_order == true)
   // just write to file without newlines
@@ -116,7 +116,7 @@ void reorder_quality(dsg::input::fastq::FastqFileReader *fastqFileReader1,
       for (uint64_t i = 0; i < rg.numreads_by_2; i++) {
         fastqFileReader->readRecords(1, &fastqRecord);
         strcpy(line_ch, fastqRecord[0].qualityScores.c_str());  
-        cur_readlen = (uint8_t)fastqRecord[0].qualityScores.length();
+        cur_readlen = (uint16_t)fastqRecord[0].qualityScores.length();
         if (rg.quality_mode == "illumina_binning_bsc")
           illumina_binning(line_ch, cur_readlen, rg);
         f_out.write(line_ch, cur_readlen);
@@ -126,7 +126,7 @@ void reorder_quality(dsg::input::fastq::FastqFileReader *fastqFileReader1,
     return;
   }
   char *quality = new char[(uint64_t)rg.numreads_by_2 * (rg.max_readlen + 1)];
-  uint8_t *read_lengths = new uint8_t[rg.numreads_by_2];
+  uint16_t *read_lengths = new uint16_t[rg.numreads_by_2];
 
   for (int k = 0; k < 2; k++) {
     if (k == 1 && rg.paired_end == false) continue;
@@ -138,7 +138,7 @@ void reorder_quality(dsg::input::fastq::FastqFileReader *fastqFileReader1,
     for (uint64_t i = 0; i < rg.numreads_by_2; i++) {
       fastqFileReader->readRecords(1, &fastqRecord);
       strcpy(quality + i * (rg.max_readlen + 1), fastqRecord[0].qualityScores.c_str());  
-      read_lengths[i] = (uint8_t)fastqRecord[0].qualityScores.length();
+      read_lengths[i] = (uint16_t)fastqRecord[0].qualityScores.length();
       if (rg.quality_mode == "illumina_binning_qvz" ||
           rg.quality_mode == "illumina_binning_bsc")
         illumina_binning(quality + i * (rg.max_readlen + 1), read_lengths[i], rg);
@@ -230,8 +230,8 @@ void reorder_id(reorder_compress_quality_id_global &rg) {
   return;
 }
 
-void illumina_binning(char *quality, uint8_t readlen, reorder_compress_quality_id_global &rg) {
-  for (uint8_t i = 0; i < readlen; i++)
+void illumina_binning(char *quality, uint16_t readlen, reorder_compress_quality_id_global &rg) {
+  for (uint16_t i = 0; i < readlen; i++)
     quality[i] = rg.illumina_binning_table[(uint8_t)quality[i]];
   return;
 }
