@@ -15,7 +15,7 @@
 #include <string>
 #include <string>
 #include <vector>
-#include "algorithms/SPRING/util.h"
+#include "util.h"
 
 namespace spring {
 
@@ -492,13 +492,13 @@ void readsingletons(std::bitset<bitset_size> *read, uint32_t *order_s,
 }
 
 template <size_t bitset_size>
-void encoder_main(const std::string &working_dir, int max_readlen, int num_thr) {
+void encoder_main(const std::string &temp_dir, int max_readlen, int num_thr) {
   encoder_global_b<bitset_size> *egb_ptr = new encoder_global_b<bitset_size>;
   encoder_global *eg_ptr = new encoder_global;
   encoder_global_b<bitset_size> &egb = *egb_ptr;
   encoder_global &eg = *eg_ptr;
 
-  eg.basedir = working_dir;
+  eg.basedir = temp_dir;
   eg.infile = eg.basedir + "/temp.dna";
   eg.infile_pos = eg.basedir + "/temppos.txt";
   eg.infile_flag = eg.basedir + "/tempflag.txt";

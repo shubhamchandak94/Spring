@@ -3,9 +3,9 @@
 
 #include <stdint.h>
 #include <string>
-#include "algorithms/SPRING/qvz/include/distortion.h"
-#include "algorithms/SPRING/qvz/include/pmf.h"
-#include "algorithms/SPRING/qvz/include/well.h"
+#include "qvz/include/distortion.h"
+#include "qvz/include/pmf.h"
+#include "qvz/include/well.h"
 
 // This limits us to chunks that aren't too big to fit into a modest amount of
 // memory at a time

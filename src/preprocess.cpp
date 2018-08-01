@@ -1,16 +1,14 @@
-#include "algorithms/SPRING/preprocess.h"
+#include "preprocess.h"
 #include <fstream>
 #include <iostream>
 #include <string>
-#include "algorithms/SPRING/util.h"
-#include "input/fastq/FastqFileReader.h"
-#include "input/fastq/FastqRecord.h"
+#include "params.h"
 
 namespace spring {
 
 int preprocess(dsg::input::fastq::FastqFileReader *fastqFileReader1,
                dsg::input::fastq::FastqFileReader *fastqFileReader2,
-               const std::string &working_dir, bool paired_end, bool preserve_id,
+               const std::string &temp_dir, bool paired_end, bool preserve_id,
                bool preserve_quality) {
   std::string outfileclean;
   std::string outfileN;
@@ -19,7 +17,7 @@ int preprocess(dsg::input::fastq::FastqFileReader *fastqFileReader1,
   std::string outfilenumreads;
   std::string outfile_meta;
   int max_readlen = -1;
-  std::string basedir = working_dir;
+  std::string basedir = temp_dir;
   outfileclean = basedir + "/input_clean.dna";
   outfileN = basedir + "/input_N.dna";
   outfileorderN = basedir + "/read_order_N.bin";

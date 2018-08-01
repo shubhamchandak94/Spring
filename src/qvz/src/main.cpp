@@ -1,5 +1,5 @@
 
-#include "algorithms/SPRING/qvz/include/util.h"
+#include "qvz/include/util.h"
 
 #include <stdint.h>
 #include <stdio.h>
@@ -9,9 +9,9 @@
 #include <iostream>
 #include <string>
 
-#include "algorithms/SPRING/qvz/include/cluster.h"
-#include "algorithms/SPRING/qvz/include/codebook.h"
-#include "algorithms/SPRING/qvz/include/qv_compressor.h"
+#include "qvz/include/cluster.h"
+#include "qvz/include/codebook.h"
+#include "qvz/include/qv_compressor.h"
 
 #define ALPHABET_SIZE 72
 

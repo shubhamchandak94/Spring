@@ -1,4 +1,4 @@
-#include "algorithms/SPRING/qvz/include/well.h"
+#include "qvz/include/well.h"
 
 namespace spring {
 namespace qvz {

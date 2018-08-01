@@ -1,6 +1,6 @@
-#include "algorithms/SPRING/qvz/include/codebook.h"
-#include "algorithms/SPRING/qvz/include/cluster.h"
-#include "algorithms/SPRING/qvz/include/lines.h"
+#include "qvz/include/codebook.h"
+#include "qvz/include/cluster.h"
+#include "qvz/include/lines.h"
 
 #include <assert.h>
 #include <stdio.h>

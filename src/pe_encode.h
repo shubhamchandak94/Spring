@@ -2,7 +2,6 @@
 #define SPRING_PE_ENCODE_H_
 
 #include <string>
-#include "algorithms/SPRING/pe_encode.h"
 
 namespace spring {
 
@@ -35,7 +34,7 @@ void packbits(pe_encode_global& peg);
 void generate_order_preserve(uint32_t* read_order, pe_encode_global& peg);
 // generate order file for half the reads
 
-void pe_encode_main(std::string& working_dir, bool preserve_order);
+void pe_encode_main(std::string& temp_dir, bool preserve_order);
 
 }  // namespace spring
 

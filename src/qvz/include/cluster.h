@@ -4,7 +4,7 @@
 // All of our structures are delcared in lines.h
 // Because otherwise it makes this into a definition nightmare
 
-#include "algorithms/SPRING/qvz/include/lines.h"
+#include "qvz/include/lines.h"
 namespace spring {
 namespace qvz {
 #define MAX_KMEANS_ITERATIONS 1000

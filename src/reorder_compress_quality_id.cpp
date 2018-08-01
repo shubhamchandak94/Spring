@@ -7,16 +7,15 @@
 #include <string>
 #include <string>
 #include <vector>
-#include "algorithms/SPRING/qvz/include/cluster.h"
-#include "algorithms/SPRING/qvz/include/codebook.h"
-#include "input/fastq/FastqFileReader.h"
-#include "algorithms/SPRING/qvz/include/qv_compressor.h"
-#include "algorithms/SPRING/ID_compression/include/sam_block.h"
-#include "algorithms/SPRING/reorder_compress_quality_id.h"
+#include "qvz/include/cluster.h"
+#include "qvz/include/codebook.h"
+#include "qvz/include/qv_compressor.h"
+#include "ID_compression/include/sam_block.h"
+#include "reorder_compress_quality_id.h"
 
 namespace spring {
 
-int reorder_compress_quality_id(std::string &working_dir, int max_readlen,
+int reorder_compress_quality_id(std::string &temp_dir, int max_readlen,
                                 int num_thr, bool paired_end,
                                 bool preserve_order, bool preserve_quality,
                                 bool preserve_id,
@@ -26,7 +25,7 @@ int reorder_compress_quality_id(std::string &working_dir, int max_readlen,
                                 double quality_ratio) {
   reorder_compress_quality_id_global *rg_ptr = new reorder_compress_quality_id_global;
   reorder_compress_quality_id_global& rg = *rg_ptr;
-  rg.basedir = working_dir;
+  rg.basedir = temp_dir;
 
   rg.infile_id_1 = rg.basedir + "/input_1.id";
   rg.infile_id_2 = rg.basedir + "/input_2.id";

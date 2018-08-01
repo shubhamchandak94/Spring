@@ -4,14 +4,14 @@
  * and converting between the different formats we use
  */
 
-#include "algorithms/SPRING/qvz/include/util.h"
+#include "qvz/include/util.h"
 
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/mman.h>
 
-#include "algorithms/SPRING/qvz/include/lines.h"
+#include "qvz/include/lines.h"
 
 namespace spring {
 namespace qvz {

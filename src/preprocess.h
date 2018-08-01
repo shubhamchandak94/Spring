@@ -2,7 +2,6 @@
 #define SPRING_PREPROCESS_H_
 
 #include <string>
-#include "input/fastq/FastqFileReader.h"
 
 namespace spring {
 
@@ -13,7 +12,7 @@ bool check_id_pattern(const std::string &id_1, const std::string &id_2,
 
 int preprocess(dsg::input::fastq::FastqFileReader *fastqFileReader1,
                dsg::input::fastq::FastqFileReader *fastqFileReader2,
-               const std::string &working_dir, bool paired_end, bool preserve_id,
+               const std::string &temp_dir, bool paired_end, bool preserve_id,
                bool preserve_quality);
 
 }  // namespace spring

@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "algorithms/SPRING/qvz/include/distortion.h"
-#include "algorithms/SPRING/qvz/include/util.h"
+#include "qvz/include/distortion.h"
+#include "qvz/include/util.h"
 
 namespace spring {
 namespace qvz {

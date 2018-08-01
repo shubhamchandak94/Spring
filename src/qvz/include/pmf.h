@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#include "algorithms/SPRING/qvz/include/util.h"
+#include "qvz/include/util.h"
 
 // Used to indicate a symbol not found during index lookup
 #define ALPHABET_SYMBOL_NOT_FOUND UINT32_MAX

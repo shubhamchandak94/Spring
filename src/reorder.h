@@ -12,7 +12,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "algorithms/SPRING/util.h"
+#include "util.h"
 
 namespace spring {
 
@@ -614,10 +614,10 @@ void writetofile(std::bitset<bitset_size> *read, uint8_t *read_lengths,
 }
 
 template <size_t bitset_size>
-void reorder_main(const std::string &working_dir, int max_readlen, int num_thr) {
+void reorder_main(const std::string &temp_dir, int max_readlen, int num_thr) {
   reorder_global<bitset_size> *rg_pointer = new reorder_global<bitset_size>;
   reorder_global<bitset_size> &rg = *rg_pointer;
-  rg.basedir = working_dir;
+  rg.basedir = temp_dir;
   rg.infile = rg.basedir + "/input_clean.dna";
   rg.outfile = rg.basedir + "/temp.dna";
   rg.outfileRC = rg.basedir + "/read_rev.txt";

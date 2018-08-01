@@ -14,7 +14,7 @@
 #include <time.h>
 #include <unistd.h>
 
-#include "algorithms/SPRING/qvz/include/codebook.h"
+#include "qvz/include/codebook.h"
 
 #define m_arith 22
 

@@ -1,4 +1,4 @@
-#include "algorithms/SPRING/encoder.h"
+#include "encoder.h"
 #include <omp.h>
 #include <algorithm>
 #include <array>

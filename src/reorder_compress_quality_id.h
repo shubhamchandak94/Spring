@@ -2,8 +2,7 @@
 #define SPRING_REORDER_COMPRESS_QUALITY_ID_H_
 
 #include <string>
-#include "input/fastq/FastqFileReader.h"
-#include "algorithms/SPRING/reorder_compress_quality_id.h"
+#include "reorder_compress_quality_id.h"
 
 namespace spring {
 
@@ -42,7 +41,7 @@ void encode(FILE *fout, struct qv_options_t *opts, uint32_t max_readlen,
 void illumina_binning(char *quality, uint8_t readlen, reorder_compress_quality_id_global &rg);
 void generate_illumina_binning_table(reorder_compress_quality_id_global &rg);
 
-int reorder_compress_quality_id(std::string &working_dir, int max_readlen,
+int reorder_compress_quality_id(std::string &temp_dir, int max_readlen,
                                 int num_thr, bool paired_end,
                                 bool preserve_order, bool preserve_quality,
                                 bool preserve_id,

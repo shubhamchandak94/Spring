@@ -1,4 +1,4 @@
-#include "algorithms/SPRING/qvz/include/qv_compressor.h"
+#include "qvz/include/qv_compressor.h"
 
 namespace spring {
 namespace qvz {

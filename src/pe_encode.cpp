@@ -1,4 +1,4 @@
-#include "algorithms/SPRING/pe_encode.h"
+#include "pe_encode.h"
 #include <cmath>
 #include <cstdio>
 #include <fstream>
@@ -26,10 +26,10 @@ void packbits(pe_encode_global& peg);
 void generate_order_preserve(uint32_t* read_order, pe_encode_global& peg);
 // generate order file for half the reads
 
-void pe_encode_main(std::string& working_dir, bool preserve_order) {
+void pe_encode_main(std::string& temp_dir, bool preserve_order) {
   pe_encode_global* peg_ptr = new pe_encode_global;
   pe_encode_global& peg = *peg_ptr;
-  std::string basedir = working_dir;
+  std::string basedir = temp_dir;
   peg.infilenumreads = basedir + "/numreads.bin";
   peg.infile_order = basedir + "/read_order.bin";
   peg.outfile_order_paired = basedir + "/read_order_paired.bin";

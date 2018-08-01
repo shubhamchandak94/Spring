@@ -5,18 +5,18 @@
  * for both the encoder and decoder code
  */
 
-#include "algorithms/SPRING/qvz/include/util.h"
+#include "qvz/include/util.h"
 
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "algorithms/SPRING/qvz/include/distortion.h"
-#include "algorithms/SPRING/qvz/include/lines.h"
-#include "algorithms/SPRING/qvz/include/pmf.h"
-#include "algorithms/SPRING/qvz/include/quantizer.h"
-#include "algorithms/SPRING/qvz/include/well.h"
+#include "qvz/include/distortion.h"
+#include "qvz/include/lines.h"
+#include "qvz/include/pmf.h"
+#include "qvz/include/quantizer.h"
+#include "qvz/include/well.h"
 
 namespace spring {
 namespace qvz {

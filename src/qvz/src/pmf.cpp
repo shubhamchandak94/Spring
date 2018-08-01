@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "algorithms/SPRING/qvz/include/pmf.h"
+#include "qvz/include/pmf.h"
 
 namespace spring {
 namespace qvz {

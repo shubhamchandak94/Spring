@@ -3,9 +3,9 @@
 
 #include <stdint.h>
 
-#include "algorithms/SPRING/qvz/include/distortion.h"
-#include "algorithms/SPRING/qvz/include/pmf.h"
-#include "algorithms/SPRING/qvz/include/util.h"
+#include "qvz/include/distortion.h"
+#include "qvz/include/pmf.h"
+#include "qvz/include/util.h"
 
 #define QUANTIZER_MAX_ITER 100
 
