@@ -12,8 +12,7 @@
 #include "qvz/include/cluster.h"
 #include "qvz/include/codebook.h"
 #include "qvz/include/qv_compressor.h"
-
-#define ALPHABET_SIZE 72
+#include "qvz/include/main.h"
 
 namespace spring {
 namespace qvz {
@@ -135,6 +134,39 @@ void encode(FILE *fout, struct qv_options_t *opts, uint32_t max_readlen,
   }
 }
 
+void encode_lossless(FILE *fout, struct qv_options_t *opts, uint32_t max_readlen, uint32_t numreads, std::string *quality_string_array) {
+  struct quality_file_t qv_info;
+  struct alphabet_t *alphabet = alloc_alphabet(ALPHABET_SIZE);
+  uint64_t bytes_used;
+
+  qv_info.alphabet = alphabet;
+  qv_info.cluster_count = opts->clusters;
+  qv_info.columns = max_readlen;
+  qv_info.lines = numreads;
+  // from alloc_lines & alloc_blocks - we'll allocate single block
+  qv_info.block_count = 1;
+  qv_info.blocks = (struct line_block_t *)calloc(qv_info.block_count,
+                                                 sizeof(struct line_block_t));
+  qv_info.blocks[0].count = qv_info.lines;
+  qv_info.blocks[0].quality_string_array = quality_string_array;
+
+  // Set up clustering data structures
+  qv_info.clusters = alloc_cluster_list(&qv_info);
+  qv_info.opts = opts;
+
+  bytes_used = start_qv_compression_lossless(&qv_info, fout);
+
+  fclose(fout);
+  free_blocks(&qv_info);
+  free_cluster_list(qv_info.clusters);
+  // Verbose stats
+  if (opts->verbose) {
+    printf("Lines: %lu\n", qv_info.lines);
+    printf("Columns: %u\n", qv_info.columns);
+    printf("Total bytes used: %lu\n", bytes_used);
+  }
+
+}
 /**
  *
  */
@@ -163,6 +195,27 @@ void decode(char *input_file, char *output_file, struct qv_options_t *opts,
 
 }
 
+void decode_lossless(char *input_file, struct qv_options_t *opts,
+            std::string *quality_string_array, uint16_t *read_lengths) {
+  FILE *fin;
+  struct quality_file_t qv_info;
+  struct alphabet_t *A = alloc_alphabet(ALPHABET_SIZE);
+
+  qv_info.alphabet = A;
+  qv_info.opts = opts;
+  qv_info.quality_string_array = quality_string_array;
+
+  fin = fopen(input_file, "rb");
+  if (!fin) {
+    perror("Unable to open input file");
+    exit(1);
+  }
+
+  start_qv_decompression_lossless(fin, &qv_info, read_lengths);
+
+  fclose(fin);
+
+}
 /**
  * Displays a usage name
  * @param name Program name string

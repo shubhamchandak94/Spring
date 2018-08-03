@@ -9,7 +9,6 @@
 #include <pthread.h>
 #include <stdbool.h>
 #include <stdio.h>
-#include <time.h>
 #include "ID_compression/include/sam_block.h"
 
 namespace spring {
@@ -50,8 +49,6 @@ void *compress(void *thread_info) {
 }
 
 void *decompress(void *thread_info) {
-  clock_t begin = clock();
-  clock_t ticks;
 
   struct compressor_info_t *info = (struct compressor_info_t *)thread_info;
 
@@ -67,10 +64,10 @@ void *decompress(void *thread_info) {
   for (uint32_t n = 0; n < info->numreads; n++) {
     decompress_id(as, samBlock->IDs->models, sline.ID, prev_ID, prev_tokens_ptr,
                   prev_tokens_len);
-    print_line(&sline, info->f_id);
+    info->id_array[n] = sline.ID;
+//    print_line(&sline, info->f_id);
   }
 
-  ticks = clock() - begin;
   return NULL;
 }
 

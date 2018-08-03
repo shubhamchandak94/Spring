@@ -3,11 +3,11 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include "encoder.h"
-#include "pe_encode.h"
+//#include "encoder.h"
+//#include "pe_encode.h"
 #include "preprocess.h"
-#include "reorder.h"
-#include "reorder_compress_quality_id.h"
+//#include "reorder.h"
+//#include "reorder_compress_quality_id.h"
 #include "spring.h"
 
 namespace spring {
@@ -79,6 +79,9 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 	std::string infile_1, infile_2, outfile;
 	bool paired_end, preserve_quality, preserve_id, preserve_order;
 	// Check options
+	preserve_order = !paired_end_only_flag;
+	preserve_id = !no_ids_flag;
+	preserve_quality = !no_quality_flag;
 	switch(infile_vec.size()) {
 		case 0: throw std::runtime_error("No input file specified";
 			break;
@@ -97,9 +100,13 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 		throw std::runtime_error("Number of output files not equal to 1");
 	if(quality_compressor != "bsc" && quality_compressor != "qvz")
 		throw std::runtime_error("Invalid quality compressor");
-			
-	int status = preprocess(fastqFileReader1, fastqFileReader2, working_dir,
-				paired_end, true, true);
+	if(quality_compressor == "bsc")
+	{
+		quality_ratio = 8.0;
+	}
+	
+	preprocess(infile_1, infile_2, temp_dir, paired_end, preserve_id, preserve_quality, preserve_order, ill_bin_flag, quality_compressor, quality_ratio, long_flag);
+	/*		
 	if (status != 0) throw std::runtime_error("Bad input file");
 	std::ifstream f_meta(temp_dir + "/read_meta.txt");
 	std::string max_readlen_str;
@@ -115,12 +122,12 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 	reorder_compress_quality_id(temp_dir, max_readlen, num_thr,
 	paired_end, false, true, true, fastqFileReader1, fastqFileReader2, "bsc",
 	8.0);
+	*/
 	return;
 }
 
 void decompress() {
-	std::cout << "Not implemented\n";
-	return 0;
+	throw std::runtime_error("Not implemented");
 }
 
 void call_reorder(const std::string &temp_dir, int max_readlen, int num_thr) {

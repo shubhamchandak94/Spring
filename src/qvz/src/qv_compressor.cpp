@@ -162,12 +162,62 @@ uint32_t start_qv_compression(struct quality_file_t *info, FILE *fout,
   return osSize;
 }
 
+uint32_t start_qv_compression_lossless(struct quality_file_t *info, FILE *fout) {
+  unsigned int osSize = 0;
+
+  qv_compressor qvc;
+
+  uint32_t s = 0, idx = 0, q_state = 0;
+  uint8_t qv = 0, prev_qv = 0;
+  uint8_t cur_readlen;
+
+  uint32_t block_idx, line_idx;
+  uint8_t cluster_id;
+
+  std::string *line;
+  symbol_t data;
+
+  // Initialize the compressor
+  qvc = initialize_qv_compressor(fout, COMPRESSION, info);
+
+  // Start compressing the file
+  block_idx = 0;
+  for(line_idx = 0; line_idx < info->lines; line_idx++) {
+    line = info->blocks[block_idx].quality_string_array + 
+		line_idx;
+    cur_readlen = line->size();
+
+
+    cluster_id = 0;
+
+    data = (*line)[0] - 33;
+    qv = data;	
+
+    q_state = get_symbol_index(q->output_alphabet, qv);
+    compress_qv(qvc->Quals, q_state, cluster_id, 0, idx);
+
+    prev_qv = qv;
+
+    for (s = 1; s < cur_readlen; ++s) {
+      data = (*line)[s] - 33;
+      qv = data;
+      q_state = get_symbol_index(q->output_alphabet, qv);
+
+      compress_qv(qvc->Quals, q_state, cluster_id, s, idx);
+      prev_qv = qv;
+    }
+  }
+  osSize = encoder_last_step(qvc->Quals->a, qvc->Quals->os);
+
+  return osSize;
+}
+
 void start_qv_decompression(FILE *fout, FILE *fin, struct quality_file_t *info,
-                            uint8_t *read_lengths) {
+                            uint16_t *read_lengths) {
   qv_compressor qvc;
 
   uint32_t s = 0, idx = 0, lineCtr = 0, q_state = 0;
-  uint8_t cur_readlen;
+  uint16_t cur_readlen;
   uint8_t prev_qv = 0, cluster_id;
 
   uint32_t columns = info->columns;
@@ -264,5 +314,83 @@ void start_qv_decompression(FILE *fout, FILE *fin, struct quality_file_t *info,
   free(line);
 }
 
+void start_qv_decompression_lossless(FILE *fin, struct quality_file_t *info,
+                            uint16_t *read_lengths) {
+  qv_compressor qvc;
+
+  uint32_t s = 0, idx = 0, lineCtr = 0, q_state = 0;
+  uint16_t cur_readlen;
+  uint8_t prev_qv = 0, cluster_id;
+
+  uint32_t columns = info->columns;
+  uint32_t lines = info->lines;
+
+  char *line = (char *)malloc(columns + 1);
+
+  // Initialize the compressor
+  qvc = initialize_qv_compressor(fin, DECOMPRESSION, info);
+
+  // Last line has to be handled separately to clear the arithmetic decoder
+  while (lineCtr < lines - 1) {
+    lineCtr++;
+    cur_readlen = *read_lengths;
+    read_lengths++;
+
+    cluster_id = 0;
+
+    // Quantize, compress and calculate error simultaneously
+    // Note that in this version the quantizer outputs are 0-72, so the +33
+    // offset is different from before
+    q_state = decompress_qv(qvc->Quals, cluster_id, 0, idx);
+    line[0] = q_state + 33;
+    prev_qv = line[0] - 33;
+
+    for (s = 1; s < cur_readlen; ++s) {
+      // Quantize and compute error for MSE
+      q_state = decompress_qv(qvc->Quals, cluster_id, s, idx);
+      line[s] = q_state + 33;
+      prev_qv = line[s] - 33;
+    }
+
+    // Write this line to the output file, note '\n' at the end of the line
+    // buffer to get the right length
+    line[cur_readlen] = '\0';
+    info.quality_string_array[lineCtr-1] = line;	
+  }
+
+  // Last Line
+  lineCtr++;
+  cur_readlen = *read_lengths;
+  read_lengths++;
+
+  cluster_id = 0;
+
+  // Quantize, compress and calculate error simultaneously
+  // Note that in this version the quantizer outputs are 0-72, so the +33 offset
+  // is different from before
+  q_state = decompress_qv(qvc->Quals, cluster_id, 0, idx);
+  line[0] = q_state + 33;
+  prev_qv = line[0] - 33;
+
+  for (s = 1; s < cur_readlen - 1; ++s) {
+    // Quantize and compute error for MSE
+    q_state = decompress_qv(qvc->Quals, cluster_id, s, idx);
+    line[s] = q_state + 33;
+    prev_qv = line[s] - 33;
+  }
+
+  // Last column
+  q_state = 
+      decoder_last_step(qvc->Quals->a, qvc->Quals->stats[cluster_id][s][idx]);
+  line[s] = q_state + 33;
+
+  // Write this line to the output file, note '\n' at the end of the line buffer
+  // to get the right length
+  line[cur_readlen] = '\0';
+  info.quality_string_array[lineCtr-1] = line;	
+
+  info->lines = lineCtr;
+  free(line);
+}
 } // namespace qvz
 } // namespace spring

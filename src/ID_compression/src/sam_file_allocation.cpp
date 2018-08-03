@@ -61,6 +61,8 @@ sam_block alloc_sam_models(//Arithmetic_stream as,
 }
 
 uint32_t load_sam_line(sam_block sb) {
+//old version
+/*
   uint32_t order;
 
   char *ID_line = *sb->IDs->IDs;
@@ -69,6 +71,18 @@ uint32_t load_sam_line(sam_block sb) {
   if (sb->current_read_number != sb->numreads) {
     sb->f_order->read((char *)&order, sizeof(uint32_t));
     strcpy(ID_line, (sb->id_array[order]).c_str());
+    sb->current_read_number++;
+    return 0;
+  } else
+    return 1;
+*/
+  uint32_t order;
+
+  char *ID_line = *sb->IDs->IDs;
+
+  // Read compulsory fields
+  if (sb->current_read_number != sb->numreads) {
+    strcpy(ID_line, (sb->id_array[sb->current_read_number]).c_str());
     sb->current_read_number++;
     return 0;
   } else

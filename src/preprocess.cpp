@@ -6,10 +6,9 @@
 
 namespace spring {
 
-int preprocess(dsg::input::fastq::FastqFileReader *fastqFileReader1,
-               dsg::input::fastq::FastqFileReader *fastqFileReader2,
-               const std::string &temp_dir, bool paired_end, bool preserve_id,
-               bool preserve_quality) {
+void preprocess(std::string &infile_1, std::string &infile_2,
+               std::string &temp_dir, bool &paired_end, bool &preserve_id,
+               bool &preserve_quality, bool &ill_bin_flag, std::string &quality_compressor) {
   std::string outfileclean;
   std::string outfileN;
   std::string outfileorderN;
@@ -199,6 +198,84 @@ bool check_id_pattern(const std::string &id_1, const std::string &id_2,
       throw std::runtime_error("Invalid paired id code.");
   }
   return false;
+}
+
+void write_dna_in_bits(std::string &read, std::ofstream &fout) {
+	uint16_t readlen = read.size();
+	fout.write((char*)&readlen,sizeof(uint16_t));
+	uint8_t byte;
+	for(int i = 0; i < readlen/4; i++) {
+		byte = 0;
+		for(int j = 0; j < 4; j++)
+		{
+			if(read[4*i+j] == 'A') 
+				byte = byte*4 + 0;
+			else if(read[4*i+j] == 'C') 
+				byte = byte*4 + 1;
+			else if(read[4*i+j] == 'G') 
+				byte = byte*4 + 2;
+			else if(read[4*i+j] == 'T') 
+				byte = byte*4 + 3;
+			else
+				throw std::runtime_error("Unexpected character in read.");
+		}
+		fout.write((char*)&byte,sizeof(uint8_t));
+	}
+	if(readlen%4 != 0) {
+		int i = readlen/4;	
+		byte = 0;
+		for(int j = 0; j < readlen%4; j++)
+		{
+			if(read[4*i+j] == 'A') 
+				byte = byte*4 + 0;
+			else if(read[4*i+j] == 'C') 
+				byte = byte*4 + 1;
+			else if(read[4*i+j] == 'G') 
+				byte = byte*4 + 2;
+			else if(read[4*i+j] == 'T') 
+				byte = byte*4 + 3;
+			else
+				throw std::runtime_error("Unexpected character in read.");
+		}
+		fout.write((char*)&byte,sizeof(uint8_t));
+	}
+	return;
+}
+
+void read_dna_from_bits(std::string &read, std::ifstream &fin) {
+	uint16_t readlen;
+	fin.read((char*)&readlen,sizeof(uint16_t));
+	read.resize(readlen);
+	uint8_t byte;
+	for(int i = 0; i < readlen/4; i++) {
+		fin.read((char*)&byte,sizeof(uint8_t));
+		for(int j = 0; j < 4; j++) {
+			if(byte%4 == 0)
+				read[4*i+3-j] = 'A';
+			else if(byte%4 == 1)
+				read[4*i+3-j] = 'C';
+			else if(byte%4 == 2)
+				read[4*i+3-j] = 'G';
+			else if(byte%4 == 3)
+				read[4*i+3-j] = 'T';
+			byte /= 4;
+		}
+	}
+	if(readlen/4 != 0) {
+		int i = readlen/4;
+		fin.read((char*)&byte,sizeof(uint8_t));
+		for(int j = 0; j < readlen%4; j++) {
+			if(byte%4 == 0)
+				read[4*i+readlen%4-1-j] = 'A';
+			else if(byte%4 == 1)
+				read[4*i+readlen%4-1-j] = 'C';
+			else if(byte%4 == 2)
+				read[4*i+readlen%4-1-j] = 'G';
+			else if(byte%4 == 3)
+				read[4*i+readlen%4-1-j] = 'T';
+			byte /= 4;
+		}
+	}	
 }
 
 }  // namespace spring

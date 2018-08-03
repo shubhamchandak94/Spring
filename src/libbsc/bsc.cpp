@@ -54,9 +54,10 @@ preprocessor macro LIBBSC_SORT_TRANSFORM_SUPPORT at compile time.
 #include <math.h>
 #include <memory.h>
 
-#include "libbsc/libbsc.h"
-#include "libbsc/filters.h"
-#include "libbsc/platform/platform.h"
+#include "libbsc/libbsc/libbsc.h"
+#include "libbsc/libbsc/filters.h"
+#include "libbsc/libbsc/platform/platform.h"
+#include "libbsc/bsc.h"
 
 #pragma pack(push, 1)
 
@@ -856,7 +857,7 @@ void ProcessCommandline(int argc, char * argv[])
     }
 }
 
-int main(int argc, char * argv[])
+int bsc_main(int argc, char * argv[])
 {
     fprintf(stdout, "This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.\n");
     fprintf(stdout, "Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.\n\n");

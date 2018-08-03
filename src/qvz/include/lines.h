@@ -9,7 +9,7 @@
 
 // This limits us to chunks that aren't too big to fit into a modest amount of
 // memory at a time
-#define MAX_LINES_PER_BLOCK 1000000
+#define MAX_LINES_PER_BLOCK 10000000 // ignored for lossless compression
 #define MAX_READS_PER_LINE 1022
 #define READ_LINEBUF_LENGTH (MAX_READS_PER_LINE + 2)
 
@@ -41,6 +41,7 @@ struct line_block_t {
   uint32_t count;
   //	struct line_t *lines;
   char *quality_array;
+  std::string *quality_string_array;	
   uint16_t *read_lengths;
   std::string *infile_order;
   uint64_t startpos;

@@ -11,9 +11,9 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <time.h>
 #include <unistd.h>
-
+#include <time.h>
+ 
 #include "qvz/include/codebook.h"
 
 #define m_arith 22
@@ -98,8 +98,13 @@ qv_compressor initialize_qv_compressor(FILE *fout, uint8_t streamDirection,
 
 uint32_t start_qv_compression(struct quality_file_t *info, FILE *fout,
                               double *dis, FILE *funcompressed);
+
+uint32_t start_qv_compression_lossless(struct quality_file_t *info, FILE *fout);
+
 void start_qv_decompression(FILE *fout, FILE *fin, struct quality_file_t *info,
-                            uint8_t *read_lengths);
+                            uint16_t *read_lengths);
+
+void start_qv_decompression_lossless(FILE *fin, struct quality_file_t *info, uint16_t *read_lengths);
 
 } // namespace qvz
 } // namespace spring

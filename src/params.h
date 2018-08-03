@@ -14,6 +14,8 @@ const int NUM_LOCKS_REORDER = 0x1000000;// limits on number of locks (power of 2
 const int NUM_DICT_ENCODER = 2;
 const int MAX_SEARCH_ENCODER = 1000;
 const int THRESH_ENCODER = 24;
+const int NUM_READS_PER_CHUNK = 256000;
+const int NUM_READS_PER_CHUNK_LONG = 10000;
 
 } // namespace spring
 
