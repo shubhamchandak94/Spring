@@ -19,7 +19,6 @@ int main(int argc, char** argv)
 	std::vector<std::string> infile_vec, outfile_vec;
 	std::string working_dir, quality_compressor;
 	int num_thr;
-	double quality_ratio;
 	po::options_description desc("Allowed options");
 	desc.add_options()
     	("help,h",po::bool_switch(&help_flag), "produce help message")
@@ -28,20 +27,24 @@ int main(int argc, char** argv)
     	("input-file,i", po::value< vector<string> >(&infile_vec), "input file name (specify two files for paired end)")
     	("output-file,o", po::value< vector<string> >(&outfile_vec), "output file name (for paired end decompression, if only one file is specified, two output files will be created by suffixing .1 and .2.)")
     	("num-threads,t", po::value<int>(&num_thr), "number of threads (default 8)")->default_value(8)
-    	("pairing-only,p", po::bool_switch(&pairing_only_flag), "do not retain read order during compression (pairing still preserved). For single end files, this leads to arbitrary reordering of the reads.")
+    	("allow_read_reordering,r", po::bool_switch(&pairing_only_flag), "do not retain read order during compression (paired reads still remain paired). For single end files, this leads to arbitrary reordering of the reads.")
     	("no-quality", po::bool_switch(&no_quality_flag), "do not retain quality values during compression")
     	("no-ids", po::bool_switch(&no_ids_flag), "do not retain read identifiers during compression")
     	("working-dir,w", po::value<std::string>(&working_dir), "directory to create temporary files (default pwd)")->default_value("")
 	("ill-bin",po::bool_switch(&ill_bin_flag), "apply Illumina binning to quality scores before compression")
-    	("quality-compressor", po::value<std::string>(&quality_compressor), "compressor to use for quality values: bsc or qvz")
-    	("quality-ratio", po::value<double>(&quality_ratio), "specify bits/quality value for qvz lossy compression (default 8.0, i.e, lossless)")->default(8.0)
-	("long",po::bool_switch(&long_flag), "Use BSC for read and quality compression. Allows arbitrarily long read lengths. Can also provide better compression for reads with significant number of indels.")
+    	("quality-compressor,q", po::value<std::string>(&quality_compressor), "compressor to use for quality values: bcm or qvz (default qvz). For long reads, only bcm supported.")->default("qvz")
+	("long,l",po::bool_switch(&long_flag), "Use for compression of arbitrarily long read lengths. Can also provide better compression for reads with significant number of indels. Some other options might be disabled in this mode.")
 	;
 	po::parse_command_line(argc, argv, desc);
 	if(help_flag) {
 		std::cout <<desc << "\n";
 		return 0;
 	}
+	if(quality_compressor == "Bcm" || quality_compressor == "BCM")
+		quality_compressor = "bcm";
+	if(quality_compressor == "Qvz" || quality_compressor == "QVZ")
+		quality_compressor = "qvz";
+
 	if((!compress_flag && !decompress_flag) || compress_flag && decompress_flag) {
 		std::cout << "Exactly one of compress or decompress needs to be specified \n";
 		std::cout <<desc << "\n";
@@ -59,10 +62,16 @@ int main(int argc, char** argv)
 	}
 	std::cout << "Temporary directory: " << temp_dir << "\n";
 	if(compress_flag) 
-		compress(temp_dir, infile_vec, outfile_vec, num_thr, pairing_only_flag, no_quality_flag, no_ids_flag, ill_bin_flag, quality_compressor, quality_ratio, long_flag);
+		compress(temp_dir, infile_vec, outfile_vec, num_thr, pairing_only_flag, no_quality_flag, no_ids_flag, ill_bin_flag, quality_compressor, long_flag);
 	else 
 		decompress();
 
+	if(compress_flag && long_flag) {
+		std::cout << "Long flag detected.\n";	
+		std::cout << "For long mode: allow_read_reordering flag is disabled and quality compressor is fixed to bcm.\n";
+		quality_compressor = "bcm";
+		pairing_only_flag = false;
+	}
 	// Error handling
 	catch(std::runtime_error& e) {
 		std::cout << "Program terminated unexpectedly with error: "<< e.what() << "\n";
@@ -74,7 +83,7 @@ int main(int argc, char** argv)
 	return 0;	
 }
 
-void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::vector<std::string>& outfile_vec, int &num_thr, bool &pairing_only_flag, bool &no_quality_flag, bool &no_ids_flag, bool &ill_bin_flag, std::string &quality_compressor, std::string &quality_ratio, bool &long_flag) {
+void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::vector<std::string>& outfile_vec, int &num_thr, bool &pairing_only_flag, bool &no_quality_flag, bool &no_ids_flag, bool &ill_bin_flag, std::string &quality_compressor, bool &long_flag) {
 
 	std::string infile_1, infile_2, outfile;
 	bool paired_end, preserve_quality, preserve_id, preserve_order;
@@ -98,14 +107,10 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 		outfile = outfile_vec[0];
 	else
 		throw std::runtime_error("Number of output files not equal to 1");
-	if(quality_compressor != "bsc" && quality_compressor != "qvz")
+	if(quality_compressor != "bcm" && quality_compressor != "qvz")
 		throw std::runtime_error("Invalid quality compressor");
-	if(quality_compressor == "bsc")
-	{
-		quality_ratio = 8.0;
-	}
-	
-	preprocess(infile_1, infile_2, temp_dir, paired_end, preserve_id, preserve_quality, preserve_order, ill_bin_flag, quality_compressor, quality_ratio, long_flag);
+
+	preprocess(infile_1, infile_2, temp_dir, paired_end, preserve_id, preserve_quality, preserve_order, ill_bin_flag, quality_compressor, long_flag);
 	/*		
 	if (status != 0) throw std::runtime_error("Bad input file");
 	std::ifstream f_meta(temp_dir + "/read_meta.txt");

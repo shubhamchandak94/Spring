@@ -8,11 +8,12 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <stdexcept>
 
 #include "qvz/include/cluster.h"
 #include "qvz/include/codebook.h"
 #include "qvz/include/qv_compressor.h"
-#include "qvz/include/main.h"
+#include "qvz/include/qvz.h"
 
 namespace spring {
 namespace qvz {
@@ -134,11 +135,15 @@ void encode(FILE *fout, struct qv_options_t *opts, uint32_t max_readlen,
   }
 }
 
-void encode_lossless(FILE *fout, struct qv_options_t *opts, uint32_t max_readlen, uint32_t numreads, std::string *quality_string_array) {
+void encode_lossless(const char *outfile_name, struct qv_options_t *opts, uint32_t max_readlen, uint32_t numreads, std::string *quality_string_array) {
   struct quality_file_t qv_info;
   struct alphabet_t *alphabet = alloc_alphabet(ALPHABET_SIZE);
   uint64_t bytes_used;
-
+  FILE *fout = fopen(outfile_name, "wb");
+  if(!fout) {
+    perror(fout);
+    throw std::runtime_error("QVZ output file error");	
+  }
   qv_info.alphabet = alphabet;
   qv_info.cluster_count = opts->clusters;
   qv_info.columns = max_readlen;
@@ -192,7 +197,6 @@ void decode(char *input_file, char *output_file, struct qv_options_t *opts,
 
   fclose(fout);
   fclose(fin);
-
 }
 
 void decode_lossless(char *input_file, struct qv_options_t *opts,
@@ -214,7 +218,6 @@ void decode_lossless(char *input_file, struct qv_options_t *opts,
   start_qv_decompression_lossless(fin, &qv_info, read_lengths);
 
   fclose(fin);
-
 }
 /**
  * Displays a usage name
