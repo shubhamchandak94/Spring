@@ -30,7 +30,7 @@
 #ifdef _OPENMP
 # include <omp.h>
 #endif
-#include "divsufsort.h"
+#include "bcm/divsufsort.h"
 
 
 /*- Constants -*/

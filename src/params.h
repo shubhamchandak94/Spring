@@ -16,7 +16,7 @@ const int MAX_SEARCH_ENCODER = 1000;
 const int THRESH_ENCODER = 24;
 const int NUM_READS_PER_CHUNK = 256000;
 const int NUM_READS_PER_CHUNK_LONG = 10000;
-
+const int BCM_BLOCK_SIZE = (1<<27)-1; // 128 MB
 } // namespace spring
 
 #endif // SPRING_PARAMS_H_
