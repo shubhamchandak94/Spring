@@ -5,7 +5,8 @@
 
 namespace spring {
 
-const int MAX_READ_LEN = 511;
+const uint16_t MAX_READ_LEN = 511;
+const uint32_t MAX_READ_LEN_LONG = 4294967290;
 const uint32_t MAX_NUM_READS = 4294967290;
 const int NUM_DICT_REORDER = 2;
 const int MAX_SEARCH_REORDER = 1000;

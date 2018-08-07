@@ -103,6 +103,12 @@ void generate_illumina_binning_table(char *illumina_binning_table) {
   for (uint8_t i = 33 + 40; i <= 127; i++)illumina_binning_table[i] = 33 + 40;
 }
 
+// ID patterns
+// code 0: no pattern found
+// code 1: */1 and */2 where * are same in both
+// code 2: * and * where * are same in both
+// code 3: * 1:# and * 2:# where * and # are common to both and * contains no
+// space (used in new versions)
 uint8_t find_id_pattern(const std::string &id_1, const std::string &id_2) {
   if (id_1.length() != id_2.length()) return 0;
   if (id_1 == id_2) return 2;

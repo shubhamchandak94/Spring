@@ -1,36 +1,240 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include "omp.h"
+#include <cstdio>
+#include <algorithm>
+#include <omp.h>
 #include "params.h"
 #include "preprocess.h"
 #include "util.h"
+#include "bcm/bcm.h"
 
 namespace spring {
 
 void preprocess(std::string &infile_1, std::string &infile_2,
                std::string &temp_dir, bool &paired_end, bool &preserve_id,
-               bool &preserve_quality, bool &preserve_order, bool &ill_bin_flag, std::string &quality_compressor, bool &long_flag, compression_params &p)
-{}
+               bool &preserve_quality, bool &preserve_order, bool &ill_bin_flag, std::string &quality_compressor, bool &long_flag, compression_params &cp)
+{
+  std::string outfileclean[2];
+  std::string outfileN;
+  std::string outfileorderN;
+  std::string outfileid[2];
+  std::string outfilequality[2];
+  std::string outfileread[2];
+  std::string outfilereadlength[2];
+  std::string basedir = temp_dir;
+  outfileclean[0] = basedir + "/input_clean_1.bin";
+  outfileclean[1] = basedir + "/input_clean_2.bin";
+  outfileN = basedir + "/input_N.dna";
+  outfileorderN = basedir + "/read_order_N.bin";
+  outfileid[0] = basedir + "/id_1";
+  outfileid[1] = basedir + "/id_2";
+  outfilequality[0] = basedir + "/quality_1";
+  outfilequality[1] = basedir + "/quality_2";
+  outfileread[0] = basedir + "/read_1";
+  outfileread[1] = basedir + "/read_2";
+  outfilereadlength[0] = basedir + "/readlength_1";
+  outfilereadlength[1] = basedir + "/readlength_2";
+  
+  std::ifstream fin_1, fin_2;
+  std::ofstream fout_clean_1, fout_clean_2;
+  std::ofstream fout_N_1, fout_N_2;
+  std::ofstream fout_order_N_1, fout_order_N_2;
+  std::ofstream fout_id_1, fout_id_2;
+  std::ofstream fout_quality_1, fout_quality_2;
+  std::ofstream fout_readlength_1, fout_readlength_2;
+  if(long_flag) {
+    fin_1.open(infile_1);
+    if(paired_end)
+      fin_2.open(infile_2); 
+  }
+  else {
+    fin_1.open(infile_1);
+    fout_clean_1.open(outfileclean[0],std::ios::binary);
+    fout_N_1.open(outfileN+".1");
+    fout_order_N_1.open(outfileorderN+".1",std::ios::binary);
+    if(!preserve_order) {
+      if(preserve_id)
+        fout_id_1.open(outfileid[0]);
+      if(preserve_quality)
+        fout_quality_1.open(outfilequality[0]);
+	}
+	if(paired_end) {
+	  fin_2.open(infile_2);
+	  fout_clean_2.open(outfileclean[1],std::ios::binary);
+	  fout_N_2.open(outfileN+".2");
+	  fout_order_N_2.open(outfileorderN+".2",std::ios::binary);
+	  if(!preserve_order) {
+		if(preserve_id)
+		  fout_id_2.open(outfileid[1]);
+		if(preserve_quality)
+		  fout_quality_2.open(outfilequality[1]);
+	  }
+	}
+  }
+  
+  uint32_t max_readlen = 0;
+  uint64_t num_reads_1 = 0;
+  uint64_t num_reads_2 = 0;
+  uint64_t num_reads_clean_1 = 0;
+  uint64_t num_reads_clean_2 = 0;
+  uint32_t num_reads_per_chunk;
+  if(long_flag)
+	num_reads_per_chunk = NUM_READS_PER_CHUNK_LONG;
+  else
+	num_reads_per_chunk = NUM_READS_PER_CHUNK;
+  uint8_t paired_id_code = 0;
+  bool paired_id_match = false;
+  
+  char *illumina_binning_table = new char[128];
+  if(ill_bin_flag && preserve_order)
+	generate_illumina_binning_table(illumina_binning_table);
+  
+  // Check that we were able to open the input files and also look for 
+  // paired end matching ids if relevant
+  if(!fin_1.is_open())
+	throw std::runtime_error("Error opening input file");
+  if(paired_end) {
+    if(!fin_2.is_open())
+      throw std::runtime_error("Error opening input file");
+    if(preserve_id) {
+	  std::string id_1, id_2;
+      std::getline(fin_1,id_1);
+	  std::getline(fin_2,id_2);
+	  paired_id_code = find_id_pattern(id_1,id_2);
+	  if(paired_id_code != 0)
+		paired_id_match = true;  
+	  fin_1.seekg(0);
+	  fin_2.seekg(0);
+	}
+  }	
+  uint64_t num_reads_per_step = (uint64_t)cp.num_thr*num_reads_per_chunk;
+  std::string *read_array = new std::string[num_reads_per_step];
+  std::string *id_array_1 = new std::string[num_reads_per_step];
+  std::string *id_array_2 = new std::string[num_reads_per_step];
+  std::string *quality_array = new std::string[num_reads_per_step];
+  bool *read_contains_N_array = new bool[num_reads_per_step];
+  uint32_t *read_lengths_array = new uint32_t[num_reads_per_step];
+  
+  omp_set_num_threads(cp.num_thr);
+  
+  uint32_t num_chunks_done = 0;
+  
+  while(true) {
+	bool done_1 = false, done_2 = false;
+    uint32_t num_reads_read = read_fastq_block(fin_1, id_array_1, read_array, quality_array, num_reads_per_step);
+	if(num_reads_read < num_reads_per_step)
+	  done_1 = true;
+	#pragma omp parallel
+	{
+		bool done = false;
+		uint64_t tid = omp_get_thread_num();
+		if(tid*num_reads_per_chunk >= num_reads_read) 
+		  done = true;
+		uint32_t num_reads_thr = std::min(num_reads_read, (tid+1)*num_reads_per_chunk) - tid*num_reads_per_chunk;
+		if(!done) {
+		  if(long_flag)	
+	     	    fout_readlength_1.open(outfilereadlength[0]+"."+std::to_string(num_chunks_done+tid), std::ios::binary);
+		  // check if reads and qualities have equal lengths 
+		  for(uint32_t i = tid*num_reads_per_chunk; i < tid*num_reads_per_chunk + num_reads_thr; i++) {
+			size_t len = read_array[i].size();
+			if(read_array.size() == 0) 
+			  throw std::runtime_error("Read of length 0 detected.");
+			if(long_flag && len > MAX_READ_LEN_LONG) {
+			  std::cout << "Max read length for long mode is " << MAX_READ_LEN_LONG << ", but found read of length " << len << "\n";
+			  throw std::runtime_error("Too long read length");
+			}
+			if(!long_flag && len > MAX_READ_LEN) {
+			  std::cout << "Max read length without long mode is " << MAX_READ_LEN << ", but found read of length " << len << "\n";
+			  throw std::runtime_error("Too long read length (please try --long/-l flag).");
+			}
+			if(preserve_quality && (quality_array[i].size() != len))
+			  throw std::runtime_error("Read length does not match quality length.");
+			if(preserve_id && (id_array_1.size() == 0))
+			  throw std::runtime_error("Identifier of length 0 detected.");
+			read_lengths_array[i] = (uint32_t)len;
+			
+			// mark reads with N
+			if(!long_flag) 
+			  read_contains_N_array[i] = (read_array[i].find('N') != std::string::npos);  
+			
+			// Write read length to a file (for long mode)
+			if(long_flag)
+			  fout_readlength_1.write((char*)&read_lengths_array[i], sizeof(uint32_t));
+		  }
+		  if(long_flag)
+		    fout_readlength_1.close();
+		  // apply Illumina binning (if asked to do so)
+		  if(preserve_quality && ill_bin_flag)
+			quantize_quality(quality_array + tid*num_reads_per_chunk, num_reads_thr, illumina_binning_table);
+		
+		  if(!long_flag) {
+			if(preserve_order) {
+			  // Compress ids
+			  if(preserve_id) {
+				std::string outfile_name = outfileid[0] + "." + std::to_string(num_chunks_done+tid);
+				compress_id_block(outfile_name.c_str(), id_array + tid*num_reads_per_chunk, num_reads_thr);  
+			  }
+			  // Compress qualities
+			  if(preserve_quality) {
+				std::string outfile_name = outfilequality[0] + "." + std::to_string(num_chunks_done+tid);
+				if(quality_compressor == "qvz")
+				  compress_quality_block_qvz(outfile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
+				else
+				  bcm::bcm_str_array_compress(outfile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
+			  }	
+			}
+		  }
+		  else {
+			// Compress read lengths file
+			std::string infile_name = outfilereadlength[0]+"."+std::to_string(num_chunks_done+tid);
+			std::string outfile_name = outfilereadlength[0]+"."+std::to_string(num_chunks_done+tid) + ".bcm";
+			bcm::bcm_compress(infile_name.c_str(), outfile_name.c_str());
+			remove(infile_name.c_str());
+			// Compress ids
+			if(preserve_id) {
+			  std::string outfile_name = outfileid[0] + "." + std::to_string(num_chunks_done+tid);
+			  compress_id_block(outfile_name.c_str(), id_array + tid*num_reads_per_chunk, num_reads_thr);
+			}
+			// Compress qualities
+			if(preserve_quality) {
+			  std::string outfile_name = outfilequality[0] + "." + std::to_string(num_chunks_done+tid);
+			  bcm::bcm_str_array_compress(outfile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
+			}
+			// Compress reads
+			outfile_name = outfileread[0] + "." + std::to_string(num_chunks_done+tid);
+			bcm::bcm_str_array_compress(outfile_name.c_str(), read_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
+		  }
+		}
+	} // omp parallel
+	if(!long_flag) {
+	  // write reads and read_order_N to respective files
+
+	  if(!preserve_order) {
+		// write qualities to file (after Illumina binning if needed)
+		
+		// write ids to file
+	  }
+	}
 	
-
-
-//
-//  std::string outfileclean;
-//  std::string outfileN;
-//  std::string outfileorderN;
-//  std::string outfileid[2];
-//  std::string outfilenumreads;
-//  std::string outfile_meta;
-//  int max_readlen = -1;
-//  std::string basedir = temp_dir;
-//  outfileclean = basedir + "/input_clean.dna";
-//  outfileN = basedir + "/input_N.dna";
-//  outfileorderN = basedir + "/read_order_N.bin";
-//  outfileid[0] = basedir + "/input_1.id";
-//  outfileid[1] = basedir + "/input_2.id";
-//  outfilenumreads = basedir + "/numreads.bin";
-//  outfile_meta = basedir + "/read_meta.txt";
+  }
+  
+  delete[] read_array;
+  delete[] id_array_1;
+  delete[] id_array_2;
+  delete[] quality_array;
+  delete[] read_contains_N_array;
+  delete[] read_lengths_array;
+  
+  if(!long_flag && paired_end) {
+	// merge input_N and input_order_N for the two files
+    
+  }
+  
+  if(paired_id_match) {
+	// delete id files for second file since we found a pattern
+	
+  }	
 //
 //  std::string id_1;
 //  std::ofstream f_clean(outfileclean);

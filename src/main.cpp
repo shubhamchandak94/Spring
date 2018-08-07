@@ -79,6 +79,13 @@ int main(int argc, char** argv)
 		boost::filesystem::remove_all(temp_dir);
 		std::cout << desc << "\n";
 		return 1;
-	}	
+	}
+	catch(...) {	
+		std::cout << "Program terminated unexpectedly\n";
+		std::cout << "Deleting temporary directory...\n";
+		boost::filesystem::remove_all(temp_dir);
+		std::cout << desc << "\n";
+		return 1;
+	}
 	return 0;	
 }

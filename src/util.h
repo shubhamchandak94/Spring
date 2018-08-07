@@ -14,24 +14,26 @@ struct compression_params {
 	bool preserve_id;
 	bool long_flag;
 	uint32_t num_reads;
+	uint32_t num_reads_clean;
 	uint32_t max_readlen;
 	uint8_t paired_id_code;
 	int num_reads_per_chunk;
 	int num_reads_per_chunk_long;
 	int bcm_block_size;
+	int num_thr;
 };
 
 int read_fastq_block(std::ifstream &fin, std::string *id_array, std::string *read_array, std::string *quality_array, int num_reads);
 
 void write_fastq_block(std::ofstream &fout, std::string *id_array, std::string *read_array, std::string *quality_array, int num_reads);
 
-void compress_id_block(const char* outfile_name, std::string &id_array, int num_ids);
+void compress_id_block(const char* outfile_name, std::string *id_array, int num_ids);
 
-void decompress_id_block(const char* infile_name, std::string &id_array, int num_ids);
+void decompress_id_block(const char* infile_name, std::string *id_array, int num_ids);
 
-void compress_quality_block_qvz(const char* outfile_name, std::string &quality_array, int num_lines, uint32_t *read_lengths);
+void compress_quality_block_qvz(const char* outfile_name, std::string *quality_array, int num_lines, uint32_t *read_lengths);
 
-void decompress_quality_block_qvz(const char* infile_name, std::string &quality_array, int num_lines, uint16_t *read_lengths);
+void decompress_quality_block_qvz(const char* infile_name, std::string *quality_array, int num_lines, uint16_t *read_lengths);
 
 void quantize_quality(std::string *quality_array, int num_lines, char *quantization_table);
 
