@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <stdexcept>
 //#include "encoder.h"
 //#include "pe_encode.h"
 #include "preprocess.h"
