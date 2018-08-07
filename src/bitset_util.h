@@ -7,7 +7,7 @@
 #include <fstream>
 #include <string>
 #include "BooPHF.h"
-
+#include "params.h"
 namespace spring {
 
 typedef boomphf::SingleHashFunctor<u_int64_t> hasher_t;

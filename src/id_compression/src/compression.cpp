@@ -9,7 +9,7 @@
 #include <pthread.h>
 #include <stdbool.h>
 #include <stdio.h>
-#include "ID_compression/include/sam_block.h"
+#include "id_compression/include/sam_block.h"
 
 namespace spring {
 namespace id_comp {
@@ -20,7 +20,6 @@ int print_line(struct sam_line_t *sline, FILE *fs) {
 }
 
 void *compress(void *thread_info) {
-  uint64_t compress_file_size = 0;
 
   unsigned long long lineCtr = 0;
 
@@ -43,7 +42,7 @@ void *compress(void *thread_info) {
   }
 
   // end the compression
-  compress_file_size = encoder_last_step(as);
+  encoder_last_step(as);
 
   return NULL;
 }

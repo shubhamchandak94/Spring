@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mikel Hernaez. All rights reserved.
 //
 
-#include "ID_compression/include/sam_block.h"
+#include "id_compression/include/sam_block.h"
 
 // devuelve la longitud del PRIMER read?
 // se asume que todos lso reads son de la misma longitud.
@@ -76,7 +76,6 @@ uint32_t load_sam_line(sam_block sb) {
   } else
     return 1;
 */
-  uint32_t order;
 
   char *ID_line = *sb->IDs->IDs;
 

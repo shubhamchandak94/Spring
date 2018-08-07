@@ -761,7 +761,7 @@ int read_str_array(byte* buf, int bsize) {
       pos_in_str_array++;
       pos_in_current_str = 0;
     }
-    else if(str_lengths[pos_in_str_array]-pos_in_current_str <= bsize-bytes_written) {
+    else if(str_lengths[pos_in_str_array]-pos_in_current_str <= (uint32_t)(bsize-bytes_written)) {
       memcpy(buf+bytes_written, str_array[pos_in_str_array].c_str()+pos_in_current_str, str_lengths[pos_in_str_array]-pos_in_current_str);
       bytes_written += str_lengths[pos_in_str_array]-pos_in_current_str;
       pos_in_str_array++;

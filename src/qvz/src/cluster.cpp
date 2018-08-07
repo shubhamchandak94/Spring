@@ -46,8 +46,8 @@ struct cluster_list_t *alloc_cluster_list(struct quality_file_t *info) {
     rtn->clusters[j].mean = (symbol_t *)calloc(info->columns, sizeof(symbol_t));
     rtn->clusters[j].accumulator =
         (uint64_t *)calloc(info->columns, sizeof(uint64_t));
-    rtn->clusters[j].training_stats =
-        alloc_conditional_pmf_list(info->alphabet, info->columns);
+ //   rtn->clusters[j].training_stats =
+ //        alloc_conditional_pmf_list(info->alphabet, info->columns);
   }
 
   return rtn;
@@ -62,8 +62,8 @@ void free_cluster_list(struct cluster_list_t *clusters) {
   for (j = 0; j < clusters->count; ++j) {
     free(clusters->clusters[j].mean);
     free(clusters->clusters[j].accumulator);
-    free_conditional_pmf_list(clusters->clusters[j].training_stats);
-    free_cond_quantizer_list(clusters->clusters[j].qlist);
+ //   free_conditional_pmf_list(clusters->clusters[j].training_stats);
+ //   free_cond_quantizer_list(clusters->clusters[j].qlist);
   }
   free(clusters->distances);
   free(clusters->clusters);

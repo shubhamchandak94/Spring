@@ -38,10 +38,42 @@ add_subdirectory(boost-cmake)
 
 set(source_dir ${CMAKE_SOURCE_DIR}/src)
 set(include_dir ${CMAKE_SOURCE_DIR}/src)
-set(source_files ${source_files} ${source_dir}/../util/boost_openmp_bcm_test.cpp)
+# test file
+#set(source_files ${source_files} ${source_dir}/../util/boost_openmp_bcm_test.cpp)
+# bcm
 set(source_files ${source_files} ${source_dir}/bcm/bcm.cpp)
 set(source_files ${source_files} ${source_dir}/bcm/divsufsort.cpp)
+# spring
+set(source_files ${source_files} ${source_dir}/main.cpp)
+set(source_files ${source_files} ${source_dir}/spring.cpp)
+set(source_files ${source_files} ${source_dir}/util.cpp)
+set(source_files ${source_files} ${source_dir}/bitset_util.cpp)
+set(source_files ${source_files} ${source_dir}/preprocess.cpp)
+# qvz
+set(source_files ${source_files} ${source_dir}/qvz/src/arith.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/cluster.cpp)
+# set(source_files ${source_files} ${source_dir}/qvz/src/codebook.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/distortion.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/lines.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/os_stream.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/pmf.cpp)
+# set(source_files ${source_files} ${source_dir}/qvz/src/quantizer.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/qv_compressor.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/qv_stream.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/qvz.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/util.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/well.cpp)
+
+# id compression
+set(source_files ${source_files} ${source_dir}/id_compression/src/Arithmetic_stream.cpp)
+set(source_files ${source_files} ${source_dir}/id_compression/src/compression.cpp)
+set(source_files ${source_files} ${source_dir}/id_compression/src/id_compression.cpp)
+set(source_files ${source_files} ${source_dir}/id_compression/src/io_functions.cpp)
+set(source_files ${source_files} ${source_dir}/id_compression/src/sam_file_allocation.cpp)
+set(source_files ${source_files} ${source_dir}/id_compression/src/sam_models.cpp)
+set(source_files ${source_files} ${source_dir}/id_compression/src/stream_model.cpp)
 
 add_executable (spring ${source_files})
 target_include_directories(spring PRIVATE ${include_dir})
 target_link_libraries(spring PUBLIC Boost::filesystem)
+target_link_libraries(spring PUBLIC Boost::program_options)

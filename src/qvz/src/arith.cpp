@@ -41,7 +41,7 @@ void arithmetic_encoder_step(Arithmetic_code a, stream_stats_ptr_t stats,
 
   range = a->u - a->l + 1;
 
-  assert(x < stats->alphabetCard);
+  assert(x < (int64_t)stats->alphabetCard);
 
   cumCountX_1 = 0;
   for (i = 0; i < x; ++i) {

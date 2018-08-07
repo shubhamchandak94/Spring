@@ -16,6 +16,7 @@
 #include <string>
 #include <vector>
 #include "util.h"
+#include "bitset_util.h"
 #include "params.h"
 
 namespace spring {
@@ -109,7 +110,7 @@ std::string bitsettostring(std::bitset<bitset_size> b, uint16_t readlen,
 
 template <size_t bitset_size>
 void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
-            uint8_t *read_lengths_s, encoder_global &eg,
+            uint16_t *read_lengths_s, encoder_global &eg,
             encoder_global_b<bitset_size> &egb) {
   omp_lock_t *read_lock = new omp_lock_t[eg.numreads_s + eg.numreads_N];
   omp_lock_t *dict_lock = new omp_lock_t[eg.numreads_s + eg.numreads_N];

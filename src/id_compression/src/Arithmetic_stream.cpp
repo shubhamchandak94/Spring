@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mikel Hernaez. All rights reserved.
 //
 
-#include "ID_compression/include/Arithmetic_stream.h"
+#include "id_compression/include/Arithmetic_stream.h"
 
 namespace spring {
 namespace id_comp {

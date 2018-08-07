@@ -53,6 +53,7 @@ uint8_t qv_read_cluster(arithStream as) {
  * Compress a sequence of quality scores including dealing with organization by
  * cluster
  */
+/*
 uint32_t start_qv_compression(struct quality_file_t *info, FILE *fout,
                               double *dis, FILE *funcompressed) {
   unsigned int osSize = 0;
@@ -161,14 +162,13 @@ uint32_t start_qv_compression(struct quality_file_t *info, FILE *fout,
 
   return osSize;
 }
-
+*/
 uint32_t start_qv_compression_lossless(struct quality_file_t *info, FILE *fout) {
   unsigned int osSize = 0;
 
   qv_compressor qvc;
 
   uint32_t s = 0, idx = 0, q_state = 0;
-  uint8_t qv = 0, prev_qv = 0;
   uint8_t cur_readlen;
 
   uint32_t block_idx, line_idx;
@@ -191,27 +191,22 @@ uint32_t start_qv_compression_lossless(struct quality_file_t *info, FILE *fout) 
     cluster_id = 0;
 
     data = (*line)[0] - 33;
-    qv = data;	
 
-    q_state = get_symbol_index(q->output_alphabet, qv);
+    q_state = data;
     compress_qv(qvc->Quals, q_state, cluster_id, 0, idx);
-
-    prev_qv = qv;
 
     for (s = 1; s < cur_readlen; ++s) {
       data = (*line)[s] - 33;
-      qv = data;
-      q_state = get_symbol_index(q->output_alphabet, qv);
+      q_state = data;
 
       compress_qv(qvc->Quals, q_state, cluster_id, s, idx);
-      prev_qv = qv;
     }
   }
   osSize = encoder_last_step(qvc->Quals->a, qvc->Quals->os);
 
   return osSize;
 }
-
+/*
 void start_qv_decompression(FILE *fout, FILE *fin, struct quality_file_t *info,
                             uint16_t *read_lengths) {
   qv_compressor qvc;
@@ -313,14 +308,14 @@ void start_qv_decompression(FILE *fout, FILE *fin, struct quality_file_t *info,
   info->lines = lineCtr;
   free(line);
 }
-
+*/
 void start_qv_decompression_lossless(FILE *fin, struct quality_file_t *info,
                             uint16_t *read_lengths) {
   qv_compressor qvc;
 
   uint32_t s = 0, idx = 0, lineCtr = 0, q_state = 0;
   uint16_t cur_readlen;
-  uint8_t prev_qv = 0, cluster_id;
+  uint8_t cluster_id;
 
   uint32_t columns = info->columns;
   uint32_t lines = info->lines;
@@ -343,19 +338,17 @@ void start_qv_decompression_lossless(FILE *fin, struct quality_file_t *info,
     // offset is different from before
     q_state = decompress_qv(qvc->Quals, cluster_id, 0, idx);
     line[0] = q_state + 33;
-    prev_qv = line[0] - 33;
 
     for (s = 1; s < cur_readlen; ++s) {
       // Quantize and compute error for MSE
       q_state = decompress_qv(qvc->Quals, cluster_id, s, idx);
       line[s] = q_state + 33;
-      prev_qv = line[s] - 33;
     }
 
     // Write this line to the output file, note '\n' at the end of the line
     // buffer to get the right length
     line[cur_readlen] = '\0';
-    info.quality_string_array[lineCtr-1] = line;	
+    info->quality_string_array[lineCtr-1] = line;	
   }
 
   // Last Line
@@ -370,13 +363,11 @@ void start_qv_decompression_lossless(FILE *fin, struct quality_file_t *info,
   // is different from before
   q_state = decompress_qv(qvc->Quals, cluster_id, 0, idx);
   line[0] = q_state + 33;
-  prev_qv = line[0] - 33;
 
-  for (s = 1; s < cur_readlen - 1; ++s) {
+  for (s = 1; s < (uint32_t)(cur_readlen - 1); ++s) {
     // Quantize and compute error for MSE
     q_state = decompress_qv(qvc->Quals, cluster_id, s, idx);
     line[s] = q_state + 33;
-    prev_qv = line[s] - 33;
   }
 
   // Last column
@@ -387,7 +378,7 @@ void start_qv_decompression_lossless(FILE *fin, struct quality_file_t *info,
   // Write this line to the output file, note '\n' at the end of the line buffer
   // to get the right length
   line[cur_readlen] = '\0';
-  info.quality_string_array[lineCtr-1] = line;	
+  info->quality_string_array[lineCtr-1] = line;	
 
   info->lines = lineCtr;
   free(line);

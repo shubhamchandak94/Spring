@@ -18,7 +18,7 @@ struct alphabet_t *alloc_alphabet(uint32_t size) {
   rtn->size = size;
   rtn->symbols = (symbol_t *)calloc(size, sizeof(symbol_t));
 
-  for (i = 0; i < size; ++i) {
+  for (i = 0; i < (int64_t)size; ++i) {
     rtn->symbols[(uint8_t)i] = i;
   }
   alphabet_compute_index(rtn);

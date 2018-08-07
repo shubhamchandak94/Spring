@@ -24,8 +24,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef _DIVSUFSORT_H
-#define _DIVSUFSORT_H 1
+#ifndef SPRING_BCM_DIVSUFSORT_H_
+#define SPRING_BCM_DIVSUFSORT_H_ 1
 
 #ifdef __cplusplus
 extern "C" {
@@ -60,4 +60,4 @@ divbwt(const unsigned char *T, unsigned char *U, int *A, int n);
 } /* extern "C" */
 #endif /* __cplusplus */
 
-#endif /* _DIVSUFSORT_H */
+#endif /* SPRING_BCM_DIVSUFSORT_H */

@@ -21,7 +21,7 @@
 
 #include <pthread.h>
 
-#include "ID_compression/include/stream_model.h"
+#include "id_compression/include/stream_model.h"
 //#include "pmf.h"
 //#include "qv_codebook.h"
 //#include "util.h"

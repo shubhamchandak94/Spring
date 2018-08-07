@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mikel Hernaez. All rights reserved.
 //
 
-#include "ID_compression/include/stream_model.h"
+#include "id_compression/include/stream_model.h"
 #include <stdbool.h>
 #define DEBUG false
 
@@ -61,9 +61,9 @@ void send_value_to_as(Arithmetic_stream as, stream_model model, int32_t x) {
   register uint32_t *count = model->counts;
 
   // Compute the cumulative counts of x and x-1
-  assert(x < model->alphabetCard);
+  assert(x < (int64_t)model->alphabetCard);
 
-  for (i = 0; i < x; ++i) {
+  for (i = 0; i < (uint32_t)x; ++i) {
     // cumCountX_1 += model->counts[i];
     cumCountX_1 += *count, ++count;
   }

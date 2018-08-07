@@ -13,6 +13,7 @@
 #include <string>
 #include <vector>
 #include "util.h"
+#include "bitset_util.h"
 #include "params.h"
 
 namespace spring {
@@ -24,7 +25,7 @@ struct reorder_global {
 
   uint32_t numreads = 0;
 
-  int maxshift, numdict = NUM_DICT, maxsearch = MAX_SEARCH_REORDER, num_thr, max_readlen;
+  int maxshift, numdict = NUM_DICT_REORDER, maxsearch = MAX_SEARCH_REORDER, num_thr, max_readlen;
   uint thresh = THRESH_REORDER;
   std::string basedir;
   std::string infile;
@@ -647,7 +648,7 @@ void reorder_main(const std::string &temp_dir, int max_readlen, int num_thr) {
   omp_set_num_threads(rg.num_thr);
   setglobalarrays(rg);
   std::bitset<bitset_size> *read = new std::bitset<bitset_size>[rg.numreads];
-  uint8_t *read_lengths = new uint16_t[rg.numreads];
+  uint16_t *read_lengths = new uint16_t[rg.numreads];
   std::cout << "Reading file: " << rg.infile << std::endl;
   readDnaFile<bitset_size>(read, read_lengths, rg);
 

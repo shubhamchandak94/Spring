@@ -1,5 +1,5 @@
-#ifndef SPRING_BCM_H_
-#define SPRING_BCM_H_
+#ifndef SPRING_BCM_BCM_H_
+#define SPRING_BCM_BCM_H_
 
 #include <string>
 #include "params.h"
@@ -18,4 +18,4 @@ int bcm_str_array_decompress(const char *infile, std::string *str_array_param, u
 } // namespace bcm
 } // namespace spring
 
-#endif // SPRING_BCM_H_
+#endif // SPRING_BCM_BCM_H_

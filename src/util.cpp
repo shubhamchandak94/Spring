@@ -1,9 +1,10 @@
 #include <string>
 #include <fstream>
+#include <algorithm>
 #include <stdexcept>
 #include "util.h"
 #include "params.h"
-#include "ID_compression/include/sam_block.h"
+#include "id_compression/include/sam_block.h"
 #include "qvz/include/qvz.h"
 
 namespace spring {
@@ -33,51 +34,54 @@ void write_fastq_block(std::ofstream &fout, std::string *id_array, std::string *
 	}
 }
 
-void compress_id_block(const char* outfile_name, std::string &id_array, int num_ids) {
+void compress_id_block(const char* outfile_name, std::string *id_array, int num_ids) {
 	struct id_comp::compressor_info_t comp_info;
 	comp_info.numreads = num_ids;
 	comp_info.mode = COMPRESSION;
 	comp_info.id_array = id_array;
 	comp_info.fcomp = fopen(outfile_name, "w");
 	if(!comp_info.fcomp) {
-		perror(comp_info.fcomp);
+		perror(outfile_name);
 		throw std::runtime_error("ID compression: File output error");
 	}
 	id_comp::compress((void *)&comp_info);
-	fclose(fcomp);	
+	fclose(comp_info.fcomp);	
 }
 
-void decompress_id_block(const char* infile_name, std::string &id_array, int num_ids) {
+void decompress_id_block(const char* infile_name, std::string *id_array, int num_ids) {
 	struct id_comp::compressor_info_t comp_info;
 	comp_info.numreads = num_ids;
 	comp_info.mode = DECOMPRESSION;
 	comp_info.id_array = id_array;
 	comp_info.fcomp = fopen(infile_name, "r");
 	if(!comp_info.fcomp) {
-		perror(comp_info.fcomp);
+		perror(infile_name);
 		throw std::runtime_error("ID compression: File input error");
 	}
-	id_comp::compress((void *)&comp_info);
-	fclose(fcomp);	
+	id_comp::decompress((void *)&comp_info);
+	fclose(comp_info.fcomp);	
 }
 
-void compress_quality_block_qvz(const char* outfile_name, std::string &quality_array, int num_lines, uint32_t *read_lengths) {
+void compress_quality_block_qvz(const char* outfile_name, std::string *quality_array, int num_lines, uint32_t *read_lengths) {
 	struct qvz::qv_options_t opts;
 	opts.verbose = 0;
 	opts.stats = 0;	
 	opts.clusters = 1;
 	opts.uncompressed = 0;
-	size_t max_readlen = std::min_element(read_lengths, read_lengths + num_lines);
-	qvz::encode_lossless(outfile_name, opts, max_readlen, num_lines, std::string *quality_string_array);
+	size_t max_readlen = *(std::max_element(read_lengths, read_lengths + num_lines));
+	qvz::encode_lossless(outfile_name, &opts, max_readlen, num_lines, quality_array);
 }
 
-void decompress_quality_block_qvz(const char* infile_name, std::string &quality_array, int num_lines, uint16_t *read_lengths) {
-	opts.verbose = 0;	
-	qvz_decode_lossless(infile_name, opts, quality_string_array, read_lengths);
+void decompress_quality_block_qvz(const char* infile_name, std::string *quality_array, int num_lines, uint16_t *read_lengths) {
+	struct qvz::qv_options_t opts;
+	opts.verbose = 0;
+	opts.clusters = 1;
+	size_t max_readlen = *(std::max_element(read_lengths, read_lengths + num_lines));	
+	qvz::decode_lossless(infile_name, &opts, max_readlen, num_lines, quality_array, read_lengths);
 }
 
 void quantize_quality(std::string *quality_array, int num_lines, char *quantization_table) {
-  for(int i = 0; i < num_lines; i++) {
+  for(int i = 0; i < num_lines; i++)
     for(uint32_t j = 0; j < quality_array[i].size(); j++)
       quality_array[i][j] = quantization_table[(uint8_t)quality_array[i][j]];
   return;

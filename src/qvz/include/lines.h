@@ -81,6 +81,7 @@ struct quality_file_t {
   uint32_t columns;
   uint32_t block_count;
   struct line_block_t *blocks;
+  std::string *quality_string_array;	
   uint8_t cluster_count;
   struct cluster_list_t *clusters;
   struct distortion_t *dist;
