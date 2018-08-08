@@ -81,8 +81,10 @@ uint32_t arithmetic_decoder_step(Arithmetic_code a, stream_stats_ptr_t stats,
 uint32_t decoder_last_step(Arithmetic_code a, stream_stats_ptr_t stats);
 
 // Encoding stats management
+// stream_stats_ptr_t **initialize_stream_stats(
+//    struct cond_quantizer_list_t *q_list);
 stream_stats_ptr_t **initialize_stream_stats(
-    struct cond_quantizer_list_t *q_list);
+    uint32_t columns);
 void update_stats(stream_stats_ptr_t stats, uint32_t x, uint32_t r);
 
 // Quality value compression interface

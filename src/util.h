@@ -13,10 +13,12 @@ struct compression_params {
 	bool preserve_quality;
 	bool preserve_id;
 	bool long_flag;
+	bool ill_bin_flag;
 	uint32_t num_reads;
 	uint32_t num_reads_clean;
 	uint32_t max_readlen;
 	uint8_t paired_id_code;
+	bool paired_id_match;
 	int num_reads_per_chunk;
 	int num_reads_per_chunk_long;
 	int bcm_block_size;

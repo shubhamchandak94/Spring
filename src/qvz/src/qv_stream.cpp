@@ -1,4 +1,5 @@
 #include "qvz/include/qv_compressor.h"
+#include "qvz/include/qvz.h"
 
 namespace spring {
 namespace qvz {
@@ -32,6 +33,8 @@ void update_stats(stream_stats_ptr_t stats, uint32_t x, uint32_t r) {
  * the number of contexts required to handle the set of conditional quantizers
  * that we have (one context per quantizer)
  */
+
+/* // commented as this depends on qlist etc. (see version below)
 stream_stats_ptr_t **initialize_stream_stats(
     struct cond_quantizer_list_t *q_list) {
   stream_stats_ptr_t **s;
@@ -67,7 +70,43 @@ stream_stats_ptr_t **initialize_stream_stats(
 
   return s;
 }
+*/
 
+stream_stats_ptr_t **initialize_stream_stats(
+    uint32_t columns) {
+  stream_stats_ptr_t **s;
+  uint32_t i = 0, j = 0, k = 0;
+
+  s = (stream_stats_ptr_t **)calloc(columns,
+                                    sizeof(stream_stats_ptr_t *));
+
+  // Allocate jagged array, one set of stats per column
+  for (i = 0; i < columns; ++i) {
+    // And for each column, one set of stats per low/high quantizer per previous
+    // context
+    s[i] = (stream_stats_ptr_t *)calloc(2 * ALPHABET_SIZE,
+                                        sizeof(stream_stats_ptr_t));
+
+    // Finally each individual stat structure needs to be filled in uniformly
+    for (j = 0; j < 2 * ALPHABET_SIZE; ++j) {
+      s[i][j] = (stream_stats_ptr_t)calloc(1, sizeof(struct stream_stats_t));
+      s[i][j]->counts = (uint32_t *)calloc(
+          ALPHABET_SIZE, sizeof(uint32_t));
+
+      // Initialize the quantizer's stats uniformly
+      for (k = 0; k < ALPHABET_SIZE; k++) {
+        s[i][j]->counts[k] = 1;
+      }
+      s[i][j]->n = ALPHABET_SIZE;
+      s[i][j]->alphabetCard = ALPHABET_SIZE;
+
+      // Step size is 8 counts per symbol seen to speed convergence
+      s[i][j]->step = 8;
+    }
+  }
+
+  return s;
+}
 /**
  * @todo add cluster stats
  */
@@ -115,7 +154,8 @@ arithStream initialize_arithStream(FILE *fout, uint8_t decompressor_flag,
   as->stats = (stream_stats_ptr_t ***)calloc(info->cluster_count,
                                              sizeof(stream_stats_ptr_t **));
   for (i = 0; i < info->cluster_count; ++i) {
-    as->stats[i] = initialize_stream_stats(info->clusters->clusters[i].qlist);
+//    as->stats[i] = initialize_stream_stats(info->clusters->clusters[i].qlist);
+    as->stats[i] = initialize_stream_stats(info->columns);
     as->cluster_stats->counts[i] = 1;
   }
 

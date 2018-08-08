@@ -53,7 +53,9 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 	cp.paired_end = paired_end;
 	cp.preserve_order = preserve_order;
 	cp.preserve_id = preserve_id;
+	cp.preserve_quality = preserve_quality;
 	cp.long_flag = long_flag;
+	cp.ill_bin_flag = ill_bin_flag;
 	cp.num_reads_per_chunk = NUM_READS_PER_CHUNK;
 	cp.num_reads_per_chunk_long = NUM_READS_PER_CHUNK_LONG;
 	cp.bcm_block_size = BCM_BLOCK_SIZE;
@@ -61,10 +63,10 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 
 	std::cout << "Preprocessing ...\n";
 	auto preprocess_start = std::chrono::steady_clock::now();
-	preprocess(infile_1, infile_2, temp_dir, paired_end, preserve_id, preserve_quality, preserve_order, ill_bin_flag, quality_compressor, long_flag, cp);
+	preprocess(infile_1, infile_2, temp_dir, cp);
 	auto preprocess_end = std::chrono::steady_clock::now();
 	std::cout << "Preprocessing done!\n";
-	std::cout << "Time for this step: " << std::chrono::duration_cast<std::chrono::seconds>(preprocess_end-preprocess_start); << " s\n";
+	std::cout << "Time for this step: " << std::chrono::duration_cast<std::chrono::seconds>(preprocess_end-preprocess_start).count() << " s\n";
 	
 	if(!long_flag) {
 		/*		
@@ -89,13 +91,13 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 	std::cout << "Creating tar archive ...";
 	std::string tar_command = "tar -cf "+outfile + " -C " + temp_dir + " . ";
 	std::system(tar_command.c_str());	
-	std::cout << "Tar archive done!\n"
+	std::cout << "Tar archive done!\n";
 	auto tar_end = std::chrono::steady_clock::now();
-	std::cout << "Time for this step: " << std::chrono::duration_cast<std::chrono::seconds>(tar_end-tar_start); << " s\n";
+	std::cout << "Time for this step: " << std::chrono::duration_cast<std::chrono::seconds>(tar_end-tar_start).count() << " s\n";
 
 	auto compression_end = std::chrono::steady_clock::now();
 	std::cout << "Compression done!\n";
-	std::cout << "Total time for compression: " << std::chrono::duration_cast<std::chrono::seconds>(compression_end-compression_start); << " s\n";
+	std::cout << "Total time for compression: " << std::chrono::duration_cast<std::chrono::seconds>(compression_end-compression_start).count() << " s\n";
 	return;
 }
 

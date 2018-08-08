@@ -10,7 +10,7 @@
 int main(int argc, char** argv)
 {
 	namespace po = boost::program_options;
-	bool help_flag, compress_flag, decompress_flag, pairing_only_flag, no_quality_flag, no_ids_flag, ill_bin_flag, long_flag;
+	bool help_flag = false, compress_flag = false, decompress_flag = false, pairing_only_flag = false, no_quality_flag = false, no_ids_flag = false, ill_bin_flag = false, long_flag = false;
 	std::vector<std::string> infile_vec, outfile_vec;
 	std::string working_dir, quality_compressor;
 	int num_thr;
@@ -26,12 +26,14 @@ int main(int argc, char** argv)
     	("allow_read_reordering,r", po::bool_switch(&pairing_only_flag), "do not retain read order during compression (paired reads still remain paired). For single end files, this leads to arbitrary reordering of the reads.")
     	("no-quality", po::bool_switch(&no_quality_flag), "do not retain quality values during compression")
     	("no-ids", po::bool_switch(&no_ids_flag), "do not retain read identifiers during compression")
-    	("working-dir,w", po::value<std::string>(&working_dir)->default_value(""), "directory to create temporary files (default pwd)")
+    	("working-dir,w", po::value<std::string>(&working_dir)->default_value("."), "directory to create temporary files (default pwd)")
 	("ill-bin",po::bool_switch(&ill_bin_flag), "apply Illumina binning to quality scores before compression")
     	("quality-compressor,q", po::value<std::string>(&quality_compressor)->default_value("qvz"), "compressor to use for quality values: bcm or qvz (default qvz). For long reads, only bcm supported.")
 	("long,l",po::bool_switch(&long_flag), "Use for compression of arbitrarily long read lengths. Can also provide better compression for reads with significant number of indels. Some other options might be disabled in this mode.")
 	;
-	po::parse_command_line(argc, argv, desc);
+	po::variables_map vm;
+	po::store(po::parse_command_line(argc, argv, desc), vm);
+	po::notify(vm);
 	if(help_flag) {
 		std::cout <<desc << "\n";
 		return 0;
