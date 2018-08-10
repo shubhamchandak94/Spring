@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <cmath>
 #include <algorithm>
+#include <stdexcept>
 #include <omp.h>
 #include "params.h"
 #include "preprocess.h"
@@ -24,8 +25,8 @@ void preprocess(std::string &infile_1, std::string &infile_2,
   std::string outfileread[2];
   std::string outfilereadlength[2];
   std::string basedir = temp_dir;
-  outfileclean[0] = basedir + "/input_clean_1.bin";
-  outfileclean[1] = basedir + "/input_clean_2.bin";
+  outfileclean[0] = basedir + "/input_clean_1.dna";
+  outfileclean[1] = basedir + "/input_clean_2.dna";
   outfileN[0] = basedir + "/input_N.dna";
   outfileN[1] = basedir + "/input_N.dna.2";
   outfileorderN[0] = basedir + "/read_order_N.bin";
@@ -56,7 +57,7 @@ void preprocess(std::string &infile_1, std::string &infile_2,
        if(j == 1 && !cp.paired_end) 
 	 continue;
        fin[j].open(infile[j]);
-       fout_clean[j].open(outfileclean[j],std::ios::binary);
+       fout_clean[j].open(outfileclean[j]);
        fout_N[j].open(outfileN[j]);
        fout_order_N[j].open(outfileorderN[j],std::ios::binary);
        if(!cp.preserve_order) {
@@ -188,10 +189,10 @@ void preprocess(std::string &infile_1, std::string &infile_2,
 				  // Compress qualities
 				  if(cp.preserve_quality) {
 					std::string outfile_name = outfilequality[j] + "." + std::to_string(num_chunks_done+tid);
-					if(cp.quality_compressor == "qvz")
-					  compress_quality_block_qvz(outfile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
-					else
-					  bcm::bcm_str_array_compress(outfile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
+//					if(cp.quality_compressor == "qvz")
+//					  compress_quality_block_qvz(outfile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
+//					else
+					bcm::bcm_str_array_compress(outfile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
 				  }	
 				}
 			  }
@@ -229,7 +230,7 @@ void preprocess(std::string &infile_1, std::string &infile_2,
 		  // write reads and read_order_N to respective files
 		  for(uint32_t i = 0; i < num_reads_read; i++) {
 		    if(!read_contains_N_array[i]) {
-			  write_dna_in_bits(read_array[i],fout_clean[j]);
+			  fout_clean[j] << read_array[i]<<"\n";
 			  num_reads_clean[j]++;
 		    }
 		    else {
@@ -264,7 +265,8 @@ void preprocess(std::string &infile_1, std::string &infile_2,
   delete[] quality_array;
   delete[] read_contains_N_array;
   delete[] read_lengths_array;
-  
+  delete[] illumina_binning_table; 
+  delete[] paired_id_match_array;
   // close files
   if(cp.long_flag) {
     fin[0].close();
@@ -327,14 +329,15 @@ void preprocess(std::string &infile_1, std::string &infile_2,
   cp.paired_id_code = paired_id_code;
   cp.paired_id_match = paired_id_match;
   cp.num_reads = num_reads[0] + num_reads[1];
-  cp.num_reads_clean = num_reads_clean[0] + num_reads_clean[1];
+  cp.num_reads_clean[0] = num_reads_clean[0];
+  cp.num_reads_clean[1] = num_reads_clean[1];
   cp.max_readlen = max_readlen;
   
   std::cout << "Max Read length: " << cp.max_readlen << "\n";
   std::cout << "Total number of reads: " << cp.num_reads << "\n";
   
   if(!cp.long_flag)
-    std::cout << "Total number of reads without N: " << cp.num_reads_clean << "\n";
+    std::cout << "Total number of reads without N: " << cp.num_reads_clean[0] + cp.num_reads_clean[1] << "\n";
   if (cp.preserve_id && cp.paired_end)
     std::cout << "Paired id match code: " << (int)cp.paired_id_code << "\n";
 }

@@ -170,8 +170,8 @@ void encode_lossless(const char *outfile_name, struct qv_options_t *opts, uint32
     printf("Columns: %u\n", qv_info.columns);
     printf("Total bytes used: %lu\n", bytes_used);
   }
-
 }
+
 /**
  *
  */

@@ -5,7 +5,7 @@
 #include "util.h"
 #include "params.h"
 #include "id_compression/include/sam_block.h"
-#include "qvz/include/qvz.h"
+//#include "qvz/include/qvz.h"
 
 namespace spring {
 
@@ -61,7 +61,7 @@ void decompress_id_block(const char* infile_name, std::string *id_array, int num
 	id_comp::decompress((void *)&comp_info);
 	fclose(comp_info.fcomp);	
 }
-
+/*
 void compress_quality_block_qvz(const char* outfile_name, std::string *quality_array, int num_lines, uint32_t *read_lengths) {
 	struct qvz::qv_options_t opts;
 	opts.verbose = 0;
@@ -79,7 +79,7 @@ void decompress_quality_block_qvz(const char* infile_name, std::string *quality_
 	size_t max_readlen = *(std::max_element(read_lengths, read_lengths + num_lines));	
 	qvz::decode_lossless(infile_name, &opts, max_readlen, num_lines, quality_array, read_lengths);
 }
-
+*/
 void quantize_quality(std::string *quality_array, int num_lines, char *quantization_table) {
   for(int i = 0; i < num_lines; i++)
     for(uint32_t j = 0; j < quality_array[i].size(); j++)
@@ -169,42 +169,25 @@ bool check_id_pattern(const std::string &id_1, const std::string &id_2,
 }
 
 void write_dna_in_bits(std::string &read, std::ofstream &fout) {
+	uint8_t dna2int[128];
+	dna2int[(uint8_t)'A'] = 0;
+	dna2int[(uint8_t)'C'] = 1;
+	dna2int[(uint8_t)'G'] = 2;
+	dna2int[(uint8_t)'T'] = 3;
 	uint16_t readlen = read.size();
 	fout.write((char*)&readlen,sizeof(uint16_t));
 	uint8_t byte;
 	for(int i = 0; i < readlen/4; i++) {
 		byte = 0;
 		for(int j = 0; j < 4; j++)
-		{
-			if(read[4*i+j] == 'A') 
-				byte = byte*4 + 0;
-			else if(read[4*i+j] == 'C') 
-				byte = byte*4 + 1;
-			else if(read[4*i+j] == 'G') 
-				byte = byte*4 + 2;
-			else if(read[4*i+j] == 'T') 
-				byte = byte*4 + 3;
-			else
-				throw std::runtime_error("Unexpected character in read.");
-		}
+			byte = byte*4 + dna2int[(uint8_t)read[4*i+j]];
 		fout.write((char*)&byte,sizeof(uint8_t));
 	}
 	if(readlen%4 != 0) {
 		int i = readlen/4;	
 		byte = 0;
 		for(int j = 0; j < readlen%4; j++)
-		{
-			if(read[4*i+j] == 'A') 
-				byte = byte*4 + 0;
-			else if(read[4*i+j] == 'C') 
-				byte = byte*4 + 1;
-			else if(read[4*i+j] == 'G') 
-				byte = byte*4 + 2;
-			else if(read[4*i+j] == 'T') 
-				byte = byte*4 + 3;
-			else
-				throw std::runtime_error("Unexpected character in read.");
-		}
+			byte = byte*4 + dna2int[(uint8_t)read[4*i+j]];
 		fout.write((char*)&byte,sizeof(uint8_t));
 	}
 	return;

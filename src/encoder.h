@@ -23,12 +23,24 @@ namespace spring {
 
 template <size_t bitset_size>
 struct encoder_global_b {
-  std::bitset<bitset_size>
-      basemask[MAX_READ_LEN][128];  // bitset for A,G,C,T,N at each position
+  std::bitset<bitset_size> **basemask;
+  int max_readlen;
+  // bitset for A,G,C,T,N at each position
   // used in stringtobitset, and bitsettostring
   std::bitset<bitset_size>
       mask63;  // bitset with 63 bits set to 1 (used in bitsettostring for
                // conversion to ullong)
+  encoder_global_b(int max_readlen_param) {
+    max_readlen = max_readlen_param;
+    basemask = new std::bitset<bitset_size> * [max_readlen_param];
+    for(int i = 0; i < max_readlen_param; i++)
+      basemask[i] = new std::bitset<bitset_size>[128];
+  }
+  ~encoder_global_b() {
+    for(int i = 0; i < max_readlen; i++)
+      delete[] basemask[i];
+    delete[] basemask;
+  }
 };
 
 struct encoder_global {
@@ -54,7 +66,6 @@ struct encoder_global {
   std::string outfile_singleton;
   std::string infile_order;
   std::string infile_order_N;
-  std::string infilenumreads;
 
   char longtochar[5] = {'A', 'C', 'G', 'T', 'N'};
   long chartolong[128];
@@ -85,7 +96,7 @@ void writecontig(std::string &ref, std::list<contig_reads> &current_contig,
 
 void packbits(encoder_global &eg);
 
-void getDataParams(encoder_global &eg);
+void getDataParams(encoder_global &eg, compression_params &cp);
 
 void correct_order(uint32_t *order_s, encoder_global &eg);
 
@@ -123,7 +134,9 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
 
   std::bitset<bitset_size> mask1[eg.numdict_s];
   generateindexmasks<bitset_size>(mask1, dict, eg.numdict_s, 3);
-  std::bitset<bitset_size> mask[MAX_READ_LEN][MAX_READ_LEN];
+  std::bitset<bitset_size> **mask = new std::bitset<bitset_size> *[eg.max_readlen];
+  for(int i = 0; i < eg.max_readlen; i++)
+    mask[i] = new std::bitset<bitset_size> [eg.max_readlen];
   generatemasks<bitset_size>(mask, eg.max_readlen, 3);
   std::cout << "Encoding reads\n";
 #pragma omp parallel
@@ -156,7 +169,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
     // flag to check if match was found or not
     std::string current, ref;
     std::bitset<bitset_size> forward_bitset, reverse_bitset, b;
-    char c, rc;
+    char c = '0', rc;
     std::list<contig_reads> current_contig;
     int64_t p;
     uint16_t rl;
@@ -401,6 +414,9 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
   delete[] remainingreads;
   delete[] dict_lock;
   delete[] read_lock;
+  for(int i = 0; i < eg.max_readlen; i++)
+    delete[] mask[i];
+  delete[] mask;
   packbits(eg);
   std::cout << "Encoding done:\n";
   std::cout << matched_s << " singleton reads were aligned\n";
@@ -494,8 +510,8 @@ void readsingletons(std::bitset<bitset_size> *read, uint32_t *order_s,
 }
 
 template <size_t bitset_size>
-void encoder_main(const std::string &temp_dir, int max_readlen, int num_thr) {
-  encoder_global_b<bitset_size> *egb_ptr = new encoder_global_b<bitset_size>;
+void encoder_main(const std::string &temp_dir, compression_params &cp) {
+  encoder_global_b<bitset_size> *egb_ptr = new encoder_global_b<bitset_size> (cp.max_readlen);
   encoder_global *eg_ptr = new encoder_global;
   encoder_global_b<bitset_size> &egb = *egb_ptr;
   encoder_global &eg = *eg_ptr;
@@ -515,13 +531,12 @@ void encoder_main(const std::string &temp_dir, int max_readlen, int num_thr) {
   eg.outfile_noise = eg.basedir + "/read_noise.txt";
   eg.outfile_noisepos = eg.basedir + "/read_noisepos.txt";
   eg.outfile_singleton = eg.basedir + "/unaligned_singleton.txt";
-  eg.infilenumreads = eg.basedir + "/numreads.bin";
 
-  eg.max_readlen = max_readlen;
-  eg.num_thr = num_thr;
+  eg.max_readlen = cp.max_readlen;
+  eg.num_thr = cp.num_thr;
 
   omp_set_num_threads(eg.num_thr);
-  getDataParams(eg);  // populate numreads
+  getDataParams(eg, cp);  // populate numreads
   setglobalarrays<bitset_size>(eg, egb);
   std::bitset<bitset_size> *read =
       new std::bitset<bitset_size>[eg.numreads_s + eg.numreads_N];

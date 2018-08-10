@@ -23,32 +23,43 @@ struct reorder_global {
   uint32_t num_locks =
       NUM_LOCKS_REORDER;  // limits on number of locks (power of 2 for fast mod)
 
-  uint32_t numreads = 0;
+  uint32_t numreads;
+  uint32_t numreads_array[2];
 
   int maxshift, numdict = NUM_DICT_REORDER, maxsearch = MAX_SEARCH_REORDER, num_thr, max_readlen;
   uint thresh = THRESH_REORDER;
   std::string basedir;
-  std::string infile;
-  std::string infilenumreads;
+  std::string infile[2];
   std::string outfile;
   std::string outfileRC;
   std::string outfileflag;
   std::string outfilepos;
   std::string outfileorder;
   std::string outfilereadlength;
-
+  
+  bool paired_end;
   // Some global arrays (some initialized in setglobalarrays())
   char revinttochar[4] = {'A', 'G', 'C', 'T'};  // used in bitsettostring
   char inttochar[4] = {'A', 'C', 'G', 'T'};
   char chartorevchar[128];  // A-T etc for reverse complement
   int chartoint[128];       // A-0,C-1 etc. used in updaterefcount
 
-  std::bitset<bitset_size>
-      basemask[MAX_READ_LEN][128];  // bitset for A,G,C,T at each position
-  // used in stringtobitset, chartobitset and bitsettostring
+  std::bitset<bitset_size> **basemask;
+  // bitset for A,G,C,T at each position
+  // used in stringtobitset, chartobitset and bitsettostring (alloc in construtctor)
   std::bitset<bitset_size>
       mask64;  // bitset with 64 bits set to 1 (used in bitsettostring for
                // conversion to ullong)
+  reorder_global(int max_readlen_param) {
+    basemask = new std::bitset<bitset_size> * [max_readlen_param];
+    for(int i = 0; i < max_readlen_param; i++)
+      basemask[i] = new std::bitset<bitset_size>[128];
+  }
+  ~reorder_global() {
+    for(int i = 0; i < max_readlen; i++)
+      delete[] basemask[i];
+    delete[] basemask;
+  }
 };
 
 template <size_t bitset_size>
@@ -95,7 +106,7 @@ void setglobalarrays(reorder_global<bitset_size> &rg) {
 template <size_t bitset_size>
 void updaterefcount(std::bitset<bitset_size> &cur,
                     std::bitset<bitset_size> &ref,
-                    std::bitset<bitset_size> &revref, int count[][MAX_READ_LEN],
+                    std::bitset<bitset_size> &revref, int **count,
                     bool resetcount, bool rev, int shift, uint16_t cur_readlen,
                     int &ref_len, reorder_global<bitset_size> &rg)
 // for var length, shift represents shift of start positions, if read length is
@@ -112,7 +123,10 @@ void updaterefcount(std::bitset<bitset_size> &cur,
 
   if (resetcount == true)  // resetcount - unmatched read so start over
   {
-    std::memset(count, 0, sizeof(count[0][0]) * 4 * MAX_READ_LEN);
+    std::fill(count[0], count[0]+rg.max_readlen, 0);
+    std::fill(count[1], count[1]+rg.max_readlen, 0);
+    std::fill(count[2], count[2]+rg.max_readlen, 0);
+    std::fill(count[3], count[3]+rg.max_readlen, 0);
     for (int i = 0; i < cur_readlen; i++) {
       count[rg.chartoint[(uint8_t)current[i]]][i] = 1;
     }
@@ -199,15 +213,16 @@ void updaterefcount(std::bitset<bitset_size> &cur,
 template <size_t bitset_size>
 void readDnaFile(std::bitset<bitset_size> *read, uint16_t *read_lengths,
                  reorder_global<bitset_size> &rg) {
+
 #pragma omp parallel
   {
     uint32_t tid = omp_get_thread_num();
-    std::ifstream f(rg.infile, std::ifstream::in);
+    std::ifstream f(rg.infile[0], std::ifstream::in);
     std::string s;
     uint32_t i = 0;
     while (std::getline(f, s)) {
       if (i % rg.num_thr == tid) {
-        read_lengths[i] = (uint16_t)s.length();
+        read_lengths[i] = (uint8_t)s.length();
         stringtobitset<bitset_size>(s, read_lengths[i], read[i], rg.basemask);
         i++;
       } else {
@@ -217,7 +232,28 @@ void readDnaFile(std::bitset<bitset_size> *read, uint16_t *read_lengths,
     }
     f.close();
   }
-  remove(rg.infile.c_str());
+  remove(rg.infile[0].c_str());
+  if(rg.paired_end) {
+#pragma omp parallel
+  {
+    uint32_t tid = omp_get_thread_num();
+    std::ifstream f(rg.infile[1], std::ifstream::in);
+    std::string s;
+    uint32_t i = 0;
+    while (std::getline(f, s)) {
+      if (i % rg.num_thr == tid) {
+        read_lengths[rg.numreads_array[0] + i] = (uint8_t)s.length();
+        stringtobitset<bitset_size>(s, read_lengths[rg.numreads_array[0] + i], read[rg.numreads_array[0] + i], rg.basemask);
+        i++;
+      } else {
+        i++;
+        continue;
+      }
+    }
+    f.close();
+  }
+  remove(rg.infile[1].c_str());
+  }
   return;
 }
 
@@ -225,7 +261,7 @@ template <size_t bitset_size>
 bool search_match(std::bitset<bitset_size> &ref,
                   std::bitset<bitset_size> *mask1, omp_lock_t *dict_lock,
                   omp_lock_t *read_lock,
-                  std::bitset<bitset_size> mask[MAX_READ_LEN][MAX_READ_LEN],
+                  std::bitset<bitset_size> **mask,
                   uint16_t *read_lengths, bool *remainingreads,
                   std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t &k,
                   bool rev, int shift, int &ref_len,
@@ -303,7 +339,9 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
     omp_init_lock(&dict_lock[j]);
     omp_init_lock(&read_lock[j]);
   }
-  std::bitset<bitset_size> mask[MAX_READ_LEN][MAX_READ_LEN];
+  std::bitset<bitset_size> **mask = new std::bitset<bitset_size> *[rg.max_readlen];
+  for(int i = 0; i < rg.max_readlen; i++)
+    mask[i] = new std::bitset<bitset_size> [rg.max_readlen];
   generatemasks<bitset_size>(mask, rg.max_readlen, 2);
   std::bitset<bitset_size> mask1[rg.numdict];
   generateindexmasks<bitset_size>(mask1, dict, rg.numdict, 2);
@@ -334,7 +372,10 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
 
     int64_t first_rid;
     // first_rid represents first read of contig, used for left searching
-    int count[4][MAX_READ_LEN];
+
+    int **count = new int*[4];
+    for(int i = 0; i < 4; i++)
+      count[i] = new int[rg.max_readlen]; 
     int64_t dictidx[2];  // to store the start and end index (end not inclusive)
                          // in the dict read_id array
     uint64_t startposidx;  // index in startpos
@@ -531,6 +572,9 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
     foutpos.close();
     foutorder_s.close();
     foutlength.close();
+    for(int i = 0; i < 4; i++)
+      delete[] count[i];
+    delete[] count; 
   }  // parallel end
 
   delete[] remainingreads;
@@ -539,6 +583,9 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
   std::cout << "Reordering done, "
             << std::accumulate(unmatched, unmatched + rg.num_thr, 0)
             << " were unmatched\n";
+  for(int i = 0; i < rg.max_readlen; i++)
+    delete[] mask[i];
+  delete[] mask;
   return;
 }
 
@@ -616,21 +663,22 @@ void writetofile(std::bitset<bitset_size> *read, uint16_t *read_lengths,
 }
 
 template <size_t bitset_size>
-void reorder_main(const std::string &temp_dir, int max_readlen, int num_thr) {
-  reorder_global<bitset_size> *rg_pointer = new reorder_global<bitset_size>;
+void reorder_main(const std::string &temp_dir, compression_params &cp) {
+  reorder_global<bitset_size> *rg_pointer = new reorder_global<bitset_size> (cp.max_readlen);
   reorder_global<bitset_size> &rg = *rg_pointer;
   rg.basedir = temp_dir;
-  rg.infile = rg.basedir + "/input_clean.dna";
+  rg.infile[0] = rg.basedir + "/input_clean_1.dna";
+  rg.infile[1] = rg.basedir + "/input_clean_2.dna";
   rg.outfile = rg.basedir + "/temp.dna";
   rg.outfileRC = rg.basedir + "/read_rev.txt";
   rg.outfileflag = rg.basedir + "/tempflag.txt";
   rg.outfilepos = rg.basedir + "/temppos.txt";
   rg.outfileorder = rg.basedir + "/read_order.bin";
   rg.outfilereadlength = rg.basedir + "/read_lengths.bin";
-  rg.infilenumreads = rg.basedir + "/numreads.bin";
 
-  rg.max_readlen = max_readlen;
-  rg.num_thr = num_thr;
+  rg.max_readlen = cp.max_readlen;
+  rg.num_thr = cp.num_thr;
+  rg.paired_end = cp.paired_end;
   rg.maxshift = rg.max_readlen / 2;
   bbhashdict *dict = new bbhashdict[rg.numdict];
   dict[0].start = rg.max_readlen > 100
@@ -642,14 +690,15 @@ void reorder_main(const std::string &temp_dir, int max_readlen, int num_thr) {
                     ? rg.max_readlen / 2 - 1 + 32
                     : rg.max_readlen / 2 - 1 + rg.max_readlen * 32 / 100;
 
-  std::ifstream f_numreads(rg.infilenumreads, std::ios::binary);
-  f_numreads.read((char *)&rg.numreads, sizeof(uint32_t));
+  rg.numreads = cp.num_reads_clean[0] + cp.num_reads_clean[1];
+  rg.numreads_array[0] = cp.num_reads_clean[0];
+  rg.numreads_array[1] = cp.num_reads_clean[1];
 
   omp_set_num_threads(rg.num_thr);
   setglobalarrays(rg);
   std::bitset<bitset_size> *read = new std::bitset<bitset_size>[rg.numreads];
   uint16_t *read_lengths = new uint16_t[rg.numreads];
-  std::cout << "Reading file: " << rg.infile << std::endl;
+  std::cout << "Reading file\n";
   readDnaFile<bitset_size>(read, read_lengths, rg);
 
   std::cout << "Constructing dictionaries\n";

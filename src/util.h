@@ -7,7 +7,7 @@
 namespace spring {
 
 struct compression_params {
-	std::string quality_compressor;
+//	std::string quality_compressor;
 	bool paired_end;
 	bool preserve_order;
 	bool preserve_quality;
@@ -15,7 +15,7 @@ struct compression_params {
 	bool long_flag;
 	bool ill_bin_flag;
 	uint32_t num_reads;
-	uint32_t num_reads_clean;
+	uint32_t num_reads_clean[2];
 	uint32_t max_readlen;
 	uint8_t paired_id_code;
 	bool paired_id_match;

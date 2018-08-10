@@ -90,12 +90,11 @@ stream_model* initialize_stream_model_id(uint32_t rescale,
                                          uint32_t context_size,
                                          uint32_t alphabet_card) {
   uint32_t i = 0, j = 0;
-
   stream_model* s = (stream_model*)calloc(context_size, sizeof(stream_model));
 
   for (i = 0; i < context_size; i++) {
     s[i] = (stream_model)calloc(1, sizeof(struct stream_model_t));
-
+	
     // Allocate memory
     s[i]->counts = (uint32_t*)calloc(alphabet_card + 1, sizeof(uint32_t));
 
@@ -432,6 +431,17 @@ id_models alloc_id_models_t() {
       initialize_stream_model_id(rescale, MAX_NUMBER_TOKENS_ID, 10);
 
   return rtn;
+}
+
+void free_id_models_t(id_models rtn) {
+  free_models_array(rtn->alpha_len,MAX_NUMBER_TOKENS_ID);
+  free_models_array(rtn->alpha_value,MAX_NUMBER_TOKENS_ID);
+  free_models_array(rtn->chars,MAX_NUMBER_TOKENS_ID);
+  free_models_array(rtn->integer,MAX_NUMBER_TOKENS_ID * 4);
+  free_models_array(rtn->delta,MAX_NUMBER_TOKENS_ID);
+  free_models_array(rtn->zero_run,MAX_NUMBER_TOKENS_ID);
+  free_models_array(rtn->token_type,MAX_NUMBER_TOKENS_ID);
+  free(rtn);
 }
 
 /**

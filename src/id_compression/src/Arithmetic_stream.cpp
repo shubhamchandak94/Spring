@@ -224,6 +224,11 @@ Arithmetic_stream alloc_arithmetic_stream(uint8_t direction, FILE *fp) {
   return a;
 }
 
+void free_arithmetic_stream(Arithmetic_stream a) {
+  free_os_stream(a->ios);
+  free(a);
+}
+
 /**
  * E1/E2 check for the MSB of the lower and upper regions being the same,
  * indicating that a bit has

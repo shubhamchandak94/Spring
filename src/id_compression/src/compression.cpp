@@ -44,6 +44,8 @@ void *compress(void *thread_info) {
   // end the compression
   encoder_last_step(as);
 
+  free_arithmetic_stream(as);
+  free_sam_models(samBlock);
   return NULL;
 }
 
@@ -66,7 +68,8 @@ void *decompress(void *thread_info) {
     info->id_array[n] = sline.ID;
 //    print_line(&sline, info->f_id);
   }
-
+  free_arithmetic_stream(as);
+  free_sam_models(samBlock);
   return NULL;
 }
 

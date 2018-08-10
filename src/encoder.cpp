@@ -57,7 +57,6 @@ void writecontig(std::string &ref, std::list<contig_reads> &current_contig,
                  std::ofstream &f_order, std::ofstream &f_RC,
                  std::ofstream &f_readlength, encoder_global &eg) {
   f_seq << ref;
-  char c;
   uint16_t pos_var;
   long prevj = 0;
   auto current_contig_it = current_contig.begin();
@@ -198,12 +197,10 @@ void packbits(encoder_global &eg) {
   return;
 }
 
-void getDataParams(encoder_global &eg) {
-  std::ifstream f_numreads(eg.infilenumreads, std::ios::binary);
+void getDataParams(encoder_global &eg, compression_params &cp) {
   uint32_t numreads_clean, numreads_total;
-  f_numreads.read((char *)&numreads_clean, sizeof(uint32_t));
-  f_numreads.read((char *)&numreads_total, sizeof(uint32_t));
-  f_numreads.close();
+  numreads_clean = cp.num_reads_clean[0] + cp.num_reads_clean[1];
+  numreads_total = cp.num_reads;
 
   std::ifstream myfile_s(eg.infile + ".singleton", std::ifstream::in);
   eg.numreads_s = 0;

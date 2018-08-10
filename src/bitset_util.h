@@ -40,7 +40,7 @@ class bbhashdict {
 
 template <size_t bitset_size>
 void stringtobitset(std::string s, uint16_t readlen, std::bitset<bitset_size> &b,
-                    std::bitset<bitset_size> basemask[256][128]) {
+                    std::bitset<bitset_size> **basemask) {
   for (int i = 0; i < readlen; i++) b |= basemask[i][(uint8_t)s[i]];
 }
 
@@ -202,7 +202,7 @@ void constructdictionary(std::bitset<bitset_size> *read, bbhashdict *dict,
 }
 
 template <size_t bitset_size>
-void generatemasks(std::bitset<bitset_size> mask[MAX_READ_LEN][MAX_READ_LEN],
+void generatemasks(std::bitset<bitset_size> **mask,
                    int max_readlen, int bpb) {
   // mask for zeroing the end bits (needed while reordering to compute Hamming
   // distance between shifted reads)
@@ -218,7 +218,7 @@ void generatemasks(std::bitset<bitset_size> mask[MAX_READ_LEN][MAX_READ_LEN],
 
 template <size_t bitset_size>
 void chartobitset(char *s, int readlen, std::bitset<bitset_size> &b,
-                  std::bitset<bitset_size> basemask[256][128]) {
+                  std::bitset<bitset_size> **basemask) {
   b.reset();
   for (int i = 0; i < readlen; i++) b |= basemask[i][(uint8_t)s[i]];
   return;

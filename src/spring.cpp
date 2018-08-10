@@ -7,10 +7,10 @@
 #include <stdexcept>
 #include <chrono>
 #include <cstdlib>
-//#include "encoder.h"
+#include "encoder.h"
 //#include "pe_encode.h"
 #include "preprocess.h"
-//#include "reorder.h"
+#include "reorder.h"
 //#include "reorder_compress_quality_id.h"
 #include "spring.h"
 #include "util.h"
@@ -18,7 +18,9 @@
 
 namespace spring {
 
-void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::vector<std::string>& outfile_vec, int &num_thr, bool &pairing_only_flag, bool &no_quality_flag, bool &no_ids_flag, bool &ill_bin_flag, std::string &quality_compressor, bool &long_flag) {
+void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::vector<std::string>& outfile_vec, int &num_thr, bool &pairing_only_flag, bool &no_quality_flag, bool &no_ids_flag, bool &ill_bin_flag
+//, std::string &quality_compressor
+, bool &long_flag) {
 
 	std::cout << "Starting compression...\n";
 	auto compression_start = std::chrono::steady_clock::now();
@@ -45,11 +47,12 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 		outfile = outfile_vec[0];
 	else
 		throw std::runtime_error("Number of output files not equal to 1");
-	if(quality_compressor != "bcm" && quality_compressor != "qvz")
-		throw std::runtime_error("Invalid quality compressor");
+//	if(quality_compressor != "bcm" && quality_compressor != "qvz")
+//		throw std::runtime_error("Invalid quality compressor");
 
-	compression_params cp;
-	cp.quality_compressor = quality_compressor;
+	compression_params *cp_ptr = new compression_params;
+	compression_params &cp = *cp_ptr;
+//	cp.quality_compressor = quality_compressor;
 	cp.paired_end = paired_end;
 	cp.preserve_order = preserve_order;
 	cp.preserve_id = preserve_id;
@@ -69,15 +72,20 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 	std::cout << "Time for this step: " << std::chrono::duration_cast<std::chrono::seconds>(preprocess_end-preprocess_start).count() << " s\n";
 	
 	if(!long_flag) {
-		/*		
-		if (status != 0) throw std::runtime_error("Bad input file");
-		std::ifstream f_meta(temp_dir + "/read_meta.txt");
-		std::string max_readlen_str;
-		std::getline(f_meta, max_readlen_str);
-		int max_readlen = std::stoi(max_readlen_str);
 
-		call_reorder(temp_dir, max_readlen, num_thr);
-		call_encoder(temp_dir, max_readlen, num_thr);
+		std::cout << "Reordering ...\n";
+		auto reorder_start = std::chrono::steady_clock::now();
+		call_reorder(temp_dir, cp);
+		auto reorder_end = std::chrono::steady_clock::now();
+		std::cout << "Reordering done!\n";
+		std::cout << "Time for this step: " << std::chrono::duration_cast<std::chrono::seconds>(reorder_end-reorder_start).count() << " s\n";
+		std::cout << "Encoding ...\n";
+		auto encoder_start = std::chrono::steady_clock::now();
+		call_encoder(temp_dir, cp);
+		auto encoder_end = std::chrono::steady_clock::now();
+		std::cout << "Encoding done!\n";
+		std::cout << "Time for this step: " << std::chrono::duration_cast<std::chrono::seconds>(encoder_end-encoder_start).count() << " s\n";
+		/*
 		if (paired_end == true) pe_encode_main(temp_dir, false);
 		fastqFileReader1->seekFromSet(0);
 		if (paired_end == true)
@@ -87,6 +95,7 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 		8.0);
 		*/
 	}
+/*
 	auto tar_start = std::chrono::steady_clock::now();
 	std::cout << "Creating tar archive ...";
 	std::string tar_command = "tar -cf "+outfile + " -C " + temp_dir + " . ";
@@ -94,7 +103,8 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 	std::cout << "Tar archive done!\n";
 	auto tar_end = std::chrono::steady_clock::now();
 	std::cout << "Time for this step: " << std::chrono::duration_cast<std::chrono::seconds>(tar_end-tar_start).count() << " s\n";
-
+*/
+	delete cp_ptr;
 	auto compression_end = std::chrono::steady_clock::now();
 	std::cout << "Compression done!\n";
 	std::cout << "Total time for compression: " << std::chrono::duration_cast<std::chrono::seconds>(compression_end-compression_start).count() << " s\n";
@@ -104,143 +114,143 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 void decompress() {
 	throw std::runtime_error("Not implemented");
 }
-/*
-void call_reorder(const std::string &temp_dir, int max_readlen, int num_thr) {
-  size_t bitset_size_reorder = (2 * max_readlen - 1) / 64 * 64 + 64;
+
+void call_reorder(const std::string &temp_dir, compression_params &cp) {
+  size_t bitset_size_reorder = (2 * cp.max_readlen - 1) / 64 * 64 + 64;
   switch (bitset_size_reorder) {
     case 64:
-      reorder_main<64>(temp_dir, max_readlen, num_thr);
+      reorder_main<64>(temp_dir, cp);
       break;
     case 128:
-      reorder_main<128>(temp_dir, max_readlen, num_thr);
+      reorder_main<128>(temp_dir, cp);
       break;
     case 192:
-      reorder_main<192>(temp_dir, max_readlen, num_thr);
+      reorder_main<192>(temp_dir, cp);
       break;
     case 256:
-      reorder_main<256>(temp_dir, max_readlen, num_thr);
+      reorder_main<256>(temp_dir, cp);
       break;
     case 320:
-      reorder_main<320>(temp_dir, max_readlen, num_thr);
+      reorder_main<320>(temp_dir, cp);
       break;
     case 384:
-      reorder_main<384>(temp_dir, max_readlen, num_thr);
+      reorder_main<384>(temp_dir, cp);
       break;
     case 448:
-      reorder_main<448>(temp_dir, max_readlen, num_thr);
+      reorder_main<448>(temp_dir, cp);
       break;
     case 512:
-      reorder_main<512>(temp_dir, max_readlen, num_thr);
+      reorder_main<512>(temp_dir, cp);
       break;
     case 576:
-      reorder_main<576>(temp_dir, max_readlen, num_thr);
+      reorder_main<576>(temp_dir, cp);
       break;
     case 640:
-      reorder_main<640>(temp_dir, max_readlen, num_thr);
+      reorder_main<640>(temp_dir, cp);
       break;
     case 704:
-      reorder_main<704>(temp_dir, max_readlen, num_thr);
+      reorder_main<704>(temp_dir, cp);
       break;
     case 768:
-      reorder_main<768>(temp_dir, max_readlen, num_thr);
+      reorder_main<768>(temp_dir, cp);
       break;
     case 832:
-      reorder_main<832>(temp_dir, max_readlen, num_thr);
+      reorder_main<832>(temp_dir, cp);
       break;
     case 896:
-      reorder_main<896>(temp_dir, max_readlen, num_thr);
+      reorder_main<896>(temp_dir, cp);
       break;
     case 960:
-      reorder_main<960>(temp_dir, max_readlen, num_thr);
+      reorder_main<960>(temp_dir, cp);
       break;
     case 1024:
-      reorder_main<1024>(temp_dir, max_readlen, num_thr);
+      reorder_main<1024>(temp_dir, cp);
       break;
     default:
       throw std::runtime_error("Wrong bitset size.");
   }
 }
 
-void call_encoder(const std::string &temp_dir, int max_readlen, int num_thr) {
-  size_t bitset_size_encoder = (3 * max_readlen - 1) / 64 * 64 + 64;
+void call_encoder(const std::string &temp_dir, compression_params &cp) {
+  size_t bitset_size_encoder = (3 * cp.max_readlen - 1) / 64 * 64 + 64;
   switch (bitset_size_encoder) {
     case 64:
-      encoder_main<64>(temp_dir, max_readlen, num_thr);
+      encoder_main<64>(temp_dir, cp);
       break;
     case 128:
-      encoder_main<128>(temp_dir, max_readlen, num_thr);
+      encoder_main<128>(temp_dir, cp);
       break;
     case 192:
-      encoder_main<192>(temp_dir, max_readlen, num_thr);
+      encoder_main<192>(temp_dir, cp);
       break;
     case 256:
-      encoder_main<256>(temp_dir, max_readlen, num_thr);
+      encoder_main<256>(temp_dir, cp);
       break;
     case 320:
-      encoder_main<320>(temp_dir, max_readlen, num_thr);
+      encoder_main<320>(temp_dir, cp);
       break;
     case 384:
-      encoder_main<384>(temp_dir, max_readlen, num_thr);
+      encoder_main<384>(temp_dir, cp);
       break;
     case 448:
-      encoder_main<448>(temp_dir, max_readlen, num_thr);
+      encoder_main<448>(temp_dir, cp);
       break;
     case 512:
-      encoder_main<512>(temp_dir, max_readlen, num_thr);
+      encoder_main<512>(temp_dir, cp);
       break;
     case 576:
-      encoder_main<576>(temp_dir, max_readlen, num_thr);
+      encoder_main<576>(temp_dir, cp);
       break;
     case 640:
-      encoder_main<640>(temp_dir, max_readlen, num_thr);
+      encoder_main<640>(temp_dir, cp);
       break;
     case 704:
-      encoder_main<704>(temp_dir, max_readlen, num_thr);
+      encoder_main<704>(temp_dir, cp);
       break;
     case 768:
-      encoder_main<768>(temp_dir, max_readlen, num_thr);
+      encoder_main<768>(temp_dir, cp);
       break;
     case 832:
-      encoder_main<832>(temp_dir, max_readlen, num_thr);
+      encoder_main<832>(temp_dir, cp);
       break;
     case 896:
-      encoder_main<896>(temp_dir, max_readlen, num_thr);
+      encoder_main<896>(temp_dir, cp);
       break;
     case 960:
-      encoder_main<960>(temp_dir, max_readlen, num_thr);
+      encoder_main<960>(temp_dir, cp);
       break;
     case 1024:
-      encoder_main<1024>(temp_dir, max_readlen, num_thr);
+      encoder_main<1024>(temp_dir, cp);
       break;
     case 1088:
-      encoder_main<1088>(temp_dir, max_readlen, num_thr);
+      encoder_main<1088>(temp_dir, cp);
       break;
     case 1152:
-      encoder_main<1152>(temp_dir, max_readlen, num_thr);
+      encoder_main<1152>(temp_dir, cp);
       break;
     case 1216:
-      encoder_main<1216>(temp_dir, max_readlen, num_thr);
+      encoder_main<1216>(temp_dir, cp);
       break;
     case 1280:
-      encoder_main<1280>(temp_dir, max_readlen, num_thr);
+      encoder_main<1280>(temp_dir, cp);
       break;
     case 1344:
-      encoder_main<1344>(temp_dir, max_readlen, num_thr);
+      encoder_main<1344>(temp_dir, cp);
       break;
     case 1408:
-      encoder_main<1408>(temp_dir, max_readlen, num_thr);
+      encoder_main<1408>(temp_dir, cp);
       break;
     case 1472:
-      encoder_main<1472>(temp_dir, max_readlen, num_thr);
+      encoder_main<1472>(temp_dir, cp);
       break;
     case 1536:
-      encoder_main<1536>(temp_dir, max_readlen, num_thr);
+      encoder_main<1536>(temp_dir, cp);
       break;
     default:
       throw std::runtime_error("Wrong bitset size.");
   }
 }
-*/
+
 std::string random_string( size_t length )
 {
     auto randchar = []() -> char

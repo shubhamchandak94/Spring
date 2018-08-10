@@ -145,9 +145,11 @@ sam_block alloc_sam_models(//Arithmetic_stream as,
                            std::string *id_array,
                            std::ifstream *f_order, uint32_t numreads
                           );
+void free_sam_models(sam_block sb);
 uint32_t load_sam_block(sam_block sb);
 
 id_models alloc_id_models_t();
+void free_id_models_t(id_models rtn);
 
 int compress_id(Arithmetic_stream as, id_models models, char *id, char *prev_ID,
                 uint32_t *prev_tokens_ptr);

@@ -37,6 +37,14 @@ id_block alloc_id_block() {
   return rtn;
 }
 
+void free_id_block(id_block rtn) {
+  free_id_models_t(rtn->models);
+  for (uint32_t i = 0; i < rtn->block_length; i++)
+    free(rtn->IDs[i]); 
+  free(rtn->IDs);
+  free(rtn);
+}
+
 sam_block alloc_sam_models(//Arithmetic_stream as, 
 			   std::string *id_array,
                            std::ifstream *f_order, uint32_t numreads
@@ -48,8 +56,8 @@ sam_block alloc_sam_models(//Arithmetic_stream as,
   //  sb->fref = fref;
 
   // initialize the codebook_model
-  uint32_t rescale = 1 << 20;
-  sb->codebook_model = initialize_stream_model_codebook(rescale);
+//  uint32_t rescale = 1 << 20;
+//  sb->codebook_model = initialize_stream_model_codebook(rescale);
   sb->id_array = id_array;
   sb->f_order = f_order;
   sb->numreads = numreads;
@@ -58,6 +66,12 @@ sam_block alloc_sam_models(//Arithmetic_stream as,
   sb->IDs = alloc_id_block();
 
   return sb;
+}
+
+void free_sam_models(sam_block sb) {
+//  free_models_array(sb->codebook_model,256*4);  
+  free_id_block(sb->IDs); 
+  free(sb);
 }
 
 uint32_t load_sam_line(sam_block sb) {

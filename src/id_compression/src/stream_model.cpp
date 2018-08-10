@@ -18,8 +18,10 @@ void free_models_array(stream_model *model_ptr, uint32_t num_models) {
   for (i = 0; i < num_models; i++) {
     free_model(model_ptr[i]);
   }
+  free(model_ptr);
 }
 void free_model(stream_model model) {
+  model->counts -= 1;
   free(model->counts);
   if (model->alphabet) {
     free(model->alphabet);
