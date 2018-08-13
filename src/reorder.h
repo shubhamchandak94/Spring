@@ -20,14 +20,12 @@ namespace spring {
 
 template <size_t bitset_size>
 struct reorder_global {
-  uint32_t num_locks =
-      NUM_LOCKS_REORDER;  // limits on number of locks (power of 2 for fast mod)
-
   uint32_t numreads;
   uint32_t numreads_array[2];
 
-  int maxshift, numdict = NUM_DICT_REORDER, maxsearch = MAX_SEARCH_REORDER, num_thr, max_readlen;
-  uint thresh = THRESH_REORDER;
+  int maxshift, num_thr, max_readlen;
+  const int numdict = NUM_DICT_REORDER;
+
   std::string basedir;
   std::string infile[2];
   std::string outfile;
@@ -39,10 +37,6 @@ struct reorder_global {
   
   bool paired_end;
   // Some global arrays (some initialized in setglobalarrays())
-  char revinttochar[4] = {'A', 'G', 'C', 'T'};  // used in bitsettostring
-  char inttochar[4] = {'A', 'C', 'G', 'T'};
-  char chartorevchar[128];  // A-T etc for reverse complement
-  int chartoint[128];       // A-0,C-1 etc. used in updaterefcount
 
   std::bitset<bitset_size> **basemask;
   // bitset for A,G,C,T at each position
@@ -63,14 +57,14 @@ struct reorder_global {
 };
 
 template <size_t bitset_size>
-void bitsettostring(std::bitset<bitset_size> b, char *s, uint16_t readlen,
-                    reorder_global<bitset_size> &rg) {
+void bitsettostring(std::bitset<bitset_size> b, char *s, uint16_t readlen, reorder_global<bitset_size> &rg) {
+  static const char revinttochar[4] = {'A', 'G', 'C', 'T'};
   unsigned long long ull;
   for (int i = 0; i < 2 * readlen / 64 + 1; i++) {
     ull = (b & rg.mask64).to_ullong();
     b >>= 64;
     for (int j = 32 * i; j < 32 * i + 32 && j < readlen; j++) {
-      s[j] = rg.revinttochar[ull % 4];
+      s[j] = revinttochar[ull % 4];
       ull /= 4;
     }
   }
@@ -80,15 +74,6 @@ void bitsettostring(std::bitset<bitset_size> b, char *s, uint16_t readlen,
 
 template <size_t bitset_size>
 void setglobalarrays(reorder_global<bitset_size> &rg) {
-  rg.chartorevchar[(uint8_t)'A'] = 'T';
-  rg.chartorevchar[(uint8_t)'C'] = 'G';
-  rg.chartorevchar[(uint8_t)'G'] = 'C';
-  rg.chartorevchar[(uint8_t)'T'] = 'A';
-  rg.chartoint[(uint8_t)'A'] = 0;
-  rg.chartoint[(uint8_t)'C'] = 1;
-  rg.chartoint[(uint8_t)'G'] = 2;
-  rg.chartoint[(uint8_t)'T'] = 3;
-
   for (int i = 0; i < 64; i++) rg.mask64[i] = 1;
   for (int i = 0; i < rg.max_readlen; i++) {
     rg.basemask[i][(uint8_t)'A'][2 * i] = 0;
@@ -112,12 +97,14 @@ void updaterefcount(std::bitset<bitset_size> &cur,
 // for var length, shift represents shift of start positions, if read length is
 // small, may not need to shift actually
 {
+  static const char inttochar[4] = {'A', 'C', 'T', 'G'};
+  auto chartoint = [](uint8_t a) {return (a&0x06)>>1;}; // inverse of above
   char s[MAX_READ_LEN + 1], s1[MAX_READ_LEN + 1], *current;
   bitsettostring<bitset_size>(cur, s, cur_readlen, rg);
   if (rev == false)
     current = s;
   else {
-    reverse_complement(s, s1, cur_readlen, rg.chartorevchar);
+    reverse_complement(s, s1, cur_readlen);
     current = s1;
   }
 
@@ -128,7 +115,7 @@ void updaterefcount(std::bitset<bitset_size> &cur,
     std::fill(count[2], count[2]+rg.max_readlen, 0);
     std::fill(count[3], count[3]+rg.max_readlen, 0);
     for (int i = 0; i < cur_readlen; i++) {
-      count[rg.chartoint[(uint8_t)current[i]]][i] = 1;
+      count[chartoint((uint8_t)current[i])][i] = 1;
     }
     ref_len = cur_readlen;
   } else {
@@ -136,13 +123,13 @@ void updaterefcount(std::bitset<bitset_size> &cur,
       // shift count
       for (int i = 0; i < ref_len - shift; i++) {
         for (int j = 0; j < 4; j++) count[j][i] = count[j][i + shift];
-        if (i < cur_readlen) count[rg.chartoint[(uint8_t)current[i]]][i] += 1;
+        if (i < cur_readlen) count[chartoint((uint8_t)current[i])][i] += 1;
       }
 
       // for the new positions set count to 1
       for (int i = ref_len - shift; i < cur_readlen; i++) {
         for (int j = 0; j < 4; j++) count[j][i] = 0;
-        count[rg.chartoint[(uint8_t)current[i]]][i] = 1;
+        count[chartoint((uint8_t)current[i])][i] = 1;
       }
       ref_len = std::max<int>(ref_len - shift, cur_readlen);
     } else  // reverse case is quite complicated in the variable length case
@@ -152,25 +139,25 @@ void updaterefcount(std::bitset<bitset_size> &cur,
              i++) {
           for (int j = 0; j < 4; j++)
             count[j][i] = count[j][i - (cur_readlen - shift - ref_len)];
-          count[rg.chartoint[(uint8_t)current[i]]][i] += 1;
+          count[chartoint((uint8_t)current[i])][i] += 1;
         }
         for (int i = 0; i < cur_readlen - shift - ref_len; i++) {
           for (int j = 0; j < 4; j++) count[j][i] = 0;
-          count[rg.chartoint[(uint8_t)current[i]]][i] = 1;
+          count[chartoint((uint8_t)current[i])][i] = 1;
         }
         for (int i = cur_readlen - shift; i < cur_readlen; i++) {
           for (int j = 0; j < 4; j++) count[j][i] = 0;
-          count[rg.chartoint[(uint8_t)current[i]]][i] = 1;
+          count[chartoint((uint8_t)current[i])][i] = 1;
         }
         ref_len = cur_readlen;
       } else if (ref_len + shift <= rg.max_readlen) {
         for (int i = ref_len - cur_readlen + shift; i < ref_len; i++)
-          count[rg.chartoint[(
-              uint8_t)current[i - (ref_len - cur_readlen + shift)]]][i] += 1;
+          count[chartoint((
+              uint8_t)current[i - (ref_len - cur_readlen + shift)])][i] += 1;
         for (int i = ref_len; i < ref_len + shift; i++) {
           for (int j = 0; j < 4; j++) count[j][i] = 0;
-          count[rg.chartoint[(
-              uint8_t)current[i - (ref_len - cur_readlen + shift)]]][i] = 1;
+          count[chartoint((
+              uint8_t)current[i - (ref_len - cur_readlen + shift)])][i] = 1;
         }
         ref_len = ref_len + shift;
       } else {
@@ -180,12 +167,12 @@ void updaterefcount(std::bitset<bitset_size> &cur,
         }
         for (int i = rg.max_readlen - cur_readlen; i < rg.max_readlen - shift;
              i++)
-          count[rg.chartoint[(
-              uint8_t)current[i - (rg.max_readlen - cur_readlen)]]][i] += 1;
+          count[chartoint((
+              uint8_t)current[i - (rg.max_readlen - cur_readlen)])][i] += 1;
         for (int i = rg.max_readlen - shift; i < rg.max_readlen; i++) {
           for (int j = 0; j < 4; j++) count[j][i] = 0;
-          count[rg.chartoint[(
-              uint8_t)current[i - (rg.max_readlen - cur_readlen)]]][i] = 1;
+          count[chartoint((
+              uint8_t)current[i - (rg.max_readlen - cur_readlen)])][i] = 1;
         }
         ref_len = rg.max_readlen;
       }
@@ -199,12 +186,12 @@ void updaterefcount(std::bitset<bitset_size> &cur,
           max = count[j][i];
           indmax = j;
         }
-      current[i] = rg.inttochar[indmax];
+      current[i] = inttochar[indmax];
     }
   }
   chartobitset<bitset_size>(current, ref_len, ref, rg.basemask);
-  char revcurrent[MAX_READ_LEN];
-  reverse_complement(current, revcurrent, ref_len, rg.chartorevchar);
+  char revcurrent[MAX_READ_LEN + 1];
+  reverse_complement(current, revcurrent, ref_len);
   chartobitset<bitset_size>(revcurrent, ref_len, revref, rg.basemask);
 
   return;
@@ -266,6 +253,8 @@ bool search_match(std::bitset<bitset_size> &ref,
                   std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t &k,
                   bool rev, int shift, int &ref_len,
                   reorder_global<bitset_size> &rg) {
+  static const unsigned int thresh = THRESH_REORDER;
+  const int maxsearch = MAX_SEARCH_REORDER;
   std::bitset<bitset_size> b;
   uint64_t ull;
   int64_t dictidx[2];    // to store the start and end index (end not inclusive)
@@ -298,7 +287,7 @@ bool search_match(std::bitset<bitset_size> &ref,
     if (ull == ull1)  // checking if ull is actually the key for this bin
     {
       for (int64_t i = dictidx[1] - 1;
-           i >= dictidx[0] && i >= dictidx[1] - rg.maxsearch; i--) {
+           i >= dictidx[0] && i >= dictidx[1] - maxsearch; i--) {
         auto rid = dict[l].read_id[i];
         size_t hamming;
         if (!rev)
@@ -312,7 +301,7 @@ bool search_match(std::bitset<bitset_size> &ref,
                mask[shift][rg.max_readlen -
                            std::min<int>(ref_len + shift, read_lengths[rid])])
                   .count();
-        if (hamming <= rg.thresh) {
+        if (hamming <= thresh) {
           omp_set_lock(&read_lock[rid & 0xFFFFFF]);
           if (remainingreads[rid]) {
             remainingreads[rid] = 0;
@@ -333,9 +322,11 @@ bool search_match(std::bitset<bitset_size> &ref,
 template <size_t bitset_size>
 void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
              uint16_t *read_lengths, reorder_global<bitset_size> &rg) {
-  omp_lock_t *dict_lock = new omp_lock_t[rg.num_locks];
-  omp_lock_t *read_lock = new omp_lock_t[rg.num_locks];
-  for (uint j = 0; j < rg.num_locks; j++) {
+  const uint32_t num_locks =
+      NUM_LOCKS_REORDER;  // limits on number of locks (power of 2 for fast mod)
+  omp_lock_t *dict_lock = new omp_lock_t[num_locks];
+  omp_lock_t *read_lock = new omp_lock_t[num_locks];
+  for (unsigned int j = 0; j < num_locks; j++) {
     omp_init_lock(&dict_lock[j]);
     omp_init_lock(&read_lock[j]);
   }
@@ -615,7 +606,7 @@ void writetofile(std::bitset<bitset_size> *read, uint16_t *read_lengths,
       if (c == 'd') {
         fout << s << "\n";
       } else {
-        reverse_complement(s, s1, read_lengths[current], rg.chartorevchar);
+        reverse_complement(s, s1, read_lengths[current]);
         fout << s1 << "\n";
       }
     }

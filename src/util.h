@@ -6,6 +6,16 @@
 
 namespace spring {
 
+static const char chartorevchar[128] = {
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 	
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 	
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 	
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 'T', 0, 'G', 0, 0, 0, 'C', 0, 0, 0, 0, 0, 0, 'N', 0,	
+    0, 0, 0, 0, 'A', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,	
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+};
 struct compression_params {
 //	std::string quality_compressor;
 	bool paired_end;
@@ -49,11 +59,9 @@ bool check_id_pattern(const std::string &id_1, const std::string &id_2,
 void write_dna_in_bits(std::string &read, std::ofstream &fout);
 
 void read_dna_from_bits(std::string &read, std::ifstream &fin);
-void reverse_complement(char *s, char *s1, int readlen,
-                        char chartorevchar[128]);
+void reverse_complement(char *s, char *s1, int readlen);
 
-std::string reverse_complement(std::string s, int readlen,
-                               char chartorevchar[128]);
+std::string reverse_complement(std::string s, int readlen);
 
 }  // namespace spring
 

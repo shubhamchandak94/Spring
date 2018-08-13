@@ -228,17 +228,16 @@ void read_dna_from_bits(std::string &read, std::ifstream &fin) {
 		}
 	}	
 }
-void reverse_complement(char *s, char *s1, int readlen,
-                        char chartorevchar[128]) {
+void reverse_complement(char *s, char *s1, int readlen) {
   for (int j = 0; j < readlen; j++)
     s1[j] = chartorevchar[(uint8_t)s[readlen - j - 1]];
   s1[readlen] = '\0';
   return;
 }
 
-std::string reverse_complement(std::string s, int readlen,
-                               char chartorevchar[128]) {
-  std::string s1(s);
+std::string reverse_complement(std::string s, int readlen) {
+  std::string s1;
+  s1.resize(readlen);
   for (int j = 0; j < readlen; j++)
     s1[j] = chartorevchar[(uint8_t)s[readlen - j - 1]];
   return s1;

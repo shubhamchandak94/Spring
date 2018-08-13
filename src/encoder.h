@@ -46,8 +46,7 @@ struct encoder_global_b {
 struct encoder_global {
   uint32_t numreads, numreads_s, numreads_N;
   int numdict_s = NUM_DICT_ENCODER;
-  int thresh_s = THRESH_ENCODER;
-  int maxsearch = MAX_SEARCH_ENCODER;
+
   int max_readlen, num_thr;
 
   std::string basedir;
@@ -67,14 +66,9 @@ struct encoder_global {
   std::string infile_order;
   std::string infile_order_N;
 
-  char longtochar[5] = {'A', 'C', 'G', 'T', 'N'};
-  long chartolong[128];
+
   char enc_noise[128][128];
 
-  // Some global arrays (some initialized in setglobalarrays())
-  char revinttochar[8] = {'A', 'N', 'G', '#',
-                          'C', '#', 'T', '#'};  // used in bitsettostring
-  char chartorevchar[128];  // A-T etc for reverse complement
 };
 
 struct contig_reads {
@@ -86,7 +80,7 @@ struct contig_reads {
 };
 
 std::string buildcontig(std::list<contig_reads> &current_contig,
-                        uint32_t list_size, encoder_global &eg);
+                        uint32_t list_size);
 
 void writecontig(std::string &ref, std::list<contig_reads> &current_contig,
                  std::ofstream &f_seq, std::ofstream &f_pos,
@@ -104,25 +98,28 @@ template <size_t bitset_size>
 std::string bitsettostring(std::bitset<bitset_size> b, uint16_t readlen,
                            encoder_global &eg,
                            encoder_global_b<bitset_size> &egb) {
-  char s[MAX_READ_LEN + 1];
-  s[readlen] = '\0';
+  static const char revinttochar[8] = {'A', 'N', 'G', 0,
+                          'C', 0, 'T', 0};
+  std::string s;
+  s.resize(readlen);
   unsigned long long ull;
   for (int i = 0; i < 3 * readlen / 63 + 1; i++) {
     ull = (b & egb.mask63).to_ullong();
     b >>= 63;
     for (int j = 21 * i; j < 21 * i + 21 && j < readlen; j++) {
-      s[j] = eg.revinttochar[ull % 8];
+      s[j] = revinttochar[ull % 8];
       ull /= 8;
     }
   }
-  std::string s1 = s;
-  return s1;
+  return s;
 }
 
 template <size_t bitset_size>
 void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
             uint16_t *read_lengths_s, encoder_global &eg,
             encoder_global_b<bitset_size> &egb) {
+  static const int thresh_s = THRESH_ENCODER;
+  static const int maxsearch = MAX_SEARCH_ENCODER;
   omp_lock_t *read_lock = new omp_lock_t[eg.numreads_s + eg.numreads_N];
   omp_lock_t *dict_lock = new omp_lock_t[eg.numreads_s + eg.numreads_N];
   for (uint64_t j = 0; j < eg.numreads_s + eg.numreads_N; j++) {
@@ -202,7 +199,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
           for (; current_contig_it != current_contig.end(); ++current_contig_it)
             (*current_contig_it).pos -= first_pos;
 
-          ref = buildcontig(current_contig, list_size, eg);
+          ref = buildcontig(current_contig, list_size);
           // try to align the singleton reads to ref
           // first create bitsets from first readlen positions of ref
           forward_bitset.reset();
@@ -211,7 +208,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
             stringtobitset(ref.substr(0, eg.max_readlen), eg.max_readlen,
                            forward_bitset, egb.basemask);
             stringtobitset(reverse_complement(ref.substr(0, eg.max_readlen),
-                                              eg.max_readlen, eg.chartorevchar),
+                                              eg.max_readlen),
                            eg.max_readlen, reverse_bitset, egb.basemask);
             for (long j = 0; j < (int64_t)ref.size() - eg.max_readlen + 1;
                  j++) {
@@ -242,7 +239,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
                       ull1)  // checking if ull is actually the key for this bin
                   {
                     for (int64_t i = dictidx[1] - 1;
-                         i >= dictidx[0] && i >= dictidx[1] - eg.maxsearch;
+                         i >= dictidx[0] && i >= dictidx[1] - maxsearch;
                          i--) {
                       auto rid = dict[l].read_id[i];
                       int hamming;
@@ -256,7 +253,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
                             ((reverse_bitset ^ read[rid]) &
                              mask[0][eg.max_readlen - read_lengths_s[rid]])
                                 .count();
-                      if (hamming <= eg.thresh_s) {
+                      if (hamming <= thresh_s) {
                         omp_set_lock(&read_lock[rid]);
                         if (remainingreads[rid]) {
                           remainingreads[rid] = 0;
@@ -277,7 +274,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
                                       bitsettostring<bitset_size>(
                                           read[rid], read_lengths_s[rid], eg,
                                           egb),
-                                      read_lengths_s[rid], eg.chartorevchar)
+                                      read_lengths_s[rid])
                                 : bitsettostring<bitset_size>(
                                       read[rid], read_lengths_s[rid], eg, egb);
                         current_contig.push_back({read_string, pos, rc,
@@ -320,7 +317,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
                                 [(uint8_t)ref[j + eg.max_readlen]];
                 reverse_bitset <<= 3;
                 reverse_bitset = reverse_bitset & mask[0][0];
-                reverse_bitset |= egb.basemask[0][(uint8_t)eg.chartorevchar[(
+                reverse_bitset |= egb.basemask[0][(uint8_t)chartorevchar[(
                     uint8_t)ref[j + eg.max_readlen]]];
               }
 
@@ -426,11 +423,6 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
 
 template <size_t bitset_size>
 void setglobalarrays(encoder_global &eg, encoder_global_b<bitset_size> &egb) {
-  eg.chartorevchar[(uint8_t)'A'] = 'T';
-  eg.chartorevchar[(uint8_t)'C'] = 'G';
-  eg.chartorevchar[(uint8_t)'G'] = 'C';
-  eg.chartorevchar[(uint8_t)'T'] = 'A';
-  eg.chartorevchar[(uint8_t)'N'] = 'N';
 
   for (int i = 0; i < 63; i++) egb.mask63[i] = 1;
   for (int i = 0; i < eg.max_readlen; i++) {
@@ -472,11 +464,6 @@ void setglobalarrays(encoder_global &eg, encoder_global_b<bitset_size> &egb) {
   eg.enc_noise[(uint8_t)'N'][(uint8_t)'G'] = '1';
   eg.enc_noise[(uint8_t)'N'][(uint8_t)'C'] = '2';
   eg.enc_noise[(uint8_t)'N'][(uint8_t)'T'] = '3';
-  eg.chartolong[(uint8_t)'A'] = 0;
-  eg.chartolong[(uint8_t)'C'] = 1;
-  eg.chartolong[(uint8_t)'G'] = 2;
-  eg.chartolong[(uint8_t)'T'] = 3;
-  eg.chartolong[(uint8_t)'N'] = 4;
   return;
 }
 

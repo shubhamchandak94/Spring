@@ -129,7 +129,7 @@ void packbits(pe_encode_global& peg) {
   }
   f_flag_first.close();
   in_flag_first.read(chararray, peg.numreads_by_2 % 8);
-  for (uint i = 0; i < peg.numreads_by_2 % 8; i++)
+  for (unsigned int i = 0; i < peg.numreads_by_2 % 8; i++)
     f_flag_first_tail << chararray[i];
   f_flag_first_tail.close();
   in_flag_first.close();

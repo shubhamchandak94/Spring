@@ -17,7 +17,18 @@
 namespace spring {
 
 std::string buildcontig(std::list<contig_reads> &current_contig,
-                        uint32_t list_size, encoder_global &eg) {
+                        uint32_t list_size) {
+  static const char longtochar[5] = {'A', 'C', 'G', 'T', 'N'};
+  static const long chartolong[128] = {
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 4, 0,
+    0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  };
   if (list_size == 1) return (current_contig.front()).read;
   auto current_contig_it = current_contig.begin();
   int64_t currentpos = 0, currentsize = 0, to_insert;
@@ -36,7 +47,7 @@ std::string buildcontig(std::list<contig_reads> &current_contig,
     currentsize = currentsize + to_insert;
     for (long i = 0; i < (*current_contig_it).read_length; i++)
       count[currentpos + i]
-           [eg.chartolong[(uint8_t)(*current_contig_it).read[i]]] += 1;
+           [chartolong[(uint8_t)(*current_contig_it).read[i]]] += 1;
   }
   std::string ref(count.size(), 'A');
   for (size_t i = 0; i < count.size(); i++) {
@@ -46,7 +57,7 @@ std::string buildcontig(std::list<contig_reads> &current_contig,
         max = count[i][j];
         indmax = j;
       }
-    ref[i] = eg.longtochar[indmax];
+    ref[i] = longtochar[indmax];
   }
   return ref;
 }
@@ -121,7 +132,7 @@ void packbits(encoder_global &eg) {
     }
     f_seq.close();
     in_seq.read(dnabase, file_len % 4);
-    for (uint i = 0; i < file_len % 4; i++) f_seq_tail << dnabase[i];
+    for (unsigned int i = 0; i < file_len % 4; i++) f_seq_tail << dnabase[i];
     f_seq_tail.close();
     in_seq.close();
     remove((eg.outfile_seq + '.' + std::to_string(tid)).c_str());
@@ -155,7 +166,7 @@ void packbits(encoder_global &eg) {
     }
     f_rev.close();
     in_rev.read(dnabase, file_len % 8);
-    for (uint i = 0; i < file_len % 8; i++) f_rev_tail << dnabase[i];
+    for (unsigned int i = 0; i < file_len % 8; i++) f_rev_tail << dnabase[i];
     f_rev_tail.close();
     remove((eg.infile_RC + '.' + std::to_string(tid)).c_str());
     rename((eg.infile_RC + '.' + std::to_string(tid) + ".tmp").c_str(),
@@ -188,7 +199,7 @@ void packbits(encoder_global &eg) {
   }
   f_singleton.close();
   in_singleton.read(dnabase, file_len % 4);
-  for (uint i = 0; i < file_len % 4; i++) f_singleton_tail << dnabase[i];
+  for (unsigned int i = 0; i < file_len % 4; i++) f_singleton_tail << dnabase[i];
   f_singleton_tail.close();
   in_singleton.close();
   remove((eg.outfile_singleton).c_str());
