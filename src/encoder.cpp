@@ -170,8 +170,9 @@ void packbits(encoder_global &eg, uint64_t *file_len_seq_thr) {
     remove((eg.infile_RC + '.' + std::to_string(tid)).c_str());
     rename((eg.infile_RC + '.' + std::to_string(tid) + ".tmp").c_str(),
            (eg.infile_RC + '.' + std::to_string(tid)).c_str());
-  }
   */
+  }
+  
   return;
 }
 
