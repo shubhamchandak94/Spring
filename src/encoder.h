@@ -57,12 +57,11 @@ struct encoder_global {
   std::string infile_RC;
   std::string infile_readlength;
   std::string infile_N;
-  std::string outfile_N;
+  std::string outfile_unaligned;
   std::string outfile_seq;
   std::string outfile_pos;
   std::string outfile_noise;
   std::string outfile_noisepos;
-  std::string outfile_singleton;
   std::string infile_order;
   std::string infile_order_N;
 
@@ -86,9 +85,10 @@ void writecontig(std::string &ref, std::list<contig_reads> &current_contig,
                  std::ofstream &f_seq, std::ofstream &f_pos,
                  std::ofstream &f_noise, std::ofstream &f_noisepos,
                  std::ofstream &f_order, std::ofstream &f_RC,
-                 std::ofstream &f_readlength, encoder_global &eg);
+                 std::ofstream &f_readlength, encoder_global &eg,
+                 uint64_t &abs_pos);
 
-void packbits(encoder_global &eg);
+void packbits(encoder_global &eg, uint64_t *file_len_seq_thr);
 
 void getDataParams(encoder_global &eg, compression_params &cp);
 
@@ -162,6 +162,8 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
                          // in the dict read_id array
     uint64_t startposidx;  // index in startpos
     uint64_t ull;
+    uint64_t abs_pos = 0; // absolute position in reference (total length
+    // of all contigs till now)
     bool flag = 0;
     // flag to check if match was found or not
     std::string current, ref;
@@ -328,7 +330,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
             return a.pos < b.pos;
           });
           writecontig(ref, current_contig, f_seq, f_pos, f_noise, f_noisepos,
-                      f_order, f_RC, f_readlength, eg);
+                      f_order, f_RC, f_readlength, eg, abs_pos);
         }
         if (!done) {
           current_contig = {{current, p, rc, ord, rl}};
@@ -358,23 +360,38 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
   // Combine files produced by the threads
   std::ofstream f_order(eg.infile_order);
   std::ofstream f_readlength(eg.infile_readlength);
+  std::ofstream f_noisepos(eg.outfile_noisepos);
+  std::ofstream f_noise(eg.outfile_noise);
+  std::ofstream f_RC(eg.outfile_RC);
+
   for (int tid = 0; tid < eg.num_thr; tid++) {
     std::ifstream in_order(eg.infile_order + '.' + std::to_string(tid) +
                            ".tmp");
     std::ifstream in_readlength(eg.infile_readlength + '.' +
                                 std::to_string(tid) + ".tmp");
+    std::ifstream in_RC(eg.infile_RC + '.' +
+                                std::to_string(tid) + ".tmp");
+    std::ifstream in_noisepos(eg.oufile_noisepos + '.' + std::to_string(tid));
+    std::ifstream in_noise(eg.oufile_noise + '.' + std::to_string(tid));
     f_order << in_order.rdbuf();
     f_order.clear();  // clear error flag in case in_order is empty
+    f_noisepos << in_noisepos.rdbuf();
+    f_noisepos.clear();  // clear error flag in case in_noisepos is empty
+    f_noise << in_noise.rdbuf();
+    f_noise.clear();  // clear error flag in case in_noise is empty
     f_readlength << in_readlength.rdbuf();
     f_readlength.clear();  // clear error flag in case in_readlength is empty
+    f_RC << in_RC.rdbuf();
+    f_RC.clear();  // clear error flag in case in_RC is empty
 
     remove((eg.infile_order + '.' + std::to_string(tid)).c_str());
     remove((eg.infile_order + '.' + std::to_string(tid) + ".tmp").c_str());
     remove((eg.infile_readlength + '.' + std::to_string(tid)).c_str());
     remove((eg.infile_readlength + '.' + std::to_string(tid) + ".tmp").c_str());
-    rename((eg.infile_RC + '.' + std::to_string(tid) + ".tmp").c_str(),
-           (eg.infile_RC + '.' + std::to_string(tid)).c_str());
+    remove((eg.oufile_noisepos + '.' + std::to_string(tid)).c_str());
+    remove((eg.oufile_noise + '.' + std::to_string(tid)).c_str());
     remove((eg.infile_RC + '.' + std::to_string(tid) + ".tmp").c_str());
+    remove((eg.infile_RC + '.' + std::to_string(tid)).c_str());
     remove((eg.infile_flag + '.' + std::to_string(tid)).c_str());
     remove((eg.infile_pos + '.' + std::to_string(tid)).c_str());
     remove((eg.infile + '.' + std::to_string(tid)).c_str());
@@ -382,39 +399,58 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
   f_order.close();
   f_readlength.close();
   // write remaining singleton reads now
-  std::ofstream f_singleton(eg.outfile_singleton);
+  std::ofstream f_unaligned(eg.outfile_unaligned);
   f_order.open(eg.infile_order, std::ios::binary | std::ofstream::app);
   f_readlength.open(eg.infile_readlength,
                     std::ios::binary | std::ofstream::app);
-  std::ofstream f_N(eg.outfile_N);
   uint32_t matched_s = eg.numreads_s;
   for (uint32_t i = 0; i < eg.numreads_s; i++)
     if (remainingreads[i] == 1) {
       matched_s--;
       f_order.write((char *)&order_s[i], sizeof(uint32_t));
       f_readlength.write((char *)&read_lengths_s[i], sizeof(uint16_t));
-      f_singleton << bitsettostring<bitset_size>(read[i], read_lengths_s[i], eg,
+      f_unaligned << bitsettostring<bitset_size>(read[i], read_lengths_s[i], eg,
                                                  egb);
     }
   uint32_t matched_N = eg.numreads_N;
   for (uint32_t i = eg.numreads_s; i < eg.numreads_s + eg.numreads_N; i++)
     if (remainingreads[i] == 1) {
       matched_N--;
-      f_N << bitsettostring<bitset_size>(read[i], read_lengths_s[i], eg, egb);
+      f_unaligned << bitsettostring<bitset_size>(read[i], read_lengths_s[i], eg, egb);
       f_order.write((char *)&order_s[i], sizeof(uint32_t));
       f_readlength.write((char *)&read_lengths_s[i], sizeof(uint16_t));
     }
   f_order.close();
   f_readlength.close();
-  f_N.close();
-  f_singleton.close();
+  f_unaligned.close();
   delete[] remainingreads;
   delete[] dict_lock;
   delete[] read_lock;
   for(int i = 0; i < eg.max_readlen; i++)
     delete[] mask[i];
   delete[] mask;
-  packbits(eg);
+
+  // pack read_Seq and convert read_pos into 8 byte non-diff (absolute) positions
+  uint64_t file_len_seq_thr = new uint64_t [eg.num_thr];
+  uint64_t abs_pos = 0;
+  uint64_t abs_pos_thr;
+  packbits(eg, file_len_seq_thr);
+  std::ofstream fout_pos(eg.outfile_pos, std::ios::binary);
+  for (int tid = 0; tid < eg.num_thr; tid++) {
+    std::ifstream fin_pos(eg.outfile_pos + '.' + std::to_string(tid), std::ios::binary);
+    fin_pos.read((char*)&abs_pos_thr,sizeof(uint64_t));
+    while(!fin_pos.eof()) {
+      abs_pos_thr += abs_pos;
+      fout_pos.write((char*)&abs_pos_thr,sizeof(uint64_t));
+      fin_pos.read((char*)&abs_pos_thr,sizeof(uint64_t));
+    }
+    fin_pos.close();
+    remove((eg.outfile_pos + '.' + std::to_string(tid)).c_str());
+    abs_pos += file_len_seq_thr[tid];
+  }
+  fout_pos.close();
+  delete[] file_len_seq_thr;
+
   std::cout << "Encoding done:\n";
   std::cout << matched_s << " singleton reads were aligned\n";
   std::cout << matched_N << " reads with N were aligned\n";
@@ -512,12 +548,11 @@ void encoder_main(const std::string &temp_dir, compression_params &cp) {
   eg.infile_RC = eg.basedir + "/read_rev.txt";
   eg.infile_readlength = eg.basedir + "/read_lengths.bin";
   eg.infile_N = eg.basedir + "/input_N.dna";
-  eg.outfile_N = eg.basedir + "/unaligned_N.txt";
   eg.outfile_seq = eg.basedir + "/read_seq.txt";
   eg.outfile_pos = eg.basedir + "/read_pos.txt";
   eg.outfile_noise = eg.basedir + "/read_noise.txt";
   eg.outfile_noisepos = eg.basedir + "/read_noisepos.txt";
-  eg.outfile_singleton = eg.basedir + "/unaligned_singleton.txt";
+  eg.outfile_unaligned = eg.basedir + "/read_unaligned.txt";
 
   eg.max_readlen = cp.max_readlen;
   eg.num_thr = cp.num_thr;

@@ -66,12 +66,13 @@ void writecontig(std::string &ref, std::list<contig_reads> &current_contig,
                  std::ofstream &f_seq, std::ofstream &f_pos,
                  std::ofstream &f_noise, std::ofstream &f_noisepos,
                  std::ofstream &f_order, std::ofstream &f_RC,
-                 std::ofstream &f_readlength, encoder_global &eg) {
+                 std::ofstream &f_readlength, encoder_global &eg, uint64_t &abs_pos) {
   f_seq << ref;
   uint16_t pos_var;
   long prevj = 0;
   auto current_contig_it = current_contig.begin();
-  long currentpos, prevpos = 0;
+  long currentpos;
+  uint64_t abs_current_pos;
   for (; current_contig_it != current_contig.end(); ++current_contig_it) {
     currentpos = (*current_contig_it).pos;
     prevj = 0;
@@ -80,25 +81,22 @@ void writecontig(std::string &ref, std::list<contig_reads> &current_contig,
         f_noise << eg.enc_noise[(uint8_t)ref[currentpos + j]]
                                [(uint8_t)(*current_contig_it).read[j]];
         pos_var = j - prevj;
-	f_noisepos.write((char*)&pos_var,sizeof(uint16_t));
+	      f_noisepos.write((char*)&pos_var,sizeof(uint16_t));
         prevj = j;
       }
     f_noise << "\n";
-    if (current_contig_it == current_contig.begin())
-      pos_var = eg.max_readlen;
-    else
-      pos_var = currentpos - prevpos;
-    f_pos.write((char*)&pos_var,sizeof(uint16_t));
+    abs_current_pos = abs_pos + currentpos;
+    f_pos.write((char*)&abs_current_pos,sizeof(uint64_t));
     f_order.write((char *)&((*current_contig_it).order), sizeof(uint32_t));
     f_readlength.write((char *)&((*current_contig_it).read_length),
                        sizeof(uint16_t));
     f_RC << (*current_contig_it).RC;
-    prevpos = currentpos;
   }
+  abs_pos += ref.size();
   return;
 }
 
-void packbits(encoder_global &eg) {
+void packbits(encoder_global &eg, uint64_t *file_len_seq_thr) {
 #pragma omp parallel
   {
     int tid = omp_get_thread_num();
@@ -111,6 +109,7 @@ void packbits(encoder_global &eg) {
     uint64_t file_len = 0;
     char c;
     while (in_seq >> std::noskipws >> c) file_len++;
+    file_len_seq_thr[tid] = file_len;
     uint8_t basetoint[128];
     basetoint[(uint8_t)'A'] = 0;
     basetoint[(uint8_t)'C'] = 1;
@@ -138,7 +137,7 @@ void packbits(encoder_global &eg) {
     remove((eg.outfile_seq + '.' + std::to_string(tid)).c_str());
     rename((eg.outfile_seq + '.' + std::to_string(tid) + ".tmp").c_str(),
            (eg.outfile_seq + '.' + std::to_string(tid)).c_str());
-
+/*
     // rev
     std::ifstream in_rev(eg.infile_RC + '.' + std::to_string(tid));
     std::ofstream f_rev(eg.infile_RC + '.' + std::to_string(tid) + ".tmp",
@@ -172,39 +171,7 @@ void packbits(encoder_global &eg) {
     rename((eg.infile_RC + '.' + std::to_string(tid) + ".tmp").c_str(),
            (eg.infile_RC + '.' + std::to_string(tid)).c_str());
   }
-  // singleton
-  std::ifstream in_singleton(eg.outfile_singleton);
-  std::ofstream f_singleton(eg.outfile_singleton + ".tmp", std::ios::binary);
-  std::ofstream f_singleton_tail(eg.outfile_singleton + ".tail");
-  uint64_t file_len = 0;
-  char c;
-  while (in_singleton >> std::noskipws >> c) file_len++;
-  uint8_t basetoint[128];
-  basetoint[(uint8_t)'A'] = 0;
-  basetoint[(uint8_t)'C'] = 1;
-  basetoint[(uint8_t)'G'] = 2;
-  basetoint[(uint8_t)'T'] = 3;
-  in_singleton.close();
-  in_singleton.open(eg.outfile_singleton);
-  char dnabase[8];
-  uint8_t dnabin;
-  for (uint64_t i = 0; i < file_len / 4; i++) {
-    in_singleton.read(dnabase, 4);
-
-    dnabin = 64 * basetoint[(uint8_t)dnabase[3]] +
-             16 * basetoint[(uint8_t)dnabase[2]] +
-             4 * basetoint[(uint8_t)dnabase[1]] +
-             basetoint[(uint8_t)dnabase[0]];
-    f_singleton.write((char *)&dnabin, sizeof(uint8_t));
-  }
-  f_singleton.close();
-  in_singleton.read(dnabase, file_len % 4);
-  for (unsigned int i = 0; i < file_len % 4; i++) f_singleton_tail << dnabase[i];
-  f_singleton_tail.close();
-  in_singleton.close();
-  remove((eg.outfile_singleton).c_str());
-  rename((eg.outfile_singleton + ".tmp").c_str(),
-         (eg.outfile_singleton).c_str());
+  */
   return;
 }
 
