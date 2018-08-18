@@ -92,5 +92,6 @@ int main(int argc, char** argv)
 		std::cout << desc << "\n";
 		return 1;
 	}
+	boost::filesystem::remove_all(temp_dir);
 	return 0;
 }

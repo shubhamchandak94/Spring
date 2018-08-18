@@ -1,6 +1,9 @@
 #ifndef SPRING_REORDER_COMPRESS_STREAMS_H_
 #define SPRING_REORDER_COMPRESS_STREAMS_H_
 
+#include <string>
+#include "util.h"
+
 namespace spring {
 
 void reorder_compress_streams (std::string &temp_dir, compression_params &cp);

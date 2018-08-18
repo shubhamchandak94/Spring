@@ -115,7 +115,7 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 	fs::path p{temp_dir};
 	fs::directory_iterator itr{p};
 	for(; itr != fs::directory_iterator{}; ++itr) {
-		std::string current_file = itr->path().itr->path().filename();
+		std::string current_file = itr->path().filename().string();
 		switch(current_file[0]) {
 			case 'r': size_read += fs::file_size(itr->path());
 								break;
@@ -136,7 +136,7 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 	std::string tar_command = "tar -cf "+outfile + " -C " + temp_dir + " . ";
 	int tar_status = std::system(tar_command.c_str());
 	if(tar_status != 0)
-		throw std::runtime_error("Error occurred during tar archive generation.")
+		throw std::runtime_error("Error occurred during tar archive generation.");
 	std::cout << "Tar archive done!\n";
 	auto tar_end = std::chrono::steady_clock::now();
 	std::cout << "Time for this step: " << std::chrono::duration_cast<std::chrono::seconds>(tar_end-tar_start).count() << " s\n";
@@ -146,9 +146,9 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 	std::cout << "Compression done!\n";
 	std::cout << "Total time for compression: " << std::chrono::duration_cast<std::chrono::seconds>(compression_end-compression_start).count() << " s\n";
 
-	fs::path p{outfile};
+	fs::path p1{outfile};
 	std::cout << "\n";
-	std::cout << "Total size: " << std::setw(12) << fs::file_size(p) << " bytes\n";
+	std::cout << "Total size: " << std::setw(12) << fs::file_size(p1) << " bytes\n";
 	return;
 }
 

@@ -54,25 +54,24 @@ void reorder_compress_streams (std::string &temp_dir, compression_params &cp) {
   std::string file_noisepos = basedir + "/read_noisepos.bin";
   // store noisepos with 2 bytes, no newlines, otherwise similar to noise
   std::string file_order = basedir + "/read_order.bin";
-  std::string file_pos = basedir + "/read_pos.bin";
 
   // load some params
-  uint32_t numreads = cp.num_reads, num_reads_aligned = 0, num_reads_unaligned;
-  uint32_t numreads_by_2 = numreads/2;
+  uint32_t num_reads = cp.num_reads, num_reads_aligned = 0, num_reads_unaligned;
+  uint32_t num_reads_by_2 = num_reads/2;
   int num_thr = cp.num_thr;
   bool paired_end = cp.paired_end;
 
-  bool *RC_arr = new bool [numreads];
-  uint16_t *read_length_arr = new uint16_t [numreads];
-  bool *flag_arr = new bool [numreads];
-  uint64_t *pos_in_noise_arr = new uint64_t [numreads];
-  uint64_t *pos_arr = new uint64_t [numreads];
-  uint16_t *noise_len_arr = new uint16_t [numreads];
+  char *RC_arr = new char [num_reads];
+  uint16_t *read_length_arr = new uint16_t [num_reads];
+  bool *flag_arr = new bool [num_reads];
+  uint64_t *pos_in_noise_arr = new uint64_t [num_reads];
+  uint64_t *pos_arr = new uint64_t [num_reads];
+  uint16_t *noise_len_arr = new uint16_t [num_reads];
 
   // read streams for aligned reads
   std::ifstream f_order(file_order, std::ios::binary);
   std::ifstream f_RC(file_RC);
-  std::ifstream f_readlength(infile_readlength, std::ios::binary);
+  std::ifstream f_readlength(file_readlength, std::ios::binary);
   std::ifstream f_noise(file_noise);
   std::ifstream f_noisepos(file_noisepos, std::ios::binary);
   std::ifstream f_pos(file_pos, std::ios::binary);
@@ -124,7 +123,7 @@ void reorder_compress_streams (std::string &temp_dir, compression_params &cp) {
   std::ifstream f_unaligned(file_unaligned);
   f_unaligned.seekg(0, f_unaligned.end);
   uint64_t unaligned_array_size = f_unaligned.tellg();
-  f_unaligned.seekg(0, f_unaligned.beg)
+  f_unaligned.seekg(0, f_unaligned.beg);
   char *unaligned_arr = new char[unaligned_array_size];
   f_unaligned.read(unaligned_arr, unaligned_array_size);
   f_unaligned.close();
@@ -133,7 +132,7 @@ void reorder_compress_streams (std::string &temp_dir, compression_params &cp) {
     f_order.read((char*)&order, sizeof(uint32_t));
     f_readlength.read((char*)&read_length, sizeof(uint16_t));
     read_length_arr[order] = read_length;
-    pos[order] = current_pos_in_unaligned_arr;
+    pos_arr[order] = current_pos_in_unaligned_arr;
     current_pos_in_unaligned_arr += read_length;
     flag_arr[order] = false; // unaligned
   }
@@ -183,7 +182,7 @@ void reorder_compress_streams (std::string &temp_dir, compression_params &cp) {
       std::ofstream f_noise(file_noise+'.'+std::to_string(chunk_num));
       std::ofstream f_noisepos(file_noisepos+'.'+std::to_string(chunk_num), std::ios::binary);
       std::ofstream f_pos(file_pos+'.'+std::to_string(chunk_num), std::ios::binary);
-      std::ofstream f_RC(file_RC+'.'+std::to_string(chunk_num), );
+      std::ofstream f_RC(file_RC+'.'+std::to_string(chunk_num));
       std::ofstream f_unaligned(file_unaligned+'.'+std::to_string(chunk_num));
       std::ofstream f_readlength(file_readlength+'.'+std::to_string(chunk_num), std::ios::binary);
       std::ofstream f_pos_pair;
@@ -222,11 +221,11 @@ void reorder_compress_streams (std::string &temp_dir, compression_params &cp) {
             flag = 0;
           else if(flag_arr[i] && flag_arr[i_p])
             flag = 1;
-          else if(!flag_arr[i] && !flag_arr[i_p]))
+          else if(!flag_arr[i] && !flag_arr[i_p])
             flag = 2;
-          else if(flag_arr[i] && !flag_arr[i_p]))
+          else if(flag_arr[i] && !flag_arr[i_p])
             flag = 3;
-          else if(!flag_arr[i] && flag_arr[i_p]))
+          else if(!flag_arr[i] && flag_arr[i_p])
             flag = 4;
           f_flag << flag;
           if(flag == 0 && paired_end) {
@@ -274,55 +273,50 @@ void reorder_compress_streams (std::string &temp_dir, compression_params &cp) {
 
       // Compress files with bcm and remove uncompressed files
       std::string infile_bcm = file_flag+'.'+std::to_string(chunk_num);
-      std::string outfile_bcm = infile_bcm + '.bcm';
+      std::string outfile_bcm = infile_bcm + ".bcm";
       bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
       remove(infile_bcm.c_str());
 
       // TODO: Test impact of packing pos file into
       // minimum number of bits
       infile_bcm = file_pos+'.'+std::to_string(chunk_num);
-      outfile_bcm = infile_bcm + '.bcm';
+      outfile_bcm = infile_bcm + ".bcm";
       bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
       remove(infile_bcm.c_str());
 
       infile_bcm = file_noise+'.'+std::to_string(chunk_num);
-      outfile_bcm = infile_bcm + '.bcm';
+      outfile_bcm = infile_bcm + ".bcm";
       bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
       remove(infile_bcm.c_str());
 
       infile_bcm = file_noisepos+'.'+std::to_string(chunk_num);
-      outfile_bcm = infile_bcm + '.bcm';
-      bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
-      remove(infile_bcm.c_str());
-
-      infile_bcm = file_flag+'.'+std::to_string(chunk_num);
-      outfile_bcm = infile_bcm + '.bcm';
+      outfile_bcm = infile_bcm + ".bcm";
       bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
       remove(infile_bcm.c_str());
 
       infile_bcm = file_unaligned+'.'+std::to_string(chunk_num);
-      outfile_bcm = infile_bcm + '.bcm';
+      outfile_bcm = infile_bcm + ".bcm";
       bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
       remove(infile_bcm.c_str());
 
       infile_bcm = file_readlength+'.'+std::to_string(chunk_num);
-      outfile_bcm = infile_bcm + '.bcm';
+      outfile_bcm = infile_bcm + ".bcm";
       bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
       remove(infile_bcm.c_str());
 
       infile_bcm = file_RC+'.'+std::to_string(chunk_num);
-      outfile_bcm = infile_bcm + '.bcm';
+      outfile_bcm = infile_bcm + ".bcm";
       bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
       remove(infile_bcm.c_str());
 
       if(paired_end) {
         infile_bcm = file_pos_pair+'.'+std::to_string(chunk_num);
-        outfile_bcm = infile_bcm + '.bcm';
+        outfile_bcm = infile_bcm + ".bcm";
         bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
         remove(infile_bcm.c_str());
 
         infile_bcm = file_RC_pair+'.'+std::to_string(chunk_num);
-        outfile_bcm = infile_bcm + '.bcm';
+        outfile_bcm = infile_bcm + ".bcm";
         bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
         remove(infile_bcm.c_str());
       }

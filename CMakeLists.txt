@@ -52,6 +52,7 @@ set(source_files ${source_files} ${source_dir}/util.cpp)
 set(source_files ${source_files} ${source_dir}/bitset_util.cpp)
 set(source_files ${source_files} ${source_dir}/preprocess.cpp)
 set(source_files ${source_files} ${source_dir}/encoder.cpp)
+set(source_files ${source_files} ${source_dir}/reorder_compress_streams.cpp)
 
 # qvz
 # set(source_files ${source_files} ${source_dir}/qvz/src/arith.cpp)
