@@ -6,9 +6,12 @@
 #include <algorithm>
 #include <stdexcept>
 #include <chrono>
+#include <boost/filesystem.hpp>
 #include <cstdlib>
+#include <iomanip>      // std::setw
+
 #include "encoder.h"
-//#include "pe_encode.h"
+#include "reorder_compress_streams.h"
 #include "preprocess.h"
 #include "reorder.h"
 //#include "reorder_compress_quality_id.h"
@@ -64,13 +67,16 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 	cp.bcm_block_size = BCM_BLOCK_SIZE;
 	cp.num_thr = num_thr;
 
+	if(!preserve_order)
+		throw std::runtime_error("Not implemented");
+
 	std::cout << "Preprocessing ...\n";
 	auto preprocess_start = std::chrono::steady_clock::now();
 	preprocess(infile_1, infile_2, temp_dir, cp);
 	auto preprocess_end = std::chrono::steady_clock::now();
 	std::cout << "Preprocessing done!\n";
 	std::cout << "Time for this step: " << std::chrono::duration_cast<std::chrono::seconds>(preprocess_end-preprocess_start).count() << " s\n";
-	
+
 	if(!long_flag) {
 
 		std::cout << "Reordering ...\n";
@@ -79,35 +85,70 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 		auto reorder_end = std::chrono::steady_clock::now();
 		std::cout << "Reordering done!\n";
 		std::cout << "Time for this step: " << std::chrono::duration_cast<std::chrono::seconds>(reorder_end-reorder_start).count() << " s\n";
+
 		std::cout << "Encoding ...\n";
 		auto encoder_start = std::chrono::steady_clock::now();
 		call_encoder(temp_dir, cp);
 		auto encoder_end = std::chrono::steady_clock::now();
 		std::cout << "Encoding done!\n";
 		std::cout << "Time for this step: " << std::chrono::duration_cast<std::chrono::seconds>(encoder_end-encoder_start).count() << " s\n";
-		/*
-		if (paired_end == true) pe_encode_main(temp_dir, false);
-		fastqFileReader1->seekFromSet(0);
-		if (paired_end == true)
-		     fastqFileReader2->seekFromSet(0);
-		reorder_compress_quality_id(temp_dir, max_readlen, num_thr,
-		paired_end, false, true, true, fastqFileReader1, fastqFileReader2, "bsc",
-		8.0);
-		*/
+
+		std::cout << "Reordering and compressing streams ...\n";
+		auto rcs_start = std::chrono::steady_clock::now();
+		reorder_compress_streams(temp_dir, cp);
+		auto rcs_end = std::chrono::steady_clock::now();
+		std::cout << "Reordering and compressing streams done!\n";
+		std::cout << "Time for this step: " << std::chrono::duration_cast<std::chrono::seconds>(rcs_end - rcs_start).count() << " s\n";
 	}
-/*
+
+  // Write compression params to a file
+	std::string compression_params_file = temp_dir + "/cp.bin";
+	std::ofstream f_cp(compression_params_file, std::ios::binary);
+	f_cp.write((char*)&cp, sizeof(compression_params));
+	f_cp.close();
+
+	// Print out sizes of reads, quality and id after compression
+	namespace fs = boost::filesystem;
+	uint64_t size_read = 0;
+	uint64_t size_quality = 0;
+	uint64_t size_id = 0;
+	fs::path p{temp_dir};
+	fs::directory_iterator itr{p};
+	for(; itr != fs::directory_iterator{}; ++itr) {
+		std::string current_file = itr->path().itr->path().filename();
+		switch(current_file[0]) {
+			case 'r': size_read += fs::file_size(itr->path());
+								break;
+			case 'q': size_quality += fs::file_size(itr->path());
+								break;
+			case 'i': size_id += fs::file_size(itr->path());
+								break;
+		}
+	}
+	std::cout << "\n";
+	std::cout << "Sizes of streams after compression: \n";
+	std::cout << "Reads:      " << std::setw(12) << size_read << " bytes\n";
+	std::cout << "Quality:    " << std::setw(12) << size_quality << " bytes\n";
+	std::cout << "ID:         " << std::setw(12) << size_id << " bytes\n";
+
 	auto tar_start = std::chrono::steady_clock::now();
 	std::cout << "Creating tar archive ...";
 	std::string tar_command = "tar -cf "+outfile + " -C " + temp_dir + " . ";
-	std::system(tar_command.c_str());	
+	int tar_status = std::system(tar_command.c_str());
+	if(tar_status != 0)
+		throw std::runtime_error("Error occurred during tar archive generation.")
 	std::cout << "Tar archive done!\n";
 	auto tar_end = std::chrono::steady_clock::now();
 	std::cout << "Time for this step: " << std::chrono::duration_cast<std::chrono::seconds>(tar_end-tar_start).count() << " s\n";
-*/
+
 	delete cp_ptr;
 	auto compression_end = std::chrono::steady_clock::now();
 	std::cout << "Compression done!\n";
 	std::cout << "Total time for compression: " << std::chrono::duration_cast<std::chrono::seconds>(compression_end-compression_start).count() << " s\n";
+
+	fs::path p{outfile};
+	std::cout << "\n";
+	std::cout << "Total size: " << std::setw(12) << fs::file_size(p) << " bytes\n";
 	return;
 }
 

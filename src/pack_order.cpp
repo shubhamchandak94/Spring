@@ -25,7 +25,7 @@ int pack_order(std::string &temp_dir, bool &paired_end)//pack order into least n
 	std::ofstream f_out(infile+".tmp",std::ios::binary);
 	std::ifstream f_in(infile,std::ios::binary);
 	std::ofstream f_tail(infile+".tail",std::ios::binary);
-	
+
 	uint32_t order;
 	int numbits = (int)(log2(numreads)+1);
 	f_out.write((char*)&numbits, sizeof(int));
@@ -60,7 +60,7 @@ int pack_order(std::string &temp_dir, bool &paired_end)//pack order into least n
 	for(uint32_t i = 0; i < numreads%32; i++)
 	{
 		f_in.read((char*)&order, sizeof(uint32_t));
-		f_tail.write((char*)&order, sizeof(uint32_t));	
+		f_tail.write((char*)&order, sizeof(uint32_t));
 	}
 	f_tail.close();
 	f_in.close();

@@ -88,7 +88,7 @@ void writecontig(std::string &ref, std::list<contig_reads> &current_contig,
                  std::ofstream &f_readlength, encoder_global &eg,
                  uint64_t &abs_pos);
 
-void packbits(encoder_global &eg, uint64_t *file_len_seq_thr);
+void pack_compress_seq(encoder_global &eg, uint64_t *file_len_seq_thr);
 
 void getDataParams(encoder_global &eg, compression_params &cp);
 
@@ -434,7 +434,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
   uint64_t *file_len_seq_thr = new uint64_t [eg.num_thr];
   uint64_t abs_pos = 0;
   uint64_t abs_pos_thr;
-  packbits(eg, file_len_seq_thr);
+  pack_compress_seq(eg, file_len_seq_thr);
   std::ofstream fout_pos(eg.outfile_pos, std::ios::binary);
   for (int tid = 0; tid < eg.num_thr; tid++) {
     std::ifstream fin_pos(eg.outfile_pos + '.' + std::to_string(tid), std::ios::binary);

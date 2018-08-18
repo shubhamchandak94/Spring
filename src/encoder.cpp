@@ -13,7 +13,7 @@
 #include <string>
 #include <string>
 #include <vector>
-
+#include "bcm/bcm.h"
 namespace spring {
 
 std::string buildcontig(std::list<contig_reads> &current_contig,
@@ -96,7 +96,7 @@ void writecontig(std::string &ref, std::list<contig_reads> &current_contig,
   return;
 }
 
-void packbits(encoder_global &eg, uint64_t *file_len_seq_thr) {
+void pack_compress_seq(encoder_global &eg, uint64_t *file_len_seq_thr) {
 #pragma omp parallel
   {
     int tid = omp_get_thread_num();
@@ -134,9 +134,10 @@ void packbits(encoder_global &eg, uint64_t *file_len_seq_thr) {
     for (unsigned int i = 0; i < file_len % 4; i++) f_seq_tail << dnabase[i];
     f_seq_tail.close();
     in_seq.close();
+    bcm::bcm_compress((eg.outfile_seq + '.' + std::to_string(tid) + ".tmp").c_str(),
+                      (eg.outfile_seq + '.' + std::to_string(tid) + ".bcm").c_str());
     remove((eg.outfile_seq + '.' + std::to_string(tid)).c_str());
-    rename((eg.outfile_seq + '.' + std::to_string(tid) + ".tmp").c_str(),
-           (eg.outfile_seq + '.' + std::to_string(tid)).c_str());
+    remove((eg.outfile_seq + '.' + std::to_string(tid) + ".tmp").c_str());
 /*
     // rev
     std::ifstream in_rev(eg.infile_RC + '.' + std::to_string(tid));
@@ -172,7 +173,7 @@ void packbits(encoder_global &eg, uint64_t *file_len_seq_thr) {
            (eg.infile_RC + '.' + std::to_string(tid)).c_str());
   */
   }
-  
+
   return;
 }
 

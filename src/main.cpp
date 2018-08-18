@@ -61,19 +61,19 @@ int main(int argc, char** argv)
 		throw std::runtime_error("Cannot create temporary directory.");
 	}
 	std::cout << "Temporary directory: " << temp_dir << "\n";
-	
+
 	if(compress_flag && long_flag) {
-		std::cout << "Long flag detected.\n";	
+		std::cout << "Long flag detected.\n";
 		std::cout << "For long mode: allow_read_reordering flag is disabled and quality compressor is fixed to bcm.\n";
 //		quality_compressor = "bcm";
 		pairing_only_flag = false;
 	}
 	try {
-	if(compress_flag) 
+	if(compress_flag)
 		spring::compress(temp_dir, infile_vec, outfile_vec, num_thr, pairing_only_flag, no_quality_flag, no_ids_flag, ill_bin_flag,
-// quality_compressor, 
+// quality_compressor,
 		long_flag);
-	else 
+	else
 		spring::decompress();
 
 	}
@@ -85,12 +85,12 @@ int main(int argc, char** argv)
 		std::cout << desc << "\n";
 		return 1;
 	}
-	catch(...) {	
+	catch(...) {
 		std::cout << "Program terminated unexpectedly\n";
 		std::cout << "Deleting temporary directory...\n";
 		boost::filesystem::remove_all(temp_dir);
 		std::cout << desc << "\n";
 		return 1;
 	}
-	return 0;	
+	return 0;
 }

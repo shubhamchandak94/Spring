@@ -39,7 +39,7 @@ void preprocess(std::string &infile_1, std::string &infile_2,
   outfileread[1] = basedir + "/read_2";
   outfilereadlength[0] = basedir + "/readlength_1";
   outfilereadlength[1] = basedir + "/readlength_2";
-  
+
   std::ifstream fin[2];
   std::ofstream fout_clean[2];
   std::ofstream fout_N[2];
@@ -50,11 +50,11 @@ void preprocess(std::string &infile_1, std::string &infile_2,
   if(cp.long_flag) {
     fin[0].open(infile_1);
     if(cp.paired_end)
-      fin[1].open(infile_2); 
+      fin[1].open(infile_2);
   }
   else {
      for(int j = 0; j < 2; j++) {
-       if(j == 1 && !cp.paired_end) 
+       if(j == 1 && !cp.paired_end)
 	 continue;
        fin[j].open(infile[j]);
        fout_clean[j].open(outfileclean[j]);
@@ -68,7 +68,7 @@ void preprocess(std::string &infile_1, std::string &infile_2,
        }
      }
   }
-  
+
   uint32_t max_readlen = 0;
   uint64_t num_reads[2] = {0,0};
   uint64_t num_reads_clean[2] = {0,0};
@@ -79,12 +79,12 @@ void preprocess(std::string &infile_1, std::string &infile_2,
 	num_reads_per_chunk = NUM_READS_PER_CHUNK;
   uint8_t paired_id_code = 0;
   bool paired_id_match = false;
-  
+
   char *illumina_binning_table = new char[128];
   if(cp.ill_bin_flag && cp.preserve_order)
 	generate_illumina_binning_table(illumina_binning_table);
-  
-  // Check that we were able to open the input files and also look for 
+
+  // Check that we were able to open the input files and also look for
   // paired end matching ids if relevant
   if(!fin[0].is_open())
 	throw std::runtime_error("Error opening input file");
@@ -97,11 +97,11 @@ void preprocess(std::string &infile_1, std::string &infile_2,
 	  std::getline(fin[1],id_2);
 	  paired_id_code = find_id_pattern(id_1,id_2);
 	  if(paired_id_code != 0)
-		paired_id_match = true;  
+		paired_id_match = true;
 	  fin[0].seekg(0);
 	  fin[1].seekg(0);
 	}
-  }	
+  }
   uint64_t num_reads_per_step = (uint64_t)cp.num_thr*num_reads_per_chunk;
   std::string *read_array = new std::string[num_reads_per_step];
   std::string *id_array_1 = new std::string[num_reads_per_step];
@@ -110,11 +110,11 @@ void preprocess(std::string &infile_1, std::string &infile_2,
   bool *read_contains_N_array = new bool[num_reads_per_step];
   uint32_t *read_lengths_array = new uint32_t[num_reads_per_step];
   bool *paired_id_match_array = new bool [cp.num_thr];
-  
+
   omp_set_num_threads(cp.num_thr);
-  
+
   uint32_t num_chunks_done = 0;
-  
+
   while(true) {
 	bool done[2] = {true,true};
 	for(int j = 0; j < 2; j++) {
@@ -141,12 +141,12 @@ void preprocess(std::string &infile_1, std::string &infile_2,
 			  done = true;
 			uint32_t num_reads_thr = std::min((uint64_t)num_reads_read, (tid+1)*num_reads_per_chunk) - tid*num_reads_per_chunk;
 			if(!done) {
-			  if(cp.long_flag)	
+			  if(cp.long_flag)
 					fout_readlength[j].open(outfilereadlength[j]+"."+std::to_string(num_chunks_done+tid), std::ios::binary);
-			  // check if reads and qualities have equal lengths 
+			  // check if reads and qualities have equal lengths
 			  for(uint32_t i = tid*num_reads_per_chunk; i < tid*num_reads_per_chunk + num_reads_thr; i++) {
 				size_t len = read_array[i].size();
-				if(len == 0) 
+				if(len == 0)
 				  throw std::runtime_error("Read of length 0 detected.");
 				if(cp.long_flag && len > MAX_READ_LEN_LONG) {
 				  std::cerr << "Max read length for long mode is " << MAX_READ_LEN_LONG << ", but found read of length " << len << "\n";
@@ -161,30 +161,30 @@ void preprocess(std::string &infile_1, std::string &infile_2,
 				if(cp.preserve_id && (id_array[i].size() == 0))
 				  throw std::runtime_error("Identifier of length 0 detected.");
 				read_lengths_array[i] = (uint32_t)len;
-				
+
 				// mark reads with N
-				if(!cp.long_flag) 
-				  read_contains_N_array[i] = (read_array[i].find('N') != std::string::npos);  
-				
+				if(!cp.long_flag)
+				  read_contains_N_array[i] = (read_array[i].find('N') != std::string::npos);
+
 				// Write read length to a file (for long mode)
 				if(cp.long_flag)
 				  fout_readlength[j].write((char*)&read_lengths_array[i], sizeof(uint32_t));
-			  
+
 			    if(j == 1 && paired_id_match_array[tid])
-				  paired_id_match_array[tid] = check_id_pattern(id_array_1[i], id_array_2[i], paired_id_code);	
+				  paired_id_match_array[tid] = check_id_pattern(id_array_1[i], id_array_2[i], paired_id_code);
 			  }
 			  if(cp.long_flag)
 				fout_readlength[j].close();
 			  // apply Illumina binning (if asked to do so)
 			  if(cp.preserve_quality && cp.ill_bin_flag)
 				quantize_quality(quality_array + tid*num_reads_per_chunk, num_reads_thr, illumina_binning_table);
-			
+
 			  if(!cp.long_flag) {
 				if(cp.preserve_order) {
 				  // Compress ids
 				  if(cp.preserve_id) {
 					std::string outfile_name = outfileid[j] + "." + std::to_string(num_chunks_done+tid);
-					compress_id_block(outfile_name.c_str(), id_array + tid*num_reads_per_chunk, num_reads_thr);  
+					compress_id_block(outfile_name.c_str(), id_array + tid*num_reads_per_chunk, num_reads_thr);
 				  }
 				  // Compress qualities
 				  if(cp.preserve_quality) {
@@ -193,7 +193,7 @@ void preprocess(std::string &infile_1, std::string &infile_2,
 //					  compress_quality_block_qvz(outfile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
 //					else
 					bcm::bcm_str_array_compress(outfile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
-				  }	
+				  }
 				}
 			  }
 			  else {
@@ -253,29 +253,29 @@ void preprocess(std::string &infile_1, std::string &infile_2,
 	}
 	if(cp.paired_end)
 	  if(num_reads[0] != num_reads[1])
-		throw std::runtime_error("Number of reads in paired files do not match.");  
+		throw std::runtime_error("Number of reads in paired files do not match.");
 	if(done[0] && done[1])
 	  break;
     num_chunks_done += cp.num_thr;
   }
-  
+
   delete[] read_array;
   delete[] id_array_1;
   delete[] id_array_2;
   delete[] quality_array;
   delete[] read_contains_N_array;
   delete[] read_lengths_array;
-  delete[] illumina_binning_table; 
+  delete[] illumina_binning_table;
   delete[] paired_id_match_array;
   // close files
   if(cp.long_flag) {
     fin[0].close();
     if(cp.paired_end)
-      fin[1].close(); 
+      fin[1].close();
   }
   else {
       for(int j = 0; j < 2; j++) {
-	if(j == 1 && !cp.paired_end) 
+	if(j == 1 && !cp.paired_end)
 	  continue;
         fin[j].close();
         fout_clean[j].close();
@@ -314,7 +314,7 @@ void preprocess(std::string &infile_1, std::string &infile_2,
 	remove(outfileorderN[1].c_str());
   }
 
-  
+
   if(cp.paired_end && paired_id_match) {
 	// delete id files for second file since we found a pattern
 	if(!cp.long_flag && !cp.preserve_order) {
@@ -325,17 +325,17 @@ void preprocess(std::string &infile_1, std::string &infile_2,
 	  for(uint32_t i = 0; i < num_chunks; i++)
 		remove((outfileid[1]+"."+std::to_string(i)).c_str());
 	}
-  }	
+  }
   cp.paired_id_code = paired_id_code;
   cp.paired_id_match = paired_id_match;
   cp.num_reads = num_reads[0] + num_reads[1];
   cp.num_reads_clean[0] = num_reads_clean[0];
   cp.num_reads_clean[1] = num_reads_clean[1];
   cp.max_readlen = max_readlen;
-  
+
   std::cout << "Max Read length: " << cp.max_readlen << "\n";
   std::cout << "Total number of reads: " << cp.num_reads << "\n";
-  
+
   if(!cp.long_flag)
     std::cout << "Total number of reads without N: " << cp.num_reads_clean[0] + cp.num_reads_clean[1] << "\n";
   if (cp.preserve_id && cp.paired_end)
