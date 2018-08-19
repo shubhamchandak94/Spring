@@ -94,7 +94,7 @@ void updaterefcount(std::bitset<bitset_size> &cur,
                     std::bitset<bitset_size> &ref,
                     std::bitset<bitset_size> &revref, int **count,
                     const bool resetcount, const bool rev, const int shift, const uint16_t cur_readlen,
-                    const int &ref_len, const reorder_global<bitset_size> &rg)
+                    int &ref_len, const reorder_global<bitset_size> &rg)
 // for var length, shift represents shift of start positions, if read length is
 // small, may not need to shift actually
 {

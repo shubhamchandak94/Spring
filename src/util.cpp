@@ -26,7 +26,7 @@ uint32_t read_fastq_block(std::ifstream &fin, std::string *id_array, std::string
 }
 
 void write_fastq_block(std::ofstream &fout, std::string *id_array, std::string *read_array, std::string *quality_array, const uint32_t &num_reads) {
-	for (int i = 0; i < num_reads; i++) {
+	for (uint32_t i = 0; i < num_reads; i++) {
 		fout << id_array[i] << "\n";
 		fout << read_array[i] << "\n";
 		fout << "+\n";

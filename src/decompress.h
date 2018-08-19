@@ -7,7 +7,7 @@
 namespace spring
 {
 
-void decompress(const std::string &temp_dir, const std::string &outfile_1,
+void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
 const std::string &outfile_2, const compression_params &cp, const int &num_thr);
 
 void decompress_long(const std::string &temp_dir, const std::string &outfile_1,

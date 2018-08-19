@@ -347,6 +347,7 @@ void reorder_compress_streams (const std::string &temp_dir, const compression_pa
   delete[] noise_len_arr;
   delete[] noise_arr;
   delete[] noisepos_arr;
+  delete[] unaligned_arr;
 
   return;
 }

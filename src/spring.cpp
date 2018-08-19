@@ -14,6 +14,7 @@
 #include "reorder_compress_streams.h"
 #include "preprocess.h"
 #include "reorder.h"
+#include "decompress.h"
 //#include "reorder_compress_quality_id.h"
 #include "spring.h"
 #include "util.h"
@@ -192,7 +193,7 @@ void decompress(std::string &temp_dir, std::vector<std::string>& infile_vec, std
 			break;
 		case 2:
 			if(!paired_end) {
-				std::cerr << "WARNING: Two output files provided for single end data. Output will be written to the first file provided.");
+				std::cerr << "WARNING: Two output files provided for single end data. Output will be written to the first file provided.";
 				outfile_1 = outfile_vec[0];
 			}
 			else {
@@ -213,10 +214,6 @@ void decompress(std::string &temp_dir, std::vector<std::string>& infile_vec, std
 	auto decompression_end = std::chrono::steady_clock::now();
 	std::cout << "Decompression done!\n";
 	std::cout << "Total time for decompression: " << std::chrono::duration_cast<std::chrono::seconds>(decompression_end-decompression_start).count() << " s\n";
-
-	fs::path p1{outfile};
-	std::cout << "\n";
-	std::cout << "Total size: " << std::se
 }
 
 void call_reorder(const std::string &temp_dir, compression_params &cp) {

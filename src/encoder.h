@@ -79,7 +79,7 @@ struct contig_reads {
 };
 
 std::string buildcontig(std::list<contig_reads> &current_contig,
-                        const uint32_t list_size);
+                        const uint32_t &list_size);
 
 void writecontig(const std::string &ref, std::list<contig_reads> &current_contig,
                  std::ofstream &f_seq, std::ofstream &f_pos,
