@@ -34,7 +34,7 @@ struct reorder_global {
   std::string outfilepos;
   std::string outfileorder;
   std::string outfilereadlength;
-  
+
   bool paired_end;
   // Some global arrays (some initialized in setglobalarrays())
 
@@ -57,7 +57,8 @@ struct reorder_global {
 };
 
 template <size_t bitset_size>
-void bitsettostring(std::bitset<bitset_size> b, char *s, uint16_t readlen, reorder_global<bitset_size> &rg) {
+void bitsettostring(std::bitset<bitset_size> b, char *s, const uint16_t readlen, const reorder_global<bitset_size> &rg) {
+  // destroys bitset b
   static const char revinttochar[4] = {'A', 'G', 'C', 'T'};
   unsigned long long ull;
   for (int i = 0; i < 2 * readlen / 64 + 1; i++) {
@@ -92,8 +93,8 @@ template <size_t bitset_size>
 void updaterefcount(std::bitset<bitset_size> &cur,
                     std::bitset<bitset_size> &ref,
                     std::bitset<bitset_size> &revref, int **count,
-                    bool resetcount, bool rev, int shift, uint16_t cur_readlen,
-                    int &ref_len, reorder_global<bitset_size> &rg)
+                    const bool resetcount, const bool rev, const int shift, const uint16_t cur_readlen,
+                    const int &ref_len, const reorder_global<bitset_size> &rg)
 // for var length, shift represents shift of start positions, if read length is
 // small, may not need to shift actually
 {
@@ -199,7 +200,7 @@ void updaterefcount(std::bitset<bitset_size> &cur,
 
 template <size_t bitset_size>
 void readDnaFile(std::bitset<bitset_size> *read, uint16_t *read_lengths,
-                 reorder_global<bitset_size> &rg) {
+                 const reorder_global<bitset_size> &rg) {
 
 #pragma omp parallel
   {
@@ -245,14 +246,14 @@ void readDnaFile(std::bitset<bitset_size> *read, uint16_t *read_lengths,
 }
 
 template <size_t bitset_size>
-bool search_match(std::bitset<bitset_size> &ref,
+bool search_match(const std::bitset<bitset_size> &ref,
                   std::bitset<bitset_size> *mask1, omp_lock_t *dict_lock,
                   omp_lock_t *read_lock,
                   std::bitset<bitset_size> **mask,
                   uint16_t *read_lengths, bool *remainingreads,
                   std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t &k,
-                  bool rev, int shift, int &ref_len,
-                  reorder_global<bitset_size> &rg) {
+                  const bool rev, const int shift, const int &ref_len,
+                  const reorder_global<bitset_size> &rg) {
   static const unsigned int thresh = THRESH_REORDER;
   const int maxsearch = MAX_SEARCH_REORDER;
   std::bitset<bitset_size> b;
@@ -321,7 +322,7 @@ bool search_match(std::bitset<bitset_size> &ref,
 
 template <size_t bitset_size>
 void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
-             uint16_t *read_lengths, reorder_global<bitset_size> &rg) {
+             uint16_t *read_lengths, const reorder_global<bitset_size> &rg) {
   const uint32_t num_locks =
       NUM_LOCKS_REORDER;  // limits on number of locks (power of 2 for fast mod)
   omp_lock_t *dict_lock = new omp_lock_t[num_locks];
@@ -366,7 +367,7 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
 
     int **count = new int*[4];
     for(int i = 0; i < 4; i++)
-      count[i] = new int[rg.max_readlen]; 
+      count[i] = new int[rg.max_readlen];
     int64_t dictidx[2];  // to store the start and end index (end not inclusive)
                          // in the dict read_id array
     uint64_t startposidx;  // index in startpos
@@ -565,7 +566,7 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
     foutlength.close();
     for(int i = 0; i < 4; i++)
       delete[] count[i];
-    delete[] count; 
+    delete[] count;
   }  // parallel end
 
   delete[] remainingreads;
@@ -654,7 +655,7 @@ void writetofile(std::bitset<bitset_size> *read, uint16_t *read_lengths,
 }
 
 template <size_t bitset_size>
-void reorder_main(const std::string &temp_dir, compression_params &cp) {
+void reorder_main(const std::string &temp_dir, const compression_params &cp) {
   reorder_global<bitset_size> *rg_pointer = new reorder_global<bitset_size> (cp.max_readlen);
   reorder_global<bitset_size> &rg = *rg_pointer;
   rg.basedir = temp_dir;

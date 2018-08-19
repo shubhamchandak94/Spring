@@ -6,11 +6,9 @@
 
 namespace spring {
 
-void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::vector<std::string>& outfile_vec, int &num_thr, bool &pairing_only_flag, bool &no_quality_flag, bool &no_ids_flag, bool &ill_bin_flag
-//, std::string &quality_compressor
-, bool &long_flag);
+void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::vector<std::string>& outfile_vec, int &num_thr, bool &pairing_only_flag, bool &no_quality_flag, bool &no_ids_flag, bool &ill_bin_flag, bool &long_flag);
 
-void decompress();
+void decompress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::vector<std::string>& outfile_vec, int &num_thr);
 
 void call_reorder(const std::string &temp_dir, compression_params &cp);
 

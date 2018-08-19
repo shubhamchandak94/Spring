@@ -23,8 +23,8 @@ class bbhashdict {
   uint32_t *startpos;
   uint32_t *read_id;
   bool *empty_bin;
-  void findpos(int64_t *dictidx, uint64_t &startposidx);
-  void remove(int64_t *dictidx, uint64_t &startposidx, int64_t current);
+  void findpos(int64_t *dictidx, const uint64_t &startposidx);
+  void remove(int64_t *dictidx, const uint64_t &startposidx, const int64_t current);
   bbhashdict() {
     bphf = NULL;
     startpos = NULL;
@@ -39,7 +39,7 @@ class bbhashdict {
 };
 
 template <size_t bitset_size>
-void stringtobitset(std::string s, uint16_t readlen, std::bitset<bitset_size> &b,
+void stringtobitset(const std::string &s, const uint16_t readlen, std::bitset<bitset_size> &b,
                     std::bitset<bitset_size> **basemask) {
   for (int i = 0; i < readlen; i++) b |= basemask[i][(uint8_t)s[i]];
 }
@@ -56,8 +56,8 @@ void generateindexmasks(std::bitset<bitset_size> *mask1, bbhashdict *dict,
 
 template <size_t bitset_size>
 void constructdictionary(std::bitset<bitset_size> *read, bbhashdict *dict,
-                         uint16_t *read_lengths, int numdict, uint32_t numreads,
-                         int bpb, std::string &basedir, int num_thr) {
+                         uint16_t *read_lengths, const int numdict, const uint32_t &numreads,
+                         const int bpb, const std::string &basedir, const int &num_thr) {
   std::bitset<bitset_size> mask[numdict];
   generateindexmasks<bitset_size>(mask, dict, numdict, bpb);
   for (int j = 0; j < numdict; j++) {
@@ -203,7 +203,7 @@ void constructdictionary(std::bitset<bitset_size> *read, bbhashdict *dict,
 
 template <size_t bitset_size>
 void generatemasks(std::bitset<bitset_size> **mask,
-                   int max_readlen, int bpb) {
+                   const int max_readlen, const int bpb) {
   // mask for zeroing the end bits (needed while reordering to compute Hamming
   // distance between shifted reads)
   for (int i = 0; i < max_readlen; i++) {
@@ -217,7 +217,7 @@ void generatemasks(std::bitset<bitset_size> **mask,
 }
 
 template <size_t bitset_size>
-void chartobitset(char *s, int readlen, std::bitset<bitset_size> &b,
+void chartobitset(char *s, const int readlen, std::bitset<bitset_size> &b,
                   std::bitset<bitset_size> **basemask) {
   b.reset();
   for (int i = 0; i < readlen; i++) b |= basemask[i][(uint8_t)s[i]];

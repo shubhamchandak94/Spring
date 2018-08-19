@@ -3,7 +3,7 @@
 
 namespace spring {
 
-void bbhashdict::findpos(int64_t *dictidx, uint64_t &startposidx) {
+void bbhashdict::findpos(int64_t *dictidx, const uint64_t &startposidx) {
   dictidx[0] = startpos[startposidx];
   auto endidx = startpos[startposidx + 1];
   if (read_id[endidx - 1] ==
@@ -20,8 +20,8 @@ void bbhashdict::findpos(int64_t *dictidx, uint64_t &startposidx) {
   return;
 }
 
-void bbhashdict::remove(int64_t *dictidx, uint64_t &startposidx,
-                        int64_t current) {
+void bbhashdict::remove(int64_t *dictidx, const uint64_t &startposidx,
+                        const int64_t current) {
   auto size = dictidx[1] - dictidx[0];
   if (size == 1)  // just one read left in bin
   {

@@ -14,7 +14,7 @@
 
 namespace spring {
 
-void reorder_compress_streams (std::string &temp_dir, compression_params &cp) {
+void reorder_compress_streams (const std::string &temp_dir, const compression_params &cp) {
   if (cp.preserve_order == false)
     throw std::runtime_error("Not implemented");
   std::string basedir = temp_dir;
@@ -271,6 +271,19 @@ void reorder_compress_streams (std::string &temp_dir, compression_params &cp) {
         }
       }
 
+      // Close files
+      f_flag.close();
+      f_noise.close();
+      f_noisepos.close();
+      f_pos.close();
+      f_RC.close();
+      f_unaligned.close();
+      f_readlength.close();
+      if(paired_end) {
+        f_pos_pair.close();
+        f_RC_pair.close();
+      }
+
       // Compress files with bcm and remove uncompressed files
       std::string infile_bcm = file_flag+'.'+std::to_string(chunk_num);
       std::string outfile_bcm = infile_bcm + ".bcm";
@@ -324,6 +337,17 @@ void reorder_compress_streams (std::string &temp_dir, compression_params &cp) {
       chunk_num += num_thr;
     }
   } // end omp parallel
+
+  // deallocate
+  delete[] RC_arr;
+  delete[] read_length_arr;
+  delete[] flag_arr;
+  delete[] pos_in_noise_arr;
+  delete[] pos_arr;
+  delete[] noise_len_arr;
+  delete[] noise_arr;
+  delete[] noisepos_arr;
+
   return;
 }
 

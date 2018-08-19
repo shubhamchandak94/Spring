@@ -17,7 +17,7 @@
 namespace spring {
 
 std::string buildcontig(std::list<contig_reads> &current_contig,
-                        uint32_t list_size) {
+                        const uint32_t &list_size) {
   static const char longtochar[5] = {'A', 'C', 'G', 'T', 'N'};
   static const long chartolong[128] = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -62,11 +62,11 @@ std::string buildcontig(std::list<contig_reads> &current_contig,
   return ref;
 }
 
-void writecontig(std::string &ref, std::list<contig_reads> &current_contig,
+void writecontig(const std::string &ref, std::list<contig_reads> &current_contig,
                  std::ofstream &f_seq, std::ofstream &f_pos,
                  std::ofstream &f_noise, std::ofstream &f_noisepos,
                  std::ofstream &f_order, std::ofstream &f_RC,
-                 std::ofstream &f_readlength, encoder_global &eg, uint64_t &abs_pos) {
+                 std::ofstream &f_readlength, const encoder_global &eg, uint64_t &abs_pos) {
   f_seq << ref;
   uint16_t pos_var;
   long prevj = 0;
@@ -96,7 +96,7 @@ void writecontig(std::string &ref, std::list<contig_reads> &current_contig,
   return;
 }
 
-void pack_compress_seq(encoder_global &eg, uint64_t *file_len_seq_thr) {
+void pack_compress_seq(const encoder_global &eg, uint64_t *file_len_seq_thr) {
 #pragma omp parallel
   {
     int tid = omp_get_thread_num();
@@ -138,46 +138,12 @@ void pack_compress_seq(encoder_global &eg, uint64_t *file_len_seq_thr) {
                       (eg.outfile_seq + '.' + std::to_string(tid) + ".bcm").c_str());
     remove((eg.outfile_seq + '.' + std::to_string(tid)).c_str());
     remove((eg.outfile_seq + '.' + std::to_string(tid) + ".tmp").c_str());
-/*
-    // rev
-    std::ifstream in_rev(eg.infile_RC + '.' + std::to_string(tid));
-    std::ofstream f_rev(eg.infile_RC + '.' + std::to_string(tid) + ".tmp",
-                        std::ios::binary);
-    std::ofstream f_rev_tail(eg.infile_RC + '.' + std::to_string(tid) +
-                             ".tail");
-    file_len = 0;
-    while (in_rev >> std::noskipws >> c) file_len++;
-    basetoint['d'] = 0;
-    basetoint['r'] = 1;
-
-    in_rev.close();
-    in_rev.open(eg.infile_RC + '.' + std::to_string(tid));
-    for (uint64_t i = 0; i < file_len / 8; i++) {
-      in_rev.read(dnabase, 8);
-      dnabin = 128 * basetoint[(uint8_t)dnabase[7]] +
-               64 * basetoint[(uint8_t)dnabase[6]] +
-               32 * basetoint[(uint8_t)dnabase[5]] +
-               16 * basetoint[(uint8_t)dnabase[4]] +
-               8 * basetoint[(uint8_t)dnabase[3]] +
-               4 * basetoint[(uint8_t)dnabase[2]] +
-               2 * basetoint[(uint8_t)dnabase[1]] +
-               basetoint[(uint8_t)dnabase[0]];
-      f_rev.write((char *)&dnabin, sizeof(uint8_t));
-    }
-    f_rev.close();
-    in_rev.read(dnabase, file_len % 8);
-    for (unsigned int i = 0; i < file_len % 8; i++) f_rev_tail << dnabase[i];
-    f_rev_tail.close();
-    remove((eg.infile_RC + '.' + std::to_string(tid)).c_str());
-    rename((eg.infile_RC + '.' + std::to_string(tid) + ".tmp").c_str(),
-           (eg.infile_RC + '.' + std::to_string(tid)).c_str());
-  */
   }
 
   return;
 }
 
-void getDataParams(encoder_global &eg, compression_params &cp) {
+void getDataParams(encoder_global &eg, const compression_params &cp) {
   uint32_t numreads_clean, numreads_total;
   numreads_clean = cp.num_reads_clean[0] + cp.num_reads_clean[1];
   numreads_total = cp.num_reads;
@@ -196,7 +162,7 @@ void getDataParams(encoder_global &eg, compression_params &cp) {
   std::cout << "Number of reads with N: " << eg.numreads_N << std::endl;
 }
 
-void correct_order(uint32_t *order_s, encoder_global &eg) {
+void correct_order(uint32_t *order_s, const encoder_global &eg) {
   uint32_t numreads_total = eg.numreads + eg.numreads_s + eg.numreads_N;
   bool *read_flag_N = new bool[numreads_total]();
   // bool array indicating N reads

@@ -13,7 +13,6 @@ int main(int argc, char** argv)
 	bool help_flag = false, compress_flag = false, decompress_flag = false, pairing_only_flag = false, no_quality_flag = false, no_ids_flag = false, ill_bin_flag = false, long_flag = false;
 	std::vector<std::string> infile_vec, outfile_vec;
 	std::string working_dir;
-//	std::string quality_compressor;
 	int num_thr;
 	po::options_description desc("Allowed options");
 	desc.add_options()
@@ -29,7 +28,6 @@ int main(int argc, char** argv)
     	("no-ids", po::bool_switch(&no_ids_flag), "do not retain read identifiers during compression")
     	("working-dir,w", po::value<std::string>(&working_dir)->default_value("."), "directory to create temporary files (default pwd)")
 	("ill-bin",po::bool_switch(&ill_bin_flag), "apply Illumina binning to quality scores before compression")
-//    	("quality-compressor,q", po::value<std::string>(&quality_compressor)->default_value("qvz"), "compressor to use for quality values: bcm or qvz (default qvz). For long reads, only bcm supported.")
 	("long,l",po::bool_switch(&long_flag), "Use for compression of arbitrarily long read lengths. Can also provide better compression for reads with significant number of indels. Some other options might be disabled in this mode.")
 	;
 	po::variables_map vm;
@@ -39,10 +37,6 @@ int main(int argc, char** argv)
 		std::cout <<desc << "\n";
 		return 0;
 	}
-//	if(quality_compressor == "Bcm" || quality_compressor == "BCM")
-//		quality_compressor = "bcm";
-//	if(quality_compressor == "Qvz" || quality_compressor == "QVZ")
-//		quality_compressor = "qvz";
 
 	if((!compress_flag && !decompress_flag) || (compress_flag && decompress_flag)) {
 		std::cout << "Exactly one of compress or decompress needs to be specified \n";
@@ -65,16 +59,13 @@ int main(int argc, char** argv)
 	if(compress_flag && long_flag) {
 		std::cout << "Long flag detected.\n";
 		std::cout << "For long mode: allow_read_reordering flag is disabled and quality compressor is fixed to bcm.\n";
-//		quality_compressor = "bcm";
 		pairing_only_flag = false;
 	}
 	try {
 	if(compress_flag)
-		spring::compress(temp_dir, infile_vec, outfile_vec, num_thr, pairing_only_flag, no_quality_flag, no_ids_flag, ill_bin_flag,
-// quality_compressor,
-		long_flag);
+		spring::compress(temp_dir, infile_vec, outfile_vec, num_thr, pairing_only_flag, no_quality_flag, no_ids_flag, ill_bin_flag,	long_flag);
 	else
-		spring::decompress();
+		spring::decompress(temp_dir, infile_vec, outfile_vec, num_thr);
 
 	}
 	// Error handling

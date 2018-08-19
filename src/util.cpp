@@ -9,8 +9,8 @@
 
 namespace spring {
 
-int read_fastq_block(std::ifstream &fin, std::string *id_array, std::string *read_array, std::string *quality_array, int num_reads) {
-	int num_done = 0;
+uint32_t read_fastq_block(std::ifstream &fin, std::string *id_array, std::string *read_array, std::string *quality_array, const uint32_t &num_reads) {
+	uint32_t num_done = 0;
 	std::string comment;
 	for(; num_done < num_reads; num_done++) {
 		if(!std::getline(fin, id_array[num_done]))
@@ -21,11 +21,11 @@ int read_fastq_block(std::ifstream &fin, std::string *id_array, std::string *rea
 			throw std::runtime_error("Invalid FASTQ file. Number of lines not multiple of 4");
 		if(!std::getline(fin, quality_array[num_done]))
 			throw std::runtime_error("Invalid FASTQ file. Number of lines not multiple of 4");
-	}	
+	}
 	return num_done;
 }
 
-void write_fastq_block(std::ofstream &fout, std::string *id_array, std::string *read_array, std::string *quality_array, int num_reads) {
+void write_fastq_block(std::ofstream &fout, std::string *id_array, std::string *read_array, std::string *quality_array, const uint32_t &num_reads) {
 	for (int i = 0; i < num_reads; i++) {
 		fout << id_array[i] << "\n";
 		fout << read_array[i] << "\n";
@@ -34,7 +34,7 @@ void write_fastq_block(std::ofstream &fout, std::string *id_array, std::string *
 	}
 }
 
-void compress_id_block(const char* outfile_name, std::string *id_array, int num_ids) {
+void compress_id_block(const char* outfile_name, std::string *id_array, const uint32_t &num_ids) {
 	struct id_comp::compressor_info_t comp_info;
 	comp_info.numreads = num_ids;
 	comp_info.mode = COMPRESSION;
@@ -45,10 +45,10 @@ void compress_id_block(const char* outfile_name, std::string *id_array, int num_
 		throw std::runtime_error("ID compression: File output error");
 	}
 	id_comp::compress((void *)&comp_info);
-	fclose(comp_info.fcomp);	
+	fclose(comp_info.fcomp);
 }
 
-void decompress_id_block(const char* infile_name, std::string *id_array, int num_ids) {
+void decompress_id_block(const char* infile_name, std::string *id_array, const uint32_t &num_ids) {
 	struct id_comp::compressor_info_t comp_info;
 	comp_info.numreads = num_ids;
 	comp_info.mode = DECOMPRESSION;
@@ -59,29 +59,11 @@ void decompress_id_block(const char* infile_name, std::string *id_array, int num
 		throw std::runtime_error("ID compression: File input error");
 	}
 	id_comp::decompress((void *)&comp_info);
-	fclose(comp_info.fcomp);	
-}
-/*
-void compress_quality_block_qvz(const char* outfile_name, std::string *quality_array, int num_lines, uint32_t *read_lengths) {
-	struct qvz::qv_options_t opts;
-	opts.verbose = 0;
-	opts.stats = 0;	
-	opts.clusters = 1;
-	opts.uncompressed = 0;
-	size_t max_readlen = *(std::max_element(read_lengths, read_lengths + num_lines));
-	qvz::encode_lossless(outfile_name, &opts, max_readlen, num_lines, quality_array);
+	fclose(comp_info.fcomp);
 }
 
-void decompress_quality_block_qvz(const char* infile_name, std::string *quality_array, int num_lines, uint16_t *read_lengths) {
-	struct qvz::qv_options_t opts;
-	opts.verbose = 0;
-	opts.clusters = 1;
-	size_t max_readlen = *(std::max_element(read_lengths, read_lengths + num_lines));	
-	qvz::decode_lossless(infile_name, &opts, max_readlen, num_lines, quality_array, read_lengths);
-}
-*/
-void quantize_quality(std::string *quality_array, int num_lines, char *quantization_table) {
-  for(int i = 0; i < num_lines; i++)
+void quantize_quality(std::string *quality_array, const uint32_t &num_lines, char *quantization_table) {
+  for(uint32_t i = 0; i < num_lines; i++)
     for(uint32_t j = 0; j < quality_array[i].size(); j++)
       quality_array[i][j] = quantization_table[(uint8_t)quality_array[i][j]];
   return;
@@ -134,7 +116,7 @@ uint8_t find_id_pattern(const std::string &id_1, const std::string &id_2) {
 }
 
 bool check_id_pattern(const std::string &id_1, const std::string &id_2,
-                      uint8_t paired_id_code) {
+                      const uint8_t paired_id_code) {
   if (id_1.length() != id_2.length()) return false;
   size_t len = id_1.length();
   size_t i;
@@ -168,7 +150,7 @@ bool check_id_pattern(const std::string &id_1, const std::string &id_2,
   return false;
 }
 
-void write_dna_in_bits(std::string &read, std::ofstream &fout) {
+void write_dna_in_bits(const std::string &read, std::ofstream &fout) {
 	uint8_t dna2int[128];
 	dna2int[(uint8_t)'A'] = 0;
 	dna2int[(uint8_t)'C'] = 1;
@@ -184,7 +166,7 @@ void write_dna_in_bits(std::string &read, std::ofstream &fout) {
 		fout.write((char*)&byte,sizeof(uint8_t));
 	}
 	if(readlen%4 != 0) {
-		int i = readlen/4;	
+		int i = readlen/4;
 		byte = 0;
 		for(int j = 0; j < readlen%4; j++)
 			byte = byte*4 + dna2int[(uint8_t)read[4*i+j]];
@@ -226,16 +208,16 @@ void read_dna_from_bits(std::string &read, std::ifstream &fin) {
 				read[4*i+readlen%4-1-j] = 'T';
 			byte /= 4;
 		}
-	}	
+	}
 }
-void reverse_complement(char *s, char *s1, int readlen) {
+void reverse_complement(char *s, char *s1, const int readlen) {
   for (int j = 0; j < readlen; j++)
     s1[j] = chartorevchar[(uint8_t)s[readlen - j - 1]];
   s1[readlen] = '\0';
   return;
 }
 
-std::string reverse_complement(std::string s, int readlen) {
+std::string reverse_complement(const std::string &s, const int readlen) {
   std::string s1;
   s1.resize(readlen);
   for (int j = 0; j < readlen; j++)

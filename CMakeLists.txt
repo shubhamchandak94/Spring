@@ -53,21 +53,7 @@ set(source_files ${source_files} ${source_dir}/bitset_util.cpp)
 set(source_files ${source_files} ${source_dir}/preprocess.cpp)
 set(source_files ${source_files} ${source_dir}/encoder.cpp)
 set(source_files ${source_files} ${source_dir}/reorder_compress_streams.cpp)
-
-# qvz
-# set(source_files ${source_files} ${source_dir}/qvz/src/arith.cpp)
-# set(source_files ${source_files} ${source_dir}/qvz/src/cluster.cpp)
-# set(source_files ${source_files} ${source_dir}/qvz/src/codebook.cpp)
-# set(source_files ${source_files} ${source_dir}/qvz/src/distortion.cpp)
-# set(source_files ${source_files} ${source_dir}/qvz/src/lines.cpp)
-# set(source_files ${source_files} ${source_dir}/qvz/src/os_stream.cpp)
-# set(source_files ${source_files} ${source_dir}/qvz/src/pmf.cpp)
-# set(source_files ${source_files} ${source_dir}/qvz/src/quantizer.cpp)
-# set(source_files ${source_files} ${source_dir}/qvz/src/qv_compressor.cpp)
-# set(source_files ${source_files} ${source_dir}/qvz/src/qv_stream.cpp)
-# set(source_files ${source_files} ${source_dir}/qvz/src/qvz.cpp)
-# set(source_files ${source_files} ${source_dir}/qvz/src/util.cpp)
-# set(source_files ${source_files} ${source_dir}/qvz/src/well.cpp)
+set(source_files ${source_files} ${source_dir}/decompress.cpp)
 
 # id compression
 set(source_files ${source_files} ${source_dir}/id_compression/src/Arithmetic_stream.cpp)

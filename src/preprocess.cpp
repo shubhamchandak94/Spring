@@ -13,8 +13,8 @@
 
 namespace spring {
 
-void preprocess(std::string &infile_1, std::string &infile_2,
-               std::string &temp_dir, compression_params &cp)
+void preprocess(const std::string &infile_1, const std::string &infile_2,
+               const std::string &temp_dir, compression_params &cp)
 {
   std::string infile[2] = {infile_1, infile_2};
   std::string outfileclean[2];
@@ -87,7 +87,7 @@ void preprocess(std::string &infile_1, std::string &infile_2,
   // Check that we were able to open the input files and also look for
   // paired end matching ids if relevant
   if(!fin[0].is_open())
-	throw std::runtime_error("Error opening input file");
+    throw std::runtime_error("Error opening input file");
   if(cp.paired_end) {
     if(!fin[1].is_open())
       throw std::runtime_error("Error opening input file");
@@ -174,10 +174,10 @@ void preprocess(std::string &infile_1, std::string &infile_2,
 				  paired_id_match_array[tid] = check_id_pattern(id_array_1[i], id_array_2[i], paired_id_code);
 			  }
 			  if(cp.long_flag)
-				fout_readlength[j].close();
+          fout_readlength[j].close();
 			  // apply Illumina binning (if asked to do so)
 			  if(cp.preserve_quality && cp.ill_bin_flag)
-				quantize_quality(quality_array + tid*num_reads_per_chunk, num_reads_thr, illumina_binning_table);
+				  quantize_quality(quality_array + tid*num_reads_per_chunk, num_reads_thr, illumina_binning_table);
 
 			  if(!cp.long_flag) {
 				if(cp.preserve_order) {
@@ -189,9 +189,6 @@ void preprocess(std::string &infile_1, std::string &infile_2,
 				  // Compress qualities
 				  if(cp.preserve_quality) {
 					std::string outfile_name = outfilequality[j] + "." + std::to_string(num_chunks_done+tid);
-//					if(cp.quality_compressor == "qvz")
-//					  compress_quality_block_qvz(outfile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
-//					else
 					bcm::bcm_str_array_compress(outfile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
 				  }
 				}

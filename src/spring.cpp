@@ -21,10 +21,7 @@
 
 namespace spring {
 
-void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::vector<std::string>& outfile_vec, int &num_thr, bool &pairing_only_flag, bool &no_quality_flag, bool &no_ids_flag, bool &ill_bin_flag
-//, std::string &quality_compressor
-, bool &long_flag) {
-
+void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::vector<std::string>& outfile_vec, int &num_thr, bool &pairing_only_flag, bool &no_quality_flag, bool &no_ids_flag, bool &ill_bin_flag, bool &long_flag) {
 	std::cout << "Starting compression...\n";
 	auto compression_start = std::chrono::steady_clock::now();
 
@@ -44,18 +41,15 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 			infile_1 = infile_vec[0];
 			infile_2 = infile_vec[1];
 			break;
-		default: throw std::runtime_error("Too many input files specified");
+		default: throw std::runtime_error("Too many (>2) input files specified");
 	}
 	if(outfile_vec.size() == 1)
 		outfile = outfile_vec[0];
 	else
 		throw std::runtime_error("Number of output files not equal to 1");
-//	if(quality_compressor != "bcm" && quality_compressor != "qvz")
-//		throw std::runtime_error("Invalid quality compressor");
 
 	compression_params *cp_ptr = new compression_params;
 	compression_params &cp = *cp_ptr;
-//	cp.quality_compressor = quality_compressor;
 	cp.paired_end = paired_end;
 	cp.preserve_order = preserve_order;
 	cp.preserve_id = preserve_id;
@@ -152,8 +146,77 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 	return;
 }
 
-void decompress() {
-	throw std::runtime_error("Not implemented");
+void decompress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::vector<std::string>& outfile_vec, int &num_thr) {
+	std::cout << "Starting decompression...\n";
+	auto decompression_start = std::chrono::steady_clock::now();
+	compression_params *cp_ptr = new compression_params;
+	compression_params &cp = *cp_ptr;
+
+	std::string infile, outfile_1, outfile_2;
+
+	if(infile_vec.size() == 1)
+		infile = infile_vec[0];
+	else
+		throw std::runtime_error("Number of input files not equal to 1");
+
+	std::cout << "Untaring tar archive ...";
+	std::string untar_command = "tar -xf "+ infile + " -C " + temp_dir;
+	int untar_status = std::system(untar_command.c_str());
+	if(untar_status != 0)
+		throw std::runtime_error("Error occurred during untarring.");
+	std::cout << "Untarring archive done!\n";
+
+	// Read compression params
+	std::string compression_params_file = temp_dir + "/cp.bin";
+	std::ifstream f_cp(compression_params_file, std::ios::binary);
+	if(!f_cp.is_open())
+		throw std::runtime_error("Can't open parameter file.");
+	f_cp.read((char*)&cp, sizeof(compression_params));
+	if(!f_cp.good())
+		throw std::runtime_error("Can't read compression parameters.");
+	f_cp.close();
+
+	bool paired_end = cp.paired_end;
+	bool long_flag = cp.long_flag;
+
+	switch(outfile_vec.size()) {
+		case 0: throw std::runtime_error("No output file specified");
+			break;
+		case 1:
+			if(!paired_end)
+				outfile_1 = outfile_vec[0];
+			if(paired_end) {
+				outfile_1 = outfile_vec[0] + ".1";
+				outfile_2 = outfile_vec[0] + ".2";
+			}
+			break;
+		case 2:
+			if(!paired_end) {
+				std::cerr << "WARNING: Two output files provided for single end data. Output will be written to the first file provided.");
+				outfile_1 = outfile_vec[0];
+			}
+			else {
+				outfile_1 = outfile_vec[0];
+				outfile_2 = outfile_vec[1];
+			}
+			break;
+		default: throw std::runtime_error("Too many (>2) output files specified");
+	}
+
+	std::cout << "Decompressing ...\n";
+	if(long_flag)
+		decompress_long(temp_dir, outfile_1, outfile_2, cp, num_thr);
+	else
+		decompress_short(temp_dir, outfile_1, outfile_2, cp, num_thr);
+
+	delete cp_ptr;
+	auto decompression_end = std::chrono::steady_clock::now();
+	std::cout << "Decompression done!\n";
+	std::cout << "Total time for decompression: " << std::chrono::duration_cast<std::chrono::seconds>(decompression_end-decompression_start).count() << " s\n";
+
+	fs::path p1{outfile};
+	std::cout << "\n";
+	std::cout << "Total size: " << std::se
 }
 
 void call_reorder(const std::string &temp_dir, compression_params &cp) {
