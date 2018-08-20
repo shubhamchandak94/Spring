@@ -139,7 +139,6 @@ void pack_compress_seq(const encoder_global &eg, uint64_t *file_len_seq_thr) {
     remove((eg.outfile_seq + '.' + std::to_string(tid)).c_str());
     remove((eg.outfile_seq + '.' + std::to_string(tid) + ".tmp").c_str());
   }
-
   return;
 }
 
