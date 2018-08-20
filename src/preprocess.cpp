@@ -46,7 +46,6 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
   std::ofstream fout_order_N[2];
   std::ofstream fout_id[2];
   std::ofstream fout_quality[2];
-  std::ofstream fout_readlength[2];
   if(cp.long_flag) {
     fin[0].open(infile_1);
     if(cp.paired_end)
@@ -140,9 +139,10 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
 			if(tid*num_reads_per_chunk >= num_reads_read)
 			  done = true;
 			uint32_t num_reads_thr = std::min((uint64_t)num_reads_read, (tid+1)*num_reads_per_chunk) - tid*num_reads_per_chunk;
+      std::ofstream fout_readlength;
 			if(!done) {
 			  if(cp.long_flag)
-					fout_readlength[j].open(outfilereadlength[j]+"."+std::to_string(num_chunks_done+tid), std::ios::binary);
+					fout_readlength.open(outfilereadlength[j]+"."+std::to_string(num_chunks_done+tid), std::ios::binary);
 			  // check if reads and qualities have equal lengths
 			  for(uint32_t i = tid*num_reads_per_chunk; i < tid*num_reads_per_chunk + num_reads_thr; i++) {
 				size_t len = read_array[i].size();
@@ -168,13 +168,13 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
 
 				// Write read length to a file (for long mode)
 				if(cp.long_flag)
-				  fout_readlength[j].write((char*)&read_lengths_array[i], sizeof(uint32_t));
+				  fout_readlength.write((char*)&read_lengths_array[i], sizeof(uint32_t));
 
 			    if(j == 1 && paired_id_match_array[tid])
 				  paired_id_match_array[tid] = check_id_pattern(id_array_1[i], id_array_2[i], paired_id_code);
 			  }
 			  if(cp.long_flag)
-          fout_readlength[j].close();
+          fout_readlength.close();
 			  // apply Illumina binning (if asked to do so)
 			  if(cp.preserve_quality && cp.ill_bin_flag)
 				  quantize_quality(quality_array + tid*num_reads_per_chunk, num_reads_thr, illumina_binning_table);
@@ -253,7 +253,7 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
 		throw std::runtime_error("Number of reads in paired files do not match.");
 	if(done[0] && done[1])
 	  break;
-    num_chunks_done += cp.num_thr;
+  num_chunks_done += cp.num_thr;
   }
 
   delete[] read_array;

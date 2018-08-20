@@ -25,12 +25,14 @@ uint32_t read_fastq_block(std::ifstream &fin, std::string *id_array, std::string
 	return num_done;
 }
 
-void write_fastq_block(std::ofstream &fout, std::string *id_array, std::string *read_array, std::string *quality_array, const uint32_t &num_reads) {
+void write_fastq_block(std::ofstream &fout, std::string *id_array, std::string *read_array, std::string *quality_array, const uint32_t &num_reads, const bool preserve_quality) {
 	for (uint32_t i = 0; i < num_reads; i++) {
 		fout << id_array[i] << "\n";
 		fout << read_array[i] << "\n";
-		fout << "+\n";
-		fout << quality_array[i] << "\n";
+		if(preserve_quality) {
+			fout << "+\n";
+			fout << quality_array[i] << "\n";
+		}
 	}
 }
 
@@ -148,6 +150,24 @@ bool check_id_pattern(const std::string &id_1, const std::string &id_2,
       throw std::runtime_error("Invalid paired id code.");
   }
   return false;
+}
+
+void modify_id(std::string &id, const uint8_t paired_id_code) {
+	if(paired_id_code == 2)
+		return;
+	else if(paired_id_code == 1)
+	{
+		id.back() = '2';
+		return;
+	}
+	else if(paired_id_code == 3)
+	{
+		int i = 0;
+		while(id[i] != ' ')
+			i++;
+		id[i+1] = '2';
+		return;
+	}
 }
 
 void write_dna_in_bits(const std::string &read, std::ofstream &fout) {

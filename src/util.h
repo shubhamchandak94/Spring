@@ -37,7 +37,7 @@ struct compression_params {
 
 uint32_t read_fastq_block(std::ifstream &fin, std::string *id_array, std::string *read_array, std::string *quality_array, const uint32_t &num_reads);
 
-void write_fastq_block(std::ofstream &fout, std::string *id_array, std::string *read_array, std::string *quality_array, const uint32_t &num_reads);
+void write_fastq_block(std::ofstream &fout, std::string *id_array, std::string *read_array, std::string *quality_array, const uint32_t &num_reads, const bool preserve_quality);
 
 void compress_id_block(const char* outfile_name, std::string *id_array, const uint32_t &num_ids);
 
@@ -51,6 +51,8 @@ uint8_t find_id_pattern(const std::string &id_1, const std::string &id_2);
 
 bool check_id_pattern(const std::string &id_1, const std::string &id_2,
                       const uint8_t paired_id_code);
+
+void modify_id(std::string &id, const uint8_t paired_id_code);
 
 void write_dna_in_bits(const std::string &read, std::ofstream &fout);
 
