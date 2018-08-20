@@ -58,7 +58,7 @@ int main(int argc, char** argv)
 
 	if(compress_flag && long_flag) {
 		std::cout << "Long flag detected.\n";
-		std::cout << "For long mode: allow_read_reordering flag is disabled and quality compressor is fixed to bcm.\n";
+		std::cout << "For long mode: allow_read_reordering flag is disabled.\n";
 		pairing_only_flag = false;
 	}
 	try {

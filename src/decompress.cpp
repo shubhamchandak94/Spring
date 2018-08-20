@@ -121,7 +121,7 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
           if(!preserve_id) {
             // Fill id array with fake ids
             for(uint32_t i = tid*num_reads_per_chunk; i < tid*num_reads_per_chunk + num_reads_thr; i++)
-              id_array[i] = "@" + std::to_string(num_reads_done + i) + "/" + std::to_string(j+1);
+              id_array[i] = "@" + std::to_string(num_reads_done + i + 1) + "/" + std::to_string(j+1);
           }
           else {
             if(j == 1 && paired_id_match) {
@@ -149,7 +149,8 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
 
   delete[] read_array;
   delete[] id_array;
-  delete[] quality_array;
+  if(preserve_quality)
+    delete[] quality_array;
   delete[] read_lengths_array;
 }
 
