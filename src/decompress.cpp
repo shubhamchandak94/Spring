@@ -5,9 +5,12 @@
 #include <omp.h>
 #include "util.h"
 #include "bcm/bcm.h"
+#include "decompress.h"
 
 namespace spring
 {
+
+void set_dec_noise_array(char **dec_noise);
 
 void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
 const std::string &outfile_2, const compression_params &cp, const int &num_thr) {
@@ -71,10 +74,10 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
   std::string *quality_array;
   if(preserve_quality)
     quality_array = new std::string[num_reads_per_step];
-  uint16_t *read_lengths_array_1 = new uint16_t[num_reads_per_step];
-  uint16_t *read_lengths_array_2;
+  uint32_t *read_lengths_array_1 = new uint32_t[num_reads_per_step];
+  uint32_t *read_lengths_array_2;
   if(paired_end)
-    read_lengths_array_2 = new uint16_t[num_reads_per_step];
+    read_lengths_array_2 = new uint32_t[num_reads_per_step];
   char **dec_noise;
   dec_noise = new char*[128];
   for(int i = 0; i < 128; i++)
@@ -87,12 +90,12 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
   // Decompress read_seq and store in a string
   std::string seq;
   int num_thr_e = cp.num_thr; // number of encoding threads
-  void decompress_unpack_seq(file_seq, num_thr_e, num_thr);
-  for(int tid_e = tid*num_thr_e/num_thr; tid_e < (tid+1)*num_thr_e/num_thr; tid_e++)
+  decompress_unpack_seq(file_seq, num_thr_e, num_thr);
+  for(int tid_e = 0; tid_e < num_thr_e; tid_e++)
   {
     uint64_t prev_len = seq.size();
     uint64_t file_len;
-    std::ifstream in_seq(infile_seq+'.'+std::to_string(tid_e));
+    std::ifstream in_seq(file_seq+'.'+std::to_string(tid_e));
     in_seq.seekg(0,in_seq.end);
     file_len = in_seq.tellg();
     in_seq.seekg(0);
@@ -190,9 +193,11 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
             uint64_t pos_1, pos_2;
             bool singleton_1, singleton_2;
             char RC_1, RC_2;
+            uint16_t rl;
             for(uint32_t i = tid*num_reads_per_chunk; i < tid*num_reads_per_chunk + num_reads_thr; i++) {
               f_flag >> flag;
-              f_readlength.read((char*)&read_lengths_array_1[i], sizeof(uint16_t));
+              f_readlength.read((char*)&rl, sizeof(uint16_t));
+              read_lengths_array_1[i] = rl;
               singleton_1 = (flag == '2') || (flag == '4');
               if(!singleton_1) {
                 f_pos.read((char*)&pos_1, sizeof(uint64_t));
@@ -205,13 +210,13 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
                 {
                   f_noisepos.read((char*)&noisepos, sizeof(uint16_t));
                   noisepos += prevnoisepos;
-                  read[noisepos] = dec_noise[ref[noisepos]][noise[k]];
+                  read[noisepos] = dec_noise[(uint8_t)read[noisepos]][(uint8_t)noise[k]];
                   prevnoisepos = noisepos;
                 }
                 if(RC_1 == 'd')
                   read_array_1[i] = read;
                 else
-                  read_array_1[i] = reverse_complement(read, read_lengths_array_1[i]));
+                  read_array_1[i] = reverse_complement(read, read_lengths_array_1[i]);
               }
               else {
                 read_array_1[i].resize(read_lengths_array_1[i]);
@@ -221,7 +226,8 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
 
               if(paired_end) {
                 singleton_2 = (flag == '2') || (flag == '3');
-                f_readlength.read((char*)&read_lengths_array_2[i], sizeof(uint16_t));
+                f_readlength.read((char*)&rl, sizeof(uint16_t));
+                read_lengths_array_2[i] = rl;
                 if(!singleton_2) {
                   if(flag == '1' || flag == '4') {
                     // reads 1 and 2 encoded independently
@@ -248,13 +254,13 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
                   {
                     f_noisepos.read((char*)&noisepos, sizeof(uint16_t));
                     noisepos += prevnoisepos;
-                    read[noisepos] = dec_noise[ref[noisepos]][noise[k]];
+                    read[noisepos] = dec_noise[(uint8_t)read[noisepos]][(uint8_t)noise[k]];
                     prevnoisepos = noisepos;
                   }
                   if(RC_2 == 'd')
                     read_array_2[i] = read;
                   else
-                    read_array_2[i] = reverse_complement(read, read_lengths_array_2[i]));
+                    read_array_2[i] = reverse_complement(read, read_lengths_array_2[i]);
                 }
                 else {
                   read_array_2[i].resize(read_lengths_array_2[i]);
@@ -278,6 +284,7 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
           }
           // Decompress ids and quality
           uint32_t *read_lengths_array;
+          std::string infile_name;
           if(j == 0)
             read_lengths_array = read_lengths_array_1;
           else
@@ -519,26 +526,26 @@ void decompress_unpack_seq(const std::string &infile_seq, const int &num_thr_e, 
 }
 
 void set_dec_noise_array(char **dec_noise) {
-  dec_noise['A']['0'] = 'C';
-	dec_noise['A']['1'] = 'G';
-	dec_noise['A']['2'] = 'T';
-	dec_noise['A']['3'] = 'N';
-	dec_noise['C']['0'] = 'A';
-	dec_noise['C']['1'] = 'G';
-	dec_noise['C']['2'] = 'T';
-	dec_noise['C']['3'] = 'N';
-	dec_noise['G']['0'] = 'T';
-	dec_noise['G']['1'] = 'A';
-	dec_noise['G']['2'] = 'C';
-	dec_noise['G']['3'] = 'N';
-	dec_noise['T']['0'] = 'G';
-	dec_noise['T']['1'] = 'C';
-	dec_noise['T']['2'] = 'A';
-	dec_noise['T']['3'] = 'N';
-	dec_noise['N']['0'] = 'A';
-	dec_noise['N']['1'] = 'G';
-	dec_noise['N']['2'] = 'C';
-	dec_noise['N']['3'] = 'T';
+  	dec_noise[(uint8_t)'A'][(uint8_t)'0'] = 'C';
+	dec_noise[(uint8_t)'A'][(uint8_t)'1'] = 'G';
+	dec_noise[(uint8_t)'A'][(uint8_t)'2'] = 'T';
+	dec_noise[(uint8_t)'A'][(uint8_t)'3'] = 'N';
+	dec_noise[(uint8_t)'C'][(uint8_t)'0'] = 'A';
+	dec_noise[(uint8_t)'C'][(uint8_t)'1'] = 'G';
+	dec_noise[(uint8_t)'C'][(uint8_t)'2'] = 'T';
+	dec_noise[(uint8_t)'C'][(uint8_t)'3'] = 'N';
+	dec_noise[(uint8_t)'G'][(uint8_t)'0'] = 'T';
+	dec_noise[(uint8_t)'G'][(uint8_t)'1'] = 'A';
+	dec_noise[(uint8_t)'G'][(uint8_t)'2'] = 'C';
+	dec_noise[(uint8_t)'G'][(uint8_t)'3'] = 'N';
+	dec_noise[(uint8_t)'T'][(uint8_t)'0'] = 'G';
+	dec_noise[(uint8_t)'T'][(uint8_t)'1'] = 'C';
+	dec_noise[(uint8_t)'T'][(uint8_t)'2'] = 'A';
+	dec_noise[(uint8_t)'T'][(uint8_t)'3'] = 'N';
+	dec_noise[(uint8_t)'N'][(uint8_t)'0'] = 'A';
+	dec_noise[(uint8_t)'N'][(uint8_t)'1'] = 'G';
+	dec_noise[(uint8_t)'N'][(uint8_t)'2'] = 'C';
+	dec_noise[(uint8_t)'N'][(uint8_t)'3'] = 'T';
 }
 
 } // namespace spring
