@@ -528,6 +528,7 @@ void readsingletons(std::bitset<bitset_size> *read, uint32_t *order_s,
   for (uint32_t i = 0; i < eg.numreads_s; i++)
     f_order_s.read((char *)&order_s[i], sizeof(uint32_t));
   f_order_s.close();
+  remove((eg.infile_order + ".singleton").c_str());
   std::ifstream f_order_N(eg.infile_order_N, std::ios::binary);
   for (uint32_t i = eg.numreads_s; i < eg.numreads_s + eg.numreads_N; i++)
     f_order_N.read((char *)&order_s[i], sizeof(uint32_t));
