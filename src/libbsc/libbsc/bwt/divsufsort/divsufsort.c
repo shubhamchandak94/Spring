@@ -24,17 +24,26 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#if defined(_MSC_VER)
+  #pragma warning(disable : 4244)
+#endif
+
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
-#ifdef _OPENMP
-# include <omp.h>
-#endif
-#include "bcm/divsufsort.h"
 
+#include "divsufsort.h"
+
+#include "../../platform/platform.h"
+#include "../../libbsc.h"
 
 /*- Constants -*/
-#define INLINE __inline
+#if defined(INLINE)
+# undef INLINE
+#endif
+#if !defined(INLINE)
+# define INLINE __inline
+#endif
 #if defined(ALPHABET_SIZE) && (ALPHABET_SIZE < 1)
 # undef ALPHABET_SIZE
 #endif
@@ -1426,17 +1435,16 @@ static
 int
 sort_typeBstar(const unsigned char *T, int *SA,
                int *bucket_A, int *bucket_B,
-               int n) {
+               int n, int openMP) {
   int *PAb, *ISAb, *buf;
-#ifdef _OPENMP
+#ifdef LIBBSC_OPENMP
   int *curbuf;
   int l;
 #endif
   int i, j, k, t, m, bufsize;
   int c0, c1;
-#ifdef _OPENMP
+#ifdef LIBBSC_OPENMP
   int d0, d1;
-  int tmp;
 #endif
 
   /* Initialize bucket arrays. */
@@ -1489,36 +1497,6 @@ note:
     SA[--BUCKET_BSTAR(c0, c1)] = m - 1;
 
     /* Sort the type B* substrings using sssort. */
-#ifdef _OPENMP
-    tmp = omp_get_max_threads();
-    buf = SA + m, bufsize = (n - (2 * m)) / tmp;
-    c0 = ALPHABET_SIZE - 2, c1 = ALPHABET_SIZE - 1, j = m;
-#pragma omp parallel default(shared) private(curbuf, k, l, d0, d1, tmp)
-    {
-      tmp = omp_get_thread_num();
-      curbuf = buf + tmp * bufsize;
-      k = 0;
-      for(;;) {
-        #pragma omp critical(sssort_lock)
-        {
-          if(0 < (l = j)) {
-            d0 = c0, d1 = c1;
-            do {
-              k = BUCKET_BSTAR(d0, d1);
-              if(--d1 <= d0) {
-                d1 = ALPHABET_SIZE - 1;
-                if(--d0 < 0) { break; }
-              }
-            } while(((l - k) <= 1) && (0 < (l = k)));
-            c0 = d0, c1 = d1, j = k;
-          }
-        }
-        if(l == 0) { break; }
-        sssort(T, PAb, SA + k, SA + l,
-               curbuf, bufsize, 2, n, *(SA + k) == (m - 1));
-      }
-    }
-#else
     buf = SA + m, bufsize = n - (2 * m);
     for(c0 = ALPHABET_SIZE - 2, j = m; 0 < j; --c0) {
       for(c1 = ALPHABET_SIZE - 1; c0 < c1; j = i, --c1) {
@@ -1529,7 +1507,6 @@ note:
         }
       }
     }
-#endif
 
     /* Compute ranks of type B* substrings. */
     for(i = m - 1; 0 <= i; --i) {
@@ -1712,13 +1689,110 @@ construct_BWT(const unsigned char *T, int *SA,
   return orig - SA;
 }
 
+/* Constructs the burrows-wheeler transformed string directly
+   by using the sorted order of type B* suffixes. */
+static
+int
+construct_BWT_indexes(const unsigned char *T, int *SA,
+                      int *bucket_A, int *bucket_B,
+                      int n, int m,
+                      unsigned char * num_indexes, int * indexes) {
+  int *i, *j, *k, *orig;
+  int s;
+  int c0, c1, c2;
+
+  int mod = n / 8;
+  {
+      mod |= mod >> 1;  mod |= mod >> 2;
+      mod |= mod >> 4;  mod |= mod >> 8;
+      mod |= mod >> 16; mod >>= 1;
+
+      *num_indexes = (unsigned char)((n - 1) / (mod + 1));
+  }
+
+  if(0 < m) {
+    /* Construct the sorted order of type B suffixes by using
+       the sorted order of type B* suffixes. */
+    for(c1 = ALPHABET_SIZE - 2; 0 <= c1; --c1) {
+      /* Scan the suffix array from right to left. */
+      for(i = SA + BUCKET_BSTAR(c1, c1 + 1),
+          j = SA + BUCKET_A(c1 + 1) - 1, k = NULL, c2 = -1;
+          i <= j;
+          --j) {
+        if(0 < (s = *j)) {
+          assert(T[s] == c1);
+          assert(((s + 1) < n) && (T[s] <= T[s + 1]));
+          assert(T[s - 1] <= T[s]);
+
+          if ((s & mod) == 0) indexes[s / (mod + 1) - 1] = j - SA;
+
+          c0 = T[--s];
+          *j = ~((int)c0);
+          if((0 < s) && (T[s - 1] > c0)) { s = ~s; }
+          if(c0 != c2) {
+            if(0 <= c2) { BUCKET_B(c2, c1) = k - SA; }
+            k = SA + BUCKET_B(c2 = c0, c1);
+          }
+          assert(k < j);
+          *k-- = s;
+        } else if(s != 0) {
+          *j = ~s;
+#ifndef NDEBUG
+        } else {
+          assert(T[s] == c1);
+#endif
+        }
+      }
+    }
+  }
+
+  /* Construct the BWTed string by using
+     the sorted order of type B suffixes. */
+  k = SA + BUCKET_A(c2 = T[n - 1]);
+  if (T[n - 2] < c2) {
+    if (((n - 1) & mod) == 0) indexes[(n - 1) / (mod + 1) - 1] = k - SA;
+    *k++ = ~((int)T[n - 2]);
+  }
+  else {
+    *k++ = n - 1;
+  }
+
+  /* Scan the suffix array from left to right. */
+  for(i = SA, j = SA + n, orig = SA; i < j; ++i) {
+    if(0 < (s = *i)) {
+      assert(T[s - 1] >= T[s]);
+
+      if ((s & mod) == 0) indexes[s / (mod + 1) - 1] = i - SA;
+
+      c0 = T[--s];
+      *i = c0;
+      if(c0 != c2) {
+        BUCKET_A(c2) = k - SA;
+        k = SA + BUCKET_A(c2 = c0);
+      }
+      assert(i < k);
+      if((0 < s) && (T[s - 1] < c0)) {
+          if ((s & mod) == 0) indexes[s / (mod + 1) - 1] = k - SA;
+          *k++ = ~((int)T[s - 1]);
+      } else
+        *k++ = s;
+    } else if(s != 0) {
+      *i = ~s;
+    } else {
+      orig = i;
+    }
+  }
+
+  return orig - SA;
+}
+
 
 /*---------------------------------------------------------------------------*/
 
 /*- Function -*/
 
 int
-divsufsort(const unsigned char *T, int *SA, int n) {
+divsufsort(const unsigned char *T, int *SA, int n, int openMP) {
   int *bucket_A, *bucket_B;
   int m;
   int err = 0;
@@ -1729,25 +1803,25 @@ divsufsort(const unsigned char *T, int *SA, int n) {
   else if(n == 1) { SA[0] = 0; return 0; }
   else if(n == 2) { m = (T[0] < T[1]); SA[m ^ 1] = 0, SA[m] = 1; return 0; }
 
-  bucket_A = (int *)malloc(BUCKET_A_SIZE * sizeof(int));
-  bucket_B = (int *)malloc(BUCKET_B_SIZE * sizeof(int));
+  bucket_A = (int *)bsc_malloc(BUCKET_A_SIZE * sizeof(int));
+  bucket_B = (int *)bsc_malloc(BUCKET_B_SIZE * sizeof(int));
 
   /* Suffixsort. */
   if((bucket_A != NULL) && (bucket_B != NULL)) {
-    m = sort_typeBstar(T, SA, bucket_A, bucket_B, n);
+    m = sort_typeBstar(T, SA, bucket_A, bucket_B, n, openMP);
     construct_SA(T, SA, bucket_A, bucket_B, n, m);
   } else {
     err = -2;
   }
 
-  free(bucket_B);
-  free(bucket_A);
+  bsc_free(bucket_B);
+  bsc_free(bucket_A);
 
   return err;
 }
 
 int
-divbwt(const unsigned char *T, unsigned char *U, int *A, int n) {
+divbwt(const unsigned char *T, unsigned char *U, int *A, int n, unsigned char * num_indexes, int * indexes, int openMP) {
   int *B;
   int *bucket_A, *bucket_B;
   int m, pidx, i;
@@ -1756,14 +1830,19 @@ divbwt(const unsigned char *T, unsigned char *U, int *A, int n) {
   if((T == NULL) || (U == NULL) || (n < 0)) { return -1; }
   else if(n <= 1) { if(n == 1) { U[0] = T[0]; } return n; }
 
-  if((B = A) == NULL) { B = (int *)malloc((size_t)(n + 1) * sizeof(int)); }
-  bucket_A = (int *)malloc(BUCKET_A_SIZE * sizeof(int));
-  bucket_B = (int *)malloc(BUCKET_B_SIZE * sizeof(int));
+  if((B = A) == NULL) { B = (int *)bsc_malloc((size_t)(n + 1) * sizeof(int)); }
+  bucket_A = (int *)bsc_malloc(BUCKET_A_SIZE * sizeof(int));
+  bucket_B = (int *)bsc_malloc(BUCKET_B_SIZE * sizeof(int));
 
   /* Burrows-Wheeler Transform. */
   if((B != NULL) && (bucket_A != NULL) && (bucket_B != NULL)) {
-    m = sort_typeBstar(T, B, bucket_A, bucket_B, n);
-    pidx = construct_BWT(T, B, bucket_A, bucket_B, n, m);
+    m = sort_typeBstar(T, B, bucket_A, bucket_B, n, openMP);
+
+    if (num_indexes == NULL || indexes == NULL) {
+        pidx = construct_BWT(T, B, bucket_A, bucket_B, n, m);
+    } else {
+        pidx = construct_BWT_indexes(T, B, bucket_A, bucket_B, n, m, num_indexes, indexes);
+    }
 
     /* Copy to output string. */
     U[0] = T[n - 1];
@@ -1774,9 +1853,9 @@ divbwt(const unsigned char *T, unsigned char *U, int *A, int n) {
     pidx = -2;
   }
 
-  free(bucket_B);
-  free(bucket_A);
-  if(A == NULL) { free(B); }
+  bsc_free(bucket_B);
+  bsc_free(bucket_A);
+  if(A == NULL) { bsc_free(B); }
 
   return pidx;
 }

@@ -31,7 +31,6 @@ struct compression_params {
 	bool paired_id_match;
 	int num_reads_per_chunk;
 	int num_reads_per_chunk_long;
-	int bcm_block_size;
 	int num_thr;
 };
 

@@ -9,7 +9,7 @@
 #include "params.h"
 #include "preprocess.h"
 #include "util.h"
-#include "bcm/bcm.h"
+#include "libbsc/bsc.h"
 
 namespace spring {
 
@@ -189,15 +189,15 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
 				  // Compress qualities
 				  if(cp.preserve_quality) {
 					std::string outfile_name = outfilequality[j] + "." + std::to_string(num_chunks_done+tid);
-					bcm::bcm_str_array_compress(outfile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
+					bsc::BSC_str_array_compress(outfile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
 				  }
 				}
 			  }
 			  else {
 				// Compress read lengths file
 				std::string infile_name = outfilereadlength[j]+"."+std::to_string(num_chunks_done+tid);
-				std::string outfile_name = outfilereadlength[j]+"."+std::to_string(num_chunks_done+tid) + ".bcm";
-				bcm::bcm_compress(infile_name.c_str(), outfile_name.c_str());
+				std::string outfile_name = outfilereadlength[j]+"."+std::to_string(num_chunks_done+tid) + ".bsc";
+				bsc::BSC_compress(infile_name.c_str(), outfile_name.c_str());
 				remove(infile_name.c_str());
 				// Compress ids
 				if(cp.preserve_id) {
@@ -207,11 +207,11 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
 				// Compress qualities
 				if(cp.preserve_quality) {
 				  std::string outfile_name = outfilequality[j] + "." + std::to_string(num_chunks_done+tid);
-				  bcm::bcm_str_array_compress(outfile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
+				  bsc::BSC_str_array_compress(outfile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
 				}
 				// Compress reads
 				outfile_name = outfileread[j] + "." + std::to_string(num_chunks_done+tid);
-				bcm::bcm_str_array_compress(outfile_name.c_str(), read_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
+				bsc::BSC_str_array_compress(outfile_name.c_str(), read_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
 			  }
 			} // if(!done)
 		} // omp parallel

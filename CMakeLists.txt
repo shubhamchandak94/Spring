@@ -20,11 +20,17 @@ message(STATUS "Setting compiler flags")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fomit-frame-pointer")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fstrict-aliasing")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ffast-math")
 
 #set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=native")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fomit-frame-pointer")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fstrict-aliasing")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ffast-math")
 
 
 FIND_PACKAGE( OpenMP REQUIRED)
@@ -41,10 +47,7 @@ add_subdirectory(boost-cmake)
 set(source_dir ${CMAKE_SOURCE_DIR}/src)
 set(include_dir ${CMAKE_SOURCE_DIR}/src)
 # test file
-#set(source_files ${source_files} ${source_dir}/../util/boost_openmp_bcm_test.cpp)
-# bcm
-set(source_files ${source_files} ${source_dir}/bcm/bcm.cpp)
-set(source_files ${source_files} ${source_dir}/bcm/divsufsort.cpp)
+#set(source_files ${source_files} ${source_dir}/../util/boost_openmp_bsc_test.cpp)
 # spring
 set(source_files ${source_files} ${source_dir}/main.cpp)
 set(source_files ${source_files} ${source_dir}/spring.cpp)
@@ -63,6 +66,21 @@ set(source_files ${source_files} ${source_dir}/id_compression/src/io_functions.c
 set(source_files ${source_files} ${source_dir}/id_compression/src/sam_file_allocation.cpp)
 set(source_files ${source_files} ${source_dir}/id_compression/src/sam_models.cpp)
 set(source_files ${source_files} ${source_dir}/id_compression/src/stream_model.cpp)
+
+# bsc
+set(source_files ${source_files} ${source_dir}/libbsc/bsc.cpp)
+set(source_files ${source_files} ${source_dir}/libbsc/bsc_str_array.cpp)
+set(source_files ${source_files} ${source_dir}/libbsc/libbsc/adler32/adler32.cpp)
+set(source_files ${source_files} ${source_dir}/libbsc/libbsc/bwt/divsufsort/divsufsort.c)
+set(source_files ${source_files} ${source_dir}/libbsc/libbsc/bwt/bwt.cpp)
+set(source_files ${source_files} ${source_dir}/libbsc/libbsc/coder/coder.cpp)
+set(source_files ${source_files} ${source_dir}/libbsc/libbsc/coder/qlfc/qlfc.cpp)
+set(source_files ${source_files} ${source_dir}/libbsc/libbsc/coder/qlfc/qlfc_model.cpp)
+set(source_files ${source_files} ${source_dir}/libbsc/libbsc/filters/detectors.cpp)
+set(source_files ${source_files} ${source_dir}/libbsc/libbsc/filters/preprocessing.cpp)
+set(source_files ${source_files} ${source_dir}/libbsc/libbsc/libbsc/libbsc.cpp)
+set(source_files ${source_files} ${source_dir}/libbsc/libbsc/lzp/lzp.cpp)
+set(source_files ${source_files} ${source_dir}/libbsc/libbsc/platform/platform.cpp)
 
 add_executable (spring ${source_files})
 target_include_directories(spring PRIVATE ${include_dir})

@@ -59,7 +59,6 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 	cp.ill_bin_flag = ill_bin_flag;
 	cp.num_reads_per_chunk = NUM_READS_PER_CHUNK;
 	cp.num_reads_per_chunk_long = NUM_READS_PER_CHUNK_LONG;
-	cp.bcm_block_size = BCM_BLOCK_SIZE;
 	cp.num_thr = num_thr;
 
 	if(!preserve_order)

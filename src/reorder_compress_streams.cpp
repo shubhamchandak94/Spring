@@ -9,7 +9,7 @@
 
 #include "reorder_compress_streams.h"
 #include "params.h"
-#include "bcm/bcm.h"
+#include "libbsc/bsc.h"
 #include "util.h"
 
 namespace spring {
@@ -284,54 +284,54 @@ void reorder_compress_streams (const std::string &temp_dir, const compression_pa
         f_RC_pair.close();
       }
 
-      // Compress files with bcm and remove uncompressed files
-      std::string infile_bcm = file_flag+'.'+std::to_string(chunk_num);
-      std::string outfile_bcm = infile_bcm + ".bcm";
-      bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
-      remove(infile_bcm.c_str());
+      // Compress files with.bsc and remove uncompressed files
+      std::string infile_bsc = file_flag+'.'+std::to_string(chunk_num);
+      std::string outfile_bsc = infile_bsc + ".bsc";
+      bsc::BSC_compress(infile_bsc.c_str(), outfile_bsc.c_str());
+      remove(infile_bsc.c_str());
 
       // TODO: Test impact of packing pos file into
       // minimum number of bits
-      infile_bcm = file_pos+'.'+std::to_string(chunk_num);
-      outfile_bcm = infile_bcm + ".bcm";
-      bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
-      remove(infile_bcm.c_str());
+      infile_bsc = file_pos+'.'+std::to_string(chunk_num);
+      outfile_bsc = infile_bsc + ".bsc";
+      bsc::BSC_compress(infile_bsc.c_str(), outfile_bsc.c_str());
+      remove(infile_bsc.c_str());
 
-      infile_bcm = file_noise+'.'+std::to_string(chunk_num);
-      outfile_bcm = infile_bcm + ".bcm";
-      bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
-      remove(infile_bcm.c_str());
+      infile_bsc = file_noise+'.'+std::to_string(chunk_num);
+      outfile_bsc = infile_bsc + ".bsc";
+      bsc::BSC_compress(infile_bsc.c_str(), outfile_bsc.c_str());
+      remove(infile_bsc.c_str());
 
-      infile_bcm = file_noisepos+'.'+std::to_string(chunk_num);
-      outfile_bcm = infile_bcm + ".bcm";
-      bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
-      remove(infile_bcm.c_str());
+      infile_bsc = file_noisepos+'.'+std::to_string(chunk_num);
+      outfile_bsc = infile_bsc + ".bsc";
+      bsc::BSC_compress(infile_bsc.c_str(), outfile_bsc.c_str());
+      remove(infile_bsc.c_str());
 
-      infile_bcm = file_unaligned+'.'+std::to_string(chunk_num);
-      outfile_bcm = infile_bcm + ".bcm";
-      bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
-      remove(infile_bcm.c_str());
+      infile_bsc = file_unaligned+'.'+std::to_string(chunk_num);
+      outfile_bsc = infile_bsc + ".bsc";
+      bsc::BSC_compress(infile_bsc.c_str(), outfile_bsc.c_str());
+      remove(infile_bsc.c_str());
 
-      infile_bcm = file_readlength+'.'+std::to_string(chunk_num);
-      outfile_bcm = infile_bcm + ".bcm";
-      bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
-      remove(infile_bcm.c_str());
+      infile_bsc = file_readlength+'.'+std::to_string(chunk_num);
+      outfile_bsc = infile_bsc + ".bsc";
+      bsc::BSC_compress(infile_bsc.c_str(), outfile_bsc.c_str());
+      remove(infile_bsc.c_str());
 
-      infile_bcm = file_RC+'.'+std::to_string(chunk_num);
-      outfile_bcm = infile_bcm + ".bcm";
-      bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
-      remove(infile_bcm.c_str());
+      infile_bsc = file_RC+'.'+std::to_string(chunk_num);
+      outfile_bsc = infile_bsc + ".bsc";
+      bsc::BSC_compress(infile_bsc.c_str(), outfile_bsc.c_str());
+      remove(infile_bsc.c_str());
 
       if(paired_end) {
-        infile_bcm = file_pos_pair+'.'+std::to_string(chunk_num);
-        outfile_bcm = infile_bcm + ".bcm";
-        bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
-        remove(infile_bcm.c_str());
+        infile_bsc = file_pos_pair+'.'+std::to_string(chunk_num);
+        outfile_bsc = infile_bsc + ".bsc";
+        bsc::BSC_compress(infile_bsc.c_str(), outfile_bsc.c_str());
+        remove(infile_bsc.c_str());
 
-        infile_bcm = file_RC_pair+'.'+std::to_string(chunk_num);
-        outfile_bcm = infile_bcm + ".bcm";
-        bcm::bcm_compress(infile_bcm.c_str(), outfile_bcm.c_str());
-        remove(infile_bcm.c_str());
+        infile_bsc = file_RC_pair+'.'+std::to_string(chunk_num);
+        outfile_bsc = infile_bsc + ".bsc";
+        bsc::BSC_compress(infile_bsc.c_str(), outfile_bsc.c_str());
+        remove(infile_bsc.c_str());
       }
 
       chunk_num += num_thr;

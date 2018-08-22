@@ -4,7 +4,7 @@
 #include <string>
 #include <omp.h>
 #include "util.h"
-#include "bcm/bcm.h"
+#include "libbsc/bsc.h"
 #include "decompress.h"
 
 namespace spring
@@ -136,43 +136,43 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
             // Read decompression done when j = 0 (even for PE)
             uint32_t chunk_num = num_chunks_done + tid;
 
-            // Decompress files with bcm
-            std::string outfile_bcm = file_flag+'.'+std::to_string(chunk_num);
-            std::string infile_bcm = outfile_bcm + ".bcm";
-            bcm::bcm_decompress(infile_bcm.c_str(), outfile_bcm.c_str());
+            // Decompress files with bsc
+            std::string outfile_bsc = file_flag+'.'+std::to_string(chunk_num);
+            std::string infile_bsc = outfile_bsc + ".bsc";
+            bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
 
-            outfile_bcm = file_pos+'.'+std::to_string(chunk_num);
-            infile_bcm = outfile_bcm + ".bcm";
-            bcm::bcm_decompress(infile_bcm.c_str(), outfile_bcm.c_str());
+            outfile_bsc = file_pos+'.'+std::to_string(chunk_num);
+            infile_bsc = outfile_bsc + ".bsc";
+            bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
 
-            outfile_bcm = file_noise+'.'+std::to_string(chunk_num);
-            infile_bcm = outfile_bcm + ".bcm";
-            bcm::bcm_decompress(infile_bcm.c_str(), outfile_bcm.c_str());
+            outfile_bsc = file_noise+'.'+std::to_string(chunk_num);
+            infile_bsc = outfile_bsc + ".bsc";
+            bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
 
-            outfile_bcm = file_noisepos+'.'+std::to_string(chunk_num);
-            infile_bcm = outfile_bcm + ".bcm";
-            bcm::bcm_decompress(infile_bcm.c_str(), outfile_bcm.c_str());
+            outfile_bsc = file_noisepos+'.'+std::to_string(chunk_num);
+            infile_bsc = outfile_bsc + ".bsc";
+            bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
 
-            outfile_bcm = file_unaligned+'.'+std::to_string(chunk_num);
-            infile_bcm = outfile_bcm + ".bcm";
-            bcm::bcm_decompress(infile_bcm.c_str(), outfile_bcm.c_str());
+            outfile_bsc = file_unaligned+'.'+std::to_string(chunk_num);
+            infile_bsc = outfile_bsc + ".bsc";
+            bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
 
-            outfile_bcm = file_readlength+'.'+std::to_string(chunk_num);
-            infile_bcm = outfile_bcm + ".bcm";
-            bcm::bcm_decompress(infile_bcm.c_str(), outfile_bcm.c_str());
+            outfile_bsc = file_readlength+'.'+std::to_string(chunk_num);
+            infile_bsc = outfile_bsc + ".bsc";
+            bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
 
-            outfile_bcm = file_RC+'.'+std::to_string(chunk_num);
-            infile_bcm = outfile_bcm + ".bcm";
-            bcm::bcm_decompress(infile_bcm.c_str(), outfile_bcm.c_str());
+            outfile_bsc = file_RC+'.'+std::to_string(chunk_num);
+            infile_bsc = outfile_bsc + ".bsc";
+            bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
 
             if(paired_end) {
-              outfile_bcm = file_pos_pair+'.'+std::to_string(chunk_num);
-              infile_bcm = outfile_bcm + ".bcm";
-              bcm::bcm_decompress(infile_bcm.c_str(), outfile_bcm.c_str());
+              outfile_bsc = file_pos_pair+'.'+std::to_string(chunk_num);
+              infile_bsc = outfile_bsc + ".bsc";
+              bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
 
-              outfile_bcm = file_RC_pair+'.'+std::to_string(chunk_num);
-              infile_bcm = outfile_bcm + ".bcm";
-              bcm::bcm_decompress(infile_bcm.c_str(), outfile_bcm.c_str());
+              outfile_bsc = file_RC_pair+'.'+std::to_string(chunk_num);
+              infile_bsc = outfile_bsc + ".bsc";
+              bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
             }
             // Open files
             std::ifstream f_flag(file_flag+'.'+std::to_string(chunk_num));
@@ -292,7 +292,7 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
           if(preserve_quality) {
             // Decompress qualities
             infile_name = infilequality[j] + "." + std::to_string(num_chunks_done+tid);
-            bcm::bcm_str_array_decompress(infile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
+            bsc::BSC_str_array_decompress(infile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
           }
           if(!preserve_id) {
             // Fill id array with fake ids
@@ -428,9 +428,9 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
           uint32_t num_reads_thr = std::min((uint64_t)num_reads_cur_step, (tid+1)*num_reads_per_chunk) - tid*num_reads_per_chunk;
 
           // Decompress read lengths file and read into array
-          std::string infile_name = infilereadlength[j]+"."+std::to_string(num_chunks_done+tid) + ".bcm";
+          std::string infile_name = infilereadlength[j]+"."+std::to_string(num_chunks_done+tid) + ".bsc";
           std::string outfile_name = infilereadlength[j]+"."+std::to_string(num_chunks_done+tid);
-          bcm::bcm_decompress(infile_name.c_str(), outfile_name.c_str());
+          bsc::BSC_decompress(infile_name.c_str(), outfile_name.c_str());
           std::ifstream fin_readlength(outfile_name, std::ios::binary);
           for(uint32_t i = tid*num_reads_per_chunk; i < tid*num_reads_per_chunk + num_reads_thr; i++)
             fin_readlength.read((char*)&read_lengths_array[i], sizeof(uint32_t));
@@ -438,12 +438,12 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
 
           // Decompress reads
           infile_name = infileread[j] + "." + std::to_string(num_chunks_done+tid);
-          bcm::bcm_str_array_decompress(infile_name.c_str(), read_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
+          bsc::BSC_str_array_decompress(infile_name.c_str(), read_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
 
           if(preserve_quality) {
             // Decompress qualities
             infile_name = infilequality[j] + "." + std::to_string(num_chunks_done+tid);
-            bcm::bcm_str_array_decompress(infile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
+            bsc::BSC_str_array_decompress(infile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
           }
           if(!preserve_id) {
             // Fill id array with fake ids
@@ -487,7 +487,7 @@ void decompress_unpack_seq(const std::string &infile_seq, const int &num_thr_e, 
     int tid = omp_get_thread_num();
     for(int tid_e = tid*num_thr_e/num_thr; tid_e < (tid+1)*num_thr_e/num_thr; tid_e++)
     {
-      bcm::bcm_decompress((infile_seq + '.' + std::to_string(tid) + ".bcm").c_str(),
+      bsc::BSC_decompress((infile_seq + '.' + std::to_string(tid) + ".bsc").c_str(),
                           (infile_seq + '.' + std::to_string(tid)).c_str());
 
       std::ofstream f_seq(infile_seq+'.'+std::to_string(tid_e)+".tmp");

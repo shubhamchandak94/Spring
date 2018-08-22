@@ -13,7 +13,7 @@
 #include <string>
 #include <string>
 #include <vector>
-#include "bcm/bcm.h"
+#include "libbsc/bsc.h"
 namespace spring {
 
 std::string buildcontig(std::list<contig_reads> &current_contig,
@@ -134,8 +134,8 @@ void pack_compress_seq(const encoder_global &eg, uint64_t *file_len_seq_thr) {
     for (unsigned int i = 0; i < file_len % 4; i++) f_seq_tail << dnabase[i];
     f_seq_tail.close();
     in_seq.close();
-    bcm::bcm_compress((eg.outfile_seq + '.' + std::to_string(tid) + ".tmp").c_str(),
-                      (eg.outfile_seq + '.' + std::to_string(tid) + ".bcm").c_str());
+    bsc::BSC_compress((eg.outfile_seq + '.' + std::to_string(tid) + ".tmp").c_str(),
+                      (eg.outfile_seq + '.' + std::to_string(tid) + ".bsc").c_str());
     remove((eg.outfile_seq + '.' + std::to_string(tid)).c_str());
     remove((eg.outfile_seq + '.' + std::to_string(tid) + ".tmp").c_str());
   }
