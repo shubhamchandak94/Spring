@@ -162,17 +162,17 @@ void reorder_compress_streams (const std::string &temp_dir, const compression_pa
       uint64_t start_read_num = chunk_num*num_reads_per_chunk;
       uint64_t end_read_num = (chunk_num + 1)*num_reads_per_chunk;
       if(!paired_end) {
-        if(start_read_num > num_reads)
+        if(start_read_num >= num_reads)
           break;
-        if(end_read_num > num_reads) {
+        if(end_read_num >= num_reads) {
           done = true;
           end_read_num = num_reads;
         }
       }
       else {
-        if(start_read_num > num_reads_by_2)
+        if(start_read_num >= num_reads_by_2)
           break;
-        if(end_read_num > num_reads_by_2) {
+        if(end_read_num >= num_reads_by_2) {
           done = true;
           end_read_num = num_reads_by_2;
         }
