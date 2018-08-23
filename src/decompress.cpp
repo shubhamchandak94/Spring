@@ -37,10 +37,11 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
   uint32_t num_reads = cp.num_reads;
   uint8_t paired_id_code = cp.paired_id_code;
   bool paired_id_match = cp.paired_id_match;
-  uint32_t num_reads_per_chunk = cp.num_reads_per_chunk;
+  uint32_t num_reads_per_block = cp.num_reads_per_block;
   bool paired_end = cp.paired_end;
   bool preserve_id = cp.preserve_id;
   bool preserve_quality = cp.preserve_quality;
+  bool preserve_order = cp.preserve_order;
 
   std::ofstream fout[2];
   fout[0].open(outfile_1);
@@ -54,7 +55,7 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
     if(!fout[1].is_open())
       throw std::runtime_error("Error opening output file");
 
-  uint64_t num_reads_per_step = (uint64_t)num_thr*num_reads_per_chunk;
+  uint64_t num_reads_per_step = (uint64_t)num_thr*num_reads_per_block;
 
   // allocate less if the total number of reads is small
   if(paired_end) {
@@ -106,7 +107,7 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
 
   bool done = false;
   uint32_t num_reads_done = 0; // denotes number of pairs done for PE
-  uint32_t num_chunks_done = 0;
+  uint32_t num_blocks_done = 0;
   while(!done) {
     uint32_t num_reads_cur_step = num_reads_per_step;
     if(paired_end) {
@@ -129,78 +130,98 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
       #pragma omp parallel
       {
         uint64_t tid = omp_get_thread_num();
-        if(tid*num_reads_per_chunk < num_reads_cur_step) {
-          uint32_t num_reads_thr = std::min((uint64_t)num_reads_cur_step, (tid+1)*num_reads_per_chunk) - tid*num_reads_per_chunk;
+        if(tid*num_reads_per_block < num_reads_cur_step) {
+          uint32_t num_reads_thr = std::min((uint64_t)num_reads_cur_step, (tid+1)*num_reads_per_block) - tid*num_reads_per_block;
 
           if(j == 0) {
             // Read decompression done when j = 0 (even for PE)
-            uint32_t chunk_num = num_chunks_done + tid;
+            uint32_t block_num = num_blocks_done + tid;
 
             // Decompress files with bsc
-            std::string outfile_bsc = file_flag+'.'+std::to_string(chunk_num);
+            std::string outfile_bsc = file_flag+'.'+std::to_string(block_num);
             std::string infile_bsc = outfile_bsc + ".bsc";
             bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
 
-            outfile_bsc = file_pos+'.'+std::to_string(chunk_num);
+            outfile_bsc = file_pos+'.'+std::to_string(block_num);
             infile_bsc = outfile_bsc + ".bsc";
             bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
 
-            outfile_bsc = file_noise+'.'+std::to_string(chunk_num);
+            outfile_bsc = file_noise+'.'+std::to_string(block_num);
             infile_bsc = outfile_bsc + ".bsc";
             bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
 
-            outfile_bsc = file_noisepos+'.'+std::to_string(chunk_num);
+            outfile_bsc = file_noisepos+'.'+std::to_string(block_num);
             infile_bsc = outfile_bsc + ".bsc";
             bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
 
-            outfile_bsc = file_unaligned+'.'+std::to_string(chunk_num);
+            outfile_bsc = file_unaligned+'.'+std::to_string(block_num);
             infile_bsc = outfile_bsc + ".bsc";
             bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
 
-            outfile_bsc = file_readlength+'.'+std::to_string(chunk_num);
+            outfile_bsc = file_readlength+'.'+std::to_string(block_num);
             infile_bsc = outfile_bsc + ".bsc";
             bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
 
-            outfile_bsc = file_RC+'.'+std::to_string(chunk_num);
+            outfile_bsc = file_RC+'.'+std::to_string(block_num);
             infile_bsc = outfile_bsc + ".bsc";
             bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
 
             if(paired_end) {
-              outfile_bsc = file_pos_pair+'.'+std::to_string(chunk_num);
+              outfile_bsc = file_pos_pair+'.'+std::to_string(block_num);
               infile_bsc = outfile_bsc + ".bsc";
               bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
 
-              outfile_bsc = file_RC_pair+'.'+std::to_string(chunk_num);
+              outfile_bsc = file_RC_pair+'.'+std::to_string(block_num);
               infile_bsc = outfile_bsc + ".bsc";
               bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
             }
             // Open files
-            std::ifstream f_flag(file_flag+'.'+std::to_string(chunk_num));
-            std::ifstream f_noise(file_noise+'.'+std::to_string(chunk_num));
-            std::ifstream f_noisepos(file_noisepos+'.'+std::to_string(chunk_num), std::ios::binary);
-            std::ifstream f_pos(file_pos+'.'+std::to_string(chunk_num), std::ios::binary);
-            std::ifstream f_RC(file_RC+'.'+std::to_string(chunk_num));
-            std::ifstream f_unaligned(file_unaligned+'.'+std::to_string(chunk_num));
-            std::ifstream f_readlength(file_readlength+'.'+std::to_string(chunk_num), std::ios::binary);
+            std::ifstream f_flag(file_flag+'.'+std::to_string(block_num));
+            std::ifstream f_noise(file_noise+'.'+std::to_string(block_num));
+            std::ifstream f_noisepos(file_noisepos+'.'+std::to_string(block_num), std::ios::binary);
+            std::ifstream f_pos(file_pos+'.'+std::to_string(block_num), std::ios::binary);
+            std::ifstream f_RC(file_RC+'.'+std::to_string(block_num));
+            std::ifstream f_unaligned(file_unaligned+'.'+std::to_string(block_num));
+            std::ifstream f_readlength(file_readlength+'.'+std::to_string(block_num), std::ios::binary);
             std::ifstream f_pos_pair;
             std::ifstream f_RC_pair;
             if(paired_end) {
-              f_pos_pair.open(file_pos_pair+'.'+std::to_string(chunk_num), std::ios::binary);
-              f_RC_pair.open(file_RC_pair+'.'+std::to_string(chunk_num));
+              f_pos_pair.open(file_pos_pair+'.'+std::to_string(block_num), std::ios::binary);
+              f_RC_pair.open(file_RC_pair+'.'+std::to_string(block_num));
             }
 
             char flag;
-            uint64_t pos_1, pos_2;
+            uint64_t pos_1, pos_2, prevpos;
             bool singleton_1, singleton_2;
             char RC_1, RC_2;
             uint16_t rl;
-            for(uint32_t i = tid*num_reads_per_chunk; i < tid*num_reads_per_chunk + num_reads_thr; i++) {
+            uint16_t diffpos_16;
+            bool first_read_of_block = true;
+            for(uint32_t i = tid*num_reads_per_block; i < tid*num_reads_per_block + num_reads_thr; i++) {
               f_flag >> flag;
               f_readlength.read((char*)&rl, sizeof(uint16_t));
               read_lengths_array_1[i] = rl;
               singleton_1 = (flag == '2') || (flag == '4');
               if(!singleton_1) {
-                f_pos.read((char*)&pos_1, sizeof(uint64_t));
+                if(preserve_order)
+                  f_pos.read((char*)&pos_1, sizeof(uint64_t));
+                else {
+                  if(first_read_of_block) {
+                    // in order non-preserving mode, if first read (or read 1 in
+                    // first pair) is a singleton, then all the rest are.
+                    first_read_of_block = false;
+                    f_pos.read((char*)&pos_1, sizeof(uint64_t));
+                    prevpos = pos_1;
+                  }
+                  else {
+                    f_pos.read((char*)&diffpos_16, sizeof(uint16_t));
+                    if(diffpos_16 == 65535)
+                      f_pos.read((char*)&pos_1, sizeof(uint64_t));
+                    else
+                      pos_1 = prevpos + diffpos_16;
+                    prevpos = pos_1;
+                  }
+                }
                 f_RC >> RC_1;
                 std::string read = seq.substr(pos_1, read_lengths_array_1[i]);
                 std::string noise;
@@ -222,7 +243,6 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
                 read_array_1[i].resize(read_lengths_array_1[i]);
                 f_unaligned.read(&read_array_1[i][0], read_lengths_array_1[i]);
               }
-
 
               if(paired_end) {
                 singleton_2 = (flag == '2') || (flag == '3');
@@ -291,24 +311,24 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
             read_lengths_array = read_lengths_array_2;
           if(preserve_quality) {
             // Decompress qualities
-            infile_name = infilequality[j] + "." + std::to_string(num_chunks_done+tid);
-            bsc::BSC_str_array_decompress(infile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
+            infile_name = infilequality[j] + "." + std::to_string(num_blocks_done+tid);
+            bsc::BSC_str_array_decompress(infile_name.c_str(), quality_array + tid*num_reads_per_block, num_reads_thr, read_lengths_array + tid*num_reads_per_block);
           }
           if(!preserve_id) {
             // Fill id array with fake ids
-            for(uint32_t i = tid*num_reads_per_chunk; i < tid*num_reads_per_chunk + num_reads_thr; i++)
+            for(uint32_t i = tid*num_reads_per_block; i < tid*num_reads_per_block + num_reads_thr; i++)
               id_array[i] = "@" + std::to_string(num_reads_done + i + 1) + "/" + std::to_string(j+1);
           }
           else {
             if(j == 1 && paired_id_match) {
               // id match found, so modify id array appropriately
-              for(uint32_t i = tid*num_reads_per_chunk; i < tid*num_reads_per_chunk + num_reads_thr; i++)
+              for(uint32_t i = tid*num_reads_per_block; i < tid*num_reads_per_block + num_reads_thr; i++)
                 modify_id(id_array[i], paired_id_code);
             }
             else {
               // Decompress ids
-              infile_name = infileid[j] + "." + std::to_string(num_chunks_done+tid);
-              decompress_id_block(infile_name.c_str(), id_array + tid*num_reads_per_chunk, num_reads_thr);
+              infile_name = infileid[j] + "." + std::to_string(num_blocks_done+tid);
+              decompress_id_block(infile_name.c_str(), id_array + tid*num_reads_per_block, num_reads_thr);
             }
           }
         }
@@ -321,7 +341,7 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
       write_fastq_block(fout[j], id_array, read_array, quality_array, num_reads_cur_step, preserve_quality);
     }
     num_reads_done += num_reads_cur_step;
-    num_chunks_done += num_thr;
+    num_blocks_done += num_thr;
   }
 
   fout[0].close();
@@ -361,7 +381,7 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
   uint32_t num_reads = cp.num_reads;
   uint8_t paired_id_code = cp.paired_id_code;
   bool paired_id_match = cp.paired_id_match;
-  uint32_t num_reads_per_chunk = cp.num_reads_per_chunk_long;
+  uint32_t num_reads_per_block = cp.num_reads_per_block_long;
   bool paired_end = cp.paired_end;
   bool preserve_id = cp.preserve_id;
   bool preserve_quality = cp.preserve_quality;
@@ -378,7 +398,7 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
     if(!fout[1].is_open())
       throw std::runtime_error("Error opening output file");
 
-  uint64_t num_reads_per_step = (uint64_t)num_thr*num_reads_per_chunk;
+  uint64_t num_reads_per_step = (uint64_t)num_thr*num_reads_per_block;
 
   // allocate less if the total number of reads is small
   if(paired_end) {
@@ -401,7 +421,7 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
 
   bool done = false;
   uint32_t num_reads_done = 0; // denotes number of pairs done for PE
-  uint32_t num_chunks_done = 0;
+  uint32_t num_blocks_done = 0;
   while(!done) {
     uint32_t num_reads_cur_step = num_reads_per_step;
     if(paired_end) {
@@ -424,42 +444,42 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
       #pragma omp parallel
       {
         uint64_t tid = omp_get_thread_num();
-        if(tid*num_reads_per_chunk < num_reads_cur_step) {
-          uint32_t num_reads_thr = std::min((uint64_t)num_reads_cur_step, (tid+1)*num_reads_per_chunk) - tid*num_reads_per_chunk;
+        if(tid*num_reads_per_block < num_reads_cur_step) {
+          uint32_t num_reads_thr = std::min((uint64_t)num_reads_cur_step, (tid+1)*num_reads_per_block) - tid*num_reads_per_block;
 
           // Decompress read lengths file and read into array
-          std::string infile_name = infilereadlength[j]+"."+std::to_string(num_chunks_done+tid) + ".bsc";
-          std::string outfile_name = infilereadlength[j]+"."+std::to_string(num_chunks_done+tid);
+          std::string infile_name = infilereadlength[j]+"."+std::to_string(num_blocks_done+tid) + ".bsc";
+          std::string outfile_name = infilereadlength[j]+"."+std::to_string(num_blocks_done+tid);
           bsc::BSC_decompress(infile_name.c_str(), outfile_name.c_str());
           std::ifstream fin_readlength(outfile_name, std::ios::binary);
-          for(uint32_t i = tid*num_reads_per_chunk; i < tid*num_reads_per_chunk + num_reads_thr; i++)
+          for(uint32_t i = tid*num_reads_per_block; i < tid*num_reads_per_block + num_reads_thr; i++)
             fin_readlength.read((char*)&read_lengths_array[i], sizeof(uint32_t));
           fin_readlength.close();
 
           // Decompress reads
-          infile_name = infileread[j] + "." + std::to_string(num_chunks_done+tid);
-          bsc::BSC_str_array_decompress(infile_name.c_str(), read_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
+          infile_name = infileread[j] + "." + std::to_string(num_blocks_done+tid);
+          bsc::BSC_str_array_decompress(infile_name.c_str(), read_array + tid*num_reads_per_block, num_reads_thr, read_lengths_array + tid*num_reads_per_block);
 
           if(preserve_quality) {
             // Decompress qualities
-            infile_name = infilequality[j] + "." + std::to_string(num_chunks_done+tid);
-            bsc::BSC_str_array_decompress(infile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
+            infile_name = infilequality[j] + "." + std::to_string(num_blocks_done+tid);
+            bsc::BSC_str_array_decompress(infile_name.c_str(), quality_array + tid*num_reads_per_block, num_reads_thr, read_lengths_array + tid*num_reads_per_block);
           }
           if(!preserve_id) {
             // Fill id array with fake ids
-            for(uint32_t i = tid*num_reads_per_chunk; i < tid*num_reads_per_chunk + num_reads_thr; i++)
+            for(uint32_t i = tid*num_reads_per_block; i < tid*num_reads_per_block + num_reads_thr; i++)
               id_array[i] = "@" + std::to_string(num_reads_done + i + 1) + "/" + std::to_string(j+1);
           }
           else {
             if(j == 1 && paired_id_match) {
               // id match found, so modify id array appropriately
-              for(uint32_t i = tid*num_reads_per_chunk; i < tid*num_reads_per_chunk + num_reads_thr; i++)
+              for(uint32_t i = tid*num_reads_per_block; i < tid*num_reads_per_block + num_reads_thr; i++)
                 modify_id(id_array[i], paired_id_code);
             }
             else {
               // Decompress ids
-              infile_name = infileid[j] + "." + std::to_string(num_chunks_done+tid);
-              decompress_id_block(infile_name.c_str(), id_array + tid*num_reads_per_chunk, num_reads_thr);
+              infile_name = infileid[j] + "." + std::to_string(num_blocks_done+tid);
+              decompress_id_block(infile_name.c_str(), id_array + tid*num_reads_per_block, num_reads_thr);
             }
           }
         }
@@ -467,7 +487,7 @@ const std::string &outfile_2, const compression_params &cp, const int &num_thr) 
       write_fastq_block(fout[j], id_array, read_array, quality_array, num_reads_cur_step, preserve_quality);
     }
     num_reads_done += num_reads_cur_step;
-    num_chunks_done += num_thr;
+    num_blocks_done += num_thr;
   }
 
   fout[0].close();

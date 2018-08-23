@@ -3,9 +3,7 @@
 #include <algorithm>
 #include <stdexcept>
 #include "util.h"
-#include "params.h"
 #include "id_compression/include/sam_block.h"
-//#include "qvz/include/qvz.h"
 
 namespace spring {
 

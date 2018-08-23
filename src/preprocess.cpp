@@ -71,11 +71,11 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
   uint32_t max_readlen = 0;
   uint64_t num_reads[2] = {0,0};
   uint64_t num_reads_clean[2] = {0,0};
-  uint32_t num_reads_per_chunk;
+  uint32_t num_reads_per_block;
   if(cp.long_flag)
-	num_reads_per_chunk = NUM_READS_PER_CHUNK_LONG;
+	num_reads_per_block = cp.num_reads_per_block;
   else
-	num_reads_per_chunk = NUM_READS_PER_CHUNK;
+	num_reads_per_block = cp.num_reads_per_block_long;
   uint8_t paired_id_code = 0;
   bool paired_id_match = false;
 
@@ -101,7 +101,7 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
 	  fin[1].seekg(0);
 	}
   }
-  uint64_t num_reads_per_step = (uint64_t)cp.num_thr*num_reads_per_chunk;
+  uint64_t num_reads_per_step = (uint64_t)cp.num_thr*num_reads_per_block;
   std::string *read_array = new std::string[num_reads_per_step];
   std::string *id_array_1 = new std::string[num_reads_per_step];
   std::string *id_array_2 = new std::string[num_reads_per_step];
@@ -112,7 +112,7 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
 
   omp_set_num_threads(cp.num_thr);
 
-  uint32_t num_chunks_done = 0;
+  uint32_t num_blocks_done = 0;
 
   while(true) {
 	bool done[2] = {true,true};
@@ -136,15 +136,15 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
 			uint64_t tid = omp_get_thread_num();
 			if(j == 1)
 			  paired_id_match_array[tid] = paired_id_match;
-			if(tid*num_reads_per_chunk >= num_reads_read)
+			if(tid*num_reads_per_block >= num_reads_read)
 			  done = true;
-			uint32_t num_reads_thr = std::min((uint64_t)num_reads_read, (tid+1)*num_reads_per_chunk) - tid*num_reads_per_chunk;
+			uint32_t num_reads_thr = std::min((uint64_t)num_reads_read, (tid+1)*num_reads_per_block) - tid*num_reads_per_block;
       std::ofstream fout_readlength;
 			if(!done) {
 			  if(cp.long_flag)
-					fout_readlength.open(outfilereadlength[j]+"."+std::to_string(num_chunks_done+tid), std::ios::binary);
+					fout_readlength.open(outfilereadlength[j]+"."+std::to_string(num_blocks_done+tid), std::ios::binary);
 			  // check if reads and qualities have equal lengths
-			  for(uint32_t i = tid*num_reads_per_chunk; i < tid*num_reads_per_chunk + num_reads_thr; i++) {
+			  for(uint32_t i = tid*num_reads_per_block; i < tid*num_reads_per_block + num_reads_thr; i++) {
 				size_t len = read_array[i].size();
 				if(len == 0)
 				  throw std::runtime_error("Read of length 0 detected.");
@@ -177,41 +177,41 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
           fout_readlength.close();
 			  // apply Illumina binning (if asked to do so)
 			  if(cp.preserve_quality && cp.ill_bin_flag)
-				  quantize_quality(quality_array + tid*num_reads_per_chunk, num_reads_thr, illumina_binning_table);
+				  quantize_quality(quality_array + tid*num_reads_per_block, num_reads_thr, illumina_binning_table);
 
 			  if(!cp.long_flag) {
 				if(cp.preserve_order) {
 				  // Compress ids
 				  if(cp.preserve_id) {
-					std::string outfile_name = outfileid[j] + "." + std::to_string(num_chunks_done+tid);
-					compress_id_block(outfile_name.c_str(), id_array + tid*num_reads_per_chunk, num_reads_thr);
+					std::string outfile_name = outfileid[j] + "." + std::to_string(num_blocks_done+tid);
+					compress_id_block(outfile_name.c_str(), id_array + tid*num_reads_per_block, num_reads_thr);
 				  }
 				  // Compress qualities
 				  if(cp.preserve_quality) {
-					std::string outfile_name = outfilequality[j] + "." + std::to_string(num_chunks_done+tid);
-					bsc::BSC_str_array_compress(outfile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
+					std::string outfile_name = outfilequality[j] + "." + std::to_string(num_blocks_done+tid);
+					bsc::BSC_str_array_compress(outfile_name.c_str(), quality_array + tid*num_reads_per_block, num_reads_thr, read_lengths_array + tid*num_reads_per_block);
 				  }
 				}
 			  }
 			  else {
 				// Compress read lengths file
-				std::string infile_name = outfilereadlength[j]+"."+std::to_string(num_chunks_done+tid);
-				std::string outfile_name = outfilereadlength[j]+"."+std::to_string(num_chunks_done+tid) + ".bsc";
+				std::string infile_name = outfilereadlength[j]+"."+std::to_string(num_blocks_done+tid);
+				std::string outfile_name = outfilereadlength[j]+"."+std::to_string(num_blocks_done+tid) + ".bsc";
 				bsc::BSC_compress(infile_name.c_str(), outfile_name.c_str());
 				remove(infile_name.c_str());
 				// Compress ids
 				if(cp.preserve_id) {
-				  std::string outfile_name = outfileid[j] + "." + std::to_string(num_chunks_done+tid);
-				  compress_id_block(outfile_name.c_str(), id_array + tid*num_reads_per_chunk, num_reads_thr);
+				  std::string outfile_name = outfileid[j] + "." + std::to_string(num_blocks_done+tid);
+				  compress_id_block(outfile_name.c_str(), id_array + tid*num_reads_per_block, num_reads_thr);
 				}
 				// Compress qualities
 				if(cp.preserve_quality) {
-				  std::string outfile_name = outfilequality[j] + "." + std::to_string(num_chunks_done+tid);
-				  bsc::BSC_str_array_compress(outfile_name.c_str(), quality_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
+				  std::string outfile_name = outfilequality[j] + "." + std::to_string(num_blocks_done+tid);
+				  bsc::BSC_str_array_compress(outfile_name.c_str(), quality_array + tid*num_reads_per_block, num_reads_thr, read_lengths_array + tid*num_reads_per_block);
 				}
 				// Compress reads
-				outfile_name = outfileread[j] + "." + std::to_string(num_chunks_done+tid);
-				bsc::BSC_str_array_compress(outfile_name.c_str(), read_array + tid*num_reads_per_chunk, num_reads_thr, read_lengths_array + tid*num_reads_per_chunk);
+				outfile_name = outfileread[j] + "." + std::to_string(num_blocks_done+tid);
+				bsc::BSC_str_array_compress(outfile_name.c_str(), read_array + tid*num_reads_per_block, num_reads_thr, read_lengths_array + tid*num_reads_per_block);
 			  }
 			} // if(!done)
 		} // omp parallel
@@ -253,7 +253,7 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
 		throw std::runtime_error("Number of reads in paired files do not match.");
 	if(done[0] && done[1])
 	  break;
-  num_chunks_done += cp.num_thr;
+  num_blocks_done += cp.num_thr;
   }
 
   delete[] read_array;
@@ -318,8 +318,8 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
 	  remove(outfileid[1].c_str());
 	}
 	else {
-	  uint32_t num_chunks = 1 + (num_reads[0]-1)/num_reads_per_chunk; // ceil of num_reads[0]/num_reads_per_chunk
-	  for(uint32_t i = 0; i < num_chunks; i++)
+	  uint32_t num_blocks = 1 + (num_reads[0]-1)/num_reads_per_block; // ceil of num_reads[0]/num_reads_per_block
+	  for(uint32_t i = 0; i < num_blocks; i++)
 		remove((outfileid[1]+"."+std::to_string(i)).c_str());
 	}
   }

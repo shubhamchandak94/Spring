@@ -5,252 +5,168 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <string>
-#include <vector>
-#include "qvz/include/cluster.h"
-#include "qvz/include/codebook.h"
-#include "qvz/include/qv_compressor.h"
+
+#include "util.h"
+#include "libbsc/bsc.h"
 #include "ID_compression/include/sam_block.h"
 #include "reorder_compress_quality_id.h"
 
 namespace spring {
 
-int reorder_compress_quality_id(std::string &temp_dir, int max_readlen,
-                                int num_thr, bool paired_end,
-                                bool preserve_order, bool preserve_quality,
-                                bool preserve_id,
-                                dsg::input::fastq::FastqFileReader *fastqFileReader1,
-                                dsg::input::fastq::FastqFileReader *fastqFileReader2,
-                                std::string quality_mode,
-                                double quality_ratio) {
-  reorder_compress_quality_id_global *rg_ptr = new reorder_compress_quality_id_global;
-  reorder_compress_quality_id_global& rg = *rg_ptr;
-  rg.basedir = temp_dir;
+void reorder_compress_quality_id(const std::string &temp_dir, const compression_params &cp) {
+  // Read some parameters
+  uint32_t numreads = cp.num_reads;
+  int num_thr = cp.num_thr;
+  bool preserve_id = cp.preserve_id;
+  bool preserve_quality = cp.preserve_quality;
+  bool paired_end = cp.paired_end;
+  uint32_t num_reads_per_block = cp.num_reads_per_block;
+  bool paired_id_match = cp.paired_id_match;
 
-  rg.infile_id_1 = rg.basedir + "/input_1.id";
-  rg.infile_id_2 = rg.basedir + "/input_2.id";
-  rg.infile_order = rg.basedir + "/read_order.bin";
-  rg.outfile_order = rg.basedir + "/read_order.bin.tmp";
-  rg.infilenumreads = rg.basedir + "/numreads.bin";
+  std::string basedir = temp_dir;
 
-  rg.max_readlen = max_readlen;
-  rg.num_thr = num_thr;
-  rg.preserve_order = preserve_order;
-  rg.paired_end = paired_end;
-  rg.preserve_quality = preserve_quality;
-  rg.preserve_id = preserve_id;
-  if (rg.preserve_quality == true) {
-    rg.quality_mode = quality_mode;
-    rg.quality_ratio = quality_ratio;
+  std::string file_order = basedir + "/read_order.bin";
+  std::string file_id[2];
+  std::string file_quality[2];
+  file_id[0] = basedir + "/id_1";
+  file_id[1] = basedir + "/id_2";
+  file_quality[0] = basedir + "/quality_1";
+  file_quality[1] = basedir + "/quality_2";
+
+  uint32_t *order_array;
+  // array containing index mapping position in original fastq to
+  // position after reordering
+  if(paired_end) {
+    order_array = new uint32_t[numreads/2];
+    generate_order_pe(file_order, order_array, numreads);
   }
-  if (rg.preserve_quality == false && rg.preserve_id == false) return 0;
-  // fill illumina binning table
-  generate_illumina_binning_table(rg);
+  else {
+    order_array = new uint32_t[numreads];
+    generate_order_se(file_order, order_array, numreads);
+  }
 
-  omp_set_num_threads(rg.num_thr);
-  std::ifstream f_numreads(rg.infilenumreads, std::ios::binary);
-  f_numreads.seekg(4);
-  f_numreads.read((char *)&rg.numreads, sizeof(uint32_t));
-  f_numreads.read((char *)&rg.paired_id_code, sizeof(uint8_t));
-  f_numreads.close();
-  rg.numreads_by_2 = rg.numreads / 2;
-  if (paired_end == false) rg.numreads_by_2 = rg.numreads;
-  generate_order(rg);
-  std::cout << "Compressing qualities and/or ids\n";
-  if (preserve_quality == true)
-    reorder_quality(fastqFileReader1, fastqFileReader2, rg);
-  if (preserve_id == true) reorder_id(rg);
-  if (paired_end == true) remove((rg.basedir + "/read_order.bin.tmp").c_str());
-  delete rg_ptr;
-  return 0;
-}
+  omp_set_num_threads(num_thr);
 
-void generate_order(reorder_compress_quality_id_global &rg) {
-  if (rg.preserve_order ==
-      true)  // write fake order information in this case to
-             // provide common interface
-  {
-    std::ofstream fout_order(rg.outfile_order, std::ios::binary);
-    for (uint32_t i = 0; i < rg.numreads_by_2; i++) {
-      fout_order.write((char *)&i, sizeof(uint32_t));
-    }
-    fout_order.close();
-  } else {
-    if (rg.paired_end == false)
-      rg.outfile_order = rg.infile_order;
-    else {
-      std::ifstream fin_order(rg.infile_order, std::ios::binary);
-      std::ofstream fout_order(rg.outfile_order, std::ios::binary);
-      uint32_t order;
-      for (uint32_t i = 0; i < rg.numreads; i++) {
-        fin_order.read((char *)&order, sizeof(uint32_t));
-        if (order < rg.numreads_by_2) {
-          fout_order.write((char *)&order, sizeof(uint32_t));
-        }
-      }
-      fin_order.close();
-      fout_order.close();
+  uint32_t str_array_size = (1 + (numreads/4 - 1)/num_reads_per_block)*num_reads_per_block;
+  // smallest multiple of num_reads_per_block bigger than numreads/4
+  // numreads/4 chosen so that these many qualities/ids can be stored in
+  // memory without exceeding the RAM consumption of reordering stage
+  std::string *str_array = new std::string[str_array_size];
+  // array to load ids and/or qualities into
+
+  if(preserve_quality) {
+    std::cout << "Compressing qualities\n";
+    for(int j = 0; j < 2; j++) {
+      if(!paired_end && j==1)
+        break;
+      uint32_t num_reads_per_file = paired_end?numreads/2:numreads;
+      reorder_compress(file_quality[j], num_reads_per_file, num_thr, num_reads_per_block, str_array, str_array_size, order_array, "quality");
+      remove(file_quality[j].c_str());
     }
   }
+  if(preserve_id) {
+    std::cout << "Compressing ids\n";
+    for(int j = 0; j < 2; j++) {
+      if(!paired_end && j==1)
+        break;
+      if(j == 1 && paired_id_match)
+        break;
+      uint32_t num_reads_per_file = paired_end?numreads/2:numreads;
+      reorder_compress(file_id[j], num_reads_per_file, num_thr, num_reads_per_block, str_array, str_array_size, order_array, "id");
+      remove(file_id[j].c_str());
+    }
+  }
+
+  delete[] order_array;
+  delete[] str_array;
   return;
 }
 
-void reorder_quality(dsg::input::fastq::FastqFileReader *fastqFileReader1,
-                     dsg::input::fastq::FastqFileReader *fastqFileReader2,
-                     reorder_compress_quality_id_global &rg) {
-  char line_ch[rg.max_readlen + 1];
-  uint16_t cur_readlen;
-  if ((rg.quality_mode == "bsc" || rg.quality_mode == "illumina_binning_bsc") &&
-      rg.preserve_order == true)
-  // just write to file without newlines
-  {
-    for (int k = 0; k < 2; k++) {
-      dsg::input::fastq::FastqFileReader *fastqFileReader = fastqFileReader1;
-      if (k == 1) {
-        fastqFileReader = fastqFileReader2;
-      }
-      std::vector<dsg::input::fastq::FastqRecord> fastqRecord;
-      if (k == 1 && rg.paired_end == false) continue;
-      std::ofstream f_out(rg.basedir + "/quality_" + std::to_string(k + 1) +
-                          ".txt");
-      for (uint64_t i = 0; i < rg.numreads_by_2; i++) {
-        fastqFileReader->readRecords(1, &fastqRecord);
-        strcpy(line_ch, fastqRecord[0].qualityScores.c_str());  
-        cur_readlen = (uint16_t)fastqRecord[0].qualityScores.length();
-        if (rg.quality_mode == "illumina_binning_bsc")
-          illumina_binning(line_ch, cur_readlen, rg);
-        f_out.write(line_ch, cur_readlen);
-      }
-      f_out.close();
-    }
-    return;
-  }
-  char *quality = new char[(uint64_t)rg.numreads_by_2 * (rg.max_readlen + 1)];
-  uint16_t *read_lengths = new uint16_t[rg.numreads_by_2];
-
-  for (int k = 0; k < 2; k++) {
-    if (k == 1 && rg.paired_end == false) continue;
-    dsg::input::fastq::FastqFileReader *fastqFileReader = fastqFileReader1;
-    if (k == 1) {
-      fastqFileReader = fastqFileReader2;
-    }
-    std::vector<dsg::input::fastq::FastqRecord> fastqRecord;
-    for (uint64_t i = 0; i < rg.numreads_by_2; i++) {
-      fastqFileReader->readRecords(1, &fastqRecord);
-      strcpy(quality + i * (rg.max_readlen + 1), fastqRecord[0].qualityScores.c_str());  
-      read_lengths[i] = (uint16_t)fastqRecord[0].qualityScores.length();
-      if (rg.quality_mode == "illumina_binning_qvz" ||
-          rg.quality_mode == "illumina_binning_bsc")
-        illumina_binning(quality + i * (rg.max_readlen + 1), read_lengths[i], rg);
-    }
-
-    if (rg.quality_mode == "bsc" || rg.quality_mode == "illumina_binning_bsc")
-    // just write to file without newlines
-    {
-      std::ofstream f_out(rg.basedir + "/quality_" + std::to_string(k + 1) +
-                          ".txt");
-      std::ifstream f_order(rg.outfile_order, std::ios::binary);
-      uint32_t order;
-      for (uint64_t i = 0; i < rg.numreads_by_2; i++) {
-        f_order.read((char *)&order, sizeof(uint32_t));
-        f_out.write(quality + (uint64_t)order * (rg.max_readlen + 1),
-                    read_lengths[order]);
-      }
-      f_out.close();
-      continue;
-    }
-#pragma omp parallel
-    {
-      int tid = omp_get_thread_num();
-      uint64_t start = uint64_t(tid) * (rg.numreads_by_2 / omp_get_num_threads());
-      uint32_t numreads_thr = rg.numreads_by_2 / omp_get_num_threads();
-      if (tid == omp_get_num_threads() - 1)
-        numreads_thr =
-            rg.numreads_by_2 - numreads_thr * (omp_get_num_threads() - 1);
-      struct qvz::qv_options_t opts;
-      opts.verbose = 0;
-      opts.stats = 0;
-      opts.ratio = rg.quality_ratio;
-      opts.clusters = 1;
-      opts.uncompressed = 0;
-      opts.distortion = DISTORTION_MSE;
-      opts.cluster_threshold = 4;
-      std::string output_name_str =
-          (rg.basedir + "/compressed_quality_" + std::to_string(k + 1) + ".bin." +
-           std::to_string(tid));
-      const char *output_name = output_name_str.c_str();
-      FILE *fout;
-      fout = fopen(output_name, "wb");
-      opts.mode = MODE_FIXED;
-      qvz::encode(fout, &opts, rg.max_readlen, numreads_thr, quality, read_lengths,
-             rg.outfile_order, start * sizeof(uint32_t));
+void generate_order_pe(const std::string &file_order, uint32_t *order_array, const uint32_t &numreads) {
+  std::ifstream fin_order(file_order, std::ios::binary);
+  uint32_t order;
+  uint32_t pos_after_reordering = 0;
+  uint32_t numreads_by_2 = numreads/2;
+  for (uint32_t i = 0; i < numreads; i++) {
+    fin_order.read((char *)&order, sizeof(uint32_t));
+    if (order < numreads_by_2) {
+      order_array[order] = pos_after_reordering++;
     }
   }
-  delete[] quality;
-  delete[] read_lengths;
-  return;
+  fin_order.close();
 }
 
-void reorder_id(reorder_compress_quality_id_global &rg) {
-  std::string *id = new std::string[rg.numreads_by_2];
-  std::string infile_id[2] = {rg.infile_id_1, rg.infile_id_2};
-  for (int k = 0; k < 2; k++) {
-    if (k == 1 && rg.paired_end == false) continue;
-    if (rg.paired_id_code != 0 && k == 1) break;
-    std::ifstream f_in(infile_id[k]);
+void generate_order_se(const std::string &file_order, uint32_t *order_array, const uint32_t &numreads) {
+  std::ifstream fin_order(file_order, std::ios::binary);
+  uint32_t order;
+  for (uint32_t i = 0; i < numreads; i++) {
+    fin_order.read((char *)&order, sizeof(uint32_t));
+    order_array[order] = i;
+  }
+  fin_order.close();
+}
 
-    for (uint64_t i = 0; i < rg.numreads_by_2; i++) std::getline(f_in, id[i]);
+void reorder_compress(const std::string &file_name, const uint32_t &num_reads_per_file, const int &num_thr, const uint32_t &num_reads_per_block, std::string *str_array, const uint32_t &str_array_size, uint32_t *order_array, const std::string &mode) {
+  uint32_t *read_lengths_array;
+  // Allocate array of lengths if mode is "quality"
+  if(mode == "quality") {
+    uint64_t num_reads_per_step = (uint64_t)num_thr*num_reads_per_block;
+    // allocate less if str_array_size is very small
+    if(num_reads_per_step > str_array_size)
+      num_reads_per_step = str_array_size;
+    read_lengths_array = new uint32_t [num_reads_per_step];
+  }
+
+  for(uint32_t i = 0; i <= num_reads_per_file/str_array_size; i++) {
+    uint32_t num_reads_bin = str_array_size;
+    if(i == num_reads_per_file/str_array_size)
+      num_reads_bin = num_reads_per_file%str_array_size;
+    if(num_reads_bin == 0)
+      break;
+    uint32_t start_read_bin = i*str_array_size;
+    uint32_t end_read_bin = i*str_array_size + num_reads_bin;
+    // Read the file and pick up lines corresponding to this bin
+    std::ifstream f_in(file_name);
+    std::string temp_str;
+    for(uint32_t i = 0; i < num_reads_per_file; i++) {
+      std::getline(f_in, temp_str);
+      if(order_array[i] >= start_read_bin && order_array[i] < end_read_bin)
+        str_array[order_array[i] - start_read_bin] = temp_str;
+    }
     f_in.close();
-#pragma omp parallel
+    #pragma omp parallel
     {
-      int tid = omp_get_thread_num();
-      uint64_t start = uint64_t(tid) * (rg.numreads_by_2 / omp_get_num_threads());
-      uint32_t numreads_thr = rg.numreads_by_2 / omp_get_num_threads();
-      if (tid == omp_get_num_threads() - 1)
-        numreads_thr =
-            rg.numreads_by_2 - numreads_thr * (omp_get_num_threads() - 1);
-      std::ifstream f_order(rg.outfile_order, std::ios::binary);
-      f_order.seekg(start * sizeof(uint32_t));
-      std::string outfile_compressed_id_str =
-          (rg.basedir + "/compressed_id_" + std::to_string(k + 1) + ".bin." +
-           std::to_string(tid));
-      const char *outfile_compressed_id = outfile_compressed_id_str.c_str();
-      struct id_comp::compressor_info_t comp_info;
-      comp_info.id_array = id;
-      comp_info.f_order = &f_order;
-      comp_info.numreads = numreads_thr;
-      comp_info.mode = COMPRESSION;
-      comp_info.fcomp = fopen(outfile_compressed_id, "w");
-      id_comp::compress((void *)&comp_info);
-      fclose(comp_info.fcomp);
-      f_order.close();
-    }
+      uint64_t tid = omp_get_thread_num();
+      uint64_t block_num_offset = start_read_bin/num_reads_per_block;
+      uint64_t block_num = tid;
+      bool done = false;
+      while(!done) {
+        uint64_t start_read_num = block_num*num_reads_per_block;
+        uint64_t end_read_num = (block_num + 1)*num_reads_per_block;
+        if(start_read_num >= num_reads_bin)
+          break;
+        if(end_read_num >= num_reads_bin) {
+          done = true;
+          end_read_num = num_reads_bin;
+        }
+        uint32_t num_reads_block = (uin32_t)(end_read_num - start_read_num);
+        std::string outfile_name = file_name + "." + std::to_string(block_num_offset+block_num);
+
+        if(mode == "id") {
+          compress_id_block(outfile_name.c_str(), str_array + start_read_num, num_reads_block);
+        }
+        else {
+          // store lengths in array for quality compression
+          for(uint64_t i = start_read_num; i < end_read_num; i++)
+            read_lengths_array[i] = str_array[i].size();
+          bsc::BSC_str_array_compress(outfile_name.c_str(), str_array + start_read_num, num_reads_block, read_lengths_array + start_read_num);
+        }
+        block_num += num_thr;
+      }
+    } // omp parallel
   }
-  delete[] id;
-  return;
-}
-
-void illumina_binning(char *quality, uint16_t readlen, reorder_compress_quality_id_global &rg) {
-  for (uint16_t i = 0; i < readlen; i++)
-    quality[i] = rg.illumina_binning_table[(uint8_t)quality[i]];
-  return;
-}
-
-void generate_illumina_binning_table(reorder_compress_quality_id_global &rg) {
-  for (uint8_t i = 0; i <= 33 + 1; i++) rg.illumina_binning_table[i] = 33 + 0;
-  for (uint8_t i = 33 + 2; i <= 33 + 9; i++) rg.illumina_binning_table[i] = 33 + 6;
-  for (uint8_t i = 33 + 10; i <= 33 + 19; i++)
-    rg.illumina_binning_table[i] = 33 + 15;
-  for (uint8_t i = 33 + 20; i <= 33 + 24; i++)
-    rg.illumina_binning_table[i] = 33 + 22;
-  for (uint8_t i = 33 + 25; i <= 33 + 29; i++)
-    rg.illumina_binning_table[i] = 33 + 27;
-  for (uint8_t i = 33 + 30; i <= 33 + 34; i++)
-    rg.illumina_binning_table[i] = 33 + 33;
-  for (uint8_t i = 33 + 35; i <= 33 + 39; i++)
-    rg.illumina_binning_table[i] = 33 + 37;
-  for (uint8_t i = 33 + 40; i <= 127; i++) rg.illumina_binning_table[i] = 33 + 40;
-  return;
+  if(mode == "quality")
+    delete[] read_lengths_array;
 }
 
 } // namespace spring

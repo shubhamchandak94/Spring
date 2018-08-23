@@ -10,15 +10,16 @@
 #include <cstdlib>
 #include <iomanip>      // std::setw
 
-#include "encoder.h"
-#include "reorder_compress_streams.h"
-#include "preprocess.h"
-#include "reorder.h"
-#include "decompress.h"
-//#include "reorder_compress_quality_id.h"
-#include "spring.h"
 #include "util.h"
 #include "params.h"
+#include "spring.h"
+#include "preprocess.h"
+#include "reorder.h"
+#include "encoder.h"
+#include "pe_encode.h"
+#include "reorder_compress_quality_id.h"
+#include "reorder_compress_streams.h"
+#include "decompress.h"
 
 namespace spring {
 
@@ -57,12 +58,9 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 	cp.preserve_quality = preserve_quality;
 	cp.long_flag = long_flag;
 	cp.ill_bin_flag = ill_bin_flag;
-	cp.num_reads_per_chunk = NUM_READS_PER_CHUNK;
-	cp.num_reads_per_chunk_long = NUM_READS_PER_CHUNK_LONG;
+	cp.num_reads_per_block = NUM_READS_PER_BLOCK;
+	cp.num_reads_per_block_long = NUM_READS_PER_BLOCK_LONG;
 	cp.num_thr = num_thr;
-
-	if(!preserve_order)
-		throw std::runtime_error("Not implemented");
 
 	std::cout << "Preprocessing ...\n";
 	auto preprocess_start = std::chrono::steady_clock::now();
@@ -86,6 +84,24 @@ void compress(std::string &temp_dir, std::vector<std::string>& infile_vec, std::
 		auto encoder_end = std::chrono::steady_clock::now();
 		std::cout << "Encoding done!\n";
 		std::cout << "Time for this step: " << std::chrono::duration_cast<std::chrono::seconds>(encoder_end-encoder_start).count() << " s\n";
+
+		if(!preserve_order && (preserve_quality || preserve_order)) {
+			std::cout << "Reordering and compressing quality and/or ids ...\n";
+			auto rcqi_start = std::chrono::steady_clock::now();
+			reorder_compress_quality_id(temp_dir, cp);
+			auto rcqi_end = std::chrono::steady_clock::now();
+			std::cout << "Reordering and compressing quality and/or ids done!\n";
+			std::cout << "Time for this step: " << std::chrono::duration_cast<std::chrono::seconds>(rcqi_end - rcqi_start).count() << " s\n";
+		}
+
+		if(!preserve_order && paired_end) {
+			std::cout << "Encoding pairing information ...\n";
+			auto pe_encode_start = std::chrono::steady_clock::now();
+			pe_encode(temp_dir, cp);
+			auto pe_encode_end = std::chrono::steady_clock::now();
+			std::cout << "Encoding pairing information done!\n";
+			std::cout << "Time for this step: " << std::chrono::duration_cast<std::chrono::seconds>(encode_order_pe_end-encode_order_pe_start).count() << " s\n";
+		}
 
 		std::cout << "Reordering and compressing streams ...\n";
 		auto rcs_start = std::chrono::steady_clock::now();

@@ -9,8 +9,6 @@
 #include <fstream>
 #include <iostream>
 #include <list>
-#include <numeric>
-#include <string>
 #include <string>
 #include <vector>
 #include "libbsc/bsc.h"

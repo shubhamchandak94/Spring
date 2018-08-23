@@ -3,7 +3,6 @@
 
 #include <omp.h>
 #include <algorithm>
-#include <array>
 #include <bitset>
 #include <cstdio>
 #include <cstdlib>
@@ -11,10 +10,7 @@
 #include <fstream>
 #include <iostream>
 #include <list>
-#include <numeric>
 #include <string>
-#include <string>
-#include <vector>
 #include "util.h"
 #include "bitset_util.h"
 #include "params.h"
@@ -169,7 +165,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
     // flag to check if match was found or not
     std::string current, ref;
     std::bitset<bitset_size> forward_bitset, reverse_bitset, b;
-    char c = '0', rc;
+    char c = '0', rc = 'd';
     std::list<contig_reads> current_contig;
     int64_t p;
     uint16_t rl;

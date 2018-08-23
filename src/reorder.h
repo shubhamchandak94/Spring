@@ -3,7 +3,6 @@
 
 #include <omp.h>
 #include <algorithm>
-#include <atomic>
 #include <bitset>
 #include <cstdio>
 #include <cstdlib>
@@ -11,7 +10,6 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <vector>
 #include "util.h"
 #include "bitset_util.h"
 #include "params.h"

@@ -2,53 +2,18 @@
 #define SPRING_REORDER_COMPRESS_QUALITY_ID_H_
 
 #include <string>
-#include "reorder_compress_quality_id.h"
+#include "util.h"
 
 namespace spring {
 
-struct reorder_compress_quality_id_global {
-  uint8_t paired_id_code;
-  bool preserve_order, paired_end, preserve_quality, preserve_id;
-  std::string quality_mode;
-  double quality_ratio;
-  uint32_t numreads, numreads_by_2;
-  int max_readlen, num_thr;
-  char illumina_binning_table[128];
+void reorder_compress_quality_id(const std::string &temp_dir, const compression_params &cp);
 
-  std::string infile_id_1;
-  std::string infile_id_2;
-  std::string infile_order;
-  std::string outfile_order;
-  std::string infilenumreads;
-  std::string basedir;
-};
+void generate_order_pe(const std::string &file_order, uint32_t *order_array, const uint32_t &numreads);
 
-void generate_order(reorder_compress_quality_id_global &rg);
-// generate reordering information for the two separate files (pairs) from
-// read_order.bin
+void generate_order_se(const std::string &file_order, uint32_t *order_array, const uint32_t &numreads);
 
-void reorder_quality(dsg::input::fastq::FastqFileReader *fastqFileReader1,
-                     dsg::input::fastq::FastqFileReader *fastqFileReader2,
-                     reorder_compress_quality_id_global &rg);
-void reorder_id(reorder_compress_quality_id_global &rg);
-
-namespace qvz {
-void encode(FILE *fout, struct qv_options_t *opts, uint32_t max_readlen,
-            uint32_t numreads, char *quality_array, uint16_t *read_lengths,
-            std::string &infile_order, uint64_t startpos);
-} // namespace qvz
-
-void illumina_binning(char *quality, uint16_t readlen, reorder_compress_quality_id_global &rg);
-void generate_illumina_binning_table(reorder_compress_quality_id_global &rg);
-
-int reorder_compress_quality_id(std::string &temp_dir, int max_readlen,
-                                int num_thr, bool paired_end,
-                                bool preserve_order, bool preserve_quality,
-                                bool preserve_id,
-                                dsg::input::fastq::FastqFileReader *fastqFileReader1,
-                                dsg::input::fastq::FastqFileReader *fastqFileReader2,
-                                std::string quality_mode,
-                                double quality_ratio);
+void reorder_compress(const std::string &file_name, const uint32_t &num_reads_per_file, const int &num_thr, const uint32_t &num_reads_per_block, std::string *str_array, const uint32_t &str_array_size, uint32_t *order_array, const std::string &mode);
+// mode can be "quality" or "id"
 
 } // namespace spring
 

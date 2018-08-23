@@ -29,8 +29,8 @@ struct compression_params {
 	uint32_t max_readlen;
 	uint8_t paired_id_code;
 	bool paired_id_match;
-	int num_reads_per_chunk;
-	int num_reads_per_chunk_long;
+	int num_reads_per_block;
+	int num_reads_per_block_long;
 	int num_thr;
 };
 

@@ -2,7 +2,7 @@
 #define SPRING_SPRING_H_
 
 #include <string>
-#include <util.h>
+#include "util.h"
 
 namespace spring {
 

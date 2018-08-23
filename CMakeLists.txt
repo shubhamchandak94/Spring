@@ -47,7 +47,7 @@ add_subdirectory(boost-cmake)
 set(source_dir ${CMAKE_SOURCE_DIR}/src)
 set(include_dir ${CMAKE_SOURCE_DIR}/src)
 # test file
-#set(source_files ${source_files} ${source_dir}/../util/boost_openmp_bsc_test.cpp)
+# set(source_files ${source_files} ${source_dir}/../util/boost_openmp_bsc_test.cpp)
 # spring
 set(source_files ${source_files} ${source_dir}/main.cpp)
 set(source_files ${source_files} ${source_dir}/spring.cpp)
@@ -56,6 +56,8 @@ set(source_files ${source_files} ${source_dir}/bitset_util.cpp)
 set(source_files ${source_files} ${source_dir}/preprocess.cpp)
 set(source_files ${source_files} ${source_dir}/encoder.cpp)
 set(source_files ${source_files} ${source_dir}/reorder_compress_streams.cpp)
+set(source_files ${source_files} ${source_dir}/pe_encode.cpp)
+set(source_files ${source_files} ${source_dir}/reorder_compress_quality_id.cpp)
 set(source_files ${source_files} ${source_dir}/decompress.cpp)
 
 # id compression
