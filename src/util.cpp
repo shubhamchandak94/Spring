@@ -1,70 +1,79 @@
-#include <string>
-#include <fstream>
-#include <algorithm>
-#include <stdexcept>
 #include "util.h"
+#include <algorithm>
+#include <fstream>
+#include <stdexcept>
+#include <string>
 #include "id_compression/include/sam_block.h"
 
 namespace spring {
 
-uint32_t read_fastq_block(std::ifstream &fin, std::string *id_array, std::string *read_array, std::string *quality_array, const uint32_t &num_reads) {
-	uint32_t num_done = 0;
-	std::string comment;
-	for(; num_done < num_reads; num_done++) {
-		if(!std::getline(fin, id_array[num_done]))
-			break;
-		if(!std::getline(fin, read_array[num_done]))
-			throw std::runtime_error("Invalid FASTQ file. Number of lines not multiple of 4");
-		if(!std::getline(fin, comment))
-			throw std::runtime_error("Invalid FASTQ file. Number of lines not multiple of 4");
-		if(!std::getline(fin, quality_array[num_done]))
-			throw std::runtime_error("Invalid FASTQ file. Number of lines not multiple of 4");
-	}
-	return num_done;
+uint32_t read_fastq_block(std::ifstream &fin, std::string *id_array,
+                          std::string *read_array, std::string *quality_array,
+                          const uint32_t &num_reads) {
+  uint32_t num_done = 0;
+  std::string comment;
+  for (; num_done < num_reads; num_done++) {
+    if (!std::getline(fin, id_array[num_done])) break;
+    if (!std::getline(fin, read_array[num_done]))
+      throw std::runtime_error(
+          "Invalid FASTQ file. Number of lines not multiple of 4");
+    if (!std::getline(fin, comment))
+      throw std::runtime_error(
+          "Invalid FASTQ file. Number of lines not multiple of 4");
+    if (!std::getline(fin, quality_array[num_done]))
+      throw std::runtime_error(
+          "Invalid FASTQ file. Number of lines not multiple of 4");
+  }
+  return num_done;
 }
 
-void write_fastq_block(std::ofstream &fout, std::string *id_array, std::string *read_array, std::string *quality_array, const uint32_t &num_reads, const bool preserve_quality) {
-	for (uint32_t i = 0; i < num_reads; i++) {
-		fout << id_array[i] << "\n";
-		fout << read_array[i] << "\n";
-		if(preserve_quality) {
-			fout << "+\n";
-			fout << quality_array[i] << "\n";
-		}
-	}
+void write_fastq_block(std::ofstream &fout, std::string *id_array,
+                       std::string *read_array, std::string *quality_array,
+                       const uint32_t &num_reads, const bool preserve_quality) {
+  for (uint32_t i = 0; i < num_reads; i++) {
+    fout << id_array[i] << "\n";
+    fout << read_array[i] << "\n";
+    if (preserve_quality) {
+      fout << "+\n";
+      fout << quality_array[i] << "\n";
+    }
+  }
 }
 
-void compress_id_block(const char* outfile_name, std::string *id_array, const uint32_t &num_ids) {
-	struct id_comp::compressor_info_t comp_info;
-	comp_info.numreads = num_ids;
-	comp_info.mode = COMPRESSION;
-	comp_info.id_array = id_array;
-	comp_info.fcomp = fopen(outfile_name, "w");
-	if(!comp_info.fcomp) {
-		perror(outfile_name);
-		throw std::runtime_error("ID compression: File output error");
-	}
-	id_comp::compress((void *)&comp_info);
-	fclose(comp_info.fcomp);
+void compress_id_block(const char *outfile_name, std::string *id_array,
+                       const uint32_t &num_ids) {
+  struct id_comp::compressor_info_t comp_info;
+  comp_info.numreads = num_ids;
+  comp_info.mode = COMPRESSION;
+  comp_info.id_array = id_array;
+  comp_info.fcomp = fopen(outfile_name, "w");
+  if (!comp_info.fcomp) {
+    perror(outfile_name);
+    throw std::runtime_error("ID compression: File output error");
+  }
+  id_comp::compress((void *)&comp_info);
+  fclose(comp_info.fcomp);
 }
 
-void decompress_id_block(const char* infile_name, std::string *id_array, const uint32_t &num_ids) {
-	struct id_comp::compressor_info_t comp_info;
-	comp_info.numreads = num_ids;
-	comp_info.mode = DECOMPRESSION;
-	comp_info.id_array = id_array;
-	comp_info.fcomp = fopen(infile_name, "r");
-	if(!comp_info.fcomp) {
-		perror(infile_name);
-		throw std::runtime_error("ID compression: File input error");
-	}
-	id_comp::decompress((void *)&comp_info);
-	fclose(comp_info.fcomp);
+void decompress_id_block(const char *infile_name, std::string *id_array,
+                         const uint32_t &num_ids) {
+  struct id_comp::compressor_info_t comp_info;
+  comp_info.numreads = num_ids;
+  comp_info.mode = DECOMPRESSION;
+  comp_info.id_array = id_array;
+  comp_info.fcomp = fopen(infile_name, "r");
+  if (!comp_info.fcomp) {
+    perror(infile_name);
+    throw std::runtime_error("ID compression: File input error");
+  }
+  id_comp::decompress((void *)&comp_info);
+  fclose(comp_info.fcomp);
 }
 
-void quantize_quality(std::string *quality_array, const uint32_t &num_lines, char *quantization_table) {
-  for(uint32_t i = 0; i < num_lines; i++)
-    for(uint32_t j = 0; j < quality_array[i].size(); j++)
+void quantize_quality(std::string *quality_array, const uint32_t &num_lines,
+                      char *quantization_table) {
+  for (uint32_t i = 0; i < num_lines; i++)
+    for (uint32_t j = 0; j < quality_array[i].size(); j++)
       quality_array[i][j] = quantization_table[(uint8_t)quality_array[i][j]];
   return;
 }
@@ -82,7 +91,7 @@ void generate_illumina_binning_table(char *illumina_binning_table) {
     illumina_binning_table[i] = 33 + 33;
   for (uint8_t i = 33 + 35; i <= 33 + 39; i++)
     illumina_binning_table[i] = 33 + 37;
-  for (uint8_t i = 33 + 40; i <= 127; i++)illumina_binning_table[i] = 33 + 40;
+  for (uint8_t i = 33 + 40; i <= 127; i++) illumina_binning_table[i] = 33 + 40;
 }
 
 // ID patterns
@@ -151,82 +160,78 @@ bool check_id_pattern(const std::string &id_1, const std::string &id_2,
 }
 
 void modify_id(std::string &id, const uint8_t paired_id_code) {
-	if(paired_id_code == 2)
-		return;
-	else if(paired_id_code == 1)
-	{
-		id.back() = '2';
-		return;
-	}
-	else if(paired_id_code == 3)
-	{
-		int i = 0;
-		while(id[i] != ' ')
-			i++;
-		id[i+1] = '2';
-		return;
-	}
+  if (paired_id_code == 2)
+    return;
+  else if (paired_id_code == 1) {
+    id.back() = '2';
+    return;
+  } else if (paired_id_code == 3) {
+    int i = 0;
+    while (id[i] != ' ') i++;
+    id[i + 1] = '2';
+    return;
+  }
 }
 
 void write_dna_in_bits(const std::string &read, std::ofstream &fout) {
-	uint8_t dna2int[128];
-	dna2int[(uint8_t)'A'] = 0;
-	dna2int[(uint8_t)'C'] = 1;
-	dna2int[(uint8_t)'G'] = 2;
-	dna2int[(uint8_t)'T'] = 3;
-	uint16_t readlen = read.size();
-	fout.write((char*)&readlen,sizeof(uint16_t));
-	uint8_t byte;
-	for(int i = 0; i < readlen/4; i++) {
-		byte = 0;
-		for(int j = 0; j < 4; j++)
-			byte = byte*4 + dna2int[(uint8_t)read[4*i+j]];
-		fout.write((char*)&byte,sizeof(uint8_t));
-	}
-	if(readlen%4 != 0) {
-		int i = readlen/4;
-		byte = 0;
-		for(int j = 0; j < readlen%4; j++)
-			byte = byte*4 + dna2int[(uint8_t)read[4*i+j]];
-		fout.write((char*)&byte,sizeof(uint8_t));
-	}
-	return;
+  uint8_t dna2int[128];
+  dna2int[(uint8_t)'A'] = 0;
+  dna2int[(uint8_t)'C'] = 1;
+  dna2int[(uint8_t)'G'] = 2;
+  dna2int[(uint8_t)'T'] = 3;
+  uint16_t readlen = read.size();
+  fout.write((char *)&readlen, sizeof(uint16_t));
+  uint8_t byte;
+  for (int i = 0; i < readlen / 4; i++) {
+    byte = 0;
+    for (int j = 0; j < 4; j++)
+      byte = byte * 4 + dna2int[(uint8_t)read[4 * i + j]];
+    fout.write((char *)&byte, sizeof(uint8_t));
+  }
+  if (readlen % 4 != 0) {
+    int i = readlen / 4;
+    byte = 0;
+    for (int j = 0; j < readlen % 4; j++)
+      byte = byte * 4 + dna2int[(uint8_t)read[4 * i + j]];
+    fout.write((char *)&byte, sizeof(uint8_t));
+  }
+  return;
 }
 
 void read_dna_from_bits(std::string &read, std::ifstream &fin) {
-	uint16_t readlen;
-	fin.read((char*)&readlen,sizeof(uint16_t));
-	read.resize(readlen);
-	uint8_t byte;
-	for(int i = 0; i < readlen/4; i++) {
-		fin.read((char*)&byte,sizeof(uint8_t));
-		for(int j = 0; j < 4; j++) {
-			if(byte%4 == 0)
-				read[4*i+3-j] = 'A';
-			else if(byte%4 == 1)
-				read[4*i+3-j] = 'C';
-			else if(byte%4 == 2)
-				read[4*i+3-j] = 'G';
-			else if(byte%4 == 3)
-				read[4*i+3-j] = 'T';
-			byte /= 4;
-		}
-	}
-	if(readlen/4 != 0) {
-		int i = readlen/4;
-		fin.read((char*)&byte,sizeof(uint8_t));
-		for(int j = 0; j < readlen%4; j++) {
-			if(byte%4 == 0)
-				read[4*i+readlen%4-1-j] = 'A';
-			else if(byte%4 == 1)
-				read[4*i+readlen%4-1-j] = 'C';
-			else if(byte%4 == 2)
-				read[4*i+readlen%4-1-j] = 'G';
-			else if(byte%4 == 3)
-				read[4*i+readlen%4-1-j] = 'T';
-			byte /= 4;
-		}
-	}
+  uint16_t readlen;
+  fin.read((char *)&readlen, sizeof(uint16_t));
+  read.resize(readlen);
+  uint8_t byte;
+  for (int i = 0; i < readlen / 4; i++) {
+    fin.read((char *)&byte, sizeof(uint8_t));
+    for (int j = 0; j < 4; j++) {
+      if (byte % 4 == 0)
+        read[4 * i + 3 - j] = 'A';
+      else if (byte % 4 == 1)
+        read[4 * i + 3 - j] = 'C';
+      else if (byte % 4 == 2)
+        read[4 * i + 3 - j] = 'G';
+      else if (byte % 4 == 3)
+        read[4 * i + 3 - j] = 'T';
+      byte /= 4;
+    }
+  }
+  if (readlen / 4 != 0) {
+    int i = readlen / 4;
+    fin.read((char *)&byte, sizeof(uint8_t));
+    for (int j = 0; j < readlen % 4; j++) {
+      if (byte % 4 == 0)
+        read[4 * i + readlen % 4 - 1 - j] = 'A';
+      else if (byte % 4 == 1)
+        read[4 * i + readlen % 4 - 1 - j] = 'C';
+      else if (byte % 4 == 2)
+        read[4 * i + readlen % 4 - 1 - j] = 'G';
+      else if (byte % 4 == 3)
+        read[4 * i + readlen % 4 - 1 - j] = 'T';
+      byte /= 4;
+    }
+  }
 }
 void reverse_complement(char *s, char *s1, const int readlen) {
   for (int j = 0; j < readlen; j++)

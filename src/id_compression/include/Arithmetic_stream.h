@@ -109,7 +109,7 @@ int clean_compressed_dir(struct io_stream_t *ios);
 void open_new_iofile(struct io_stream_t *ios);
 void stream_fill_buffer(struct io_stream_t *os);
 
-} // namespace id_comp
-} // namespace spring
+}  // namespace id_comp
+}  // namespace spring
 
 #endif

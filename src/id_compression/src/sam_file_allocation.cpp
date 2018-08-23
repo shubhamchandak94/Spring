@@ -39,16 +39,13 @@ id_block alloc_id_block() {
 
 void free_id_block(id_block rtn) {
   free_id_models_t(rtn->models);
-  for (uint32_t i = 0; i < rtn->block_length; i++)
-    free(rtn->IDs[i]); 
+  for (uint32_t i = 0; i < rtn->block_length; i++) free(rtn->IDs[i]);
   free(rtn->IDs);
   free(rtn);
 }
 
-sam_block alloc_sam_models(//Arithmetic_stream as, 
-			   std::string *id_array,
-                           std::ifstream *f_order, uint32_t numreads
-                          ) {
+sam_block alloc_sam_models(  // Arithmetic_stream as,
+    std::string *id_array, std::ifstream *f_order, uint32_t numreads) {
   sam_block sb = (sam_block)calloc(1, sizeof(struct sam_block_t));
 
   //   sb->fs = fin;
@@ -56,8 +53,8 @@ sam_block alloc_sam_models(//Arithmetic_stream as,
   //  sb->fref = fref;
 
   // initialize the codebook_model
-//  uint32_t rescale = 1 << 20;
-//  sb->codebook_model = initialize_stream_model_codebook(rescale);
+  //  uint32_t rescale = 1 << 20;
+  //  sb->codebook_model = initialize_stream_model_codebook(rescale);
   sb->id_array = id_array;
   sb->f_order = f_order;
   sb->numreads = numreads;
@@ -69,27 +66,27 @@ sam_block alloc_sam_models(//Arithmetic_stream as,
 }
 
 void free_sam_models(sam_block sb) {
-//  free_models_array(sb->codebook_model,256*4);  
-  free_id_block(sb->IDs); 
+  //  free_models_array(sb->codebook_model,256*4);
+  free_id_block(sb->IDs);
   free(sb);
 }
 
 uint32_t load_sam_line(sam_block sb) {
-//old version
-/*
-  uint32_t order;
+  // old version
+  /*
+    uint32_t order;
 
-  char *ID_line = *sb->IDs->IDs;
+    char *ID_line = *sb->IDs->IDs;
 
-  // Read compulsory fields
-  if (sb->current_read_number != sb->numreads) {
-    sb->f_order->read((char *)&order, sizeof(uint32_t));
-    strcpy(ID_line, (sb->id_array[order]).c_str());
-    sb->current_read_number++;
-    return 0;
-  } else
-    return 1;
-*/
+    // Read compulsory fields
+    if (sb->current_read_number != sb->numreads) {
+      sb->f_order->read((char *)&order, sizeof(uint32_t));
+      strcpy(ID_line, (sb->id_array[order]).c_str());
+      sb->current_read_number++;
+      return 0;
+    } else
+      return 1;
+  */
 
   char *ID_line = *sb->IDs->IDs;
 
@@ -102,5 +99,5 @@ uint32_t load_sam_line(sam_block sb) {
     return 1;
 }
 
-} // namespace id_comp
-} // namespace spring
+}  // namespace id_comp
+}  // namespace spring

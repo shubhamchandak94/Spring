@@ -281,5 +281,5 @@ int decompress_id(Arithmetic_stream as, id_models model, char *id,
   return 1;
 }
 
-} // namespace id_comp
-} // namespace spring
+}  // namespace id_comp
+}  // namespace spring

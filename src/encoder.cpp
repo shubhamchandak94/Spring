@@ -18,14 +18,12 @@ std::string buildcontig(std::list<contig_reads> &current_contig,
                         const uint32_t &list_size) {
   static const char longtochar[5] = {'A', 'C', 'G', 'T', 'N'};
   static const long chartolong[128] = {
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 4, 0,
-    0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 3, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   };
   if (list_size == 1) return (current_contig.front()).read;
   auto current_contig_it = current_contig.begin();
@@ -60,11 +58,12 @@ std::string buildcontig(std::list<contig_reads> &current_contig,
   return ref;
 }
 
-void writecontig(const std::string &ref, std::list<contig_reads> &current_contig,
-                 std::ofstream &f_seq, std::ofstream &f_pos,
-                 std::ofstream &f_noise, std::ofstream &f_noisepos,
-                 std::ofstream &f_order, std::ofstream &f_RC,
-                 std::ofstream &f_readlength, const encoder_global &eg, uint64_t &abs_pos) {
+void writecontig(const std::string &ref,
+                 std::list<contig_reads> &current_contig, std::ofstream &f_seq,
+                 std::ofstream &f_pos, std::ofstream &f_noise,
+                 std::ofstream &f_noisepos, std::ofstream &f_order,
+                 std::ofstream &f_RC, std::ofstream &f_readlength,
+                 const encoder_global &eg, uint64_t &abs_pos) {
   f_seq << ref;
   uint16_t pos_var;
   long prevj = 0;
@@ -79,12 +78,12 @@ void writecontig(const std::string &ref, std::list<contig_reads> &current_contig
         f_noise << eg.enc_noise[(uint8_t)ref[currentpos + j]]
                                [(uint8_t)(*current_contig_it).read[j]];
         pos_var = j - prevj;
-	      f_noisepos.write((char*)&pos_var,sizeof(uint16_t));
+        f_noisepos.write((char *)&pos_var, sizeof(uint16_t));
         prevj = j;
       }
     f_noise << "\n";
     abs_current_pos = abs_pos + currentpos;
-    f_pos.write((char*)&abs_current_pos,sizeof(uint64_t));
+    f_pos.write((char *)&abs_current_pos, sizeof(uint64_t));
     f_order.write((char *)&((*current_contig_it).order), sizeof(uint32_t));
     f_readlength.write((char *)&((*current_contig_it).read_length),
                        sizeof(uint16_t));
@@ -132,8 +131,9 @@ void pack_compress_seq(const encoder_global &eg, uint64_t *file_len_seq_thr) {
     for (unsigned int i = 0; i < file_len % 4; i++) f_seq_tail << dnabase[i];
     f_seq_tail.close();
     in_seq.close();
-    bsc::BSC_compress((eg.outfile_seq + '.' + std::to_string(tid) + ".tmp").c_str(),
-                      (eg.outfile_seq + '.' + std::to_string(tid) + ".bsc").c_str());
+    bsc::BSC_compress(
+        (eg.outfile_seq + '.' + std::to_string(tid) + ".tmp").c_str(),
+        (eg.outfile_seq + '.' + std::to_string(tid) + ".bsc").c_str());
     remove((eg.outfile_seq + '.' + std::to_string(tid)).c_str());
     remove((eg.outfile_seq + '.' + std::to_string(tid) + ".tmp").c_str());
   }

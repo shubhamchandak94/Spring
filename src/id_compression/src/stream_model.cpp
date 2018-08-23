@@ -126,5 +126,5 @@ int read_value_from_as(Arithmetic_stream as, stream_model model) {
   return x;
 }
 
-} // namespace id_comp
-} // namespace spring
+}  // namespace id_comp
+}  // namespace spring

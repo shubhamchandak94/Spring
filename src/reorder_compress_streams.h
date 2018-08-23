@@ -6,8 +6,9 @@
 
 namespace spring {
 
-void reorder_compress_streams (const std::string &temp_dir, const compression_params &cp);
+void reorder_compress_streams(const std::string &temp_dir,
+                              const compression_params &cp);
 
-} // namespace spring
+}  // namespace spring
 
-#endif // SPRING_REORDER_COMPRESS_STREAMS_H_
+#endif  // SPRING_REORDER_COMPRESS_STREAMS_H_

@@ -7,7 +7,7 @@
 namespace spring {
 
 void preprocess(const std::string &infile_1, const std::string &infile_2,
-               const std::string &temp_dir, compression_params &cp);
+                const std::string &temp_dir, compression_params &cp);
 
 }  // namespace spring
 

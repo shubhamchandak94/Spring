@@ -20,9 +20,7 @@ int print_line(struct sam_line_t *sline, FILE *fs) {
 }
 
 void *compress(void *thread_info) {
-
   unsigned long long lineCtr = 0;
-
 
   struct compressor_info_t info = *((struct compressor_info_t *)thread_info);
 
@@ -30,8 +28,8 @@ void *compress(void *thread_info) {
   Arithmetic_stream as = alloc_arithmetic_stream(info.mode, info.fcomp);
 
   // Allocs the different blocks and all the models for the Arithmetic
-  sam_block samBlock = alloc_sam_models(info.id_array, info.f_order,
-                                        info.numreads);
+  sam_block samBlock =
+      alloc_sam_models(info.id_array, info.f_order, info.numreads);
   char prev_ID[1024] = {0};  // these were static before. That didn't play well
                              // with parallelization
   uint32_t prev_tokens_ptr[1024] = {0};
@@ -50,7 +48,6 @@ void *compress(void *thread_info) {
 }
 
 void *decompress(void *thread_info) {
-
   struct compressor_info_t *info = (struct compressor_info_t *)thread_info;
 
   Arithmetic_stream as = alloc_arithmetic_stream(info->mode, info->fcomp);
@@ -66,12 +63,12 @@ void *decompress(void *thread_info) {
     decompress_id(as, samBlock->IDs->models, sline.ID, prev_ID, prev_tokens_ptr,
                   prev_tokens_len);
     info->id_array[n] = sline.ID;
-//    print_line(&sline, info->f_id);
+    //    print_line(&sline, info->f_id);
   }
   free_arithmetic_stream(as);
   free_sam_models(samBlock);
   return NULL;
 }
 
-} // namespace id_comp
-} // namespace spring
+}  // namespace id_comp
+}  // namespace spring

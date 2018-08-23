@@ -34,7 +34,7 @@ int read_value_from_as(Arithmetic_stream as, stream_model model);
 void free_model(stream_model model);
 void free_models_array(stream_model *model_ptr, uint32_t num_models);
 
-} // namespace id_comp
-} // namespace spring
+}  // namespace id_comp
+}  // namespace spring
 
 #endif

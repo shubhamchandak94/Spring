@@ -55,7 +55,6 @@
 namespace spring {
 namespace id_comp {
 
-
 struct sam_line_t {
   char ID[1024];
 };
@@ -141,10 +140,8 @@ stream_model *alloc_stream_model_qv(uint32_t read_length,
                                     uint32_t input_alphabet_size,
                                     uint32_t rescale);
 
-sam_block alloc_sam_models(//Arithmetic_stream as, 
-                           std::string *id_array,
-                           std::ifstream *f_order, uint32_t numreads
-                          );
+sam_block alloc_sam_models(  // Arithmetic_stream as,
+    std::string *id_array, std::ifstream *f_order, uint32_t numreads);
 void free_sam_models(sam_block sb);
 uint32_t load_sam_block(sam_block sb);
 
@@ -169,7 +166,7 @@ uint32_t load_sam_line(sam_block sb);
 uint8_t create_most_common_list(sam_block sb);
 uint8_t get_most_common_token(char **list, uint32_t list_size, char *aux_field);
 
-} // namespace id_comp
-} // namespace spring
+}  // namespace id_comp
+}  // namespace spring
 
 #endif

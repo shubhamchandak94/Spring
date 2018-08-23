@@ -11,9 +11,9 @@
 #include <iostream>
 #include <list>
 #include <string>
-#include "util.h"
 #include "bitset_util.h"
 #include "params.h"
+#include "util.h"
 
 namespace spring {
 
@@ -28,13 +28,12 @@ struct encoder_global_b {
                // conversion to ullong)
   encoder_global_b(int max_readlen_param) {
     max_readlen = max_readlen_param;
-    basemask = new std::bitset<bitset_size> * [max_readlen_param];
-    for(int i = 0; i < max_readlen_param; i++)
+    basemask = new std::bitset<bitset_size> *[max_readlen_param];
+    for (int i = 0; i < max_readlen_param; i++)
       basemask[i] = new std::bitset<bitset_size>[128];
   }
   ~encoder_global_b() {
-    for(int i = 0; i < max_readlen; i++)
-      delete[] basemask[i];
+    for (int i = 0; i < max_readlen; i++) delete[] basemask[i];
     delete[] basemask;
   }
 };
@@ -61,9 +60,7 @@ struct encoder_global {
   std::string infile_order;
   std::string infile_order_N;
 
-
   char enc_noise[128][128];
-
 };
 
 struct contig_reads {
@@ -77,12 +74,12 @@ struct contig_reads {
 std::string buildcontig(std::list<contig_reads> &current_contig,
                         const uint32_t &list_size);
 
-void writecontig(const std::string &ref, std::list<contig_reads> &current_contig,
-                 std::ofstream &f_seq, std::ofstream &f_pos,
-                 std::ofstream &f_noise, std::ofstream &f_noisepos,
-                 std::ofstream &f_order, std::ofstream &f_RC,
-                 std::ofstream &f_readlength, const encoder_global &eg,
-                 uint64_t &abs_pos);
+void writecontig(const std::string &ref,
+                 std::list<contig_reads> &current_contig, std::ofstream &f_seq,
+                 std::ofstream &f_pos, std::ofstream &f_noise,
+                 std::ofstream &f_noisepos, std::ofstream &f_order,
+                 std::ofstream &f_RC, std::ofstream &f_readlength,
+                 const encoder_global &eg, uint64_t &abs_pos);
 
 void pack_compress_seq(const encoder_global &eg, uint64_t *file_len_seq_thr);
 
@@ -92,11 +89,9 @@ void correct_order(uint32_t *order_s, const encoder_global &eg);
 
 template <size_t bitset_size>
 std::string bitsettostring(std::bitset<bitset_size> b, const uint16_t readlen,
-                           const encoder_global &eg,
                            const encoder_global_b<bitset_size> &egb) {
   // destroys bitset b
-  static const char revinttochar[8] = {'A', 'N', 'G', 0,
-                          'C', 0, 'T', 0};
+  static const char revinttochar[8] = {'A', 'N', 'G', 0, 'C', 0, 'T', 0};
   std::string s;
   s.resize(readlen);
   unsigned long long ull;
@@ -128,9 +123,10 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
 
   std::bitset<bitset_size> mask1[eg.numdict_s];
   generateindexmasks<bitset_size>(mask1, dict, eg.numdict_s, 3);
-  std::bitset<bitset_size> **mask = new std::bitset<bitset_size> *[eg.max_readlen];
-  for(int i = 0; i < eg.max_readlen; i++)
-    mask[i] = new std::bitset<bitset_size> [eg.max_readlen];
+  std::bitset<bitset_size> **mask =
+      new std::bitset<bitset_size> *[eg.max_readlen];
+  for (int i = 0; i < eg.max_readlen; i++)
+    mask[i] = new std::bitset<bitset_size>[eg.max_readlen];
   generatemasks<bitset_size>(mask, eg.max_readlen, 3);
   std::cout << "Encoding reads\n";
 #pragma omp parallel
@@ -159,7 +155,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
                          // in the dict read_id array
     uint64_t startposidx;  // index in startpos
     uint64_t ull;
-    uint64_t abs_pos = 0; // absolute position in reference (total length
+    uint64_t abs_pos = 0;  // absolute position in reference (total length
     // of all contigs till now)
     bool flag = 0;
     // flag to check if match was found or not
@@ -238,8 +234,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
                       ull1)  // checking if ull is actually the key for this bin
                   {
                     for (int64_t i = dictidx[1] - 1;
-                         i >= dictidx[0] && i >= dictidx[1] - maxsearch;
-                         i--) {
+                         i >= dictidx[0] && i >= dictidx[1] - maxsearch; i--) {
                       auto rid = dict[l].read_id[i];
                       int hamming;
                       if (!rev)
@@ -271,11 +266,10 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
                         std::string read_string =
                             rev ? reverse_complement(
                                       bitsettostring<bitset_size>(
-                                          read[rid], read_lengths_s[rid], eg,
-                                          egb),
+                                          read[rid], read_lengths_s[rid], egb),
                                       read_lengths_s[rid])
                                 : bitsettostring<bitset_size>(
-                                      read[rid], read_lengths_s[rid], eg, egb);
+                                      read[rid], read_lengths_s[rid], egb);
                         current_contig.push_back({read_string, pos, rc,
                                                   order_s[rid],
                                                   read_lengths_s[rid]});
@@ -316,8 +310,8 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
                                 [(uint8_t)ref[j + eg.max_readlen]];
                 reverse_bitset <<= 3;
                 reverse_bitset = reverse_bitset & mask[0][0];
-                reverse_bitset |= egb.basemask[0][(uint8_t)chartorevchar[(
-                    uint8_t)ref[j + eg.max_readlen]]];
+                reverse_bitset |= egb.basemask[0][(
+                    uint8_t)chartorevchar[(uint8_t)ref[j + eg.max_readlen]]];
               }
 
             }  // end for
@@ -366,8 +360,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
                            ".tmp");
     std::ifstream in_readlength(eg.infile_readlength + '.' +
                                 std::to_string(tid) + ".tmp");
-    std::ifstream in_RC(eg.infile_RC + '.' +
-                                std::to_string(tid) + ".tmp");
+    std::ifstream in_RC(eg.infile_RC + '.' + std::to_string(tid) + ".tmp");
     std::ifstream in_noisepos(eg.outfile_noisepos + '.' + std::to_string(tid));
     std::ifstream in_noise(eg.outfile_noise + '.' + std::to_string(tid));
     f_order << in_order.rdbuf();
@@ -406,14 +399,15 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
       matched_s--;
       f_order.write((char *)&order_s[i], sizeof(uint32_t));
       f_readlength.write((char *)&read_lengths_s[i], sizeof(uint16_t));
-      f_unaligned << bitsettostring<bitset_size>(read[i], read_lengths_s[i], eg,
+      f_unaligned << bitsettostring<bitset_size>(read[i], read_lengths_s[i],
                                                  egb);
     }
   uint32_t matched_N = eg.numreads_N;
   for (uint32_t i = eg.numreads_s; i < eg.numreads_s + eg.numreads_N; i++)
     if (remainingreads[i] == 1) {
       matched_N--;
-      f_unaligned << bitsettostring<bitset_size>(read[i], read_lengths_s[i], eg, egb);
+      f_unaligned << bitsettostring<bitset_size>(read[i], read_lengths_s[i],
+                                                 egb);
       f_order.write((char *)&order_s[i], sizeof(uint32_t));
       f_readlength.write((char *)&read_lengths_s[i], sizeof(uint16_t));
     }
@@ -423,23 +417,24 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
   delete[] remainingreads;
   delete[] dict_lock;
   delete[] read_lock;
-  for(int i = 0; i < eg.max_readlen; i++)
-    delete[] mask[i];
+  for (int i = 0; i < eg.max_readlen; i++) delete[] mask[i];
   delete[] mask;
 
-  // pack read_Seq and convert read_pos into 8 byte non-diff (absolute) positions
-  uint64_t *file_len_seq_thr = new uint64_t [eg.num_thr];
+  // pack read_Seq and convert read_pos into 8 byte non-diff (absolute)
+  // positions
+  uint64_t *file_len_seq_thr = new uint64_t[eg.num_thr];
   uint64_t abs_pos = 0;
   uint64_t abs_pos_thr;
   pack_compress_seq(eg, file_len_seq_thr);
   std::ofstream fout_pos(eg.outfile_pos, std::ios::binary);
   for (int tid = 0; tid < eg.num_thr; tid++) {
-    std::ifstream fin_pos(eg.outfile_pos + '.' + std::to_string(tid), std::ios::binary);
-    fin_pos.read((char*)&abs_pos_thr,sizeof(uint64_t));
-    while(!fin_pos.eof()) {
+    std::ifstream fin_pos(eg.outfile_pos + '.' + std::to_string(tid),
+                          std::ios::binary);
+    fin_pos.read((char *)&abs_pos_thr, sizeof(uint64_t));
+    while (!fin_pos.eof()) {
       abs_pos_thr += abs_pos;
-      fout_pos.write((char*)&abs_pos_thr,sizeof(uint64_t));
-      fin_pos.read((char*)&abs_pos_thr,sizeof(uint64_t));
+      fout_pos.write((char *)&abs_pos_thr, sizeof(uint64_t));
+      fin_pos.read((char *)&abs_pos_thr, sizeof(uint64_t));
     }
     fin_pos.close();
     remove((eg.outfile_pos + '.' + std::to_string(tid)).c_str());
@@ -456,7 +451,6 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
 
 template <size_t bitset_size>
 void setglobalarrays(encoder_global &eg, encoder_global_b<bitset_size> &egb) {
-
   for (int i = 0; i < 63; i++) egb.mask63[i] = 1;
   for (int i = 0; i < eg.max_readlen; i++) {
     egb.basemask[i][(uint8_t)'A'][3 * i] = 0;
@@ -513,7 +507,7 @@ void readsingletons(std::bitset<bitset_size> *read, uint32_t *order_s,
     stringtobitset<bitset_size>(s, read_lengths_s[i], read[i], egb.basemask);
   }
   f.close();
-  remove((eg.infile+".singleton").c_str());
+  remove((eg.infile + ".singleton").c_str());
   f.open(eg.infile_N);
   for (uint32_t i = eg.numreads_s; i < eg.numreads_s + eg.numreads_N; i++) {
     std::getline(f, s);
@@ -533,7 +527,8 @@ void readsingletons(std::bitset<bitset_size> *read, uint32_t *order_s,
 
 template <size_t bitset_size>
 void encoder_main(const std::string &temp_dir, const compression_params &cp) {
-  encoder_global_b<bitset_size> *egb_ptr = new encoder_global_b<bitset_size> (cp.max_readlen);
+  encoder_global_b<bitset_size> *egb_ptr =
+      new encoder_global_b<bitset_size>(cp.max_readlen);
   encoder_global *eg_ptr = new encoder_global;
   encoder_global_b<bitset_size> &egb = *egb_ptr;
   encoder_global &eg = *eg_ptr;

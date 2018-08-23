@@ -53,18 +53,24 @@ preprocessor macro LIBBSC_SORT_TRANSFORM_SUPPORT at compile time.
 namespace spring {
 namespace bsc {
 
-void BSC_compress(const char *infile, const char *outfile, const int bsize = BSC_BLOCK_SIZE);
+void BSC_compress(const char *infile, const char *outfile,
+                  const int bsize = BSC_BLOCK_SIZE);
 
 void BSC_decompress(const char *infile, const char *outfile);
 
-void BSC_str_array_compress(const char *outfile, std::string *str_array_param, const uint32_t size_str_array_param, uint32_t *str_lengths_param, const int bsize = BSC_BLOCK_SIZE);
+void BSC_str_array_compress(const char *outfile, std::string *str_array_param,
+                            const uint32_t size_str_array_param,
+                            uint32_t *str_lengths_param,
+                            const int bsize = BSC_BLOCK_SIZE);
 
-void BSC_str_array_decompress(const char *infile, std::string *str_array_param, const uint32_t size_str_array_param, uint32_t *str_lengths_param);
+void BSC_str_array_decompress(const char *infile, std::string *str_array_param,
+                              const uint32_t size_str_array_param,
+                              uint32_t *str_lengths_param);
 
-} // namespace bsc
-} // namespace spring
+}  // namespace bsc
+}  // namespace spring
 
-#endif // SPRING_LIBBSC_BSC_H_
+#endif  // SPRING_LIBBSC_BSC_H_
 
 /*-----------------------------------------------------------*/
 /* End                                               bsc.cpp */
