@@ -211,7 +211,7 @@ void readDnaFile(std::bitset<bitset_size> *read, uint16_t *read_lengths,
     uint32_t i = 0;
     while (std::getline(f, s)) {
       if (i % rg.num_thr == tid) {
-        read_lengths[i] = (uint8_t)s.length();
+        read_lengths[i] = (uint16_t)s.length();
         stringtobitset<bitset_size>(s, read_lengths[i], read[i], rg.basemask);
         i++;
       } else {
@@ -231,7 +231,7 @@ void readDnaFile(std::bitset<bitset_size> *read, uint16_t *read_lengths,
       uint32_t i = 0;
       while (std::getline(f, s)) {
         if (i % rg.num_thr == tid) {
-          read_lengths[rg.numreads_array[0] + i] = (uint8_t)s.length();
+          read_lengths[rg.numreads_array[0] + i] = (uint16_t)s.length();
           stringtobitset<bitset_size>(s, read_lengths[rg.numreads_array[0] + i],
                                       read[rg.numreads_array[0] + i],
                                       rg.basemask);

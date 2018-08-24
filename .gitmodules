@@ -1,3 +1,0 @@
-[submodule "boost-cmake"]
-	path = boost-cmake
-	url = https://github.com/shubhamchandak94/boost-cmake.git

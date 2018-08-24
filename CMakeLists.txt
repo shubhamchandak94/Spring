@@ -1,5 +1,5 @@
 project (SPRING)
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required (VERSION 3.0.0)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -19,7 +19,6 @@ message(STATUS "Setting compiler flags")
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 #set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wextra")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fomit-frame-pointer")
@@ -49,8 +48,7 @@ add_subdirectory(boost-cmake)
 
 set(source_dir ${CMAKE_SOURCE_DIR}/src)
 set(include_dir ${CMAKE_SOURCE_DIR}/src)
-# test file
-# set(source_files ${source_files} ${source_dir}/../util/boost_openmp_bsc_test.cpp)
+
 # spring
 set(source_files ${source_files} ${source_dir}/main.cpp)
 set(source_files ${source_files} ${source_dir}/spring.cpp)

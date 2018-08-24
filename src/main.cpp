@@ -1,5 +1,6 @@
 #include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
+#include <csignal>
 #include <cstdio>
 #include <fstream>
 #include <iostream>
@@ -7,7 +8,22 @@
 #include <vector>
 #include "spring.h"
 
+std::string temp_dir_global;  // for interrupt handling
+bool temp_dir_flag_global = false;
+
+void signalHandler(int signum) {
+  std::cout << "Interrupt signal (" << signum << ") received.\n";
+  std::cout << "Program terminated unexpectedly\n";
+  if (temp_dir_flag_global) {
+    std::cout << "Deleting temporary directory:" << temp_dir_global << "\n";
+    boost::filesystem::remove_all(temp_dir_global);
+  }
+  exit(signum);
+}
+
 int main(int argc, char** argv) {
+  // register signal SIGINT and signal handler
+  signal(SIGINT, signalHandler);
   namespace po = boost::program_options;
   bool help_flag = false, compress_flag = false, decompress_flag = false,
        pairing_only_flag = false, no_quality_flag = false, no_ids_flag = false,
@@ -21,7 +37,7 @@ int main(int argc, char** argv) {
       "compress,c", po::bool_switch(&compress_flag), "compress")(
       "decompress,d", po::bool_switch(&decompress_flag), "decompress")(
       "input-file,i", po::value<std::vector<std::string> >(&infile_vec),
-      "input file name (specify two files for paired end)")(
+      "input file name (use option twice for paired end)")(
       "output-file,o", po::value<std::vector<std::string> >(&outfile_vec),
       "output file name (for paired end decompression, if only one file is "
       "specified, two output files will be created by suffixing .1 and .2.)")(
@@ -29,13 +45,12 @@ int main(int argc, char** argv) {
       "number of threads (default 8)")(
       "allow_read_reordering,r", po::bool_switch(&pairing_only_flag),
       "do not retain read order during compression (paired reads still remain "
-      "paired). For single end files, this leads to arbitrary reordering of "
-      "the reads.")("no-quality", po::bool_switch(&no_quality_flag),
-                    "do not retain quality values during compression")(
+      "paired).")("no-quality", po::bool_switch(&no_quality_flag),
+                  "do not retain quality values during compression")(
       "no-ids", po::bool_switch(&no_ids_flag),
       "do not retain read identifiers during compression")(
       "working-dir,w", po::value<std::string>(&working_dir)->default_value("."),
-      "directory to create temporary files (default pwd)")(
+      "directory to create temporary files (default current directory)")(
       "ill-bin", po::bool_switch(&ill_bin_flag),
       "apply Illumina binning to quality scores before compression")(
       "long,l", po::bool_switch(&long_flag),
@@ -69,10 +84,15 @@ int main(int argc, char** argv) {
   }
   std::cout << "Temporary directory: " << temp_dir << "\n";
 
+  temp_dir_global = temp_dir;
+  temp_dir_flag_global = true;
+
   if (compress_flag && long_flag) {
     std::cout << "Long flag detected.\n";
-    std::cout << "For long mode: allow_read_reordering flag is disabled.\n";
-    pairing_only_flag = false;
+    if (pairing_only_flag) { 
+      std::cout << "For long mode: allow_read_reordering flag is disabled.\n";
+      pairing_only_flag = false;
+    }
   }
   try {
     if (compress_flag)
@@ -89,15 +109,18 @@ int main(int argc, char** argv) {
               << "\n";
     std::cout << "Deleting temporary directory...\n";
     boost::filesystem::remove_all(temp_dir);
+    temp_dir_flag_global = false;
     std::cout << desc << "\n";
     return 1;
   } catch (...) {
     std::cout << "Program terminated unexpectedly\n";
     std::cout << "Deleting temporary directory...\n";
     boost::filesystem::remove_all(temp_dir);
+    temp_dir_flag_global = false;
     std::cout << desc << "\n";
     return 1;
   }
   boost::filesystem::remove_all(temp_dir);
+  temp_dir_flag_global = false;
   return 0;
 }
