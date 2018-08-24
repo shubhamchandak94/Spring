@@ -10,6 +10,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <numeric>
 #include "bitset_util.h"
 #include "params.h"
 #include "util.h"
