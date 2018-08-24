@@ -41,6 +41,8 @@ int main(int argc, char** argv) {
       "output-file,o", po::value<std::vector<std::string> >(&outfile_vec),
       "output file name (for paired end decompression, if only one file is "
       "specified, two output files will be created by suffixing .1 and .2.)")(
+      "working-dir,w", po::value<std::string>(&working_dir)->default_value("."),
+      "directory to create temporary files (default current directory)")(
       "num-threads,t", po::value<int>(&num_thr)->default_value(8),
       "number of threads (default 8)")(
       "allow_read_reordering,r", po::bool_switch(&pairing_only_flag),
@@ -49,14 +51,13 @@ int main(int argc, char** argv) {
                   "do not retain quality values during compression")(
       "no-ids", po::bool_switch(&no_ids_flag),
       "do not retain read identifiers during compression")(
-      "working-dir,w", po::value<std::string>(&working_dir)->default_value("."),
-      "directory to create temporary files (default current directory)")(
       "ill-bin", po::bool_switch(&ill_bin_flag),
       "apply Illumina binning to quality scores before compression")(
       "long,l", po::bool_switch(&long_flag),
       "Use for compression of arbitrarily long read lengths. Can also provide "
-      "better compression for reads with significant number of indels. Some "
-      "other options might be disabled in this mode.");
+      "better compression for reads with significant number of indels. "
+      "-r disabled in this mode. For Illumina short "
+      "reads, compression is better without -l flag.");
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
   po::notify(vm);
