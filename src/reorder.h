@@ -339,7 +339,7 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
   for (int i = 0; i < rg.max_readlen; i++)
     mask[i] = new std::bitset<bitset_size>[rg.max_readlen];
   generatemasks<bitset_size>(mask, rg.max_readlen, 2);
-  std::bitset<bitset_size> mask1[rg.numdict];
+  std::bitset<bitset_size> *mask1 = new std::bitset<bitset_size>[rg.numdict];
   generateindexmasks<bitset_size>(mask1, dict, rg.numdict, 2);
   bool *remainingreads = new bool[rg.numreads];
   std::fill(remainingreads, remainingreads + rg.numreads, 1);
@@ -347,7 +347,8 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
   // we go through remainingreads array from behind as that speeds up deletion
   // from bin arrays
 
-  uint32_t firstread = 0, unmatched[rg.num_thr];
+  uint32_t firstread = 0;
+  uint32_t *unmatched = new uint32_t[rg.num_thr];
 #pragma omp parallel
   {
     int tid = omp_get_thread_num();
@@ -579,6 +580,8 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
             << " were unmatched\n";
   for (int i = 0; i < rg.max_readlen; i++) delete[] mask[i];
   delete[] mask;
+  delete[] mask1;
+  delete[] unmatched;
   return;
 }
 

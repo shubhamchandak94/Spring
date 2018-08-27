@@ -1,6 +1,6 @@
 #include <omp.h>
 #include <cstdio>
-#include <cstdlib>  // abs
+#include <cmath>  // abs
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
@@ -248,7 +248,7 @@ void reorder_compress_streams(const std::string &temp_dir,
           f_readlength.write((char *)&read_length_arr[i_p], sizeof(uint16_t));
           int64_t pos_pair = (int64_t)pos_arr[i_p] - (int64_t)pos_arr[i];
           int flag;
-          if (flag_arr[i] && flag_arr[i_p] && abs(pos_pair) < 32767)
+          if (flag_arr[i] && flag_arr[i_p] && std::abs(pos_pair) < 32767)
             flag = 0;
           else if (flag_arr[i] && flag_arr[i_p])
             flag = 1;

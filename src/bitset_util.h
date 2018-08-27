@@ -61,7 +61,7 @@ void constructdictionary(std::bitset<bitset_size> *read, bbhashdict *dict,
                          uint16_t *read_lengths, const int numdict,
                          const uint32_t &numreads, const int bpb,
                          const std::string &basedir, const int &num_thr) {
-  std::bitset<bitset_size> mask[numdict];
+  std::bitset<bitset_size> *mask = new std::bitset<bitset_size>[numdict];
   generateindexmasks<bitset_size>(mask, dict, numdict, bpb);
   for (int j = 0; j < numdict; j++) {
     uint64_t *ull = new uint64_t[numreads];
@@ -201,6 +201,7 @@ void constructdictionary(std::bitset<bitset_size> *read, bbhashdict *dict,
     }  // for end
   }    // parallel end
   omp_set_num_threads(num_thr);
+  delete[] mask;
   return;
 }
 

@@ -121,7 +121,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
   bool *remainingreads = new bool[eg.numreads_s + eg.numreads_N];
   std::fill(remainingreads, remainingreads + eg.numreads_s + eg.numreads_N, 1);
 
-  std::bitset<bitset_size> mask1[eg.numdict_s];
+  std::bitset<bitset_size> *mask1 = new std::bitset<bitset_size>[eg.numdict_s];
   generateindexmasks<bitset_size>(mask1, dict, eg.numdict_s, 3);
   std::bitset<bitset_size> **mask =
       new std::bitset<bitset_size> *[eg.max_readlen];
@@ -168,7 +168,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
     uint32_t ord, list_size = 0;  // list_size variable introduced because
                                   // list::size() was running very slowly
                                   // on UIUC machine
-    std::list<uint32_t> deleted_rids[eg.numdict_s];
+    std::list<uint32_t> *deleted_rids = new std::list<uint32_t>[eg.numdict_s];
     bool done = false;
     while (!done) {
       if (!(in_flag >> c)) done = true;
@@ -346,7 +346,8 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
     f_order.close();
     f_readlength.close();
     f_RC.close();
-  }
+    delete[] deleted_rids;
+  } // end omp parallel
 
   // Combine files produced by the threads
   std::ofstream f_order(eg.infile_order);
@@ -419,6 +420,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
   delete[] read_lock;
   for (int i = 0; i < eg.max_readlen; i++) delete[] mask[i];
   delete[] mask;
+  delete[] mask1;
 
   // pack read_Seq and convert read_pos into 8 byte non-diff (absolute)
   // positions

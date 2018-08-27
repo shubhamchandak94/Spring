@@ -241,6 +241,7 @@ void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
               }
 
               if (paired_end) {
+                int16_t pos_pair_16;
                 singleton_2 = (flag == '2') || (flag == '3');
                 f_readlength.read((char *)&rl, sizeof(uint16_t));
                 read_lengths_array_2[i] = rl;
@@ -251,7 +252,6 @@ void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
                     f_RC >> RC_2;
                   } else {
                     // read 2 pos and RC encoded in terms of read 1
-                    int16_t pos_pair_16;
                     char RC_relative;
                     f_pos_pair.read((char *)&pos_pair_16, sizeof(int16_t));
                     pos_2 = pos_1 + pos_pair_16;
