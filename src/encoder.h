@@ -23,9 +23,8 @@ struct encoder_global_b {
   int max_readlen;
   // bitset for A,G,C,T,N at each position
   // used in stringtobitset, and bitsettostring
-  std::bitset<bitset_size>
-      mask63;  // bitset with 63 bits set to 1 (used in bitsettostring for
-               // conversion to ullong)
+  std::bitset<bitset_size> mask63;  // bitset with 63 bits set to 1 (used in
+                                    // bitsettostring for conversion to ullong)
   encoder_global_b(int max_readlen_param) {
     max_readlen = max_readlen_param;
     basemask = new std::bitset<bitset_size> *[max_readlen_param];
@@ -347,7 +346,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
     f_readlength.close();
     f_RC.close();
     delete[] deleted_rids;
-  } // end omp parallel
+  }  // end omp parallel
 
   // Combine files produced by the threads
   std::ofstream f_order(eg.infile_order);

@@ -463,11 +463,11 @@ class XorshiftHashFunctors {
     s[0] = hset[0];
     s[1] = hset[1];
 
-    for (
-        size_t ii = 2;
-        ii <
-        10 /* it's much better have a constant here, for inlining; this loop is super performance critical*/;
-        ii++) {
+    for (size_t ii = 2;
+         ii < 10 /* it's much better have a constant here, for inlining; this
+                    loop is super performance critical*/
+         ;
+         ii++) {
       hset[ii] = next(s);
     }
 
@@ -799,9 +799,9 @@ class mphf {
       double sum_geom_read = (1.0 / (1.0 - _proba_collision));
       double total_writeEach = sum_geom_read + 1.0;
 
-      double total_fastmode_ram = (_fastModeLevel + 1) +
-                                  (pow(_proba_collision, _fastModeLevel)) *
-                                      (_nb_levels - (_fastModeLevel + 1));
+      double total_fastmode_ram =
+          (_fastModeLevel + 1) + (pow(_proba_collision, _fastModeLevel)) *
+                                     (_nb_levels - (_fastModeLevel + 1));
 
       printf(
           "for info, total work write each  : %.3f    total work inram from "
@@ -1404,7 +1404,7 @@ void* thread_processLevel(void* args) {
 
   return NULL;
 }
-}
+}  // namespace boomphf
 
 }  // namespace spring
 

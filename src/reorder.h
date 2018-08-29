@@ -9,8 +9,8 @@
 #include <cstring>
 #include <fstream>
 #include <iostream>
-#include <string>
 #include <numeric>
+#include <string>
 #include "bitset_util.h"
 #include "params.h"
 #include "util.h"
@@ -41,9 +41,8 @@ struct reorder_global {
   // bitset for A,G,C,T at each position
   // used in stringtobitset, chartobitset and bitsettostring (alloc in
   // construtctor)
-  std::bitset<bitset_size>
-      mask64;  // bitset with 64 bits set to 1 (used in bitsettostring for
-               // conversion to ullong)
+  std::bitset<bitset_size> mask64;  // bitset with 64 bits set to 1 (used in
+                                    // bitsettostring for conversion to ullong)
   reorder_global(int max_readlen_param) {
     basemask = new std::bitset<bitset_size> *[max_readlen_param];
     for (int i = 0; i < max_readlen_param; i++)
@@ -370,6 +369,11 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
     int64_t first_rid;
     // first_rid represents first read of contig, used for left searching
 
+    // variables for early stopping
+    bool stop_searching = false;
+    uint32_t num_reads_thr = 0;
+    uint32_t num_unmatched_past_1M_thr = 0;
+
     int **count = new int *[4];
     for (int i = 0; i < 4; i++) count[i] = new int[rg.max_readlen];
     int64_t dictidx[2];  // to store the start and end index (end not inclusive)
@@ -409,6 +413,13 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
     prev_unmatched = true;
     prev = current;
     while (!done) {
+      if (num_reads_thr % 1000000 == 0) {
+        if (num_unmatched_past_1M_thr > STOP_CRITERIA_REORDER * 1000000) {
+          stop_searching = true;
+        }
+        num_unmatched_past_1M_thr = 0;
+      }
+      num_reads_thr++;
       // delete the read from the corresponding dictionary bins (unless we are
       // starting left search)
       if (!left_search_start) {
@@ -428,86 +439,90 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
       }
       flag = 0;
       uint32_t k;
-      for (int shift = 0; shift < rg.maxshift; shift++) {
-        // find forward match
-        flag = search_match<bitset_size>(ref, mask1, dict_lock, read_lock, mask,
-                                         read_lengths, remainingreads, read,
-                                         dict, k, false, shift, ref_len, rg);
-        if (flag == 1) {
-          current = k;
-          int ref_len_old = ref_len;
-          updaterefcount<bitset_size>(read[current], ref, revref, count, false,
-                                      false, shift, read_lengths[current],
-                                      ref_len, rg);
-          if (!left_search) {
-            cur_read_pos = ref_pos + shift;
-            ref_pos = cur_read_pos;
-          } else {
-            cur_read_pos =
-                ref_pos + ref_len_old - shift - read_lengths[current];
-            ref_pos = ref_pos + ref_len_old - shift - ref_len;
-          }
-          if (prev_unmatched == true)  // prev read not singleton, write it now
-          {
-            foutRC << 'd';
-            foutorder.write((char *)&prev, sizeof(uint32_t));
-            foutflag << 0;  // for unmatched
-            int64_t zero = 0;
-            foutpos.write((char *)&zero, sizeof(int64_t));
-            foutlength.write((char *)&read_lengths[prev], sizeof(uint16_t));
-          }
-          foutRC << (left_search ? 'r' : 'd');
-          foutorder.write((char *)&current, sizeof(uint32_t));
-          foutflag << 1;  // for matched
-          foutpos.write((char *)&cur_read_pos, sizeof(int64_t));
-          foutlength.write((char *)&read_lengths[current], sizeof(uint16_t));
+      if (!stop_searching)
+        for (int shift = 0; shift < rg.maxshift; shift++) {
+          // find forward match
+          flag = search_match<bitset_size>(
+              ref, mask1, dict_lock, read_lock, mask, read_lengths,
+              remainingreads, read, dict, k, false, shift, ref_len, rg);
+          if (flag == 1) {
+            current = k;
+            int ref_len_old = ref_len;
+            updaterefcount<bitset_size>(read[current], ref, revref, count,
+                                        false, false, shift,
+                                        read_lengths[current], ref_len, rg);
+            if (!left_search) {
+              cur_read_pos = ref_pos + shift;
+              ref_pos = cur_read_pos;
+            } else {
+              cur_read_pos =
+                  ref_pos + ref_len_old - shift - read_lengths[current];
+              ref_pos = ref_pos + ref_len_old - shift - ref_len;
+            }
+            if (prev_unmatched ==
+                true)  // prev read not singleton, write it now
+            {
+              foutRC << 'd';
+              foutorder.write((char *)&prev, sizeof(uint32_t));
+              foutflag << 0;  // for unmatched
+              int64_t zero = 0;
+              foutpos.write((char *)&zero, sizeof(int64_t));
+              foutlength.write((char *)&read_lengths[prev], sizeof(uint16_t));
+            }
+            foutRC << (left_search ? 'r' : 'd');
+            foutorder.write((char *)&current, sizeof(uint32_t));
+            foutflag << 1;  // for matched
+            foutpos.write((char *)&cur_read_pos, sizeof(int64_t));
+            foutlength.write((char *)&read_lengths[current], sizeof(uint16_t));
 
-          prev_unmatched = false;
-          break;
+            prev_unmatched = false;
+            break;
+          }
+
+          // find reverse match
+          flag = search_match<bitset_size>(
+              revref, mask1, dict_lock, read_lock, mask, read_lengths,
+              remainingreads, read, dict, k, true, shift, ref_len, rg);
+          if (flag == 1) {
+            current = k;
+            int ref_len_old = ref_len;
+            updaterefcount<bitset_size>(read[current], ref, revref, count,
+                                        false, true, shift,
+                                        read_lengths[current], ref_len, rg);
+            if (!left_search) {
+              cur_read_pos =
+                  ref_pos + ref_len_old + shift - read_lengths[current];
+              ref_pos = ref_pos + ref_len_old + shift - ref_len;
+            } else {
+              cur_read_pos = ref_pos - shift;
+              ref_pos = cur_read_pos;
+            }
+            if (prev_unmatched ==
+                true)  // prev read not singleton, write it now
+            {
+              foutRC << 'd';
+              foutorder.write((char *)&prev, sizeof(uint32_t));
+              foutflag << 0;  // for unmatched
+              int64_t zero = 0;
+              foutpos.write((char *)&zero, sizeof(int64_t));
+              foutlength.write((char *)&read_lengths[prev], sizeof(uint16_t));
+            }
+            foutRC << (left_search ? 'd' : 'r');
+            foutorder.write((char *)&current, sizeof(uint32_t));
+            foutflag << 1;  // for matched
+            foutpos.write((char *)&cur_read_pos, sizeof(int64_t));
+            foutlength.write((char *)&read_lengths[current], sizeof(uint16_t));
+
+            prev_unmatched = false;
+            break;
+          }
+
+          revref <<= 2;
+          ref >>= 2;
         }
-
-        // find reverse match
-        flag = search_match<bitset_size>(
-            revref, mask1, dict_lock, read_lock, mask, read_lengths,
-            remainingreads, read, dict, k, true, shift, ref_len, rg);
-        if (flag == 1) {
-          current = k;
-          int ref_len_old = ref_len;
-          updaterefcount<bitset_size>(read[current], ref, revref, count, false,
-                                      true, shift, read_lengths[current],
-                                      ref_len, rg);
-          if (!left_search) {
-            cur_read_pos =
-                ref_pos + ref_len_old + shift - read_lengths[current];
-            ref_pos = ref_pos + ref_len_old + shift - ref_len;
-          } else {
-            cur_read_pos = ref_pos - shift;
-            ref_pos = cur_read_pos;
-          }
-          if (prev_unmatched == true)  // prev read not singleton, write it now
-          {
-            foutRC << 'd';
-            foutorder.write((char *)&prev, sizeof(uint32_t));
-            foutflag << 0;  // for unmatched
-            int64_t zero = 0;
-            foutpos.write((char *)&zero, sizeof(int64_t));
-            foutlength.write((char *)&read_lengths[prev], sizeof(uint16_t));
-          }
-          foutRC << (left_search ? 'd' : 'r');
-          foutorder.write((char *)&current, sizeof(uint32_t));
-          foutflag << 1;  // for matched
-          foutpos.write((char *)&cur_read_pos, sizeof(int64_t));
-          foutlength.write((char *)&read_lengths[current], sizeof(uint16_t));
-
-          prev_unmatched = false;
-          break;
-        }
-
-        revref <<= 2;
-        ref >>= 2;
-      }
       if (flag == 0)  // no match found
       {
+        num_unmatched_past_1M_thr++;
         if (!left_search)  // start left search
         {
           left_search = true;

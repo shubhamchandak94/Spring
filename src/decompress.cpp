@@ -63,13 +63,13 @@ void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
   }
 
   std::string *read_array_1 = new std::string[num_reads_per_step];
-  std::string *read_array_2;
+  std::string *read_array_2 = NULL;
   if (paired_end) read_array_2 = new std::string[num_reads_per_step];
   std::string *id_array = new std::string[num_reads_per_step];
-  std::string *quality_array;
+  std::string *quality_array = NULL;
   if (preserve_quality) quality_array = new std::string[num_reads_per_step];
   uint32_t *read_lengths_array_1 = new uint32_t[num_reads_per_step];
-  uint32_t *read_lengths_array_2;
+  uint32_t *read_lengths_array_2 = NULL;
   if (paired_end) read_lengths_array_2 = new uint32_t[num_reads_per_step];
   char **dec_noise;
   dec_noise = new char *[128];
@@ -407,7 +407,7 @@ void decompress_long(const std::string &temp_dir, const std::string &outfile_1,
 
   std::string *read_array = new std::string[num_reads_per_step];
   std::string *id_array = new std::string[num_reads_per_step];
-  std::string *quality_array;
+  std::string *quality_array = NULL;
   if (preserve_quality) quality_array = new std::string[num_reads_per_step];
   uint32_t *read_lengths_array = new uint32_t[num_reads_per_step];
 

@@ -13,6 +13,8 @@ const int MAX_SEARCH_REORDER = 1000;
 const int THRESH_REORDER = 4;
 const int NUM_LOCKS_REORDER =
     0x1000000;  // limits on number of locks (power of 2 for fast mod)
+const float STOP_CRITERIA_REORDER = 0.5;
+// fraction of unmatched reads in last 1M for thread to give up on searching
 const int NUM_DICT_ENCODER = 2;
 const int MAX_SEARCH_ENCODER = 1000;
 const int THRESH_ENCODER = 24;

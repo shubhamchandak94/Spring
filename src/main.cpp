@@ -90,7 +90,7 @@ int main(int argc, char** argv) {
 
   if (compress_flag && long_flag) {
     std::cout << "Long flag detected.\n";
-    if (pairing_only_flag) { 
+    if (pairing_only_flag) {
       std::cout << "For long mode: allow_read_reordering flag is disabled.\n";
       pairing_only_flag = false;
     }

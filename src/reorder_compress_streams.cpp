@@ -1,6 +1,6 @@
 #include <omp.h>
-#include <cstdio>
 #include <cmath>  // abs
+#include <cstdio>
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
