@@ -46,9 +46,6 @@ matrix:
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
-    - os: linux
-      compiler: clang
-
     - os: osx
       osx_image: xcode8
       env:
