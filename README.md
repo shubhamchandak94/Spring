@@ -23,7 +23,7 @@ git clone -b develop https://github.com/shubhamchandak94/SPRING.git
 ### Install
 The instructions below will create the spring executable in the build directory inside SPRING.
 
-On Linux with cmake installed and version at least 3.0.0 (check using ```cmake --version```):
+On Linux with cmake installed and version at least 3.9 (check using ```cmake --version```):
 ```bash
 cd SPRING
 mkdir build
@@ -32,13 +32,13 @@ cmake ..
 make
 ```
 
-On Linux with cmake not installed or with version older than 3.0.0:
+On Linux with cmake not installed or with version older than 3.9:
 ```bash
 cd SPRING
 mkdir build
 cd build
 wget https://cmake.org/files/v3.12/cmake-3.12.1.tar.gz
-tar -xzvf cmake-3.12.1.tar.gz
+tar -xzf cmake-3.12.1.tar.gz
 cd cmake-3.12.1
 ./configure
 make
