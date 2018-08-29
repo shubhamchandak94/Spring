@@ -73,4 +73,11 @@ before_install:
 script:
   - mkdir build
   - cd build
-  - cmake .. && make
+  - wget https://cmake.org/files/v3.12/cmake-3.12.1.tar.gz
+  - tar -xzvf cmake-3.12.1.tar.gz
+  - cd cmake-3.12.1
+  - ./configure
+  - make
+  - cd ..
+  - ./cmake-3.12.1/bin/cmake ..
+  - make
