@@ -1,7 +1,8 @@
 project (SPRING)
-cmake_minimum_required (VERSION 3.0.0)
+cmake_minimum_required (VERSION 3.9)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+include(CheckIPOSupported)
 
 if (NOT UNIX)
 	message(FATAL_ERROR "Non Unix platforms not supported currently.")
@@ -15,6 +16,12 @@ else ()
 	message(FATAL_ERROR "Compiler currently not supported by CMake build: ${CMAKE_CXX_COMPILER_ID}")
 endif()
 
+check_ipo_supported(RESULT result)
+if(result)
+  message(STATUS "Support for Interprocedural Optimization detected.")
+  set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+endif()
+
 message(STATUS "Setting compiler flags")
 #set(FLAGS "${FLAGS} -g")
 #set(FLAGS "${FLAGS} -Wextra")
@@ -25,22 +32,15 @@ set(FLAGS "${FLAGS} -march=native")
 set(FLAGS "${FLAGS} -fomit-frame-pointer")
 set(FLAGS "${FLAGS} -fstrict-aliasing")
 set(FLAGS "${FLAGS} -ffast-math")
-set(FLAGS "${FLAGS} -flto")
+#set(FLAGS "${FLAGS} -flto")
 
 set(CMAKE_CXX_FLAGS "${FLAGS}")
 set(CMAKE_C_FLAGS "${FLAGS}")
-
-SET(CMAKE_AR  "gcc-ar")
-SET(CMAKE_C_ARCHIVE_CREATE "<CMAKE_AR> qcs <TARGET> <LINK_FLAGS> <OBJECTS>")
-SET(CMAKE_C_ARCHIVE_FINISH   true)
-SET(CMAKE_CXX_ARCHIVE_CREATE "<CMAKE_AR> qcs <TARGET> <LINK_FLAGS> <OBJECTS>")
-SET(CMAKE_CXX_ARCHIVE_FINISH   true)
 
 FIND_PACKAGE( OpenMP REQUIRED)
 message(STATUS "OPENMP FOUND")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-
 
 message(STATUS "** CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 message(STATUS "** CMAKE_C_FLAGS: ${CMAKE_C_FLAGS}")
@@ -87,6 +87,7 @@ set(source_files ${source_files} ${source_dir}/libbsc/libbsc/lzp/lzp.cpp)
 set(source_files ${source_files} ${source_dir}/libbsc/libbsc/platform/platform.cpp)
 
 add_executable (spring ${source_files})
+
 target_include_directories(spring PRIVATE ${include_dir})
 target_link_libraries(spring PUBLIC Boost::filesystem)
 target_link_libraries(spring PUBLIC Boost::program_options)
