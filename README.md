@@ -49,7 +49,7 @@ make
 
 On macOS, install GCC compiler since Clang has issues with OpenMP library:
 - Install HomeBrew (https://brew.sh/)
-- Install GCC:
+- Install GCC (this step will be faster if XCode command line tools are already installed using ```xcode-select --install```):
 ```bash
 brew update
 brew install gcc@7
