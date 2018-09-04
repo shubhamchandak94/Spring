@@ -9,7 +9,8 @@ SPRING is a compression tool for Fastq files (containing up to 4.29 Billion read
 - Supports variable length long reads of arbitrary length (upto 4.29 Billion) (with -l flag)
 - Supports lossless compression of reads, quality scores and read identifiers
 - Supports reordering of reads (while preserving read pairing information) to boost compression
-- Supports quantization of quality values using Illumina 8-level binning.
+- Supports quantization of quality values using [QVZ] (https://github.com/mikelhernaez/qvz/), [Illumina 8-level binning] (https://www.illumina.com/documents/products/whitepapers/whitepaper_datacompression.pdf) and binary thresholding.
+- Supports decompression of range of reads (random access).
 - Tested on Linux and macOS
 
 ### Download
@@ -21,7 +22,7 @@ git clone -b develop https://github.com/shubhamchandak94/SPRING.git
 ```
 
 ### Install
-The instructions below will create the spring executable in the build directory inside SPRING. If you plan to build and run SPRING on different architectures, then you might need to remove/comment the line ```set(FLAGS "${FLAGS} -march=native")``` in CMakeLists.txt (or use flags based on the target architecture).
+The instructions below will create the spring executable in the build directory inside SPRING. If you plan to build and run SPRING on separate architectures, then you might need to remove/comment the line ```set(FLAGS "${FLAGS} -march=native")``` in CMakeLists.txt (or use flags based on the target architecture).
 
 On Linux with cmake installed and version at least 3.9 (check using ```cmake --version```):
 ```bash
@@ -122,19 +123,19 @@ Using 16 threads (Lossless).
 ```
 Compressing with only paired end info preserved, ids not stored, qualities compressed after Illumina binning (Recommended lossy mode for older Illumina machines, for Novaseq lossless quality compression is recommmended).
 ```bash
-./spring -c -i file_1.fastq -i file_2.fastq -r --no-ids -q ill_bin -o outputname
+./spring -c -i file_1.fastq file_2.fastq -r --no-ids -q ill_bin -o outputname
 ```
 Compressing with only paired end info preserved, ids not stored, qualities binary thresholded (qv < 20 binned to 6 and qv >= 20 binned to 40).
 ```bash
-./spring -c -i file_1.fastq -i file_2.fastq -r --no-ids -q binary 20 40 6 -o outputname
+./spring -c -i file_1.fastq file_2.fastq -r --no-ids -q binary 20 40 6 -o outputname
 ```
 Compressing with only paired end info preserved, ids not stored, qualities quantized using qvz with approximately 1 bit used per quality value.
 ```bash
-./spring -c -i file_1.fastq -i file_2.fastq -r --no-ids -q qvz 1.0 -o outputname
+./spring -c -i file_1.fastq file_2.fastq -r --no-ids -q qvz 1.0 -o outputname
 ```
 Compressing only reads and ids.
 ```bash
-./spring -c -i file_1.fastq -i file_2.fastq --no-quality -o outputname
+./spring -c -i file_1.fastq file_2.fastq --no-quality -o outputname
 ```
 Compressing single-end long read Fastq losslessly.
 ```bash
@@ -162,9 +163,9 @@ Decompressing (paired end) to uncompressedfilename.1 and uncompressedfilename.2.
 ```
 Decompressing (paired end) to file_1.fastq and file_2.fastq.
 ```bash
-./spring -d -i compressedfilename -o file_1.fastq -o file_2.fastq
+./spring -d -i compressedfilename -o file_1.fastq file_2.fastq
 ```
 Decompressing (paired end) to file_1.fastq and file_2.fastq, only pairs from 4000000 to 8000000.
 ```bash
-./spring -d -i compressedfilename -o file_1.fastq -o file_2.fastq --decompress_range 4000000 8000000
+./spring -d -i compressedfilename -o file_1.fastq file_2.fastq --decompress_range 4000000 8000000
 ```
