@@ -13,7 +13,7 @@ void set_dec_noise_array(char **dec_noise);
 
 void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
                       const std::string &outfile_2,
-                      const compression_params &cp, const int &num_thr) {
+                      const compression_params &cp, const int &num_thr, const uint64_t &start_num, const uint64_t &end_num) {
   std::string basedir = temp_dir;
 
   std::string file_seq = basedir + "/read_seq.bin";
@@ -95,19 +95,17 @@ void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
   }
 
   bool done = false;
-  uint32_t num_reads_done = 0;  // denotes number of pairs done for PE
-  uint32_t num_blocks_done = 0;
+  uint32_t num_blocks_done = start_num/num_reads_per_block;
+  uint32_t num_reads_done = num_blocks_done*num_reads_per_block;  // denotes number of pairs done for PE
   while (!done) {
     uint32_t num_reads_cur_step = num_reads_per_step;
     if (paired_end) {
       if (num_reads_done + num_reads_cur_step >= num_reads / 2) {
         num_reads_cur_step = num_reads / 2 - num_reads_done;
-        done = true;
       }
     } else {
       if (num_reads_done + num_reads_cur_step >= num_reads) {
         num_reads_cur_step = num_reads - num_reads_done;
-        done = true;
       }
     }
     if (num_reads_cur_step == 0) break;
@@ -341,8 +339,20 @@ void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
         read_array = read_array_1;
       else
         read_array = read_array_2;
-      write_fastq_block(fout[j], id_array, read_array, quality_array,
-                        num_reads_cur_step, preserve_quality);
+      uint32_t num_reads_cur_step_output = num_reads_cur_step;
+      if(num_reads_done + num_reads_cur_step_output >= end_num) {
+        num_reads_cur_step_output = end_num - num_reads_done;
+        done = true;
+      }
+      if(num_blocks_done == start_num/num_reads_per_block) {
+	// first blocks
+	uint32_t shift = start_num%num_reads_per_block;
+        write_fastq_block(fout[j], id_array + shift, read_array + shift, quality_array + shift,
+                        num_reads_cur_step_output - shift, preserve_quality);
+      } else {
+        write_fastq_block(fout[j], id_array, read_array, quality_array,
+                        num_reads_cur_step_output, preserve_quality);
+      }
     }
     num_reads_done += num_reads_cur_step;
     num_blocks_done += num_thr;
@@ -363,7 +373,7 @@ void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
 
 void decompress_long(const std::string &temp_dir, const std::string &outfile_1,
                      const std::string &outfile_2, const compression_params &cp,
-                     const int &num_thr) {
+                     const int &num_thr, const uint64_t &start_num, const uint64_t &end_num) {
   std::string infileread[2];
   std::string infilequality[2];
   std::string infileid[2];
@@ -414,19 +424,18 @@ void decompress_long(const std::string &temp_dir, const std::string &outfile_1,
   omp_set_num_threads(num_thr);
 
   bool done = false;
-  uint32_t num_reads_done = 0;  // denotes number of pairs done for PE
-  uint32_t num_blocks_done = 0;
+
+  uint32_t num_blocks_done = start_num/num_reads_per_block;
+  uint32_t num_reads_done = num_blocks_done*num_reads_per_block;  // denotes number of pairs done for PE
   while (!done) {
     uint32_t num_reads_cur_step = num_reads_per_step;
     if (paired_end) {
       if (num_reads_done + num_reads_cur_step >= num_reads / 2) {
         num_reads_cur_step = num_reads / 2 - num_reads_done;
-        done = true;
       }
     } else {
       if (num_reads_done + num_reads_cur_step >= num_reads) {
         num_reads_cur_step = num_reads - num_reads_done;
-        done = true;
       }
     }
     if (num_reads_cur_step == 0) break;
@@ -492,8 +501,20 @@ void decompress_long(const std::string &temp_dir, const std::string &outfile_1,
           }
         }
       }  // end omp parallel
-      write_fastq_block(fout[j], id_array, read_array, quality_array,
-                        num_reads_cur_step, preserve_quality);
+      uint32_t num_reads_cur_step_output = num_reads_cur_step;
+      if(num_reads_done + num_reads_cur_step_output >= end_num) {
+        num_reads_cur_step_output = end_num - num_reads_done;
+        done = true;
+      }
+      if(num_blocks_done == start_num/num_reads_per_block) {
+	// first blocks
+	uint32_t shift = start_num%num_reads_per_block;
+        write_fastq_block(fout[j], id_array + shift, read_array + shift, quality_array + shift,
+                        num_reads_cur_step_output - shift, preserve_quality);
+      } else {
+        write_fastq_block(fout[j], id_array, read_array, quality_array,
+                        num_reads_cur_step_output, preserve_quality);
+      }
     }
     num_reads_done += num_reads_cur_step;
     num_blocks_done += num_thr;

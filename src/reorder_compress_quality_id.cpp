@@ -62,7 +62,7 @@ void reorder_compress_quality_id(const std::string &temp_dir,
       uint32_t num_reads_per_file = paired_end ? numreads / 2 : numreads;
       reorder_compress(file_quality[j], num_reads_per_file, num_thr,
                        num_reads_per_block, str_array, str_array_size,
-                       order_array, "quality");
+                       order_array, "quality", cp);
       remove(file_quality[j].c_str());
     }
   }
@@ -74,7 +74,7 @@ void reorder_compress_quality_id(const std::string &temp_dir,
       uint32_t num_reads_per_file = paired_end ? numreads / 2 : numreads;
       reorder_compress(file_id[j], num_reads_per_file, num_thr,
                        num_reads_per_block, str_array, str_array_size,
-                       order_array, "id");
+                       order_array, "id", cp);
       remove(file_id[j].c_str());
     }
   }
@@ -114,7 +114,7 @@ void reorder_compress(const std::string &file_name,
                       const uint32_t &num_reads_per_file, const int &num_thr,
                       const uint32_t &num_reads_per_block,
                       std::string *str_array, const uint32_t &str_array_size,
-                      uint32_t *order_array, const std::string &mode) {
+                      uint32_t *order_array, const std::string &mode, const compression_params &cp) {
   for (uint32_t i = 0; i <= num_reads_per_file / str_array_size; i++) {
     uint32_t num_reads_bin = str_array_size;
     if (i == num_reads_per_file / str_array_size)
@@ -159,6 +159,8 @@ void reorder_compress(const std::string &file_name,
           // store lengths in array for quality compression
           for (uint64_t i = 0; i < num_reads_block; i++)
             read_lengths_array[i] = str_array[start_read_num + i].size();
+	  if(cp.qvz_flag)
+            quantize_quality_qvz(str_array + start_read_num, num_reads_block, read_lengths_array, cp.qvz_ratio);
           bsc::BSC_str_array_compress(outfile_name.c_str(),
                                       str_array + start_read_num,
                                       num_reads_block, read_lengths_array);

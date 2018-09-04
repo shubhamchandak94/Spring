@@ -73,8 +73,9 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
   uint8_t paired_id_code = 0;
   bool paired_id_match = false;
 
-  char *illumina_binning_table = new char[128];
-  if (cp.ill_bin_flag) generate_illumina_binning_table(illumina_binning_table);
+  char *quality_binning_table = new char[128];
+  if (cp.ill_bin_flag) generate_illumina_binning_table(quality_binning_table);
+  if (cp.bin_thr_flag) generate_binary_binning_table(quality_binning_table, cp.bin_thr_thr, cp.bin_thr_high, cp.bin_thr_low);
 
   // Check that we were able to open the input files and also look for
   // paired end matching ids if relevant
@@ -174,11 +175,14 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
                   id_array_1[i], id_array_2[i], paired_id_code);
           }
           if (cp.long_flag) fout_readlength.close();
-          // apply Illumina binning (if asked to do so)
-          if (cp.preserve_quality && cp.ill_bin_flag)
+          // apply binning (if asked to do so)
+          if (cp.preserve_quality && (cp.ill_bin_flag || cp.bin_thr_flag))
             quantize_quality(quality_array + tid * num_reads_per_block,
-                             num_reads_thr, illumina_binning_table);
+                             num_reads_thr, quality_binning_table);
 
+          // apply qvz quantization (if flag specified and order preserving)
+	  if(cp.preserve_quality && cp.qvz_flag && cp.preserve_order)
+            quantize_quality_qvz(quality_array + tid * num_reads_per_block, num_reads_thr, read_lengths_array + tid * num_reads_per_block, cp.qvz_ratio);
           if (!cp.long_flag) {
             if (cp.preserve_order) {
               // Compress ids
@@ -283,7 +287,7 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
   delete[] quality_array;
   delete[] read_contains_N_array;
   delete[] read_lengths_array;
-  delete[] illumina_binning_table;
+  delete[] quality_binning_table;
   delete[] paired_id_match_array;
   // close files
   if (cp.long_flag) {

@@ -26,13 +26,12 @@ message(STATUS "Setting compiler flags")
 #set(FLAGS "${FLAGS} -g")
 #set(FLAGS "${FLAGS} -Wextra")
 #set(FLAGS "${FLAGS} -Wpedantic")
-set(FLAGS "${FLAGS} -Wall")
+#set(FLAGS "${FLAGS} -Wall")
 set(FLAGS "${FLAGS} -O3")
 set(FLAGS "${FLAGS} -march=native")
 set(FLAGS "${FLAGS} -fomit-frame-pointer")
 set(FLAGS "${FLAGS} -fstrict-aliasing")
 set(FLAGS "${FLAGS} -ffast-math")
-#set(FLAGS "${FLAGS} -flto")
 
 set(CMAKE_CXX_FLAGS "${FLAGS}")
 set(CMAKE_C_FLAGS "${FLAGS}")
@@ -85,6 +84,18 @@ set(source_files ${source_files} ${source_dir}/libbsc/libbsc/filters/preprocessi
 set(source_files ${source_files} ${source_dir}/libbsc/libbsc/libbsc/libbsc.cpp)
 set(source_files ${source_files} ${source_dir}/libbsc/libbsc/lzp/lzp.cpp)
 set(source_files ${source_files} ${source_dir}/libbsc/libbsc/platform/platform.cpp)
+
+# qvz
+set(source_files ${source_files} ${source_dir}/qvz/src/cluster.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/codebook.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/distortion.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/lines.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/pmf.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/quantizer.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/qv_compressor.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/qvz.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/util.cpp)
+set(source_files ${source_files} ${source_dir}/qvz/src/well.cpp)
 
 add_executable (spring ${source_files})
 

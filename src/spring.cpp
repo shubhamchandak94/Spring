@@ -23,10 +23,10 @@
 
 namespace spring {
 
-void compress(std::string &temp_dir, std::vector<std::string> &infile_vec,
-              std::vector<std::string> &outfile_vec, int &num_thr,
-              bool &pairing_only_flag, bool &no_quality_flag, bool &no_ids_flag,
-              bool &ill_bin_flag, bool &long_flag) {
+void compress(const std::string &temp_dir, const std::vector<std::string> &infile_vec,
+              const std::vector<std::string> &outfile_vec, const int &num_thr,
+              const bool &pairing_only_flag, const bool &no_quality_flag, const bool &no_ids_flag,
+              const std::vector<std::string> &quality_opts, const bool &long_flag) {
   std::cout << "Starting compression...\n";
   auto compression_start = std::chrono::steady_clock::now();
 
@@ -64,10 +64,53 @@ void compress(std::string &temp_dir, std::vector<std::string> &infile_vec,
   cp.preserve_id = preserve_id;
   cp.preserve_quality = preserve_quality;
   cp.long_flag = long_flag;
-  cp.ill_bin_flag = ill_bin_flag;
   cp.num_reads_per_block = NUM_READS_PER_BLOCK;
   cp.num_reads_per_block_long = NUM_READS_PER_BLOCK_LONG;
   cp.num_thr = num_thr;
+
+  if(preserve_quality) {
+    if(quality_opts.empty()) {
+      cp.qvz_flag = cp.ill_bin_flag = cp.bin_thr_flag = false;
+    }
+    else if(quality_opts[0] == "lossless") {
+      cp.qvz_flag = cp.ill_bin_flag = cp.bin_thr_flag = false;
+    }
+    else if(quality_opts[0] == "qvz") {
+      if(quality_opts.size() != 2) {
+        throw std::runtime_error("Invalid quality options.");
+      }
+      else {
+        cp.qvz_ratio = atof(quality_opts[1].c_str());
+        if(cp.qvz_ratio == 0.0) {
+          throw std::runtime_error("Invalid qvz ratio provided.");
+        }
+      }
+      cp.qvz_flag = true;
+      cp.ill_bin_flag = cp.bin_thr_flag = false;
+    }
+    else if(quality_opts[0] == "ill_bin") {
+      cp.ill_bin_flag = true;
+      cp.qvz_flag = cp.bin_thr_flag = false;
+    }
+    else if(quality_opts[0] == "binary") {
+      if(quality_opts.size() != 4) {
+        throw std::runtime_error("Invalid quality options.");
+      }
+      else {
+        cp.bin_thr_thr = atoi(quality_opts[1].c_str());
+        cp.bin_thr_high = atoi(quality_opts[2].c_str());
+        cp.bin_thr_low = atoi(quality_opts[3].c_str());
+        if(cp.bin_thr_high < cp.bin_thr_thr || cp.bin_thr_low > cp.bin_thr_thr || cp.bin_thr_high < cp.bin_thr_low) {
+          throw std::runtime_error("Options do not satisfy low <= thr <= high.");
+        }
+      }
+      cp.qvz_flag = cp.ill_bin_flag = false;
+      cp.bin_thr_flag = true;
+    }
+    else {
+      throw std::runtime_error("Invalid quality options.");
+    }
+  }
 
   std::cout << "Preprocessing ...\n";
   auto preprocess_start = std::chrono::steady_clock::now();
@@ -204,8 +247,8 @@ void compress(std::string &temp_dir, std::vector<std::string> &infile_vec,
   return;
 }
 
-void decompress(std::string &temp_dir, std::vector<std::string> &infile_vec,
-                std::vector<std::string> &outfile_vec, int &num_thr) {
+void decompress(const std::string &temp_dir, const std::vector<std::string> &infile_vec,
+                const std::vector<std::string> &outfile_vec, const int &num_thr, const std::vector<uint64_t> &decompress_range_vec) {
   std::cout << "Starting decompression...\n";
   auto decompression_start = std::chrono::steady_clock::now();
   compression_params *cp_ptr = new compression_params;
@@ -261,12 +304,24 @@ void decompress(std::string &temp_dir, std::vector<std::string> &infile_vec,
     default:
       throw std::runtime_error("Too many (>2) output files specified");
   }
+  uint64_t num_read_pairs = paired_end?cp.num_reads/2:cp.num_reads;
+  uint64_t start_num = 0;
+  uint64_t end_num = num_read_pairs;
+  if(decompress_range_vec.size() != 0) {
+    if(decompress_range_vec.size() != 2)
+      throw std::runtime_error("Invalid decompression range parameters.");
+    if(decompress_range_vec[0] == 0 || decompress_range_vec[0] > decompress_range_vec[1] || decompress_range_vec[0] > num_read_pairs || decompress_range_vec[1] > num_read_pairs)
+      throw std::runtime_error("Invalid decompression range parameters.");
+    start_num = decompress_range_vec[0] - 1;
+    end_num = decompress_range_vec[1];
+  }
+
 
   std::cout << "Decompressing ...\n";
   if (long_flag)
-    decompress_long(temp_dir, outfile_1, outfile_2, cp, num_thr);
+    decompress_long(temp_dir, outfile_1, outfile_2, cp, num_thr, start_num, end_num);
   else
-    decompress_short(temp_dir, outfile_1, outfile_2, cp, num_thr);
+    decompress_short(temp_dir, outfile_1, outfile_2, cp, num_thr, start_num, end_num);
 
   delete cp_ptr;
   auto decompression_end = std::chrono::steady_clock::now();

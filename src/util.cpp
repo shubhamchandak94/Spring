@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <string>
 #include "id_compression/include/sam_block.h"
+#include "qvz/include/qvz.h"
 
 namespace spring {
 
@@ -78,6 +79,19 @@ void quantize_quality(std::string *quality_array, const uint32_t &num_lines,
   return;
 }
 
+void quantize_quality_qvz(std::string *quality_array, const uint32_t &num_lines, uint32_t *str_len_array, double qv_ratio) {
+        struct qvz::qv_options_t opts;
+	opts.verbose = 0;
+	opts.stats = 0;	
+	opts.clusters = 1;
+	opts.uncompressed = 0;
+	opts.ratio = qv_ratio;
+	opts.distortion = DISTORTION_MSE;
+	opts.mode = MODE_FIXED;
+	size_t max_readlen = *(std::max_element(str_len_array, str_len_array + num_lines));
+	qvz::encode(&opts, max_readlen, num_lines, quality_array, str_len_array);
+}
+
 void generate_illumina_binning_table(char *illumina_binning_table) {
   for (uint8_t i = 0; i <= 33 + 1; i++) illumina_binning_table[i] = 33 + 0;
   for (uint8_t i = 33 + 2; i <= 33 + 9; i++) illumina_binning_table[i] = 33 + 6;
@@ -92,6 +106,11 @@ void generate_illumina_binning_table(char *illumina_binning_table) {
   for (uint8_t i = 33 + 35; i <= 33 + 39; i++)
     illumina_binning_table[i] = 33 + 37;
   for (uint8_t i = 33 + 40; i <= 127; i++) illumina_binning_table[i] = 33 + 40;
+}
+
+void generate_binary_binning_table(char *binary_binning_table, const unsigned int thr, const unsigned int high, const unsigned int low) {
+  for (uint8_t i = 0; i < 33 + thr; i++) binary_binning_table[i] = 33 + low;
+  for (uint8_t i = 33 + thr; i <= 127; i++) binary_binning_table[i] = 33 + high;
 }
 
 // ID patterns
