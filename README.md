@@ -9,8 +9,8 @@ SPRING is a compression tool for Fastq files (containing up to 4.29 Billion read
 - Supports variable length long reads of arbitrary length (upto 4.29 Billion) (with -l flag)
 - Supports lossless compression of reads, quality scores and read identifiers
 - Supports reordering of reads (while preserving read pairing information) to boost compression
-- Supports quantization of quality values using [QVZ](https://github.com/mikelhernaez/qvz/), [Illumina 8-level binning](https://www.illumina.com/documents/products/whitepapers/whitepaper_datacompression.pdf) and binary thresholding.
-- Supports decompression of range of reads (random access).
+- Supports quantization of quality values using [QVZ](https://github.com/mikelhernaez/qvz/), [Illumina 8-level binning](https://www.illumina.com/documents/products/whitepapers/whitepaper_datacompression.pdf) and binary thresholding
+- Supports decompression of a subset of reads (random access)
 - Tested on Linux and macOS
 
 ### Download
@@ -121,7 +121,7 @@ Using 16 threads (Lossless).
 ```bash
 ./spring -c -i file_1.fastq file_2.fastq -o outputname -t 16
 ```
-Compressing with only paired end info preserved, ids not stored, qualities compressed after Illumina binning (Recommended lossy mode for older Illumina machines, for Novaseq lossless quality compression is recommmended).
+Compressing with only paired end info preserved, ids not stored, qualities compressed after Illumina binning (Recommended lossy mode for older Illumina machines. For Novaseq files, lossless quality compression is recommmended).
 ```bash
 ./spring -c -i file_1.fastq file_2.fastq -r --no-ids -q ill_bin -o outputname
 ```
@@ -153,7 +153,7 @@ Decompressing (single end) to uncompressedfilename.
 ```bash
 ./spring -d -i compressedfilename -o uncompressedfilename
 ```
-Decompressing (single end) to uncompressedfilename, only reads from 400 to 10000000.
+Decompressing (single end) to uncompressedfilename, only decompress reads from 400 to 10000000.
 ```bash
 ./spring -d -i compressedfilename -o uncompressedfilename --decompress_range 400 1000000
 ```
@@ -165,7 +165,7 @@ Decompressing (paired end) to file_1.fastq and file_2.fastq.
 ```bash
 ./spring -d -i compressedfilename -o file_1.fastq file_2.fastq
 ```
-Decompressing (paired end) to file_1.fastq and file_2.fastq, only pairs from 4000000 to 8000000.
+Decompressing (paired end) to file_1.fastq and file_2.fastq, only decompress pairs from 4000000 to 8000000.
 ```bash
 ./spring -d -i compressedfilename -o file_1.fastq file_2.fastq --decompress_range 4000000 8000000
 ```
