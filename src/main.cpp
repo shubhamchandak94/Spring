@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
       "directory to create temporary files (default current directory)")(
       "num-threads,t", po::value<int>(&num_thr)->default_value(8),
       "number of threads (default 8)")(
-      "allow_read_reordering,r", po::bool_switch(&pairing_only_flag),
+      "allow-read-reordering,r", po::bool_switch(&pairing_only_flag),
       "do not retain read order during compression (paired reads still remain "
       "paired)")("no-quality", po::bool_switch(&no_quality_flag),
                   "do not retain quality values during compression")(
