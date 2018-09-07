@@ -86,7 +86,7 @@ Allowed options:
   -w [ --working-dir ] arg (=.)   directory to create temporary files (default 
                                   current directory)
   -t [ --num-threads ] arg (=8)   number of threads (default 8)
-  -r [ --allow_read_reordering ]  do not retain read order during compression 
+  -r [ --allow-read-reordering ]  do not retain read order during compression 
                                   (paired reads still remain paired)
   --no-quality                    do not retain quality values during 
                                   compression
