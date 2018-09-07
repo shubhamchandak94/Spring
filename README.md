@@ -70,7 +70,7 @@ Allowed options:
   -h [ --help ]                   produce help message
   -c [ --compress ]               compress
   -d [ --decompress ]             decompress
-  --decompress_range arg          --decompress_range start end
+  --decompress-range arg          --decompress-range start end
                                   (optional) decompress only reads (or read 
                                   pairs for PE datasets) from start to end 
                                   (both inclusive) (1 <= start <= end <= 
@@ -92,7 +92,7 @@ Allowed options:
                                   compression
   --no-ids                        do not retain read identifiers during 
                                   compression
-  -q [ --quality_opts ] arg       quality mode: possible modes are
+  -q [ --quality-opts ] arg       quality mode: possible modes are
                                   1. -q lossless (default)
                                   2. -q qvz qv_ratio (QVZ lossy compression, 
                                   parameter qv_ratio roughly corresponds to 
@@ -155,7 +155,7 @@ Decompressing (single end) to uncompressedfilename.
 ```
 Decompressing (single end) to uncompressedfilename, only decompress reads from 400 to 10000000.
 ```bash
-./spring -d -i compressedfilename -o uncompressedfilename --decompress_range 400 1000000
+./spring -d -i compressedfilename -o uncompressedfilename --decompress-range 400 1000000
 ```
 Decompressing (paired end) to uncompressedfilename.1 and uncompressedfilename.2.
 ```bash
@@ -167,5 +167,5 @@ Decompressing (paired end) to file_1.fastq and file_2.fastq.
 ```
 Decompressing (paired end) to file_1.fastq and file_2.fastq, only decompress pairs from 4000000 to 8000000.
 ```bash
-./spring -d -i compressedfilename -o file_1.fastq file_2.fastq --decompress_range 4000000 8000000
+./spring -d -i compressedfilename -o file_1.fastq file_2.fastq --decompress-range 4000000 8000000
 ```
