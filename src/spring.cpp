@@ -146,7 +146,7 @@ void compress(const std::string &temp_dir, const std::vector<std::string> &infil
                      .count()
               << " s\n";
 
-    if (!preserve_order && (preserve_quality || preserve_order)) {
+    if (!preserve_order && (preserve_quality || preserve_id)) {
       std::cout << "Reordering and compressing quality and/or ids ...\n";
       auto rcqi_start = std::chrono::steady_clock::now();
       reorder_compress_quality_id(temp_dir, cp);

@@ -37,8 +37,8 @@ int main(int argc, char** argv) {
                      "produce help message")(
       "compress,c", po::bool_switch(&compress_flag), "compress")(
       "decompress,d", po::bool_switch(&decompress_flag), "decompress")(
-      "decompress_range", po::value<std::vector<uint64_t> >(&decompress_range_vec)->multitoken(),
-      "--decompress_range start end\n(optional) decompress only reads (or read pairs for PE datasets) from start to end (both inclusive) (1 <= start <= end <= num_reads (or num_read_pairs for PE)). If -r was specified during compression, the range of reads does not correspond to the original order of reads in the FASTQ file.")(
+      "decompress-range", po::value<std::vector<uint64_t> >(&decompress_range_vec)->multitoken(),
+      "--decompress-range start end\n(optional) decompress only reads (or read pairs for PE datasets) from start to end (both inclusive) (1 <= start <= end <= num_reads (or num_read_pairs for PE)). If -r was specified during compression, the range of reads does not correspond to the original order of reads in the FASTQ file.")(
       "input-file,i", po::value<std::vector<std::string> >(&infile_vec)->multitoken(),
       "input file name (two files for paired end)")(
       "output-file,o", po::value<std::vector<std::string> >(&outfile_vec)->multitoken(),
@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
                   "do not retain quality values during compression")(
       "no-ids", po::bool_switch(&no_ids_flag),
       "do not retain read identifiers during compression")(
-      "quality_opts,q", po::value<std::vector<std::string> >(&quality_opts)->multitoken(),
+      "quality-opts,q", po::value<std::vector<std::string> >(&quality_opts)->multitoken(),
       "quality mode: possible modes are\n1. -q lossless (default)\n2. -q qvz qv_ratio (QVZ lossy compression, parameter qv_ratio roughly corresponds to bits used per quality value)\n3. -q ill_bin (Illumina 8-level binning)\n4. -q binary thr high low (binary (2-level) thresholding, quality binned to high if >= thr and to low if < thr)")(
       "long,l", po::bool_switch(&long_flag),
       "Use for compression of arbitrarily long read lengths. Can also provide "
