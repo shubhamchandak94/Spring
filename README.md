@@ -4,7 +4,7 @@ Compression tool for Fastq files. For paired end reads, both files should have s
 
 ### Installation
 ```bash
-git clone https://github.com/shubhamchandak94/SPRING.git
+git clone -b old_version https://github.com/shubhamchandak94/SPRING.git
 cd SPRING
 ./install.sh
 ```
