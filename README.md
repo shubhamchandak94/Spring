@@ -15,10 +15,7 @@ SPRING is a compression tool for Fastq files (containing up to 4.29 Billion read
 
 ### Download
 ```bash
-git clone -b develop https://github.com/shubhamchandak94/SPRING.git
-```
-```diff
-- TODO: remove -b develop once this moves to master.
+git clone https://github.com/shubhamchandak94/SPRING.git
 ```
 
 ### Install
@@ -109,9 +106,6 @@ Allowed options:
 ```
 
 ### Example Usage of SPRING
-```diff
-- TODO: update information preserving name.
-```
 
 For compressing file_1.fastq and file_2.fastq losslessly using default 8 threads (Lossless).
 ```bash

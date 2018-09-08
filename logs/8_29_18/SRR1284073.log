@@ -1,0 +1,118 @@
+	Command being timed: "./../pigz-2.4/pigz -p 8 /raid/shubham/HARC/data/SRR1284073.fastq"
+	User time (seconds): 154.94
+	System time (seconds): 1.86
+	Percent of CPU this job got: 424%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:36.97
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 8016
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 8543
+	Voluntary context switches: 32012
+	Involuntary context switches: 4522
+	Swaps: 0
+	File system inputs: 2531352
+	File system outputs: 1066736
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../pigz-2.4/unpigz -p 8 -k /raid/shubham/HARC/data/SRR1284073.fastq.gz"
+	User time (seconds): 9.46
+	System time (seconds): 2.27
+	Percent of CPU this job got: 172%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:06.79
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2456
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 240
+	Voluntary context switches: 96295
+	Involuntary context switches: 15
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 2547656
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Long flag detected.
+Starting compression...
+Preprocessing ...
+Max Read length: 49424
+Total number of reads: 163464
+Preprocessing done!
+Time for this step: 42 s
+
+Sizes of streams after compression: 
+Reads:         159596508 bytes
+Quality:       259624662 bytes
+ID:               264565 bytes
+Creating tar archive ...Tar archive done!
+Time for this step: 0 s
+Compression done!
+Total time for compression: 43 s
+
+Total size:    419543040 bytes
+	Command being timed: "./build/spring -c -i /raid/shubham/HARC/data/SRR1284073.fastq -l -o /raid/shubham/HARC/data/SRR1284073_lossless.spring"
+	User time (seconds): 261.40
+	System time (seconds): 10.56
+	Percent of CPU this job got: 626%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:43.40
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2804224
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 5866715
+	Voluntary context switches: 5293
+	Involuntary context switches: 8617
+	Swaps: 0
+	File system inputs: 2547664
+	File system outputs: 1640368
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting decompression...
+Untarring tar archive ...
+Untarring archive done!
+Decompressing ...
+Decompression done!
+Total time for decompression: 23 s
+	Command being timed: "./build/spring -d -i /raid/shubham/HARC/data/SRR1284073_lossless.spring -o /raid/shubham/HARC/data/SRR1284073.fastq.lossless.d"
+	User time (seconds): 136.70
+	System time (seconds): 7.03
+	Percent of CPU this job got: 614%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:23.39
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2449936
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 3221669
+	Voluntary context switches: 7741
+	Involuntary context switches: 218
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 3368600
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

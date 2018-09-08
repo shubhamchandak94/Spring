@@ -1,0 +1,348 @@
+	Command being timed: "./../pigz-2.4/pigz -p 8 /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R1.fastq /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R2.fastq"
+	User time (seconds): 64691.01
+	System time (seconds): 1010.24
+	Percent of CPU this job got: 777%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:20:51
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7704
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 12
+	Minor (reclaiming a frame) page faults: 156305
+	Voluntary context switches: 16649120
+	Involuntary context switches: 1480657
+	Swaps: 0
+	File system inputs: 1613562232
+	File system outputs: 297717688
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../pigz-2.4/unpigz -p 8 -k /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R1.fastq.gz /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R2.fastq.gz"
+	User time (seconds): 4064.17
+	System time (seconds): 1307.50
+	Percent of CPU this job got: 118%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:15:16
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2564
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 7
+	Minor (reclaiming a frame) page faults: 5133
+	Voluntary context switches: 55314695
+	Involuntary context switches: 15615
+	Swaps: 0
+	File system inputs: 297715976
+	File system outputs: 1613510904
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Compressed streams sizes (in bytes)
+TAG:       5379598662 /      71551362968
+DNA:      41979042920 /     167954486887
+QUA:       8683871118 /     167954486887
+
+	Command being timed: "./../DSRC/bin/dsrc c -t8 -v /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R1.fastq /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R1.fastq.dsrc"
+	User time (seconds): 4455.59
+	System time (seconds): 256.12
+	Percent of CPU this job got: 303%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 25:52.62
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 103900
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 765157
+	Voluntary context switches: 782116
+	Involuntary context switches: 840758
+	Swaps: 0
+	File system inputs: 806830672
+	File system outputs: 109458816
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Compressed streams sizes (in bytes)
+TAG:       5379512018 /      71551362968
+DNA:      41966571288 /     167916189924
+QUA:      11003733407 /     167916189924
+
+	Command being timed: "./../DSRC/bin/dsrc c -t8 -v /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R2.fastq /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R2.fastq.dsrc"
+	User time (seconds): 4626.58
+	System time (seconds): 250.62
+	Percent of CPU this job got: 290%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 27:58.12
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 113676
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 814882
+	Voluntary context switches: 868562
+	Involuntary context switches: 759249
+	Swaps: 0
+	File system inputs: 806680880
+	File system outputs: 113965264
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Warning: passing a FASTQ file without '.fastq' extension
+	Command being timed: "./../DSRC/bin/dsrc d -t8 -v /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R1.fastq.dsrc /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R1.fastq.d"
+	User time (seconds): 2345.09
+	System time (seconds): 308.88
+	Percent of CPU this job got: 241%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 18:17.45
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 345852
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 3263490
+	Voluntary context switches: 234633
+	Involuntary context switches: 165114
+	Swaps: 0
+	File system inputs: 109459008
+	File system outputs: 806830248
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Warning: passing a FASTQ file without '.fastq' extension
+	Command being timed: "./../DSRC/bin/dsrc d -t8 -v /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R2.fastq.dsrc /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R2.fastq.d"
+	User time (seconds): 2658.45
+	System time (seconds): 223.77
+	Percent of CPU this job got: 224%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 21:22.71
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 355960
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 4291003
+	Voluntary context switches: 261606
+	Involuntary context switches: 250521
+	Swaps: 0
+	File system inputs: 113965456
+	File system outputs: 806680656
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting compression...
+Preprocessing ...
+Max Read length: 151
+Total number of reads: 2254700070
+Total number of reads without N: 2233618873
+Paired id match code: 3
+Preprocessing done!
+Time for this step: 7481 s
+Reordering ...
+Reading file
+Constructing dictionaries
+Reordering reads
+Reordering done, 146769611 were unmatched
+Writing to file
+Done!
+Reordering done!
+Time for this step: 15083 s
+Encoding ...
+Maximum Read length: 151
+Number of non-singleton reads: 2096176196
+Number of singleton reads: 137442677
+Number of reads with N: 21081197
+Encoding reads
+Encoding done:
+92188488 singleton reads were aligned
+18587438 reads with N were aligned
+Encoding done!
+Time for this step: 7434 s
+Reordering and compressing streams ...
+Reordering and compressing streams done!
+Time for this step: 1809 s
+
+Sizes of streams after compression: 
+Reads:       12301080983 bytes
+Quality:     15492954804 bytes
+ID:           1185250236 bytes
+Creating tar archive ...Tar archive done!
+Time for this step: 542 s
+Compression done!
+Total time for compression: 32351 s
+
+Total size:  29020323840 bytes
+	Command being timed: "./build/spring -c -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R1.fastq /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R2.fastq -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_lossless.spring"
+	User time (seconds): 169630.87
+	System time (seconds): 7107.22
+	Percent of CPU this job got: 546%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 8:59:16
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 122723212
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 103
+	Minor (reclaiming a frame) page faults: 2774504607
+	Voluntary context switches: 7486678
+	Involuntary context switches: 9670247
+	Swaps: 0
+	File system inputs: 3017786184
+	File system outputs: 1960342968
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting decompression...
+Untarring tar archive ...
+Untarring archive done!
+Decompressing ...
+Decompression done!
+Total time for decompression: 7197 s
+	Command being timed: "./build/spring -d -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_lossless.spring -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R1.fastq.lossless.d /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R2.fastq.lossless.d"
+	User time (seconds): 33828.64
+	System time (seconds): 2341.51
+	Percent of CPU this job got: 502%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:59:59
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7951316
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 8
+	Minor (reclaiming a frame) page faults: 925198138
+	Voluntary context switches: 561682
+	Involuntary context switches: 204057
+	Swaps: 0
+	File system inputs: 40956680
+	File system outputs: 1750039168
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting compression...
+Preprocessing ...
+Max Read length: 151
+Total number of reads: 2254700070
+Total number of reads without N: 2233618873
+Preprocessing done!
+Time for this step: 6605 s
+Reordering ...
+Reading file
+Constructing dictionaries
+Reordering reads
+Reordering done, 147010692 were unmatched
+Writing to file
+Done!
+Reordering done!
+Time for this step: 15093 s
+Encoding ...
+Maximum Read length: 151
+Number of non-singleton reads: 2095885492
+Number of singleton reads: 137733381
+Number of reads with N: 21081197
+Encoding reads
+Encoding done:
+92369957 singleton reads were aligned
+18586996 reads with N were aligned
+Encoding done!
+Time for this step: 7175 s
+Reordering and compressing quality and/or ids ...
+Compressing qualities
+Reordering and compressing quality and/or ids done!
+Time for this step: 5108 s
+Encoding pairing information ...
+Encoding pairing information done!
+Time for this step: 406 s
+Reordering and compressing streams ...
+Reordering and compressing streams done!
+Time for this step: 816 s
+
+Sizes of streams after compression: 
+Reads:        7421363787 bytes
+Quality:     15494676270 bytes
+ID:                    0 bytes
+Creating tar archive ...Tar archive done!
+Time for this step: 306 s
+Compression done!
+Total time for compression: 35511 s
+
+Total size:  22953850880 bytes
+	Command being timed: "./build/spring -c -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R1.fastq /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R2.fastq -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_lossy.spring -r --no-ids"
+	User time (seconds): 165138.94
+	System time (seconds): 7510.12
+	Percent of CPU this job got: 485%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 9:52:06
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 152020600
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 60
+	Minor (reclaiming a frame) page faults: 2749761511
+	Voluntary context switches: 5404857
+	Involuntary context switches: 13656416
+	Swaps: 0
+	File system inputs: 4345479312
+	File system outputs: 2599477264
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting decompression...
+Untarring tar archive ...
+Untarring archive done!
+Decompressing ...
+Decompression done!
+Total time for decompression: 6599 s
+	Command being timed: "./build/spring -d -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_lossy.spring -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R1.fastq.lossy.d /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R2.fastq.lossy.d"
+	User time (seconds): 30138.35
+	System time (seconds): 2001.31
+	Percent of CPU this job got: 486%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:50:05
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 8193728
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 7
+	Minor (reclaiming a frame) page faults: 759104469
+	Voluntary context switches: 397474
+	Involuntary context switches: 93506
+	Swaps: 0
+	File system inputs: 31151128
+	File system outputs: 1498633544
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

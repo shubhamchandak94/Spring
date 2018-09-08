@@ -1,0 +1,118 @@
+	Command being timed: "./../pigz-2.4/pigz -p 8 /raid/shubham/HARC/data/ERR637420.fastq"
+	User time (seconds): 28.36
+	System time (seconds): 0.45
+	Percent of CPU this job got: 803%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.58
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7888
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 4223
+	Voluntary context switches: 5009
+	Involuntary context switches: 506
+	Swaps: 0
+	File system inputs: 498352
+	File system outputs: 234384
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../pigz-2.4/unpigz -p 8 -k /raid/shubham/HARC/data/ERR637420.fastq.gz"
+	User time (seconds): 1.85
+	System time (seconds): 0.51
+	Percent of CPU this job got: 173%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.36
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2484
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 198
+	Voluntary context switches: 19756
+	Involuntary context switches: 7
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 514744
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Long flag detected.
+Starting compression...
+Preprocessing ...
+Max Read length: 47422
+Total number of reads: 20087
+Preprocessing done!
+Time for this step: 26 s
+
+Sizes of streams after compression: 
+Reads:          32682518 bytes
+Quality:        61036314 bytes
+ID:                40843 bytes
+Creating tar archive ...Tar archive done!
+Time for this step: 0 s
+Compression done!
+Total time for compression: 27 s
+
+Total size:     93777920 bytes
+	Command being timed: "./build/spring -c -i /raid/shubham/HARC/data/ERR637420.fastq -l -o /raid/shubham/HARC/data/ERR637420_lossless.spring"
+	User time (seconds): 51.01
+	System time (seconds): 1.80
+	Percent of CPU this job got: 194%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:27.11
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 987772
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 1192671
+	Voluntary context switches: 515
+	Involuntary context switches: 1589
+	Swaps: 0
+	File system inputs: 514744
+	File system outputs: 366504
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting decompression...
+Untarring tar archive ...
+Untarring archive done!
+Decompressing ...
+Decompression done!
+Total time for decompression: 14 s
+	Command being timed: "./build/spring -d -i /raid/shubham/HARC/data/ERR637420_lossless.spring -o /raid/shubham/HARC/data/ERR637420.fastq.lossless.d"
+	User time (seconds): 26.50
+	System time (seconds): 1.19
+	Percent of CPU this job got: 193%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:14.32
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 786800
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 673035
+	Voluntary context switches: 52
+	Involuntary context switches: 37
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 698088
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
