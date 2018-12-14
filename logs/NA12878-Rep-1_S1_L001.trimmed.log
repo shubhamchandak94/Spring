@@ -1,0 +1,1368 @@
+
+Compression tool for Fastq files. Works on reads of length less than 256. Maximum number of reads around 4 Billion (2^32). For paired end reads, both files should have same number of reads.
+
+Usage: 
+Compression - compresses FASTQ files.
+./harc -c -1 Fastq_file_1 [-2 Fastq_file_2] [-p] [-t num_threads] [-q mode] [-r qvz_ratio] [-i] -o outputfile
+-2 second file for paired end reads
+-p Preserve order of reads
+-t num_threads - Default 8
+-q Retain quality values. Possible modes:
+	qvz - qvz specify bits/quality ratio using -r flag (default 8.0 lossless)
+	bsc - use bsc compressor. 
+	illumina_binning_bsc - bin into 8 levels and use bsc
+	illumina_binning_qvz - bin into 8 levels and use qvz lossless
+-r bits/quality ratio if -q qvz used [default 8.0 lossless]
+-i Retain read IDs, if not specified fake ids will be generated during decompression
+-o Output file name
+
+Decompression - decompress compressed archive.
+./harc -d compressed_file -o outputfile [-t num_threads]
+-o outputfile name, if compressed with -P flag, two files created: outputfile.1 and outputfile.2. If quality is not retained, FASTA file is produced.
+
+-t num_threads - Default 8
+
+Help (this message)
+./harc -h
+
+See README and more supplementary information at:
+https://github.com/shubhamchandak94/HARC/tree/pe
+
+	Command being timed: "./harc -c -1 data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed -2 data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed -Pp -i -q bsc -t 8 -o data/NA12878-Rep-1_S1_L001_trimmed_op.harc"
+	User time (seconds): 0.00
+	System time (seconds): 0.00
+	Percent of CPU this job got: 11%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.03
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 3164
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 6
+	Minor (reclaiming a frame) page faults: 341
+	Voluntary context switches: 11
+	Involuntary context switches: 2
+	Swaps: 0
+	File system inputs: 536
+	File system outputs: 8
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+*** Preprocessing ***
+Max Read length: 147
+Total number of reads: 540040760
+Total number of reads without N: 539407371
+Paired id match code: 3
+Preprocessing Done!
+	Command being timed: "././bin/preprocess.out True True True data/tmp.cAhpxiyIDP data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed"
+	User time (seconds): 465.93
+	System time (seconds): 249.02
+	Percent of CPU this job got: 67%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 17:40.49
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 3348
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 3
+	Minor (reclaiming a frame) page faults: 4508
+	Voluntary context switches: 777567
+	Involuntary context switches: 7998
+	Swaps: 0
+	File system inputs: 194344768
+	File system outputs: 224111168
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Reading file: data/tmp.cAhpxiyIDP/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 24951881 were unmatched
+Writing to file
+Done!
+	Command being timed: "././bin/reorder/reorder_320.out data/tmp.cAhpxiyIDP 147 8"
+	User time (seconds): 29763.66
+	System time (seconds): 1669.78
+	Percent of CPU this job got: 728%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:11:53
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 30320708
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 17
+	Minor (reclaiming a frame) page faults: 945041956
+	Voluntary context switches: 1781598
+	Involuntary context switches: 63579
+	Swaps: 0
+	File system inputs: 44353744
+	File system outputs: 213676832
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Maximum Read length: 147
+Number of non-singleton reads: 518054822
+Number of singleton reads: 21352549
+Number of reads with N: 633389
+Encoding reads
+Encoding done:
+12230438 singleton reads were aligned
+612217 reads with N were aligned
+	Command being timed: "././bin/encoder/encoder_448.out data/tmp.cAhpxiyIDP 147 8"
+	User time (seconds): 11377.56
+	System time (seconds): 88.09
+	Percent of CPU this job got: 726%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 26:18.53
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 3948452
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 9906361
+	Voluntary context switches: 165065
+	Involuntary context switches: 26980
+	Swaps: 0
+	File system inputs: 188480
+	File system outputs: 32049568
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.cAhpxiyIDP/read_pos.tar(00%)data/tmp.cAhpxiyIDP/read_pos.tar compressed 530913280 into 247269852 in 18.982 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.cAhpxiyIDP/read_noise.tar(00%)Compressing data/tmp.cAhpxiyIDP/read_noise.tar(76%)data/tmp.cAhpxiyIDP/read_noise.tar compressed 794644480 into 113808450 in 17.107 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.cAhpxiyIDP/read_noisepos.tar.7z
+
+Compressing  data/tmp.cAhpxiyIDP/read_noisepos.tar
+
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.cAhpxiyIDP/unaligned_N.txt(00%)data/tmp.cAhpxiyIDP/unaligned_N.txt compressed 3112284 into 721124 in 0.490 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.cAhpxiyIDP/read_meta.txt.7z
+
+Compressing  data/tmp.cAhpxiyIDP/read_meta.txt
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.cAhpxiyIDP/read_rev.tar.7z
+
+Compressing  data/tmp.cAhpxiyIDP/read_rev.tar
+
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.cAhpxiyIDP/read_seq.tar(15%)data/tmp.cAhpxiyIDP/read_seq.tar compressed 869642240 into 738752938 in 41.954 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.cAhpxiyIDP/unaligned_singleton.txt(00%)data/tmp.cAhpxiyIDP/unaligned_singleton.txt compressed 335237579 into 272336946 in 20.739 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.cAhpxiyIDP/read_lengths.bin.7z
+
+Compressing  data/tmp.cAhpxiyIDP/read_lengths.bin
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.cAhpxiyIDP/read_order_paired.bin.7z
+
+Compressing  data/tmp.cAhpxiyIDP/read_order_paired.bin
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.cAhpxiyIDP/read_paired_flag_first.bin.7z
+
+Compressing  data/tmp.cAhpxiyIDP/read_paired_flag_first.bin
+
+Everything is Ok
+Compressing qualities and/or ids
+	Command being timed: "././bin/reorder_compress_quality_id_pe.out data/tmp.cAhpxiyIDP 147 8 True True True True bsc 8.0 data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed"
+	User time (seconds): 723.27
+	System time (seconds): 232.57
+	Percent of CPU this job got: 116%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 13:38.10
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 29620920
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 21208892
+	Voluntary context switches: 273210
+	Involuntary context switches: 2985
+	Swaps: 0
+	File system inputs: 255677200
+	File system outputs: 157728688
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.cAhpxiyIDP/quality_1.txt(00%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(01%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(03%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(04%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(05%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(06%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(08%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(09%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(10%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(12%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(13%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(14%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(16%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(17%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(18%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(20%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(21%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(22%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(24%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(25%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(26%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(27%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(29%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(30%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(31%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(33%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(34%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(36%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(37%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(38%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(40%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(41%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(42%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(43%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(44%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(46%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(47%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(49%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(50%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(51%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(53%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(54%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(55%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(57%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(58%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(59%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(61%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(62%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(63%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(65%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(66%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(67%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(68%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(69%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(71%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(72%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(73%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(75%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(76%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(77%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(79%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(80%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(81%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(83%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(84%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(85%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(87%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(88%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(89%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(91%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(92%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(93%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(95%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(96%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(97%)Compressing data/tmp.cAhpxiyIDP/quality_1.txt(99%)data/tmp.cAhpxiyIDP/quality_1.txt compressed 39692995860 into 1577608488 in 263.428 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.cAhpxiyIDP/quality_2.txt(00%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(02%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(03%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(04%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(05%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(07%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(08%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(09%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(11%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(12%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(14%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(15%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(16%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(17%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(19%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(20%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(21%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(23%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(24%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(25%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(27%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(28%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(29%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(31%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(32%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(33%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(35%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(36%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(37%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(38%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(40%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(41%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(42%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(43%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(44%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(45%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(47%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(48%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(50%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(51%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(52%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(54%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(55%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(56%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(58%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(59%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(60%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(62%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(63%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(64%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(66%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(67%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(69%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(70%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(71%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(73%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(74%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(75%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(76%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(78%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(79%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(80%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(82%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(84%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(85%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(86%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(87%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(89%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(90%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(91%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(93%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(94%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(95%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(96%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(98%)Compressing data/tmp.cAhpxiyIDP/quality_2.txt(99%)data/tmp.cAhpxiyIDP/quality_2.txt compressed 39692995860 into 2008005776 in 285.074 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.cAhpxiyIDP/read_order.bin.7z
+
+Compressing  data/tmp.cAhpxiyIDP/read_order.bin
+
+Everything is Ok
+Done.
+	Command being timed: "./harc -c -1 data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed -2 data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed -p -i -q bsc -t 8 -o data/NA12878-Rep-1_S1_L001_trimmed_op.harc"
+	User time (seconds): 48467.51
+	System time (seconds): 2413.02
+	Percent of CPU this job got: 552%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:33:31
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 30320708
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 95
+	Minor (reclaiming a frame) page faults: 979703706
+	Voluntary context switches: 4121910
+	Involuntary context switches: 116607
+	Swaps: 0
+	File system inputs: 542783320
+	File system outputs: 665449296
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+/raid/shubham/FaStore/scripts(master ✗) stdbuf -oL /usr/bin/time -v bash fastore_compress.sh --lossless --in ../../HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed --pair ../../HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.t[104/1544]
+ut ../../HARC/data/NA12878-Rep-1_S1_L001.trimmed.fastore --verbose --threads 8 |& tee -a logs/NA12878-Rep-1_S1_L001.trimmed.log                                                                                                              tee: logs/NA12878-Rep-1_S1_L001.trimmed.log: No such file or directory
+processing files: ../../HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed ../../HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed
+
+:: binning ...
+temporary files:
+18865140 __tmp-dna-25185-bin.bdna
+14677324 __tmp-dna-25185-bin.bhead
+  417788 __tmp-dna-25185-bin.bmeta
+58144108 __tmp-dna-25185-bin.bqua
+
+:: rebinning: 0 -> 2 ...
+temporary files:
+17715332 __tmp-dna-25185-rebin-2.bdna
+14677552 __tmp-dna-25185-rebin-2.bhead
+  512520 __tmp-dna-25185-rebin-2.bmeta
+58144224 __tmp-dna-25185-rebin-2.bqua
+
+:: rebinning: 2 -> 4 ...
+temporary files:
+17222268 __tmp-dna-25185-rebin-4.bdna
+14677728 __tmp-dna-25185-rebin-4.bhead
+  543364 __tmp-dna-25185-rebin-4.bmeta
+58144316 __tmp-dna-25185-rebin-4.bqua
+
+:: rebinning: 4 -> 8 ...
+temporary files:
+16819560 __tmp-dna-25185-rebin-8.bdna
+14677908 __tmp-dna-25185-rebin-8.bhead
+  578204 __tmp-dna-25185-rebin-8.bmeta
+58144408 __tmp-dna-25185-rebin-8.bqua
+
+:: packing ...
+Parts processed: 3588 (100%)
+StreamSizes:
+Flag 65909790
+LettersX 399457850
+Rev 30936280
+HardReads 913752744
+LzId 31530844
+Shift 92168502
+Match 56274843
+MatchBinary 111373375
+TreeShift 18605342
+CMatch 1687770
+CShift 32344195
+CLetters 116882291
+Quality 3787345910
+ReadIdToken 1358134
+ReadIdValue 1144181305
+PE_Flag 62148823
+PE_LettersX 983035208
+PE_Swap 34133084
+PE_Hard 2584429800
+PE_LzId 126099372
+PE_Shift 134178059
+PE_MatchRLE 56977212
+PE_MatchBinary 196825835
+NDna: 8065182
+NQua: 2129337
+NReadIdToken: 645
+NReadIdValue: 548206
+
+**** **** **** ****
+archive files:
+10736192 ../../HARC/data/NA12878-Rep-1_S1_L001.trimmed.fastore.cdata
+      48 ../../HARC/data/NA12878-Rep-1_S1_L001.trimmed.fastore.cmeta
+        Command being timed: "bash fastore_compress.sh --lossless --in ../../HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed --pair ../../HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed --out ../../HARC/data/NA12878-Rep-1_S1_L001.trimmed.fastore --verbose --threads 8"
+        User time (seconds): 63855.21
+        System time (seconds): 7269.08
+        Percent of CPU this job got: 659%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 2:59:51
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 36197520
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 351
+        Minor (reclaiming a frame) page faults: 1280859131
+        Voluntary context switches: 4687173
+        Involuntary context switches: 227834
+        Swaps: 0
+        File system inputs: 327265312
+        File system outputs: 749397288
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+
+
+/raid/shubham/FaStore/scripts(master ✗) stdbuf -oL /usr/bin/time -v bash fastore_compress.sh --lossless --fast --in ../../HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed --pair ../../HARC/data/NA12878-Rep-1_S1_L001_R2_001.f[12/1546]
+med --out ../../HARC/data/NA12878-Rep-1_S1_L001.trimmed.fast.fastore --verbose --threads 8 |& tee -a logs/NA12878-Rep-1_S1_L001.trimmed.log
+tee: logs/NA12878-Rep-1_S1_L001.trimmed.log: No such file or directory
+processing files: ../../HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed ../../HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed
+
+:: binning ...
+temporary files:
+18865144 __tmp-dna-16085-bin.bdna
+14677332 __tmp-dna-16085-bin.bhead
+  419056 __tmp-dna-16085-bin.bmeta
+58144112 __tmp-dna-16085-bin.bqua
+
+:: packing...
+Parts processed: 1373 (100%)
+StreamSizes:
+Flag 60609810
+LettersX 373437778
+Rev 30947769
+HardReads 1166503250
+LzId 29036825
+Shift 90256456
+Match 53055026
+MatchBinary 79817766
+TreeShift 6780694
+CMatch 1777581
+CShift 28237397
+CLetters 104659214
+Quality 3787436200
+ReadIdToken 1247459
+ReadIdValue 1121155086
+PE_Flag 58705365
+PE_LettersX 957440558
+PE_Swap 34103771
+PE_Hard 2929936859
+PE_LzId 102053819
+PE_Shift 128364685
+PE_MatchRLE 52861505
+PE_MatchBinary 161769795
+NDna: 4049746
+NQua: 1759648
+NReadIdToken: 394
+NReadIdValue: 308601
+
+**** **** **** ****
+archive files:
+11100472 ../../HARC/data/NA12878-Rep-1_S1_L001.trimmed.fast.fastore.cdata
+      20 ../../HARC/data/NA12878-Rep-1_S1_L001.trimmed.fast.fastore.cmeta
+        Command being timed: "bash fastore_compress.sh --lossless --fast --in ../../HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed --pair ../../HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed --out ../../HARC/data/NA12878-Rep-
+1_S1_L001.trimmed.fast.fastore --verbose --threads 8"
+        User time (seconds): 22119.89
+        System time (seconds): 1864.21
+        Percent of CPU this job got: 742%
+        Elapsed (wall clock) time (h:mm:ss or m:ss): 53:50.78
+        Average shared text size (kbytes): 0
+        Average unshared data size (kbytes): 0
+        Average stack size (kbytes): 0
+        Average total size (kbytes): 0
+        Maximum resident set size (kbytes): 41774820
+        Average resident set size (kbytes): 0
+        Major (requiring I/O) page faults: 7
+        Minor (reclaiming a frame) page faults: 209168160
+        Voluntary context switches: 1427880
+        Involuntary context switches: 62102
+        Swaps: 0
+        File system inputs: 289630800
+        File system outputs: 206412400
+        Socket messages sent: 0
+        Socket messages received: 0
+        Signals delivered: 0
+        Page size (bytes): 4096
+        Exit status: 0
+
+
+HARC without left search
+*** Preprocessing ***
+Max Read length: 147
+Total number of reads: 540040760
+Total number of reads without N: 539407371
+Preprocessing Done!
+	Command being timed: "././bin/preprocess.out True False False data/tmp.qdIoyEb0dB data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed"
+	User time (seconds): 444.95
+	System time (seconds): 193.45
+	Percent of CPU this job got: 75%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 14:08.69
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 3324
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 569
+	Voluntary context switches: 196879
+	Involuntary context switches: 1569
+	Swaps: 0
+	File system inputs: 277697024
+	File system outputs: 156110904
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Reading file: data/tmp.qdIoyEb0dB/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 30352244 were unmatched
+Writing to file
+Done!
+	Command being timed: "././bin/reorder/reorder_320.out data/tmp.qdIoyEb0dB 147 8"
+	User time (seconds): 25767.68
+	System time (seconds): 1863.99
+	Percent of CPU this job got: 720%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:03:54
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 30320956
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 1105505057
+	Voluntary context switches: 1591085
+	Involuntary context switches: 72718
+	Swaps: 0
+	File system inputs: 27522600
+	File system outputs: 214544280
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Maximum Read length: 147
+Number of non-singleton reads: 514877881
+Number of singleton reads: 24529490
+Number of reads with N: 633389
+Encoding reads
+Encoding done:
+13794324 singleton reads were aligned
+608270 reads with N were aligned
+	Command being timed: "././bin/encoder/encoder_448.out data/tmp.qdIoyEb0dB 147 8"
+	User time (seconds): 11885.06
+	System time (seconds): 93.35
+	Percent of CPU this job got: 727%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 27:25.50
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4137652
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 7651469
+	Voluntary context switches: 209274
+	Involuntary context switches: 29454
+	Swaps: 0
+	File system inputs: 188104
+	File system outputs: 33384792
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.qdIoyEb0dB/read_pos.tar(00%)data/tmp.qdIoyEb0dB/read_pos.tar compressed 529295360 into 246127870 in 20.026 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.qdIoyEb0dB/read_noise.tar(00%)Compressing data/tmp.qdIoyEb0dB/read_noise.tar(66%)data/tmp.qdIoyEb0dB/read_noise.tar compressed 805406720 into 117045116 in 17.811 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.qdIoyEb0dB/read_noisepos.tar.7z
+
+Compressing  data/tmp.qdIoyEb0dB/read_noisepos.tar
+
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.qdIoyEb0dB/unaligned_N.txt(00%)data/tmp.qdIoyEb0dB/unaligned_N.txt compressed 3692493 into 855826 in 0.525 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.qdIoyEb0dB/read_meta.txt.7z
+
+Compressing  data/tmp.qdIoyEb0dB/read_meta.txt
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.qdIoyEb0dB/read_rev.tar.7z
+
+Compressing  data/tmp.qdIoyEb0dB/read_rev.tar
+
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.qdIoyEb0dB/read_seq.tar(00%)Compressing data/tmp.qdIoyEb0dB/read_seq.tar(79%)data/tmp.qdIoyEb0dB/read_seq.tar compressed 925859840 into 794462356 in 43.297 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.qdIoyEb0dB/unaligned_singleton.txt(00%)data/tmp.qdIoyEb0dB/unaligned_singleton.txt compressed 394517350 into 318101810 in 21.506 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.qdIoyEb0dB/read_lengths.bin.7z
+
+Compressing  data/tmp.qdIoyEb0dB/read_lengths.bin
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.qdIoyEb0dB/read_order_paired.bin.7z
+
+Compressing  data/tmp.qdIoyEb0dB/read_order_paired.bin
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.qdIoyEb0dB/read_paired_flag_first.bin.7z
+
+Compressing  data/tmp.qdIoyEb0dB/read_paired_flag_first.bin
+
+Everything is Ok
+	Command being timed: "././bin/reorder_compress_quality_id_pe.out data/tmp.qdIoyEb0dB 147 8 True True False False data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed"
+	User time (seconds): 0.00
+	System time (seconds): 0.00
+	Percent of CPU this job got: 0%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 3480
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 146
+	Voluntary context switches: 1
+	Involuntary context switches: 1
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.qdIoyEb0dB/read_order.bin.7z
+
+Compressing  data/tmp.qdIoyEb0dB/read_order.bin
+
+Everything is Ok
+Done.
+	Command being timed: "./harc -c -1 data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed -2 data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed -p -t 8 -o data/NA12878-Rep-1_S1_L001_trimmed_op_no_left_search.harc"
+	User time (seconds): 40133.34
+	System time (seconds): 2179.44
+	Percent of CPU this job got: 587%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:00:00
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 30320956
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 34
+	Minor (reclaiming a frame) page faults: 1113980533
+	Voluntary context switches: 2747950
+	Involuntary context switches: 107634
+	Swaps: 0
+	File system inputs: 305408744
+	File system outputs: 428051464
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+No left search if read remains unmatched
+*** Preprocessing ***
+Max Read length: 147
+Total number of reads: 540040760
+Total number of reads without N: 539407371
+Preprocessing Done!
+	Command being timed: "././bin/preprocess.out True False False data/tmp.mWqR8LUpFc data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed"
+	User time (seconds): 501.84
+	System time (seconds): 181.80
+	Percent of CPU this job got: 75%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 15:00.38
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 3216
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 18
+	Minor (reclaiming a frame) page faults: 768
+	Voluntary context switches: 197660
+	Involuntary context switches: 1470
+	Swaps: 0
+	File system inputs: 267521544
+	File system outputs: 156110936
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Reading file: data/tmp.mWqR8LUpFc/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 26203012 were unmatched
+Writing to file
+Done!
+	Command being timed: "././bin/reorder/reorder_320.out data/tmp.mWqR8LUpFc 147 8"
+	User time (seconds): 27145.08
+	System time (seconds): 2160.82
+	Percent of CPU this job got: 719%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:07:50
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 30320948
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 1351121312
+	Voluntary context switches: 891882
+	Involuntary context switches: 64507
+	Swaps: 0
+	File system inputs: 36752024
+	File system outputs: 214339480
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Maximum Read length: 147
+Number of non-singleton reads: 515655365
+Number of singleton reads: 23752006
+Number of reads with N: 633389
+Encoding reads
+Encoding done:
+13682863 singleton reads were aligned
+611696 reads with N were aligned
+	Command being timed: "././bin/encoder/encoder_448.out data/tmp.mWqR8LUpFc 147 8"
+	User time (seconds): 11307.38
+	System time (seconds): 83.63
+	Percent of CPU this job got: 708%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 26:47.39
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4091568
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 8074328
+	Voluntary context switches: 99212
+	Involuntary context switches: 37581
+	Swaps: 0
+	File system inputs: 72000
+	File system outputs: 31991832
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.mWqR8LUpFc/read_pos.tar(00%)data/tmp.mWqR8LUpFc/read_pos.tar compressed 529960960 into 246097104 in 19.906 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.mWqR8LUpFc/read_noise.tar(00%)Compressing data/tmp.mWqR8LUpFc/read_noise.tar(91%)data/tmp.mWqR8LUpFc/read_noise.tar compressed 805396480 into 116584818 in 16.803 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.mWqR8LUpFc/read_noisepos.tar.7z
+
+Compressing  data/tmp.mWqR8LUpFc/read_noisepos.tar
+
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.mWqR8LUpFc/unaligned_N.txt(00%)data/tmp.mWqR8LUpFc/unaligned_N.txt compressed 3188871 into 736784 in 0.507 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.mWqR8LUpFc/read_meta.txt.7z
+
+Compressing  data/tmp.mWqR8LUpFc/read_meta.txt
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.mWqR8LUpFc/read_rev.tar.7z
+
+Compressing  data/tmp.mWqR8LUpFc/read_rev.tar
+
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.mWqR8LUpFc/read_seq.tar(00%)data/tmp.mWqR8LUpFc/read_seq.tar compressed 811745280 into 698497072 in 40.669 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.mWqR8LUpFc/unaligned_singleton.txt(00%)data/tmp.mWqR8LUpFc/unaligned_singleton.txt compressed 370041005 into 297101398 in 20.169 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.mWqR8LUpFc/read_lengths.bin.7z
+
+Compressing  data/tmp.mWqR8LUpFc/read_lengths.bin
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.mWqR8LUpFc/read_order_paired.bin.7z
+
+Compressing  data/tmp.mWqR8LUpFc/read_order_paired.bin
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.mWqR8LUpFc/read_paired_flag_first.bin.7z
+
+Compressing  data/tmp.mWqR8LUpFc/read_paired_flag_first.bin
+
+Everything is Ok
+	Command being timed: "././bin/reorder_compress_quality_id_pe.out data/tmp.mWqR8LUpFc 147 8 True True False False data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed"
+	User time (seconds): 0.00
+	System time (seconds): 0.00
+	Percent of CPU this job got: 0%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.00
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 3476
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 146
+	Voluntary context switches: 1
+	Involuntary context switches: 1
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.mWqR8LUpFc/read_order.bin.7z
+
+Compressing  data/tmp.mWqR8LUpFc/read_order.bin
+
+Everything is Ok
+Done.
+	Command being timed: "./harc -c -1 data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed -2 data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed -p -t 8 -o data/NA12878-Rep-1_S1_L001_trimmed_op_no_left_search_sing.harc"
+	User time (seconds): 40895.28
+	System time (seconds): 2453.30
+	Percent of CPU this job got: 583%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:03:48
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 30320948
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 95
+	Minor (reclaiming a frame) page faults: 1360052162
+	Voluntary context switches: 1978764
+	Involuntary context switches: 107257
+	Swaps: 0
+	File system inputs: 304348904
+	File system outputs: 425638024
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+*** Preprocessing ***
+*** Preprocessing ***
+Max Read length: 147
+Total number of reads: 540040760
+Total number of reads without N: 539407371
+Paired id match code: 3
+Preprocessing Done!
+	Command being timed: "././bin/preprocess.out True True True data/tmp.G7i09mx13E data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed"
+	User time (seconds): 374.31
+	System time (seconds): 166.68
+	Percent of CPU this job got: 66%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 13:37.11
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 3300
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 722
+	Voluntary context switches: 10287
+	Involuntary context switches: 2471
+	Swaps: 0
+	File system inputs: 383182168
+	File system outputs: 224111000
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Reading file: data/tmp.G7i09mx13E/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 24952009 were unmatched
+Writing to file
+Done!
+	Command being timed: "././bin/reorder/reorder_320.out data/tmp.G7i09mx13E 147 8"
+	User time (seconds): 27914.14
+	System time (seconds): 1605.76
+	Percent of CPU this job got: 730%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:07:20
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 30321800
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 6
+	Minor (reclaiming a frame) page faults: 972042259
+	Voluntary context switches: 942300
+	Involuntary context switches: 64729
+	Swaps: 0
+	File system inputs: 23023432
+	File system outputs: 213674128
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Maximum Read length: 147
+Number of non-singleton reads: 518054936
+Number of singleton reads: 21352435
+Number of reads with N: 633389
+Encoding reads
+Encoding done:
+12230233 singleton reads were aligned
+612220 reads with N were aligned
+	Command being timed: "././bin/encoder/encoder_448.out data/tmp.G7i09mx13E 147 8"
+	User time (seconds): 11429.24
+	System time (seconds): 86.03
+	Percent of CPU this job got: 712%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 26:56.72
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 3948572
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 10951180
+	Voluntary context switches: 137831
+	Involuntary context switches: 32489
+	Swaps: 0
+	File system inputs: 188320
+	File system outputs: 32050312
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.G7i09mx13E/read_pos.tar(00%)data/tmp.G7i09mx13E/read_pos.tar compressed 530913280 into 247247808 in 19.244 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.G7i09mx13E/read_noise.tar(00%)Compressing data/tmp.G7i09mx13E/read_noise.tar(84%)data/tmp.G7i09mx13E/read_noise.tar compressed 794644480 into 113771898 in 16.851 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.G7i09mx13E/read_noisepos.tar.7z
+
+Compressing  data/tmp.G7i09mx13E/read_noisepos.tar
+
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.G7i09mx13E/unaligned_N.txt(00%)data/tmp.G7i09mx13E/unaligned_N.txt compressed 3111843 into 721076 in 0.478 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.G7i09mx13E/read_meta.txt.7z
+
+Compressing  data/tmp.G7i09mx13E/read_meta.txt
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.G7i09mx13E/read_rev.tar.7z
+
+Compressing  data/tmp.G7i09mx13E/read_rev.tar
+
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.G7i09mx13E/read_seq.tar(00%)data/tmp.G7i09mx13E/read_seq.tar compressed 869642240 into 738801242 in 40.766 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.G7i09mx13E/unaligned_singleton.txt(00%)data/tmp.G7i09mx13E/unaligned_singleton.txt compressed 335240923 into 272338370 in 20.865 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.G7i09mx13E/read_lengths.bin.7z
+
+Compressing  data/tmp.G7i09mx13E/read_lengths.bin
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.G7i09mx13E/read_order_paired.bin.7z
+
+Compressing  data/tmp.G7i09mx13E/read_order_paired.bin
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.G7i09mx13E/read_paired_flag_first.bin.7z
+
+Compressing  data/tmp.G7i09mx13E/read_paired_flag_first.bin
+
+Everything is Ok
+Compressing qualities and/or ids
+	Command being timed: "././bin/reorder_compress_quality_id_pe.out data/tmp.G7i09mx13E 147 8 True True True True bsc 8.0 data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed"
+	User time (seconds): 722.47
+	System time (seconds): 186.52
+	Percent of CPU this job got: 120%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 12:34.27
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 29621024
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 21082120
+	Voluntary context switches: 31526
+	Involuntary context switches: 2610
+	Swaps: 0
+	File system inputs: 242889416
+	File system outputs: 157728704
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.G7i09mx13E/quality_1.txt(00%)Compressing data/tmp.G7i09mx13E/quality_1.txt(02%)Compressing data/tmp.G7i09mx13E/quality_1.txt(03%)Compressing data/tmp.G7i09mx13E/quality_1.txt(04%)Compressing data/tmp.G7i09mx13E/quality_1.txt(05%)Compressing data/tmp.G7i09mx13E/quality_1.txt(06%)Compressing data/tmp.G7i09mx13E/quality_1.txt(08%)Compressing data/tmp.G7i09mx13E/quality_1.txt(09%)Compressing data/tmp.G7i09mx13E/quality_1.txt(10%)Compressing data/tmp.G7i09mx13E/quality_1.txt(12%)Compressing data/tmp.G7i09mx13E/quality_1.txt(13%)Compressing data/tmp.G7i09mx13E/quality_1.txt(15%)Compressing data/tmp.G7i09mx13E/quality_1.txt(16%)Compressing data/tmp.G7i09mx13E/quality_1.txt(18%)Compressing data/tmp.G7i09mx13E/quality_1.txt(19%)Compressing data/tmp.G7i09mx13E/quality_1.txt(20%)Compressing data/tmp.G7i09mx13E/quality_1.txt(21%)Compressing data/tmp.G7i09mx13E/quality_1.txt(23%)Compressing data/tmp.G7i09mx13E/quality_1.txt(24%)Compressing data/tmp.G7i09mx13E/quality_1.txt(25%)Compressing data/tmp.G7i09mx13E/quality_1.txt(27%)Compressing data/tmp.G7i09mx13E/quality_1.txt(28%)Compressing data/tmp.G7i09mx13E/quality_1.txt(29%)Compressing data/tmp.G7i09mx13E/quality_1.txt(31%)Compressing data/tmp.G7i09mx13E/quality_1.txt(32%)Compressing data/tmp.G7i09mx13E/quality_1.txt(33%)Compressing data/tmp.G7i09mx13E/quality_1.txt(35%)Compressing data/tmp.G7i09mx13E/quality_1.txt(36%)Compressing data/tmp.G7i09mx13E/quality_1.txt(37%)Compressing data/tmp.G7i09mx13E/quality_1.txt(39%)Compressing data/tmp.G7i09mx13E/quality_1.txt(40%)Compressing data/tmp.G7i09mx13E/quality_1.txt(42%)Compressing data/tmp.G7i09mx13E/quality_1.txt(43%)Compressing data/tmp.G7i09mx13E/quality_1.txt(45%)Compressing data/tmp.G7i09mx13E/quality_1.txt(46%)Compressing data/tmp.G7i09mx13E/quality_1.txt(47%)Compressing data/tmp.G7i09mx13E/quality_1.txt(49%)Compressing data/tmp.G7i09mx13E/quality_1.txt(50%)Compressing data/tmp.G7i09mx13E/quality_1.txt(51%)Compressing data/tmp.G7i09mx13E/quality_1.txt(53%)Compressing data/tmp.G7i09mx13E/quality_1.txt(54%)Compressing data/tmp.G7i09mx13E/quality_1.txt(55%)Compressing data/tmp.G7i09mx13E/quality_1.txt(57%)Compressing data/tmp.G7i09mx13E/quality_1.txt(58%)Compressing data/tmp.G7i09mx13E/quality_1.txt(59%)Compressing data/tmp.G7i09mx13E/quality_1.txt(61%)Compressing data/tmp.G7i09mx13E/quality_1.txt(62%)Compressing data/tmp.G7i09mx13E/quality_1.txt(63%)Compressing data/tmp.G7i09mx13E/quality_1.txt(65%)Compressing data/tmp.G7i09mx13E/quality_1.txt(66%)Compressing data/tmp.G7i09mx13E/quality_1.txt(67%)Compressing data/tmp.G7i09mx13E/quality_1.txt(69%)Compressing data/tmp.G7i09mx13E/quality_1.txt(70%)Compressing data/tmp.G7i09mx13E/quality_1.txt(71%)Compressing data/tmp.G7i09mx13E/quality_1.txt(73%)Compressing data/tmp.G7i09mx13E/quality_1.txt(74%)Compressing data/tmp.G7i09mx13E/quality_1.txt(75%)Compressing data/tmp.G7i09mx13E/quality_1.txt(77%)Compressing data/tmp.G7i09mx13E/quality_1.txt(78%)Compressing data/tmp.G7i09mx13E/quality_1.txt(80%)Compressing data/tmp.G7i09mx13E/quality_1.txt(81%)Compressing data/tmp.G7i09mx13E/quality_1.txt(83%)Compressing data/tmp.G7i09mx13E/quality_1.txt(84%)Compressing data/tmp.G7i09mx13E/quality_1.txt(86%)Compressing data/tmp.G7i09mx13E/quality_1.txt(87%)Compressing data/tmp.G7i09mx13E/quality_1.txt(88%)Compressing data/tmp.G7i09mx13E/quality_1.txt(89%)Compressing data/tmp.G7i09mx13E/quality_1.txt(90%)Compressing data/tmp.G7i09mx13E/quality_1.txt(92%)Compressing data/tmp.G7i09mx13E/quality_1.txt(93%)Compressing data/tmp.G7i09mx13E/quality_1.txt(95%)Compressing data/tmp.G7i09mx13E/quality_1.txt(96%)Compressing data/tmp.G7i09mx13E/quality_1.txt(97%)Compressing data/tmp.G7i09mx13E/quality_1.txt(99%)data/tmp.G7i09mx13E/quality_1.txt compressed 39692995860 into 1577608488 in 257.524 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.G7i09mx13E/quality_2.txt(00%)Compressing data/tmp.G7i09mx13E/quality_2.txt(02%)Compressing data/tmp.G7i09mx13E/quality_2.txt(03%)Compressing data/tmp.G7i09mx13E/quality_2.txt(05%)Compressing data/tmp.G7i09mx13E/quality_2.txt(06%)Compressing data/tmp.G7i09mx13E/quality_2.txt(07%)Compressing data/tmp.G7i09mx13E/quality_2.txt(09%)Compressing data/tmp.G7i09mx13E/quality_2.txt(10%)Compressing data/tmp.G7i09mx13E/quality_2.txt(11%)Compressing data/tmp.G7i09mx13E/quality_2.txt(13%)Compressing data/tmp.G7i09mx13E/quality_2.txt(14%)Compressing data/tmp.G7i09mx13E/quality_2.txt(15%)Compressing data/tmp.G7i09mx13E/quality_2.txt(16%)Compressing data/tmp.G7i09mx13E/quality_2.txt(18%)Compressing data/tmp.G7i09mx13E/quality_2.txt(19%)Compressing data/tmp.G7i09mx13E/quality_2.txt(20%)Compressing data/tmp.G7i09mx13E/quality_2.txt(21%)Compressing data/tmp.G7i09mx13E/quality_2.txt(23%)Compressing data/tmp.G7i09mx13E/quality_2.txt(24%)Compressing data/tmp.G7i09mx13E/quality_2.txt(25%)Compressing data/tmp.G7i09mx13E/quality_2.txt(27%)Compressing data/tmp.G7i09mx13E/quality_2.txt(28%)Compressing data/tmp.G7i09mx13E/quality_2.txt(29%)Compressing data/tmp.G7i09mx13E/quality_2.txt(31%)Compressing data/tmp.G7i09mx13E/quality_2.txt(32%)Compressing data/tmp.G7i09mx13E/quality_2.txt(33%)Compressing data/tmp.G7i09mx13E/quality_2.txt(35%)Compressing data/tmp.G7i09mx13E/quality_2.txt(36%)Compressing data/tmp.G7i09mx13E/quality_2.txt(38%)Compressing data/tmp.G7i09mx13E/quality_2.txt(39%)Compressing data/tmp.G7i09mx13E/quality_2.txt(41%)Compressing data/tmp.G7i09mx13E/quality_2.txt(42%)Compressing data/tmp.G7i09mx13E/quality_2.txt(43%)Compressing data/tmp.G7i09mx13E/quality_2.txt(45%)Compressing data/tmp.G7i09mx13E/quality_2.txt(46%)Compressing data/tmp.G7i09mx13E/quality_2.txt(47%)Compressing data/tmp.G7i09mx13E/quality_2.txt(49%)Compressing data/tmp.G7i09mx13E/quality_2.txt(51%)Compressing data/tmp.G7i09mx13E/quality_2.txt(52%)Compressing data/tmp.G7i09mx13E/quality_2.txt(53%)Compressing data/tmp.G7i09mx13E/quality_2.txt(55%)Compressing data/tmp.G7i09mx13E/quality_2.txt(56%)Compressing data/tmp.G7i09mx13E/quality_2.txt(58%)Compressing data/tmp.G7i09mx13E/quality_2.txt(59%)Compressing data/tmp.G7i09mx13E/quality_2.txt(61%)Compressing data/tmp.G7i09mx13E/quality_2.txt(62%)Compressing data/tmp.G7i09mx13E/quality_2.txt(63%)Compressing data/tmp.G7i09mx13E/quality_2.txt(65%)Compressing data/tmp.G7i09mx13E/quality_2.txt(66%)Compressing data/tmp.G7i09mx13E/quality_2.txt(67%)Compressing data/tmp.G7i09mx13E/quality_2.txt(69%)Compressing data/tmp.G7i09mx13E/quality_2.txt(70%)Compressing data/tmp.G7i09mx13E/quality_2.txt(72%)Compressing data/tmp.G7i09mx13E/quality_2.txt(73%)Compressing data/tmp.G7i09mx13E/quality_2.txt(74%)Compressing data/tmp.G7i09mx13E/quality_2.txt(76%)Compressing data/tmp.G7i09mx13E/quality_2.txt(77%)Compressing data/tmp.G7i09mx13E/quality_2.txt(78%)Compressing data/tmp.G7i09mx13E/quality_2.txt(79%)Compressing data/tmp.G7i09mx13E/quality_2.txt(81%)Compressing data/tmp.G7i09mx13E/quality_2.txt(82%)Compressing data/tmp.G7i09mx13E/quality_2.txt(84%)Compressing data/tmp.G7i09mx13E/quality_2.txt(85%)Compressing data/tmp.G7i09mx13E/quality_2.txt(86%)Compressing data/tmp.G7i09mx13E/quality_2.txt(87%)Compressing data/tmp.G7i09mx13E/quality_2.txt(89%)Compressing data/tmp.G7i09mx13E/quality_2.txt(90%)Compressing data/tmp.G7i09mx13E/quality_2.txt(92%)Compressing data/tmp.G7i09mx13E/quality_2.txt(93%)Compressing data/tmp.G7i09mx13E/quality_2.txt(95%)Compressing data/tmp.G7i09mx13E/quality_2.txt(96%)Compressing data/tmp.G7i09mx13E/quality_2.txt(97%)Compressing data/tmp.G7i09mx13E/quality_2.txt(98%)data/tmp.G7i09mx13E/quality_2.txt compressed 39692995860 into 2008005776 in 292.239 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.G7i09mx13E/read_order.bin.7z
+
+Compressing  data/tmp.G7i09mx13E/read_order.bin
+
+Everything is Ok
+Done.
+	Command being timed: "./harc -c -1 data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed -2 data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed -p -q bsc -i -t 8 -o data/NA12878-Rep-1_S1_L001_trimmed_pe.harc"
+	User time (seconds): 46525.42
+	System time (seconds): 2212.29
+	Percent of CPU this job got: 563%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:24:03
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 30321800
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 55
+	Minor (reclaiming a frame) page faults: 1007996602
+	Voluntary context switches: 2216844
+	Involuntary context switches: 116727
+	Swaps: 0
+	File system inputs: 696593648
+	File system outputs: 665447576
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+*** Preprocessing ***
+Max Read length: 147
+Total number of reads: 540040760
+Total number of reads without N: 539407371
+Paired id match code: 3
+Preprocessing Done!
+	Command being timed: "././bin/preprocess.out True True True data/tmp.1Cu9T9J4rB data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed"
+	User time (seconds): 455.24
+	System time (seconds): 166.16
+	Percent of CPU this job got: 72%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 14:17.56
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 3308
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 612
+	Voluntary context switches: 14311
+	Involuntary context switches: 1276
+	Swaps: 0
+	File system inputs: 135136368
+	File system outputs: 224111040
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Reading file: data/tmp.1Cu9T9J4rB/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 24951587 were unmatched
+Writing to file
+Done!
+	Command being timed: "././bin/reorder/reorder_320.out data/tmp.1Cu9T9J4rB 147 8"
+	User time (seconds): 28189.49
+	System time (seconds): 1618.52
+	Percent of CPU this job got: 723%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:08:37
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 30320688
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 19
+	Minor (reclaiming a frame) page faults: 968384056
+	Voluntary context switches: 1394713
+	Involuntary context switches: 76352
+	Swaps: 0
+	File system inputs: 67688032
+	File system outputs: 213681424
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Maximum Read length: 147
+Number of non-singleton reads: 518055489
+Number of singleton reads: 21351882
+Number of reads with N: 633389
+Encoding reads
+Encoding done:
+12230083 singleton reads were aligned
+612190 reads with N were aligned
+	Command being timed: "././bin/encoder/encoder_448.out data/tmp.1Cu9T9J4rB 147 8"
+	User time (seconds): 11499.46
+	System time (seconds): 84.20
+	Percent of CPU this job got: 716%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 26:57.33
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 3948444
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 9340230
+	Voluntary context switches: 172438
+	Involuntary context switches: 27084
+	Swaps: 0
+	File system inputs: 189096
+	File system outputs: 32053440
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.1Cu9T9J4rB/read_pos.tar(00%)data/tmp.1Cu9T9J4rB/read_pos.tar compressed 530913280 into 247257854 in 19.242 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.1Cu9T9J4rB/read_noise.tar(00%)Compressing data/tmp.1Cu9T9J4rB/read_noise.tar(84%)data/tmp.1Cu9T9J4rB/read_noise.tar compressed 794654720 into 113788050 in 16.258 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.1Cu9T9J4rB/read_noisepos.tar.7z
+
+Compressing  data/tmp.1Cu9T9J4rB/read_noisepos.tar
+
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.1Cu9T9J4rB/unaligned_N.txt(00%)data/tmp.1Cu9T9J4rB/unaligned_N.txt compressed 3116253 into 722056 in 0.402 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.1Cu9T9J4rB/read_meta.txt.7z
+
+Compressing  data/tmp.1Cu9T9J4rB/read_meta.txt
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.1Cu9T9J4rB/read_rev.tar.7z
+
+Compressing  data/tmp.1Cu9T9J4rB/read_rev.tar
+
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.1Cu9T9J4rB/read_seq.tar(00%)data/tmp.1Cu9T9J4rB/read_seq.tar compressed 869672960 into 738768668 in 42.255 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.1Cu9T9J4rB/unaligned_singleton.txt(80%)data/tmp.1Cu9T9J4rB/unaligned_singleton.txt compressed 335226113 into 272327558 in 22.155 seconds.
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.1Cu9T9J4rB/read_lengths.bin.7z
+
+Compressing  data/tmp.1Cu9T9J4rB/read_lengths.bin
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.1Cu9T9J4rB/read_order_paired.bin.7z
+
+Compressing  data/tmp.1Cu9T9J4rB/read_order_paired.bin
+
+Everything is Ok
+
+7-Zip [64] 9.20  Copyright (c) 1999-2010 Igor Pavlov  2010-11-18
+p7zip Version 9.20 (locale=en_US.UTF-8,Utf16=on,HugeFiles=on,40 CPUs)
+Scanning
+
+Creating archive data/tmp.1Cu9T9J4rB/read_paired_flag_first.bin.7z
+
+Compressing  data/tmp.1Cu9T9J4rB/read_paired_flag_first.bin
+
+Everything is Ok
+Compressing qualities and/or ids
+	Command being timed: "././bin/reorder_compress_quality_id_pe.out data/tmp.1Cu9T9J4rB 147 8 False True True True bsc 8.0 data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed"
+	User time (seconds): 1034.50
+	System time (seconds): 214.61
+	Percent of CPU this job got: 134%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 15:30.28
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 39293520
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 35241169
+	Voluntary context switches: 141638
+	Involuntary context switches: 3732
+	Swaps: 0
+	File system inputs: 418357144
+	File system outputs: 159845328
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(00%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(01%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(02%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(03%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(04%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(05%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(07%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(08%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(09%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(10%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(11%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(12%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(14%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(15%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(16%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(17%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(18%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(19%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(20%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(21%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(22%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(24%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(25%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(26%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(27%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(28%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(29%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(30%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(31%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(32%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(34%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(35%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(36%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(37%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(38%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(39%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(40%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(42%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(42%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(43%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(45%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(46%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(47%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(48%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(49%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(50%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(51%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(52%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(53%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(54%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(56%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(57%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(58%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(59%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(60%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(61%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(62%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(64%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(64%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(66%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(67%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(68%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(69%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(70%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(71%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(72%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(73%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(75%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(76%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(76%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(78%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(78%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(79%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(81%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(82%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(83%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(85%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(86%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(87%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(88%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(89%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(90%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(91%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(93%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(94%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(95%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(96%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(97%)Compressing data/tmp.1Cu9T9J4rB/quality_1.txt(98%)data/tmp.1Cu9T9J4rB/quality_1.txt compressed 39692995860 into 1573039726 in 339.442 seconds.
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(00%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(02%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(03%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(04%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(06%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(07%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(09%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(10%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(12%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(13%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(15%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(16%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(18%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(19%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(21%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(22%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(24%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(25%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(27%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(28%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(30%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(31%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(33%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(34%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(35%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(37%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(38%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(40%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(41%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(43%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(44%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(46%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(47%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(49%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(50%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(52%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(53%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(55%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(56%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(58%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(59%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(61%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(63%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(64%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(66%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(67%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(69%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(70%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(72%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(73%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(75%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(76%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(78%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(79%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(81%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(82%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(84%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(86%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(87%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(88%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(90%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(91%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(93%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(94%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(96%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(98%)Compressing data/tmp.1Cu9T9J4rB/quality_2.txt(99%)data/tmp.1Cu9T9J4rB/quality_2.txt compressed 39692995860 into 2007212354 in 337.957 seconds.
+Done.
+	Command being timed: "./harc -c -1 data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed -2 data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed -q bsc -i -t 8 -o data/NA12878-Rep-1_S1_L001_trimmed_pe.harc"
+	User time (seconds): 47258.54
+	System time (seconds): 2894.06
+	Percent of CPU this job got: 562%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:28:37
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 39293520
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 168
+	Minor (reclaiming a frame) page faults: 1060045606
+	Voluntary context switches: 2640207
+	Involuntary context switches: 124106
+	Swaps: 0
+	File system inputs: 664151496
+	File system outputs: 661791536
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

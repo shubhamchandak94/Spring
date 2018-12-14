@@ -1,0 +1,348 @@
+	Command being timed: "./../pigz-2.4/pigz -p 8 /raid/shubham/HARC/data/SRR327342_1.fastq /raid/shubham/HARC/data/SRR327342_2.fastq"
+	User time (seconds): 589.14
+	System time (seconds): 6.77
+	Percent of CPU this job got: 767%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:17.66
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7908
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 13797
+	Voluntary context switches: 117807
+	Involuntary context switches: 1819
+	Swaps: 0
+	File system inputs: 352
+	File system outputs: 4026256
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../pigz-2.4/unpigz -p 8 -k /raid/shubham/HARC/data/SRR327342_1.fastq.gz /raid/shubham/HARC/data/SRR327342_2.fastq.gz"
+	User time (seconds): 37.86
+	System time (seconds): 11.02
+	Percent of CPU this job got: 179%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:27.24
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2512
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 439
+	Voluntary context switches: 428306
+	Involuntary context switches: 46
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 11691648
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Compressed streams sizes (in bytes)
+TAG:         21155092 /        842812789
+DNA:        258543588 /        947312037
+QUA:        389024625 /        947312037
+
+	Command being timed: "./../DSRC/bin/dsrc c -t8 -v /raid/shubham/HARC/data/SRR327342_1.fastq /raid/shubham/HARC/data/SRR327342_1.fastq.dsrc"
+	User time (seconds): 42.10
+	System time (seconds): 2.33
+	Percent of CPU this job got: 413%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:10.75
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 134500
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 147523
+	Voluntary context switches: 5420
+	Involuntary context switches: 5798
+	Swaps: 0
+	File system inputs: 5493392
+	File system outputs: 1306104
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Compressed streams sizes (in bytes)
+TAG:         21158558 /        842812789
+DNA:        311217066 /       1127752425
+QUA:        505248431 /       1127752425
+
+	Command being timed: "./../DSRC/bin/dsrc c -t8 -v /raid/shubham/HARC/data/SRR327342_2.fastq /raid/shubham/HARC/data/SRR327342_2.fastq.dsrc"
+	User time (seconds): 47.27
+	System time (seconds): 2.35
+	Percent of CPU this job got: 348%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:14.25
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 133652
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 151229
+	Voluntary context switches: 7332
+	Involuntary context switches: 5260
+	Swaps: 0
+	File system inputs: 6198256
+	File system outputs: 1636000
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Warning: passing a FASTQ file without '.fastq' extension
+	Command being timed: "./../DSRC/bin/dsrc d -t8 -v /raid/shubham/HARC/data/SRR327342_1.fastq.dsrc /raid/shubham/HARC/data/SRR327342_1.fastq.d"
+	User time (seconds): 40.19
+	System time (seconds): 3.25
+	Percent of CPU this job got: 837%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:05.18
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 426132
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 216060
+	Voluntary context switches: 976
+	Involuntary context switches: 69
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 5493400
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Warning: passing a FASTQ file without '.fastq' extension
+	Command being timed: "./../DSRC/bin/dsrc d -t8 -v /raid/shubham/HARC/data/SRR327342_2.fastq.dsrc /raid/shubham/HARC/data/SRR327342_2.fastq.d"
+	User time (seconds): 46.72
+	System time (seconds): 3.31
+	Percent of CPU this job got: 841%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:05.94
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 280176
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 176563
+	Voluntary context switches: 1077
+	Involuntary context switches: 57
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 6198248
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting compression...
+Preprocessing ...
+Max Read length: 75
+Total number of reads: 30073398
+Total number of reads without N: 28699037
+Paired id match code: 1
+Preprocessing done!
+Time for this step: 98 s
+Reordering ...
+Reading file
+Constructing dictionaries
+Reordering reads
+Reordering done, 1588895 were unmatched
+Writing to file
+Done!
+Reordering done!
+Time for this step: 50 s
+Encoding ...
+Maximum Read length: 75
+Number of non-singleton reads: 27554441
+Number of singleton reads: 1144596
+Number of reads with N: 1374361
+Encoding reads
+Encoding done:
+750252 singleton reads were aligned
+1281247 reads with N were aligned
+Encoding done!
+Time for this step: 15 s
+Reordering and compressing streams ...
+Reordering and compressing streams done!
+Time for this step: 17 s
+
+Sizes of streams after compression: 
+Reads:         126401770 bytes
+Quality:       806091564 bytes
+ID:             21211620 bytes
+Creating tar archive ...Tar archive done!
+Time for this step: 0 s
+Compression done!
+Total time for compression: 182 s
+
+Total size:    954265600 bytes
+	Command being timed: "./build/spring -c -i /raid/shubham/HARC/data/SRR327342_1.fastq /raid/shubham/HARC/data/SRR327342_2.fastq -o /raid/shubham/HARC/data/SRR327342_lossless.spring"
+	User time (seconds): 873.94
+	System time (seconds): 32.70
+	Percent of CPU this job got: 495%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 3:02.79
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2265640
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 9461758
+	Voluntary context switches: 21058
+	Involuntary context switches: 39067
+	Swaps: 0
+	File system inputs: 11691664
+	File system outputs: 18317496
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting decompression...
+Untarring tar archive ...
+Untarring archive done!
+Decompressing ...
+Decompression done!
+Total time for decompression: 59 s
+	Command being timed: "./build/spring -d -i /raid/shubham/HARC/data/SRR327342_lossless.spring -o /raid/shubham/HARC/data/SRR327342_1.fastq.lossless.d /raid/shubham/HARC/data/SRR327342_2.fastq.lossless.d"
+	User time (seconds): 318.03
+	System time (seconds): 16.88
+	Percent of CPU this job got: 561%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:59.63
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2151132
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 6362459
+	Voluntary context switches: 120650
+	Involuntary context switches: 607
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 14509992
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting compression...
+Preprocessing ...
+Max Read length: 75
+Total number of reads: 30073398
+Total number of reads without N: 28699037
+Preprocessing done!
+Time for this step: 48 s
+Reordering ...
+Reading file
+Constructing dictionaries
+Reordering reads
+Reordering done, 1588901 were unmatched
+Writing to file
+Done!
+Reordering done!
+Time for this step: 52 s
+Encoding ...
+Maximum Read length: 75
+Number of non-singleton reads: 27554416
+Number of singleton reads: 1144621
+Number of reads with N: 1374361
+Encoding reads
+Encoding done:
+750269 singleton reads were aligned
+1281248 reads with N were aligned
+Encoding done!
+Time for this step: 15 s
+Reordering and compressing quality and/or ids ...
+Compressing qualities
+Reordering and compressing quality and/or ids done!
+Time for this step: 43 s
+Encoding pairing information ...
+Encoding pairing information done!
+Time for this step: 4 s
+Reordering and compressing streams ...
+Reordering and compressing streams done!
+Time for this step: 10 s
+
+Sizes of streams after compression: 
+Reads:          78968090 bytes
+Quality:       286681590 bytes
+ID:                    0 bytes
+Creating tar archive ...Tar archive done!
+Time for this step: 0 s
+Compression done!
+Total time for compression: 174 s
+
+Total size:    366172160 bytes
+	Command being timed: "./build/spring -c -i /raid/shubham/HARC/data/SRR327342_1.fastq /raid/shubham/HARC/data/SRR327342_2.fastq -o /raid/shubham/HARC/data/SRR327342_lossy.spring -r --no-ids -q ill_bin"
+	User time (seconds): 656.15
+	System time (seconds): 36.85
+	Percent of CPU this job got: 395%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:55.07
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2291684
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 10929283
+	Voluntary context switches: 107284
+	Involuntary context switches: 39496
+	Swaps: 0
+	File system inputs: 11691664
+	File system outputs: 20149464
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting decompression...
+Untarring tar archive ...
+Untarring archive done!
+Decompressing ...
+Decompression done!
+Total time for decompression: 43 s
+	Command being timed: "./build/spring -d -i /raid/shubham/HARC/data/SRR327342_lossy.spring -o /raid/shubham/HARC/data/SRR327342_1.fastq.lossy.d /raid/shubham/HARC/data/SRR327342_2.fastq.lossy.d"
+	User time (seconds): 204.36
+	System time (seconds): 13.77
+	Percent of CPU this job got: 503%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:43.32
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1876528
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 5923199
+	Voluntary context switches: 107061
+	Involuntary context switches: 727
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 10496392
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

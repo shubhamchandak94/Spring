@@ -1,0 +1,706 @@
+SRR554369
+*** Preprocessing ***
+data/fastq/SRR554369.fastq
+Preprocessing Done!
+Read length: 100
+Number of reads: 3258816
+Reading file: data/fastq/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 243997 were unmatched
+Writing to file
+Done!
+Read length: 100
+Number of reads: 3258816
+Encoding reads
+Encoding done
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 3258816 bytes (3183 KiB)
+
+Creating archive: data/fastq/output/read_pos.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 1216200 bytes (1188 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 1034225 bytes (1010 KiB)
+
+Creating archive: data/fastq/output/read_noise.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 540682 bytes (529 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 878084 bytes (858 KiB)
+
+Creating archive: data/fastq/output/read_noisepos.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 658677 bytes (644 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 5749526 bytes (5615 KiB)
+
+Creating archive: data/fastq/output/input_N.dna.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 1355067 bytes (1324 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 3258816 bytes (3183 KiB)
+
+Creating archive: data/fastq/output/read_rev.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 418350 bytes (409 KiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.txt(00%)data/fastq/output/read_seq.txt compressed 7929598 into 7274784 in 1.203 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 13035264 bytes (13 MiB)
+
+Creating archive: data/fastq/output/read_order.bin.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 9254513 bytes (9038 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 227704 bytes (223 KiB)
+
+Creating archive: data/fastq/output/read_order_N.bin.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 43150 bytes (43 KiB)
+Everything is Ok
+	Command being timed: "./run_default.sh -c data/fastq/SRR554369.fastq -p"
+	User time (seconds): 127.25
+	System time (seconds): 2.25
+	Percent of CPU this job got: 315%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:41.05
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 172056
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 261773
+	Voluntary context switches: 15302
+	Involuntary context switches: 164
+	Swaps: 0
+	File system inputs: 1500248
+	File system outputs: 2407624
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Decompression ...
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 1216200 bytes (1188 KiB)
+
+Extracting archive: data/fastq/output/read_pos.txt.7z
+--
+Path = data/fastq/output/read_pos.txt.7z
+Type = 7z
+Physical Size = 1216200
+Headers Size = 170
+Method = LZMA2:22
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       3258816
+Compressed: 1216200
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 540682 bytes (529 KiB)
+
+Extracting archive: data/fastq/output/read_noise.txt.7z
+--
+Path = data/fastq/output/read_noise.txt.7z
+Type = 7z
+Physical Size = 540682
+Headers Size = 170
+Method = LZMA2:20
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       1034225
+Compressed: 540682
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 658677 bytes (644 KiB)
+
+Extracting archive: data/fastq/output/read_noisepos.txt.7z
+--
+Path = data/fastq/output/read_noisepos.txt.7z
+Type = 7z
+Physical Size = 658677
+Headers Size = 178
+Method = LZMA2:20
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       878084
+Compressed: 658677
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 1355067 bytes (1324 KiB)
+
+Extracting archive: data/fastq/output/input_N.dna.7z
+--
+Path = data/fastq/output/input_N.dna.7z
+Type = 7z
+Physical Size = 1355067
+Headers Size = 162
+Method = LZMA2:6m
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       5749526
+Compressed: 1355067
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 178 bytes (1 KiB)
+
+Extracting archive: data/fastq/output/read_meta.txt.7z
+--
+Path = data/fastq/output/read_meta.txt.7z
+Type = 7z
+Physical Size = 178
+Headers Size = 170
+Method = LZMA2:12
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       4
+Compressed: 178
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 418350 bytes (409 KiB)
+
+Extracting archive: data/fastq/output/read_rev.txt.7z
+--
+Path = data/fastq/output/read_rev.txt.7z
+Type = 7z
+Physical Size = 418350
+Headers Size = 170
+Method = LZMA2:22
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       3258816
+Compressed: 418350
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Decompressing data/fastq/output/read_seq.txt.bsc(00%)data/fastq/output/read_seq.txt.bsc decompressed 7274784 into 7929598 in 1.017 seconds.
+Read length: 100
+Decoding reads
+Decoding done
+	Command being timed: "./run_default.sh -d data/fastq/SRR554369.tar"
+	User time (seconds): 2.56
+	System time (seconds): 0.40
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.97
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 46880
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 18528
+	Voluntary context switches: 48
+	Involuntary context switches: 25
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 807920
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Decompression ...
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 1216200 bytes (1188 KiB)
+
+Extracting archive: data/fastq/output/read_pos.txt.7z
+--
+Path = data/fastq/output/read_pos.txt.7z
+Type = 7z
+Physical Size = 1216200
+Headers Size = 170
+Method = LZMA2:22
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       3258816
+Compressed: 1216200
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 540682 bytes (529 KiB)
+
+Extracting archive: data/fastq/output/read_noise.txt.7z
+--
+Path = data/fastq/output/read_noise.txt.7z
+Type = 7z
+Physical Size = 540682
+Headers Size = 170
+Method = LZMA2:20
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       1034225
+Compressed: 540682
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 658677 bytes (644 KiB)
+
+Extracting archive: data/fastq/output/read_noisepos.txt.7z
+--
+Path = data/fastq/output/read_noisepos.txt.7z
+Type = 7z
+Physical Size = 658677
+Headers Size = 178
+Method = LZMA2:20
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       878084
+Compressed: 658677
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 1355067 bytes (1324 KiB)
+
+Extracting archive: data/fastq/output/input_N.dna.7z
+--
+Path = data/fastq/output/input_N.dna.7z
+Type = 7z
+Physical Size = 1355067
+Headers Size = 162
+Method = LZMA2:6m
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       5749526
+Compressed: 1355067
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 178 bytes (1 KiB)
+
+Extracting archive: data/fastq/output/read_meta.txt.7z
+--
+Path = data/fastq/output/read_meta.txt.7z
+Type = 7z
+Physical Size = 178
+Headers Size = 170
+Method = LZMA2:12
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       4
+Compressed: 178
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 418350 bytes (409 KiB)
+
+Extracting archive: data/fastq/output/read_rev.txt.7z
+--
+Path = data/fastq/output/read_rev.txt.7z
+Type = 7z
+Physical Size = 418350
+Headers Size = 170
+Method = LZMA2:22
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       3258816
+Compressed: 418350
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Decompressing data/fastq/output/read_seq.txt.bsc(00%)data/fastq/output/read_seq.txt.bsc decompressed 7274784 into 7929598 in 1.011 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 9254513 bytes (9038 KiB)
+
+Extracting archive: data/fastq/output/read_order.bin.7z
+--
+Path = data/fastq/output/read_order.bin.7z
+Type = 7z
+Physical Size = 9254513
+Headers Size = 170
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       13035264
+Compressed: 9254513
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 43150 bytes (43 KiB)
+
+Extracting archive: data/fastq/output/read_order_N.bin.7z
+--
+Path = data/fastq/output/read_order_N.bin.7z
+Type = 7z
+Physical Size = 43150
+Headers Size = 178
+Method = LZMA2:18
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       227704
+Compressed: 43150
+Read length: 100
+Decoding reads
+Decoding done
+Restoring order of reads
+Done!
+	Command being timed: "./run_default.sh -d data/fastq/SRR554369.tar -p"
+	User time (seconds): 18.34
+	System time (seconds): 8.83
+	Percent of CPU this job got: 153%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:17.71
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 757540
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 24003
+	Voluntary context switches: 1303
+	Involuntary context switches: 58
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 2859904
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../pigz-2.3.4/pigz -f -p 8 data/fastq/SRR554369.dna.d"
+	User time (seconds): 66.85
+	System time (seconds): 0.41
+	Percent of CPU this job got: 800%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:08.39
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 8100
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 6725
+	Voluntary context switches: 6971
+	Involuntary context switches: 72
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 197680
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Input format: FastqAbundance threshold: 13 (auto)    (nb solid kmers: 5894662)
+	End reads compression
+		Reads count: 3315742
+		Reads size: 331574200
+		Compression rate: 0.0854  (28323119)
+			Bloom: 31.22  (8843018)
+			Anchors dict: 6.18  (1749651)    (228351 entries)
+			Reads: 0.00  (0)
+				Anchor adress: 0.00  (0)
+				Anchor pos: 0.00  (0) 
+				Read size: 0.00  (0)
+				Bifurcation: 0.00  (0)
+				Other (N, error, infoBits): 0.00  (0)
+			Read without anchor: 0.00  (0)
+		Reads per anchor: 14
+		Read without anchor: 3.35
+		De Bruijn graph
+			Simple path: 93.36
+			Bifurcation: 1.06
+			Break: 4.73
+			Error: 0.83
+End compression
+	Input: 
+		Filename: data/fastq/SRR554369.fastq
+		Size: 768123470  (732 MB)
+	Output: 
+		Filename: data/fastq/SRR554369.fastq.leon
+		Total Size: 28323418  (27 MB)
+	Overall Compression rate: 0.0369 (27.1197)
+		Header completely discarded, in '-seq-only' mode 
+		Dna: 0.0854 (11.7068)
+
+	Time: 10.43s
+	Speed: 73.65 mo/s
+	Command being timed: "./../leon/leon -c -file data/fastq/SRR554369.fastq -nb-cores 8 -seq-only -verbose 0"
+	User time (seconds): 66.77
+	System time (seconds): 2.01
+	Percent of CPU this job got: 657%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:10.45
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 936628
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 218951
+	Voluntary context switches: 89271
+	Involuntary context switches: 43
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 925496
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Start decompression
+	Input filename: data/fastq/SRR554369.fastq.leon
+Headers were not stored, will number reads 
+
+	Output format: Fasta
+	Kmer size: 31
+
+	Input File was compressed with leon version 1.0.0
+	Block count: 67
+
+	Output filename: data/fastq/SRR554369.fasta.d
+	Time: 8.64s
+	Speed: 41.76 mo/s
+	Command being timed: "./../leon/leon -d -file data/fastq/SRR554369.fastq.leon -nb-cores 8 -seq-only -verbose 0"
+	User time (seconds): 40.08
+	System time (seconds): 0.26
+	Percent of CPU this job got: 467%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:08.64
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 96332
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 17759
+	Voluntary context switches: 79
+	Involuntary context switches: 20
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 704440
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../orcom/bin/orcom_bin e -idata/fastq/SRR554369.fastq -odata/fastq/SRR554369.bin -t8"
+	User time (seconds): 8.74
+	System time (seconds): 0.79
+	Percent of CPU this job got: 279%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:03.41
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1351808
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 56837
+	Voluntary context switches: 13786
+	Involuntary context switches: 14
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 160112
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../orcom/bin/orcom_pack e -idata/fastq/SRR554369.bin -odata/fastq/SRR554369.orcom -t8"
+	User time (seconds): 21.97
+	System time (seconds): 0.17
+	Percent of CPU this job got: 768%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:02.88
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 79012
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 19172
+	Voluntary context switches: 3912
+	Involuntary context switches: 46
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 30984
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../orcom/bin/orcom_pack d -idata/fastq/SRR554369.orcom -odata/fastq/SRR554369_orcom.dna -t8"
+	User time (seconds): 5.06
+	System time (seconds): 0.27
+	Percent of CPU this job got: 818%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.65
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 149908
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 14627
+	Voluntary context switches: 3687
+	Involuntary context switches: 9
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 654088
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

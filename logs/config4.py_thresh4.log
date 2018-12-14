@@ -1,0 +1,596 @@
+*** Preprocessing ***
+Preprocessing Done!
+Read length: 101
+Number of reads: 410062267
+Reading file: data/ERR174310/input_clean.dna
+Constructing dictionaries
+Reordering reads
+2:1000000
+1:1000000
+0:1000000
+4:1000000
+3:1000000
+6:1000000
+1:2000000
+3:2000000
+4:2000000
+0:2000000
+3:3000000
+0:3000000
+6:2000000
+2:2000000
+4:3000000
+4:4000000
+0:4000000
+1:3000000
+3:4000000
+5:1000000
+2:3000000
+4:5000000
+7:1000000
+6:3000000
+0:5000000
+5:2000000
+3:5000000
+1:4000000
+4:6000000
+2:4000000
+7:2000000
+6:4000000
+5:3000000
+0:6000000
+3:6000000
+1:5000000
+4:7000000
+2:5000000
+7:3000000
+6:5000000
+5:4000000
+0:7000000
+3:7000000
+1:6000000
+4:8000000
+2:6000000
+7:4000000
+6:6000000
+5:5000000
+0:8000000
+3:8000000
+1:7000000
+4:9000000
+2:7000000
+7:5000000
+6:7000000
+5:6000000
+0:9000000
+1:8000000
+3:9000000
+4:10000000
+7:6000000
+2:8000000
+6:8000000
+0:10000000
+5:7000000
+1:9000000
+3:10000000
+4:11000000
+7:7000000
+6:9000000
+2:9000000
+0:11000000
+1:10000000
+5:8000000
+4:12000000
+3:11000000
+7:8000000
+6:10000000
+0:12000000
+2:10000000
+1:11000000
+4:13000000
+5:9000000
+3:12000000
+6:11000000
+7:9000000
+0:13000000
+2:11000000
+1:12000000
+4:14000000
+5:10000000
+3:13000000
+6:12000000
+0:14000000
+7:10000000
+2:12000000
+1:13000000
+4:15000000
+3:14000000
+5:11000000
+6:13000000
+0:15000000
+7:11000000
+2:13000000
+1:14000000
+4:16000000
+3:15000000
+5:12000000
+6:14000000
+0:16000000
+1:15000000
+7:12000000
+2:14000000
+4:17000000
+3:16000000
+5:13000000
+6:15000000
+0:17000000
+1:16000000
+4:18000000
+7:13000000
+2:15000000
+3:17000000
+5:14000000
+6:16000000
+1:17000000
+0:18000000
+4:19000000
+3:18000000
+7:14000000
+2:16000000
+5:15000000
+6:17000000
+1:18000000
+4:20000000
+3:19000000
+0:19000000
+7:15000000
+2:17000000
+5:16000000
+6:18000000
+1:19000000
+4:21000000
+3:20000000
+0:20000000
+2:18000000
+7:16000000
+5:17000000
+6:19000000
+4:22000000
+1:20000000
+3:21000000
+0:21000000
+2:19000000
+7:17000000
+5:18000000
+6:20000000
+4:23000000
+3:22000000
+1:21000000
+0:22000000
+2:20000000
+7:18000000
+5:19000000
+6:21000000
+4:24000000
+3:23000000
+1:22000000
+0:23000000
+2:21000000
+7:19000000
+5:20000000
+6:22000000
+4:25000000
+3:24000000
+1:23000000
+0:24000000
+2:22000000
+7:20000000
+5:21000000
+6:23000000
+4:26000000
+3:25000000
+1:24000000
+0:25000000
+7:21000000
+2:23000000
+5:22000000
+6:24000000
+4:27000000
+3:26000000
+1:25000000
+0:26000000
+7:22000000
+5:23000000
+2:24000000
+6:25000000
+4:28000000
+3:27000000
+0:27000000
+1:26000000
+5:24000000
+7:23000000
+2:25000000
+4:29000000
+6:26000000
+3:28000000
+0:28000000
+1:27000000
+5:25000000
+7:24000000
+2:26000000
+4:30000000
+3:29000000
+6:27000000
+0:29000000
+1:28000000
+5:26000000
+7:25000000
+4:31000000
+3:30000000
+2:27000000
+6:28000000
+0:30000000
+1:29000000
+5:27000000
+4:32000000
+7:26000000
+3:31000000
+2:28000000
+6:29000000
+0:31000000
+1:30000000
+5:28000000
+4:33000000
+3:32000000
+7:27000000
+6:30000000
+2:29000000
+0:32000000
+1:31000000
+4:34000000
+5:29000000
+3:33000000
+7:28000000
+6:31000000
+2:30000000
+0:33000000
+1:32000000
+4:35000000
+5:30000000
+3:34000000
+7:29000000
+6:32000000
+2:31000000
+1:33000000
+0:34000000
+4:36000000
+5:31000000
+7:30000000
+3:35000000
+6:33000000
+1:34000000
+2:32000000
+0:35000000
+4:37000000
+5:32000000
+7:31000000
+3:36000000
+1:35000000
+6:34000000
+2:33000000
+0:36000000
+4:38000000
+5:33000000
+7:32000000
+3:37000000
+1:36000000
+6:35000000
+0:37000000
+2:34000000
+4:39000000
+7:33000000
+5:34000000
+1:37000000
+3:38000000
+6:36000000
+0:38000000
+2:35000000
+4:40000000
+7:34000000
+5:35000000
+3:39000000
+1:38000000
+0:39000000
+2:36000000
+6:37000000
+4:41000000
+5:36000000
+7:35000000
+3:40000000
+1:39000000
+0:40000000
+2:37000000
+6:38000000
+4:42000000
+3:41000000
+5:37000000
+7:36000000
+1:40000000
+2:38000000
+6:39000000
+0:41000000
+4:43000000
+3:42000000
+5:38000000
+7:37000000
+1:41000000
+2:39000000
+6:40000000
+0:42000000
+4:44000000
+3:43000000
+5:39000000
+1:42000000
+2:40000000
+7:38000000
+6:41000000
+0:43000000
+4:45000000
+3:44000000
+5:40000000
+6:42000000
+2:41000000
+1:43000000
+7:39000000
+0:44000000
+4:46000000
+3:45000000
+5:41000000
+2:42000000
+1:44000000
+6:43000000
+7:40000000
+0:45000000
+4:47000000
+3:46000000
+5:42000000
+2:43000000
+1:45000000
+7:41000000
+6:44000000
+4:48000000
+0:46000000
+3:47000000
+5:43000000
+2:44000000
+7:42000000
+1:46000000
+6:45000000
+4:49000000
+0:47000000
+3:48000000
+5:44000000
+7:43000000
+2:45000000
+1:47000000
+6:46000000
+4:50000000
+3:49000000
+0:48000000
+5:45000000
+7:44000000
+2:46000000
+1:48000000
+6:47000000
+4:51000000
+0:49000000
+3:50000000
+5:46000000
+7:45000000
+2:47000000
+6:48000000
+1:49000000
+4:52000000
+3:51000000
+0:50000000
+5:47000000
+7:46000000
+2:48000000
+6:49000000
+1:50000000
+4:53000000
+3:52000000
+0:51000000
+5:48000000
+7:47000000
+2:49000000
+6:50000000
+1:51000000
+4:54000000
+3:53000000
+0:52000000
+5:49000000
+Reordering done, 46748723 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of reads: 410062267
+Encoding reads
+Encoding done
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Open archive: data/ERR174310/output/read_pos.txt.7z
+--
+Path = data/ERR174310/output/read_pos.txt.7z
+Type = 7z
+Physical Size = 196871115
+Headers Size = 178
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Scanning the drive:
+1 file, 410062267 bytes (392 MiB)
+
+Updating archive: data/ERR174310/output/read_pos.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 201799185 bytes (193 MiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Open archive: data/ERR174310/output/read_noise.txt.7z
+--
+Path = data/ERR174310/output/read_noise.txt.7z
+Type = 7z
+Physical Size = 112241797
+Headers Size = 178
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Scanning the drive:
+1 file, 136738630 bytes (131 MiB)
+
+Updating archive: data/ERR174310/output/read_noise.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 71385616 bytes (69 MiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Open archive: data/ERR174310/output/read_noisepos.txt.7z
+--
+Path = data/ERR174310/output/read_noisepos.txt.7z
+Type = 7z
+Physical Size = 188361712
+Headers Size = 186
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Scanning the drive:
+1 file, 136892253 bytes (131 MiB)
+
+Updating archive: data/ERR174310/output/read_noisepos.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 104338569 bytes (100 MiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Open archive: data/ERR174310/output/input_N.dna.7z
+--
+Path = data/ERR174310/output/input_N.dna.7z
+Type = 7z
+Physical Size = 131400422
+Headers Size = 170
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Scanning the drive:
+1 file, 519860034 bytes (496 MiB)
+
+Updating archive: data/ERR174310/output/input_N.dna.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 131400422 bytes (126 MiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Open archive: data/ERR174310/output/read_meta.txt.7z
+--
+Path = data/ERR174310/output/read_meta.txt.7z
+Type = 7z
+Physical Size = 186
+Headers Size = 178
+Method = LZMA2:12
+Solid = -
+Blocks = 1
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Updating archive: data/ERR174310/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 186 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Open archive: data/ERR174310/output/read_rev.txt.7z
+--
+Path = data/ERR174310/output/read_rev.txt.7z
+Type = 7z
+Physical Size = 50477437
+Headers Size = 178
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Scanning the drive:
+1 file, 410062267 bytes (392 MiB)
+
+Updating archive: data/ERR174310/output/read_rev.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 51349828 bytes (49 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/ERR174310/output/read_seq.txt(00%)Compressing data/ERR174310/output/read_seq.txt(30%)Compressing data/ERR174310/output/read_seq.txt(61%)Compressing data/ERR174310/output/read_seq.txt(92%)data/ERR174310/output/read_seq.txt compressed 1737170999 into 1512469626 in 349.235 seconds.
+	Command being timed: "./run.sh -pgc"
+	User time (seconds): 61525.93
+	System time (seconds): 1184.72
+	Percent of CPU this job got: 686%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:32:19
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20150244
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 499712522
+	Voluntary context switches: 1592722
+	Involuntary context switches: 61072
+	Swaps: 0
+	File system inputs: 210425568
+	File system outputs: 485700816
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

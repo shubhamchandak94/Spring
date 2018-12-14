@@ -1,0 +1,8 @@
+# Ignore everything
+sparsepp/*
+sparsepp
+#except this file
+
+# even subfolders
+
+

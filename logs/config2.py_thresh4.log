@@ -1,0 +1,199 @@
+*** Preprocessing ***
+Preprocessing Done!
+Read length: 63
+Number of reads: 14415445
+Reading file: data/SRR327342_1/input_clean.dna
+Constructing dictionaries
+Reordering reads
+5:1000000
+6:1000000
+4:1000000
+1:1000000
+3:1000000
+2:1000000
+7:1000000
+0:1000000
+Reordering done, 677075 were unmatched
+Writing to file
+Done!
+Read length: 63
+Number of reads: 14415445
+Encoding reads
+Encoding done
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Open archive: data/SRR327342_1/output/read_pos.txt.7z
+--
+Path = data/SRR327342_1/output/read_pos.txt.7z
+Type = 7z
+Physical Size = 3144901
+Headers Size = 178
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Scanning the drive:
+1 file, 14415445 bytes (14 MiB)
+
+Updating archive: data/SRR327342_1/output/read_pos.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 3158223 bytes (3085 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Open archive: data/SRR327342_1/output/read_noise.txt.7z
+--
+Path = data/SRR327342_1/output/read_noise.txt.7z
+Type = 7z
+Physical Size = 2300841
+Headers Size = 186
+Method = LZMA2:6m
+Solid = -
+Blocks = 1
+
+Scanning the drive:
+1 file, 4276124 bytes (4176 KiB)
+
+Updating archive: data/SRR327342_1/output/read_noise.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 1848420 bytes (1806 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Open archive: data/SRR327342_1/output/read_noisepos.txt.7z
+--
+Path = data/SRR327342_1/output/read_noisepos.txt.7z
+Type = 7z
+Physical Size = 2513904
+Headers Size = 186
+Method = LZMA2:22
+Solid = -
+Blocks = 1
+
+Scanning the drive:
+1 file, 2689053 bytes (2627 KiB)
+
+Updating archive: data/SRR327342_1/output/read_noisepos.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 1881818 bytes (1838 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Open archive: data/SRR327342_1/output/input_N.dna.7z
+--
+Path = data/SRR327342_1/output/input_N.dna.7z
+Type = 7z
+Physical Size = 8867175
+Headers Size = 178
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Scanning the drive:
+1 file, 39760256 bytes (38 MiB)
+
+Updating archive: data/SRR327342_1/output/input_N.dna.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 8867175 bytes (8660 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Open archive: data/SRR327342_1/output/read_meta.txt.7z
+--
+Path = data/SRR327342_1/output/read_meta.txt.7z
+Type = 7z
+Physical Size = 185
+Headers Size = 178
+Method = LZMA2:12
+Solid = -
+Blocks = 1
+
+Scanning the drive:
+1 file, 3 bytes (1 KiB)
+
+Updating archive: data/SRR327342_1/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 185 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Open archive: data/SRR327342_1/output/read_rev.txt.7z
+--
+Path = data/SRR327342_1/output/read_rev.txt.7z
+Type = 7z
+Physical Size = 1713520
+Headers Size = 178
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Scanning the drive:
+1 file, 14415445 bytes (14 MiB)
+
+Updating archive: data/SRR327342_1/output/read_rev.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 1696893 bytes (1658 KiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/SRR327342_1/output/read_seq.txt(00%)data/SRR327342_1/output/read_seq.txt compressed 13525216 into 11982080 in 2.084 seconds.
+	Command being timed: "./run.sh -pgc"
+	User time (seconds): 700.98
+	System time (seconds): 8.90
+	Percent of CPU this job got: 509%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:19.36
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 475364
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 419439
+	Voluntary context switches: 88461
+	Involuntary context switches: 560
+	Swaps: 0
+	File system inputs: 5493608
+	File system outputs: 10724800
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

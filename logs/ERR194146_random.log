@@ -1,0 +1,482 @@
+ERR194146_random
+*** Preprocessing ***
+data/fastq/ERR194146_random.fastq
+Preprocessing Done!
+Read length: 101
+Number of reads: 1615879405
+Reading file: data/fastq/input_clean.dna
+Constructing dictionaries
+Reordering reads
+Reordering done, 60510720 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of reads: 1615879405
+Encoding reads
+Encoding done
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 1615879405 bytes (1542 MiB)
+
+Creating archive: data/fastq/output/read_pos.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 535685634 bytes (511 MiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 525260087 bytes (501 MiB)
+
+Creating archive: data/fastq/output/read_noise.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 252174282 bytes (241 MiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 485160943 bytes (463 MiB)
+
+Creating archive: data/fastq/output/read_noisepos.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 345221073 bytes (330 MiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 1952219106 bytes (1862 MiB)
+
+Creating archive: data/fastq/output/input_N.dna.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 499462375 bytes (477 MiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/fastq/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 178 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 1615879405 bytes (1542 MiB)
+
+Creating archive: data/fastq/output/read_rev.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 201025957 bytes (192 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/fastq/output/read_seq.txt(00%)Compressing data/fastq/output/read_seq.txt(23%)Compressing data/fastq/output/read_seq.txt(47%)Compressing data/fastq/output/read_seq.txt(71%)Compressing data/fastq/output/read_seq.txt(95%)data/fastq/output/read_seq.txt compressed 2254416916 into 1894177006 in 444.785 seconds.
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 6463517620 bytes (6165 MiB)
+
+Creating archive: data/fastq/output/read_order.bin.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 6298863215 bytes (6008 MiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 76557612 bytes (74 MiB)
+
+Creating archive: data/fastq/output/read_order_N.bin.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 27543041 bytes (27 MiB)
+Everything is Ok
+	Command being timed: "./run_default.sh -c data/fastq/ERR194146_random.fastq -p"
+	User time (seconds): 53403.07
+	System time (seconds): 5366.12
+	Percent of CPU this job got: 362%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 4:30:06
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 78840380
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 382
+	Minor (reclaiming a frame) page faults: 2959549662
+	Voluntary context switches: 9074698
+	Involuntary context switches: 48796
+	Swaps: 0
+	File system inputs: 770317160
+	File system outputs: 1189834720
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Decompression ...
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 535685634 bytes (511 MiB)
+
+Extracting archive: data/fastq/output/read_pos.txt.7z
+--
+Path = data/fastq/output/read_pos.txt.7z
+Type = 7z
+Physical Size = 535685634
+Headers Size = 170
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       1615879405
+Compressed: 535685634
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 252174282 bytes (241 MiB)
+
+Extracting archive: data/fastq/output/read_noise.txt.7z
+--
+Path = data/fastq/output/read_noise.txt.7z
+Type = 7z
+Physical Size = 252174282
+Headers Size = 170
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       525260087
+Compressed: 252174282
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 345221073 bytes (330 MiB)
+
+Extracting archive: data/fastq/output/read_noisepos.txt.7z
+--
+Path = data/fastq/output/read_noisepos.txt.7z
+Type = 7z
+Physical Size = 345221073
+Headers Size = 178
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       485160943
+Compressed: 345221073
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 499462375 bytes (477 MiB)
+
+Extracting archive: data/fastq/output/input_N.dna.7z
+--
+Path = data/fastq/output/input_N.dna.7z
+Type = 7z
+Physical Size = 499462375
+Headers Size = 162
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       1952219106
+Compressed: 499462375
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 178 bytes (1 KiB)
+
+Extracting archive: data/fastq/output/read_meta.txt.7z
+--
+Path = data/fastq/output/read_meta.txt.7z
+Type = 7z
+Physical Size = 178
+Headers Size = 170
+Method = LZMA2:12
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       4
+Compressed: 178
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 201025957 bytes (192 MiB)
+
+Extracting archive: data/fastq/output/read_rev.txt.7z
+--
+Path = data/fastq/output/read_rev.txt.7z
+Type = 7z
+Physical Size = 201025957
+Headers Size = 170
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       1615879405
+Compressed: 201025957
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Decompressing data/fastq/output/read_seq.txt.bsc(00%)Decompressing data/fastq/output/read_seq.txt.bsc(23%)Decompressing data/fastq/output/read_seq.txt.bsc(47%)Decompressing data/fastq/output/read_seq.txt.bsc(71%)Decompressing data/fastq/output/read_seq.txt.bsc(95%)data/fastq/output/read_seq.txt.bsc decompressed 1894177006 into 2254416916 in 358.616 seconds.
+Read length: 101
+Decoding reads
+Decoding done
+	Command being timed: "./run_default.sh -d data/fastq/ERR194146_random.tar"
+	User time (seconds): 964.40
+	System time (seconds): 140.58
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 18:25.06
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2629864
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 75129
+	Voluntary context switches: 339
+	Involuntary context switches: 677
+	Swaps: 0
+	File system inputs: 136
+	File system outputs: 383581856
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Input format: FastqAbundance threshold: 7 (auto)    (nb solid kmers: 2587204700)
+	End reads compression
+		Reads count: 1635018808
+		Reads size: 165136899608
+		Compression rate: 0.0950  (15685320985)
+			Bloom: 24.74  (3880808075)
+			Anchors dict: 3.79  (594920690)    (77911528 entries)
+			Reads: 0.00  (0)
+				Anchor adress: 0.00  (0)
+				Anchor pos: 0.00  (0) 
+				Read size: 0.00  (0)
+				Bifurcation: 0.00  (0)
+				Other (N, error, infoBits): 0.00  (0)
+			Read without anchor: 0.00  (0)
+		Reads per anchor: 20
+		Read without anchor: 0.38
+		De Bruijn graph
+			Simple path: 84.36
+			Bifurcation: 4.12
+			Break: 1.12
+			Error: 0.49
+End compression
+	Input: 
+		Filename: data/fastq/ERR194146_random.fastq
+		Size: 340083912064  (324329 MB)
+	Output: 
+		Filename: data/fastq/ERR194146_random.fastq.leon
+		Total Size: 15685402958  (14958 MB)
+	Overall Compression rate: 0.0461 (21.6816)
+		Header completely discarded, in '-seq-only' mode 
+		Dna: 0.0950 (10.5281)
+
+	Time: 7971.53s
+	Speed: 42.66 mo/s
+	Command being timed: "./../leon/leon -c -file data/fastq/ERR194146_random.fastq -nb-cores 8 -seq-only -verbose 0"
+	User time (seconds): 50191.03
+	System time (seconds): 1031.82
+	Percent of CPU this job got: 642%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:12:51
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 7553616
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 77
+	Minor (reclaiming a frame) page faults: 398462721
+	Voluntary context switches: 15956038
+	Involuntary context switches: 48202
+	Swaps: 0
+	File system inputs: 909334352
+	File system outputs: 435694152
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Start decompression
+	Input filename: data/fastq/ERR194146_random.fastq.leon
+Headers were not stored, will number reads 
+
+	Output format: Fasta
+	Kmer size: 31
+
+	Input File was compressed with leon version 1.0.0
+	Block count: 32701
+
+	Output filename: data/fastq/ERR194146_random.fasta.d
+	Time: 5890.11s
+	Speed: 30.47 mo/s
+	Command being timed: "./../leon/leon -d -file data/fastq/ERR194146_random.fastq.leon -nb-cores 8 -seq-only -verbose 0"
+	User time (seconds): 33761.86
+	System time (seconds): 207.34
+	Percent of CPU this job got: 576%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:38:10
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4842216
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 9
+	Minor (reclaiming a frame) page faults: 2147828
+	Voluntary context switches: 20896
+	Involuntary context switches: 21384
+	Swaps: 0
+	File system inputs: 4941040
+	File system outputs: 362072848
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../orcom/bin/orcom_bin e -idata/fastq/ERR194146_random.fastq -odata/fastq/ERR194146_random.bin -t8"
+	User time (seconds): 4480.48
+	System time (seconds): 338.75
+	Percent of CPU this job got: 739%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 10:51.76
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 10786888
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 66240762
+	Voluntary context switches: 495778
+	Involuntary context switches: 3207
+	Swaps: 0
+	File system inputs: 171906688
+	File system outputs: 82661264
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../orcom/bin/orcom_pack e -idata/fastq/ERR194146_random.bin -odata/fastq/ERR194146_random.orcom -t8"
+	User time (seconds): 9549.10
+	System time (seconds): 234.86
+	Percent of CPU this job got: 794%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 20:31.59
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 15462060
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 44169257
+	Voluntary context switches: 8194
+	Involuntary context switches: 6315
+	Swaps: 0
+	File system inputs: 448
+	File system outputs: 10506984
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../orcom/bin/orcom_pack d -idata/fastq/ERR194146_random.orcom -odata/fastq/ERR194146_random_orcom.dna -t8"
+	User time (seconds): 1642.74
+	System time (seconds): 1138.76
+	Percent of CPU this job got: 736%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 6:17.51
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 31738844
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 45355323
+	Voluntary context switches: 9933
+	Involuntary context switches: 3614
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 362858032
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

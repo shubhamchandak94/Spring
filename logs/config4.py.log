@@ -1,0 +1,939 @@
+config4.py
+
+basename="ERR174310"
+URL_1="ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR174/ERR174310/ERR174310_1.fastq.gz"
+URL_2="ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR174/ERR174310/ERR174310_2.fastq.gz"
+
+URL_genome="ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/human_g1k_v37.fasta.gz"
+
+maxmatch=30
+thresh=8
+numdict=2
+dict1start=30
+dict1end=49
+dict2start=50
+dict2end=69
+num_thr=8
+*** Preprocessing ***
+Preprocessing Done!
+Read length: 101
+Number of reads: 410062267
+Reading file: data/ERR174310/input_clean.dna
+Constructing dictionaries
+Reordering reads
+2:1000000
+4:1000000
+2:2000000
+1:1000000
+4:2000000
+5:1000000
+1:2000000
+7:1000000
+6:1000000
+2:3000000
+3:1000000
+0:1000000
+1:3000000
+6:2000000
+7:2000000
+1:4000000
+7:3000000
+2:4000000
+6:3000000
+2:5000000
+1:5000000
+6:4000000
+5:2000000
+3:2000000
+0:2000000
+4:3000000
+7:4000000
+1:6000000
+2:6000000
+6:5000000
+4:4000000
+3:3000000
+7:5000000
+0:3000000
+5:3000000
+6:6000000
+2:7000000
+1:7000000
+7:6000000
+4:5000000
+3:4000000
+0:4000000
+5:4000000
+6:7000000
+2:8000000
+3:5000000
+7:7000000
+4:6000000
+1:8000000
+0:5000000
+5:5000000
+6:8000000
+2:9000000
+3:6000000
+4:7000000
+7:8000000
+1:9000000
+5:6000000
+6:9000000
+0:6000000
+2:10000000
+3:7000000
+7:9000000
+1:10000000
+4:8000000
+5:7000000
+6:10000000
+0:7000000
+3:8000000
+7:10000000
+2:11000000
+1:11000000
+4:9000000
+5:8000000
+6:11000000
+3:9000000
+0:8000000
+7:11000000
+1:12000000
+2:12000000
+4:10000000
+6:12000000
+5:9000000
+0:9000000
+3:10000000
+1:13000000
+7:12000000
+2:13000000
+6:13000000
+4:11000000
+5:10000000
+0:10000000
+3:11000000
+1:14000000
+6:14000000
+7:13000000
+2:14000000
+4:12000000
+5:11000000
+0:11000000
+3:12000000
+1:15000000
+6:15000000
+7:14000000
+5:12000000
+4:13000000
+2:15000000
+0:12000000
+3:13000000
+1:16000000
+6:16000000
+7:15000000
+5:13000000
+0:13000000
+4:14000000
+2:16000000
+3:14000000
+1:17000000
+6:17000000
+5:14000000
+7:16000000
+0:14000000
+2:17000000
+4:15000000
+3:15000000
+1:18000000
+6:18000000
+5:15000000
+7:17000000
+0:15000000
+2:18000000
+3:16000000
+4:16000000
+1:19000000
+5:16000000
+6:19000000
+7:18000000
+0:16000000
+2:19000000
+3:17000000
+4:17000000
+1:20000000
+6:20000000
+5:17000000
+0:17000000
+7:19000000
+2:20000000
+3:18000000
+4:18000000
+1:21000000
+6:21000000
+0:18000000
+5:18000000
+2:21000000
+7:20000000
+4:19000000
+3:19000000
+1:22000000
+6:22000000
+0:19000000
+7:21000000
+2:22000000
+5:19000000
+4:20000000
+3:20000000
+6:23000000
+0:20000000
+1:23000000
+2:23000000
+7:22000000
+4:21000000
+5:20000000
+3:21000000
+0:21000000
+6:24000000
+1:24000000
+2:24000000
+7:23000000
+4:22000000
+3:22000000
+5:21000000
+0:22000000
+6:25000000
+1:25000000
+2:25000000
+7:24000000
+4:23000000
+3:23000000
+0:23000000
+5:22000000
+2:26000000
+6:26000000
+1:26000000
+4:24000000
+7:25000000
+0:24000000
+3:24000000
+2:27000000
+5:23000000
+6:27000000
+1:27000000
+4:25000000
+7:26000000
+0:25000000
+3:25000000
+2:28000000
+6:28000000
+1:28000000
+5:24000000
+4:26000000
+7:27000000
+0:26000000
+3:26000000
+6:29000000
+2:29000000
+1:29000000
+5:25000000
+4:27000000
+7:28000000
+0:27000000
+3:27000000
+6:30000000
+2:30000000
+1:30000000
+5:26000000
+4:28000000
+6:31000000
+7:29000000
+3:28000000
+1:31000000
+0:28000000
+2:31000000
+5:27000000
+4:29000000
+6:32000000
+3:29000000
+7:30000000
+0:29000000
+1:32000000
+5:28000000
+2:32000000
+4:30000000
+6:33000000
+3:30000000
+1:33000000
+7:31000000
+0:30000000
+5:29000000
+2:33000000
+4:31000000
+6:34000000
+3:31000000
+1:34000000
+7:32000000
+2:34000000
+0:31000000
+5:30000000
+4:32000000
+6:35000000
+3:32000000
+1:35000000
+7:33000000
+2:35000000
+0:32000000
+6:36000000
+5:31000000
+4:33000000
+3:33000000
+1:36000000
+7:34000000
+2:36000000
+0:33000000
+6:37000000
+5:32000000
+4:34000000
+3:34000000
+1:37000000
+7:35000000
+2:37000000
+6:38000000
+5:33000000
+4:35000000
+0:34000000
+3:35000000
+1:38000000
+7:36000000
+6:39000000
+2:38000000
+5:34000000
+4:36000000
+0:35000000
+3:36000000
+1:39000000
+7:37000000
+2:39000000
+6:40000000
+5:35000000
+4:37000000
+1:40000000
+0:36000000
+3:37000000
+7:38000000
+6:41000000
+2:40000000
+4:38000000
+5:36000000
+1:41000000
+0:37000000
+3:38000000
+7:39000000
+6:42000000
+2:41000000
+4:39000000
+5:37000000
+0:38000000
+1:42000000
+3:39000000
+7:40000000
+6:43000000
+2:42000000
+4:40000000
+1:43000000
+0:39000000
+5:38000000
+3:40000000
+6:44000000
+7:41000000
+2:43000000
+1:44000000
+4:41000000
+0:40000000
+5:39000000
+3:41000000
+6:45000000
+7:42000000
+1:45000000
+2:44000000
+4:42000000
+0:41000000
+5:40000000
+3:42000000
+6:46000000
+7:43000000
+1:46000000
+2:45000000
+0:42000000
+4:43000000
+3:43000000
+5:41000000
+6:47000000
+1:47000000
+7:44000000
+2:46000000
+0:43000000
+4:44000000
+3:44000000
+5:42000000
+6:48000000
+1:48000000
+7:45000000
+0:44000000
+2:47000000
+4:45000000
+5:43000000
+3:45000000
+6:49000000
+0:45000000
+1:49000000
+2:48000000
+7:46000000
+4:46000000
+5:44000000
+3:46000000
+6:50000000
+0:46000000
+7:47000000
+2:49000000
+1:50000000
+4:47000000
+5:45000000
+3:47000000
+6:51000000
+0:47000000
+2:50000000
+7:48000000
+1:51000000
+4:48000000
+5:46000000
+3:48000000
+6:52000000
+0:48000000
+2:51000000
+7:49000000
+1:52000000
+4:49000000
+5:47000000
+3:49000000
+6:53000000
+0:49000000
+2:52000000
+7:50000000
+1:53000000
+4:50000000
+5:48000000
+3:50000000
+6:54000000
+0:50000000
+Reordering done, 42065840 were unmatched
+Writing to file
+Done!
+Read length: 101
+Number of reads: 410062267
+Encoding reads
+Encoding done
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 410062267 bytes (392 MiB)
+
+Creating archive: data/ERR174310/output/read_pos.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 196871115 bytes (188 MiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 173773608 bytes (166 MiB)
+
+Creating archive: data/ERR174310/output/read_noise.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 112241797 bytes (108 MiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 285032167 bytes (272 MiB)
+
+Creating archive: data/ERR174310/output/read_noisepos.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 188361712 bytes (180 MiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 519860034 bytes (496 MiB)
+
+Creating archive: data/ERR174310/output/input_N.dna.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 131400422 bytes (126 MiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 4 bytes (1 KiB)
+
+Creating archive: data/ERR174310/output/read_meta.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 186 bytes (1 KiB)
+Everything is Ok
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive:
+1 file, 410062267 bytes (392 MiB)
+
+Creating archive: data/ERR174310/output/read_rev.txt.7z
+
+Items to compress: 1
+
+
+Files read from disk: 1
+Archive size: 50477437 bytes (49 MiB)
+Everything is Ok
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Compressing data/ERR174310/output/read_seq.txt(00%)Compressing data/ERR174310/output/read_seq.txt(33%)Compressing data/ERR174310/output/read_seq.txt(66%)data/ERR174310/output/read_seq.txt compressed 1603609869 into 1414813502 in 420.530 seconds.
+	Command being timed: "./run.sh -pgc"
+	User time (seconds): 69408.33
+	System time (seconds): 1420.47
+	Percent of CPU this job got: 656%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:59:49
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 20149556
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 21
+	Minor (reclaiming a frame) page faults: 642540957
+	Voluntary context switches: 1843050
+	Involuntary context switches: 109899
+	Swaps: 0
+	File system inputs: 225772304
+	File system outputs: 486601144
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Decompression ...
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 2094182400 May 10 23:09 data/ERR174310/output.tar
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 196871115 bytes (188 MiB)
+
+Extracting archive: data/ERR174310/output/read_pos.txt.7z
+--
+Path = data/ERR174310/output/read_pos.txt.7z
+Type = 7z
+Physical Size = 196871115
+Headers Size = 178
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       410062267
+Compressed: 196871115
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 112241797 bytes (108 MiB)
+
+Extracting archive: data/ERR174310/output/read_noise.txt.7z
+--
+Path = data/ERR174310/output/read_noise.txt.7z
+Type = 7z
+Physical Size = 112241797
+Headers Size = 178
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       173773608
+Compressed: 112241797
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 188361712 bytes (180 MiB)
+
+Extracting archive: data/ERR174310/output/read_noisepos.txt.7z
+--
+Path = data/ERR174310/output/read_noisepos.txt.7z
+Type = 7z
+Physical Size = 188361712
+Headers Size = 186
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       285032167
+Compressed: 188361712
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 131400422 bytes (126 MiB)
+
+Extracting archive: data/ERR174310/output/input_N.dna.7z
+--
+Path = data/ERR174310/output/input_N.dna.7z
+Type = 7z
+Physical Size = 131400422
+Headers Size = 170
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       519860034
+Compressed: 131400422
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 186 bytes (1 KiB)
+
+Extracting archive: data/ERR174310/output/read_meta.txt.7z
+--
+Path = data/ERR174310/output/read_meta.txt.7z
+Type = 7z
+Physical Size = 186
+Headers Size = 178
+Method = LZMA2:12
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       4
+Compressed: 186
+
+7-Zip [64] 16.02 : Copyright (c) 1999-2016 Igor Pavlov : 2016-05-21
+p7zip Version 16.02 (locale=en_IN.UTF-8,Utf16=on,HugeFiles=on,64 bits,80 CPUs Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz (406F1),ASM,AES-NI)
+
+Scanning the drive for archives:
+1 file, 50477437 bytes (49 MiB)
+
+Extracting archive: data/ERR174310/output/read_rev.txt.7z
+--
+Path = data/ERR174310/output/read_rev.txt.7z
+Type = 7z
+Physical Size = 50477437
+Headers Size = 178
+Method = LZMA2:24
+Solid = -
+Blocks = 1
+
+Everything is Ok
+
+Size:       410062267
+Compressed: 50477437
+This is bsc, Block Sorting Compressor. Version 3.1.0. 8 July 2012.
+Copyright (c) 2009-2012 Ilya Grebnov <Ilya.Grebnov@gmail.com>.
+
+Decompressing data/ERR174310/output/read_seq.txt.bsc(00%)Decompressing data/ERR174310/output/read_seq.txt.bsc(33%)Decompressing data/ERR174310/output/read_seq.txt.bsc(67%)data/ERR174310/output/read_seq.txt.bsc decompressed 1414813502 into 1603609869 in 306.391 seconds.
+Read length: 101
+Decoding reads
+Decoding done
+	Command being timed: "./run.sh -d"
+	User time (seconds): 570.95
+	System time (seconds): 46.59
+	Percent of CPU this job got: 100%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 10:17.49
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 2629864
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 1694793
+	Voluntary context switches: 86
+	Involuntary context switches: 353
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 107328864
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Input format: FastqAbundance threshold: 4 (auto)    (nb solid kmers: 2440957035)
+	End reads compression
+		Reads count: 415158934
+		Reads size: 41931052334
+		Compression rate: 0.1664  (6978170210)
+			Bloom: 52.47  (3661436577)
+			Anchors dict: 6.05  (422139731)    (55339059 entries)
+			Reads: 0.00  (0)
+				Anchor adress: 0.00  (0)
+				Anchor pos: 0.00  (0) 
+				Read size: 0.00  (0)
+				Bifurcation: 0.00  (0)
+				Other (N, error, infoBits): 0.00  (0)
+			Read without anchor: 0.00  (0)
+		Reads per anchor: 7
+		Read without anchor: 0.42
+		De Bruijn graph
+			Simple path: 83.35
+			Bifurcation: 4.16
+			Break: 2.43
+			Error: 0.61
+End compression
+	Input: 
+		Filename: data/ERR174310/input.fastq
+		Size: 107737768818  (102746 MB)
+	Output: 
+		Filename: data/ERR174310/input.fastq.leon
+		Total Size: 6978193374  (6654 MB)
+	Overall Compression rate: 0.0648 (15.4392)
+		Header completely discarded, in '-seq-only' mode 
+		Dna: 0.1664 (6.0089)
+
+	Time: 2419.30s
+	Speed: 44.53 mo/s
+	Command being timed: "./../leon/leon -c -file data/ERR174310/input.fastq -nb-cores 8 -seq-only -verbose 0"
+	User time (seconds): 14744.93
+	System time (seconds): 720.62
+	Percent of CPU this job got: 639%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 40:20.02
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 5659820
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 32
+	Minor (reclaiming a frame) page faults: 170532689
+	Voluntary context switches: 12054921
+	Involuntary context switches: 17790
+	Swaps: 0
+	File system inputs: 255509888
+	File system outputs: 181826144
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 6978193374 May 11 00:00 data/ERR174310/input.fastq.leon
+Start decompression
+	Input filename: data/ERR174310/input.fastq.leon
+Headers were not stored, will number reads 
+
+	Output format: Fasta
+	Kmer size: 31
+
+	Input File was compressed with leon version 1.0.0
+	Block count: 8304
+
+	Output filename: data/ERR174310/input.fasta.d
+	Time: 1532.22s
+	Speed: 29.74 mo/s
+	Command being timed: "./../leon/leon -d -file data/ERR174310/input.fastq.leon -nb-cores 8 -seq-only -verbose 0"
+	User time (seconds): 8687.44
+	System time (seconds): 28.90
+	Percent of CPU this job got: 568%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 25:32.23
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4143652
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 3
+	Minor (reclaiming a frame) page faults: 618281
+	Voluntary context switches: 2175
+	Involuntary context switches: 5814
+	Swaps: 0
+	File system inputs: 384
+	File system outputs: 89037056
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../orcom/bin/orcom_bin e -idata/ERR174310/input.fastq -odata/ERR174310/input.bin -t8"
+	User time (seconds): 1149.47
+	System time (seconds): 78.48
+	Percent of CPU this job got: 791%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:35.16
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 10012052
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 8371688
+	Voluntary context switches: 18926
+	Involuntary context switches: 686
+	Swaps: 0
+	File system inputs: 32
+	File system outputs: 21045712
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../orcom/bin/orcom_pack e -idata/ERR174310/input.bin -odata/ERR174310/input.orcom -t8"
+	User time (seconds): 3833.84
+	System time (seconds): 16.40
+	Percent of CPU this job got: 799%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 8:01.67
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4639760
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 1
+	Minor (reclaiming a frame) page faults: 1097518
+	Voluntary context switches: 6532
+	Involuntary context switches: 2003
+	Swaps: 0
+	File system inputs: 344
+	File system outputs: 4953960
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 2536398440 May 11 00:36 data/ERR174310/input.orcom.cdna
+	Command being timed: "./../orcom/bin/orcom_pack d -idata/ERR174310/input.orcom -odata/ERR174310/input_orcom.dna -t8"
+	User time (seconds): 663.09
+	System time (seconds): 236.07
+	Percent of CPU this job got: 722%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:04.45
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 9289744
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 7622084
+	Voluntary context switches: 7096
+	Involuntary context switches: 1709
+	Swaps: 0
+	File system inputs: 13016
+	File system outputs: 90478104
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+	Command being timed: "./../pigz-2.3.4/pigz -f -p 8 data/ERR174310/input.dna"
+	User time (seconds): 8365.44
+	System time (seconds): 140.89
+	Percent of CPU this job got: 754%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 18:48.14
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 8388
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 122304
+	Voluntary context switches: 977343
+	Involuntary context switches: 5986
+	Swaps: 0
+	File system inputs: 59858864
+	File system outputs: 26227864
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+-rw-rw-r--. 1 cslcollab-schandak csl_idoia 12557901680 May 10 20:20 data/ERR174310/input.dna.gz
+	Command being timed: "./../pigz-2.3.4/unpigz -f -p 8 data/ERR174310/input.dna.gz"
+	User time (seconds): 184.00
+	System time (seconds): 53.57
+	Percent of CPU this job got: 162%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:26.33
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 1040
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 839
+	Voluntary context switches: 2968242
+	Involuntary context switches: 86
+	Swaps: 0
+	File system inputs: 2888
+	File system outputs: 82707480
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+config4.py
+
+basename="ERR174310"
+URL_1="ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR174/ERR174310/ERR174310_1.fastq.gz"
+URL_2="ftp://ftp.sra.ebi.ac.uk/vol1/fastq/ERR174/ERR174310/ERR174310_2.fastq.gz"
+
+URL_genome="ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/human_g1k_v37.fasta.gz"
+
+maxmatch=30
+thresh=4
+numdict=2
+dict1start=30
+dict1end=49
+dict2start=50
+dict2end=69
+num_thr=8

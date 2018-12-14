@@ -1,0 +1,1002 @@
+Temporary directory: ./tmp.fa37JncCHr/
+Starting decompression...
+Untarring tar archive ...
+Untarring archive done!
+Decompressing ...
+Decompression done!
+Total time for decompression: 72 s
+	Command being timed: "./build/spring -d -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_trimmed_lossless.spring -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed.lossless.d /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed.lossless.d --decompress_range 100000000 101000000"
+	User time (seconds): 306.20
+	System time (seconds): 26.00
+	Percent of CPU this job got: 452%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:13.47
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 5978200
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 41
+	Minor (reclaiming a frame) page faults: 6101977
+	Voluntary context switches: 269926
+	Involuntary context switches: 44221
+	Swaps: 0
+	File system inputs: 13625024
+	File system outputs: 22819680
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting decompression...
+Untarring tar archive ...
+Untarring archive done!
+Decompressing ...
+Decompression done!
+Total time for decompression: 107 s
+	Command being timed: "./build/spring -d -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_trimmed_lossless.spring -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed.lossless.d /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed.lossless.d --decompress_range 100000000 110000000"
+	User time (seconds): 517.50
+	System time (seconds): 44.07
+	Percent of CPU this job got: 515%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:48.85
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6109464
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 53
+	Minor (reclaiming a frame) page faults: 14761855
+	Voluntary context switches: 255971
+	Involuntary context switches: 44606
+	Swaps: 0
+	File system inputs: 13624392
+	File system outputs: 36026432
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting decompression...
+Untarring tar archive ...
+Untarring archive done!
+Decompressing ...
+Decompression done!
+Total time for decompression: 542 s
+	Command being timed: "./build/spring -d -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_trimmed_lossless.spring -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed.lossless.d /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed.lossless.d --decompress_range 100000000 200000000"
+	User time (seconds): 2848.61
+	System time (seconds): 198.27
+	Percent of CPU this job got: 559%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 9:04.25
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 6114156
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 54
+	Minor (reclaiming a frame) page faults: 73677716
+	Voluntary context switches: 325236
+	Involuntary context switches: 50290
+	Swaps: 0
+	File system inputs: 13624440
+	File system outputs: 168631432
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting compression...
+Preprocessing ...
+Max Read length: 147
+Total number of reads: 540040760
+Total number of reads without N: 539407371
+Paired id match code: 3
+Preprocessing done!
+Time for this step: 1172 s
+Reordering ...
+Reading file
+Constructing dictionaries
+Reordering reads
+Reordering done, 26080985 were unmatched
+Writing to file
+Done!
+Reordering done!
+Time for this step: 1599 s
+Encoding ...
+Maximum Read length: 147
+Number of non-singleton reads: 516156672
+Number of singleton reads: 23250699
+Number of reads with N: 633389
+Encoding reads
+Encoding done:
+13230887 singleton reads were aligned
+611724 reads with N were aligned
+Encoding done!
+Time for this step: 785 s
+Reordering and compressing streams ...
+Reordering and compressing streams done!
+Time for this step: 287 s
+
+Sizes of streams after compression: 
+Reads:        3036350460 bytes
+Quality:      3629761436 bytes
+ID:            291711276 bytes
+Creating tar archive ...Tar archive done!
+Time for this step: 91 s
+Compression done!
+Total time for compression: 3937 s
+
+Total size:   6967736320 bytes
+	Command being timed: "./build/spring -c -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_trimmed_lossless_32.spring -t 32"
+	User time (seconds): 67079.70
+	System time (seconds): 1926.86
+	Percent of CPU this job got: 1751%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:05:38
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 32075812
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 91
+	Minor (reclaiming a frame) page faults: 232221429
+	Voluntary context switches: 7639088
+	Involuntary context switches: 1330063
+	Swaps: 0
+	File system inputs: 413047416
+	File system outputs: 467158776
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting decompression...
+Untarring tar archive ...
+Untarring archive done!
+Decompressing ...
+Decompression done!
+Total time for decompression: 772 s
+	Command being timed: "./build/spring -d -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_trimmed_lossless_32.spring -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed.lossless.d /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed.lossless.d -t 32"
+	User time (seconds): 9399.26
+	System time (seconds): 540.19
+	Percent of CPU this job got: 1281%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 12:55.49
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 15469916
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 3
+	Minor (reclaiming a frame) page faults: 129840960
+	Voluntary context switches: 2509024
+	Involuntary context switches: 63475
+	Swaps: 0
+	File system inputs: 582008
+	File system outputs: 418967112
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting compression...
+Preprocessing ...
+Max Read length: 147
+Total number of reads: 540040760
+Total number of reads without N: 539407371
+Paired id match code: 3
+Preprocessing done!
+Time for this step: 1250 s
+Reordering ...
+Reading file
+Constructing dictionaries
+Reordering reads
+Reordering done, 26975109 were unmatched
+Writing to file
+Done!
+Reordering done!
+Time for this step: 2059 s
+Encoding ...
+Maximum Read length: 147
+Number of non-singleton reads: 514821343
+Number of singleton reads: 24586028
+Number of reads with N: 633389
+Encoding reads
+Encoding done:
+13914394 singleton reads were aligned
+611279 reads with N were aligned
+Encoding done!
+Time for this step: 1124 s
+Reordering and compressing streams ...
+Reordering and compressing streams done!
+Time for this step: 309 s
+
+Sizes of streams after compression: 
+Reads:        3028790876 bytes
+Quality:      3629761436 bytes
+ID:            291711276 bytes
+Creating tar archive ...Tar archive done!
+Time for this step: 72 s
+Compression done!
+Total time for compression: 4817 s
+
+Total size:   6960138240 bytes
+	Command being timed: "./build/spring -c -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_trimmed_lossless_16.spring -t 16"
+	User time (seconds): 48181.67
+	System time (seconds): 1455.01
+	Percent of CPU this job got: 1030%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:20:19
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 31672256
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 60
+	Minor (reclaiming a frame) page faults: 304737756
+	Voluntary context switches: 1510700
+	Involuntary context switches: 1284153
+	Swaps: 0
+	File system inputs: 411840896
+	File system outputs: 467759136
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting decompression...
+Untarring tar archive ...
+Untarring archive done!
+Decompressing ...
+Decompression done!
+Total time for decompression: 1074 s
+	Command being timed: "./build/spring -d -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_trimmed_lossless_16.spring -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed.lossless.d /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed.lossless.d -t 16"
+	User time (seconds): 8180.41
+	System time (seconds): 500.04
+	Percent of CPU this job got: 806%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 17:56.04
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 9277972
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 4
+	Minor (reclaiming a frame) page faults: 149583522
+	Voluntary context switches: 1225238
+	Involuntary context switches: 45079
+	Swaps: 0
+	File system inputs: 5861208
+	File system outputs: 418936800
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting compression...
+Preprocessing ...
+Max Read length: 147
+Total number of reads: 540040760
+Total number of reads without N: 539407371
+Paired id match code: 3
+Preprocessing done!
+Time for this step: 1941 s
+Reordering ...
+Reading file
+Constructing dictionaries
+Reordering reads
+Reordering done, 29660909 were unmatched
+Writing to file
+Done!
+Reordering done!
+Time for this step: 6174 s
+Encoding ...
+Maximum Read length: 147
+Number of non-singleton reads: 511368782
+Number of singleton reads: 28038589
+Number of reads with N: 633389
+Encoding reads
+Encoding done:
+15592944 singleton reads were aligned
+609599 reads with N were aligned
+Encoding done!
+Time for this step: 3746 s
+Reordering and compressing streams ...
+Reordering and compressing streams done!
+Time for this step: 470 s
+
+Sizes of streams after compression: 
+Reads:        3045524015 bytes
+Quality:      3629761436 bytes
+ID:            291711276 bytes
+Creating tar archive ...Tar archive done!
+Time for this step: 63 s
+Compression done!
+Total time for compression: 12395 s
+
+Total size:   6976727040 bytes
+	Command being timed: "./build/spring -c -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_trimmed_lossless_4.spring -t 4"
+	User time (seconds): 40990.18
+	System time (seconds): 2740.65
+	Percent of CPU this job got: 352%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 3:26:37
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 31199932
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 37
+	Minor (reclaiming a frame) page faults: 1386993535
+	Voluntary context switches: 765206
+	Involuntary context switches: 1271757
+	Swaps: 0
+	File system inputs: 408483232
+	File system outputs: 469672040
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting decompression...
+Untarring tar archive ...
+Untarring archive done!
+Decompressing ...
+Decompression done!
+Total time for decompression: 2491 s
+	Command being timed: "./build/spring -d -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_trimmed_lossless_4.spring -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed.lossless.d /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed.lossless.d -t 4"
+	User time (seconds): 7218.81
+	System time (seconds): 687.83
+	Percent of CPU this job got: 317%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 41:33.10
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4642268
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 3
+	Minor (reclaiming a frame) page faults: 338741207
+	Voluntary context switches: 115254
+	Involuntary context switches: 29722
+	Swaps: 0
+	File system inputs: 3611096
+	File system outputs: 419099768
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+terminate called after throwing an instance of 'boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<boost::program_options::unknown_option> >'
+  what():  unrecognised option '--no-qualities'
+Command terminated by signal 6
+	Command being timed: "./build/spring -c -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed -r --no-qualities -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_trimmed_r_id.spring"
+	User time (seconds): 0.00
+	System time (seconds): 0.00
+	Percent of CPU this job got: 5%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:00.07
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 4420
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 24
+	Minor (reclaiming a frame) page faults: 160
+	Voluntary context switches: 40
+	Involuntary context switches: 0
+	Swaps: 0
+	File system inputs: 6720
+	File system outputs: 0
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting compression...
+Preprocessing ...
+Max Read length: 101
+Total number of reads: 878997914
+Total number of reads without N: 875951792
+Paired id match code: 1
+Preprocessing done!
+Time for this step: 5779 s
+Reordering ...
+Reading file
+Constructing dictionaries
+Reordering reads
+Reordering done, 33273738 were unmatched
+Writing to file
+Done!
+Reordering done!
+Time for this step: 1834 s
+Encoding ...
+Maximum Read length: 101
+Number of non-singleton reads: 846278296
+Number of singleton reads: 29673496
+Number of reads with N: 3046122
+Encoding reads
+Encoding done:
+17123491 singleton reads were aligned
+2236369 reads with N were aligned
+Encoding done!
+Time for this step: 778 s
+Reordering and compressing streams ...
+Reordering and compressing streams done!
+Time for this step: 486 s
+
+Sizes of streams after compression: 
+Reads:        4259990961 bytes
+Quality:      7236613040 bytes
+ID:            857699359 bytes
+Creating tar archive ...Tar archive done!
+Time for this step: 189 s
+Compression done!
+Total time for compression: 9068 s
+
+Total size:  12370339840 bytes
+	Command being timed: "./build/spring -c -i /raid/shubham/HARC/data/HS_28_1.fastq /raid/shubham/HARC/data/HS_28_2.fastq -o /raid/shubham/HARC/data/HS_28_qvz.spring -q qvz 1 -t 32"
+	User time (seconds): 197512.26
+	System time (seconds): 2440.33
+	Percent of CPU this job got: 2203%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:31:14
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 119938376
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 56
+	Minor (reclaiming a frame) page faults: 310014062
+	Voluntary context switches: 23979288
+	Involuntary context switches: 2051634
+	Swaps: 0
+	File system inputs: 561888144
+	File system outputs: 593436304
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting compression...
+Preprocessing ...
+Max Read length: 101
+Total number of reads: 878997914
+Total number of reads without N: 875951792
+Paired id match code: 1
+Preprocessing done!
+Time for this step: 1180 s
+Reordering ...
+Reading file
+Constructing dictionaries
+Reordering reads
+Reordering done, 33330002 were unmatched
+Writing to file
+Done!
+Reordering done!
+Time for this step: 1866 s
+Encoding ...
+Maximum Read length: 101
+Number of non-singleton reads: 846185751
+Number of singleton reads: 29766041
+Number of reads with N: 3046122
+Encoding reads
+Encoding done:
+17182229 singleton reads were aligned
+2236283 reads with N were aligned
+Encoding done!
+Time for this step: 706 s
+Reordering and compressing streams ...
+Reordering and compressing streams done!
+Time for this step: 509 s
+
+Sizes of streams after compression: 
+Reads:        4260486206 bytes
+Quality:      1033984078 bytes
+ID:            857699359 bytes
+Creating tar archive ...Tar archive done!
+Time for this step: 82 s
+Compression done!
+Total time for compression: 4345 s
+
+Total size:   6168207360 bytes
+	Command being timed: "./build/spring -c -i /raid/shubham/HARC/data/HS_28_1.fastq /raid/shubham/HARC/data/HS_28_2.fastq -o /raid/shubham/HARC/data/HS_28_binary.spring -q binary 20 40 6 -t 32"
+	User time (seconds): 61128.52
+	System time (seconds): 2341.92
+	Percent of CPU this job got: 1459%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:12:27
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 45354928
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 30
+	Minor (reclaiming a frame) page faults: 289013648
+	Voluntary context switches: 14022198
+	Involuntary context switches: 1716864
+	Swaps: 0
+	File system inputs: 502750368
+	File system outputs: 569235528
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting compression...
+Preprocessing ...
+Max Read length: 147
+Total number of reads: 540040760
+Total number of reads without N: 539407371
+Paired id match code: 3
+Preprocessing done!
+Time for this step: 1083 s
+Reordering ...
+Reading file
+Constructing dictionaries
+Reordering reads
+Reordering done, 29153201 were unmatched
+Writing to file
+Done!
+Reordering done!
+Time for this step: 3220 s
+Encoding ...
+Maximum Read length: 147
+Number of non-singleton reads: 511963769
+Number of singleton reads: 27443602
+Number of reads with N: 633389
+Encoding reads
+Encoding done:
+15249724 singleton reads were aligned
+609826 reads with N were aligned
+Encoding done!
+Time for this step: 1962 s
+Encoding pairing information ...
+Encoding pairing information done!
+Time for this step: 81 s
+Reordering and compressing streams ...
+Reordering and compressing streams done!
+Time for this step: 169 s
+
+Sizes of streams after compression: 
+Reads:        2030656663 bytes
+Quality:               0 bytes
+ID:          17407976909 bytes
+Creating tar archive ...Tar archive done!
+Time for this step: 27 s
+Compression done!
+Total time for compression: 6544 s
+
+Total size:  19446138880 bytes
+	Command being timed: "./build/spring -c -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed -r --no-quality -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_trimmed_r_id.spring"
+	User time (seconds): 37562.67
+	System time (seconds): 1166.96
+	Percent of CPU this job got: 591%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:49:06
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 31309616
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 42
+	Minor (reclaiming a frame) page faults: 317524702
+	Voluntary context switches: 1848172
+	Involuntary context switches: 1134200
+	Swaps: 0
+	File system inputs: 398249792
+	File system outputs: 552612296
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting compression...
+Preprocessing ...
+Max Read length: 147
+Total number of reads: 540040760
+Total number of reads without N: 539407371
+Paired id match code: 3
+Preprocessing done!
+Time for this step: 1434 s
+Reordering ...
+Reading file
+Constructing dictionaries
+Reordering reads
+Reordering done, 29126214 were unmatched
+Writing to file
+Done!
+Reordering done!
+Time for this step: 3181 s
+Encoding ...
+Maximum Read length: 147
+Number of non-singleton reads: 511992172
+Number of singleton reads: 27415199
+Number of reads with N: 633389
+Encoding reads
+Encoding done:
+15226456 singleton reads were aligned
+609847 reads with N were aligned
+Encoding done!
+Time for this step: 1990 s
+Reordering and compressing streams ...
+Reordering and compressing streams done!
+Time for this step: 366 s
+
+Sizes of streams after compression: 
+Reads:        3059393385 bytes
+Quality:      3639483662 bytes
+ID:            292400115 bytes
+Creating tar archive ...Tar archive done!
+Time for this step: 157 s
+Compression done!
+Total time for compression: 7131 s
+
+Total size:   7011031040 bytes
+	Command being timed: "./build/spring_128 -c -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_trimmed_128.spring"
+	User time (seconds): 41957.38
+	System time (seconds): 1362.20
+	Percent of CPU this job got: 607%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:58:53
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 30972724
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 50
+	Minor (reclaiming a frame) page faults: 427109717
+	Voluntary context switches: 2419887
+	Involuntary context switches: 1272927
+	Swaps: 0
+	File system inputs: 410927904
+	File system outputs: 469573384
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting decompression...
+Untarring tar archive ...
+Untarring archive done!
+Decompressing ...
+Decompression done!
+Total time for decompression: 1553 s
+	Command being timed: "./build/spring_128 -d -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_trimmed_128.spring -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed.lossless.d /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed.lossless.d"
+	User time (seconds): 7162.20
+	System time (seconds): 458.67
+	Percent of CPU this job got: 490%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 25:54.83
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 5489168
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 3
+	Minor (reclaiming a frame) page faults: 163570572
+	Voluntary context switches: 189664
+	Involuntary context switches: 45950
+	Swaps: 0
+	File system inputs: 6153576
+	File system outputs: 419221392
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting compression...
+Preprocessing ...
+Max Read length: 147
+Total number of reads: 540040760
+Total number of reads without N: 539407371
+Paired id match code: 3
+Preprocessing done!
+Time for this step: 1406 s
+Reordering ...
+Reading file
+Constructing dictionaries
+Reordering reads
+Reordering done, 28918144 were unmatched
+Writing to file
+Done!
+Reordering done!
+Time for this step: 3211 s
+Encoding ...
+Maximum Read length: 147
+Number of non-singleton reads: 512271838
+Number of singleton reads: 27135533
+Number of reads with N: 633389
+Encoding reads
+Encoding done:
+15148042 singleton reads were aligned
+609996 reads with N were aligned
+Encoding done!
+Time for this step: 2010 s
+Reordering and compressing streams ...
+Reordering and compressing streams done!
+Time for this step: 358 s
+
+Sizes of streams after compression: 
+Reads:        3028182644 bytes
+Quality:      3626381710 bytes
+ID:            291332419 bytes
+Creating tar archive ...Tar archive done!
+Time for this step: 25 s
+Compression done!
+Total time for compression: 7013 s
+
+Total size:   6950758400 bytes
+	Command being timed: "./build/spring_512 -c -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_trimmed_512.spring"
+	User time (seconds): 42587.46
+	System time (seconds): 1368.95
+	Percent of CPU this job got: 626%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:56:54
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 31595548
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 53
+	Minor (reclaiming a frame) page faults: 500155837
+	Voluntary context switches: 1232855
+	Involuntary context switches: 1295918
+	Swaps: 0
+	File system inputs: 407815640
+	File system outputs: 469029072
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting decompression...
+Untarring tar archive ...
+Untarring archive done!
+Decompressing ...
+Decompression done!
+Total time for decompression: 1411 s
+	Command being timed: "./build/spring_512 -d -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_trimmed_512.spring -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed.lossless.d /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed.lossless.d"
+	User time (seconds): 7510.26
+	System time (seconds): 524.05
+	Percent of CPU this job got: 568%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 23:33.64
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 8921348
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 2
+	Minor (reclaiming a frame) page faults: 214041125
+	Voluntary context switches: 447136
+	Involuntary context switches: 22531
+	Swaps: 0
+	File system inputs: 270736
+	File system outputs: 418964096
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting compression...
+Preprocessing ...
+Max Read length: 147
+Total number of reads: 540040760
+Total number of reads without N: 539407371
+Paired id match code: 3
+Preprocessing done!
+Time for this step: 1072 s
+Reordering ...
+Reading file
+Constructing dictionaries
+Reordering reads
+Reordering done, 28122395 were unmatched
+Writing to file
+Done!
+Reordering done!
+Time for this step: 3323 s
+Encoding ...
+Maximum Read length: 147
+Number of non-singleton reads: 513279603
+Number of singleton reads: 26127768
+Number of reads with N: 633389
+Encoding reads
+Encoding done:
+14666875 singleton reads were aligned
+610541 reads with N were aligned
+Encoding done!
+Time for this step: 1967 s
+Reordering and compressing quality and/or ids ...
+Compressing ids
+Reordering and compressing quality and/or ids done!
+Time for this step: 352 s
+Encoding pairing information ...
+Encoding pairing information done!
+Time for this step: 79 s
+Reordering and compressing streams ...
+Reordering and compressing streams done!
+Time for this step: 166 s
+
+Sizes of streams after compression: 
+Reads:        2020076943 bytes
+Quality:               0 bytes
+ID:           1371486681 bytes
+Creating tar archive ...Tar archive done!
+Time for this step: 11 s
+Compression done!
+Total time for compression: 6973 s
+
+Total size:   3399905280 bytes
+	Command being timed: "./build/spring -c -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed -r --no-quality -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_trimmed_r_id.spring"
+	User time (seconds): 39122.68
+	System time (seconds): 1243.25
+	Percent of CPU this job got: 578%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:56:15
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 31309904
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 54
+	Minor (reclaiming a frame) page faults: 383266173
+	Voluntary context switches: 1508122
+	Involuntary context switches: 1375212
+	Swaps: 0
+	File system inputs: 423054352
+	File system outputs: 523190960
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting compression...
+Preprocessing ...
+Max Read length: 147
+Total number of reads: 540040760
+Total number of reads without N: 539407371
+Paired id match code: 3
+Preprocessing done!
+Time for this step: 1497 s
+Reordering ...
+Reading file
+Constructing dictionaries
+Reordering reads
+Reordering done, 33458483 were unmatched
+Writing to file
+Done!
+Reordering done!
+Time for this step: 3257 s
+Encoding ...
+Maximum Read length: 147
+Number of non-singleton reads: 510269140
+Number of singleton reads: 29138231
+Number of reads with N: 633389
+Encoding reads
+Encoding done:
+15506644 singleton reads were aligned
+605992 reads with N were aligned
+Encoding done!
+Time for this step: 1929 s
+Reordering and compressing streams ...
+Reordering and compressing streams done!
+Time for this step: 362 s
+
+Sizes of streams after compression: 
+Reads:        3251032872 bytes
+Quality:      3629761436 bytes
+ID:            291711276 bytes
+Creating tar archive ...Tar archive done!
+Time for this step: 85 s
+Compression done!
+Total time for compression: 7132 s
+
+Total size:   7182407680 bytes
+	Command being timed: "./build/spring_1d -c -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R1_001.fastq.trimmed /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_R2_001.fastq.trimmed -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_L001_trimmed_1d.spring"
+	User time (seconds): 43234.88
+	System time (seconds): 1435.50
+	Percent of CPU this job got: 626%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:58:54
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 31640768
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 57
+	Minor (reclaiming a frame) page faults: 512813955
+	Voluntary context switches: 1447976
+	Involuntary context switches: 1344303
+	Swaps: 0
+	File system inputs: 409616760
+	File system outputs: 472636872
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
+Temporary directory: ./tmp.fa37JncCHr/
+Starting compression...
+Preprocessing ...
+Max Read length: 147
+Total number of reads: 2172924220
+Total number of reads without N: 2154253336
+Paired id match code: 3
+Preprocessing done!
+Time for this step: 6220 s
+Reordering ...
+Reading file
+Constructing dictionaries
+Reordering reads
+Reordering done, 91567213 were unmatched
+Writing to file
+Done!
+Reordering done!
+Time for this step: 17097 s
+Encoding ...
+Maximum Read length: 147
+Number of non-singleton reads: 2074702847
+Number of singleton reads: 79550489
+Number of reads with N: 18670884
+Encoding reads
+Encoding done:
+48330167 singleton reads were aligned
+18234340 reads with N were aligned
+Encoding done!
+Time for this step: 6954 s
+Reordering and compressing streams ...
+Reordering and compressing streams done!
+Time for this step: 2506 s
+
+Sizes of streams after compression: 
+Reads:       10106857470 bytes
+Quality:     14553028440 bytes
+ID:           1165190778 bytes
+Creating tar archive ...Tar archive done!
+Time for this step: 554 s
+Compression done!
+Total time for compression: 33333 s
+
+Total size:  25864816640 bytes
+	Command being timed: "./build/spring_no_early_stop -c -i /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R1.fastq.trimmed /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_R2.fastq.trimmed -o /raid/shubham/HARC/data/NA12878-Rep-1_S1_S2_trimmed_no_early_stop.spring"
+	User time (seconds): 182609.19
+	System time (seconds): 7143.86
+	Percent of CPU this job got: 569%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 9:15:37
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 118631268
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 121
+	Minor (reclaiming a frame) page faults: 2974553704
+	Voluntary context switches: 9227865
+	Involuntary context switches: 9021053
+	Swaps: 0
+	File system inputs: 2981251672
+	File system outputs: 1838335112
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

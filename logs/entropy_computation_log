@@ -1,0 +1,247 @@
+                                                                                   
+/srv/data/shubham/readcompression(master ✗)
+/srv/data/shubham/readcompression(master ✗)
+
+/srv/data/shubham/readcompression(master ✗) cd util
+/srv/data/shubham/readcompression/util(master ✗) python
+Python 2.7.5 (default, Nov  6 2016, 00:28:07)
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-11)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> execfile("noise_entropy.py")
+Total number of reads:  3421802373.0
+Number of reads in cluster 0 : 4757532.0
+Number of reads in cluster 1 : 48834702.0
+Number of reads in cluster 2 : 174708367.0
+Number of reads in cluster 3 : 3193501772.0
+
+0th order
+Overall (without clustering): 9.8505441477
+()
+(1, 101)
+Cluster 0 : 143.370483566
+Cluster 1 : 104.950227232
+Cluster 2 : 41.9734061404
+Cluster 3 : 1.95765885635
+Overall (with clustering): 6.08003160233
+
+1st order entropy
+Overall (without clustering): 7.09822136584
+Cluster 0 : 141.013399844
+Cluster 1 : 101.560931635
+Cluster 2 : 37.9615516555
+Cluster 3 : 1.67198508254
+Overall (with clustering): 5.55693494297
+
+2nd order entropy
+Overall (without clustering): 5.96077860406
+Cluster 0 : 139.943028504
+Cluster 1 : 99.5758779658
+Cluster 2 : 35.8224336908
+Cluster 3 : 1.58533594346
+Overall (with clustering): 5.33703100527
+>>>
+>>> execfile("noise_entropy.py")
+Total number of reads:  1635018808.0
+Number of reads in cluster 0 : 432629.0
+Number of reads in cluster 1 : 18962966.0
+Number of reads in cluster 2 : 126451984.0
+Number of reads in cluster 3 : 1489171229.0
+
+0th order
+Overall (without clustering): 4.60990544299
+Cluster 0 : 89.5081097015
+Cluster 1 : 53.591424077
+Cluster 2 : 21.5747575183
+Cluster 3 : 1.51613046977
+Overall (with clustering): 4.18079396174
+
+1st order entropy
+Overall (without clustering): 4.46424989521
+Cluster 0 : 89.4664360856
+Cluster 1 : 53.4506478839
+Cluster 2 : 21.3626375051
+Cluster 3 : 1.4715610696
+Overall (with clustering): 4.12215119393
+
+2nd order entropy
+Overall (without clustering): 4.37974953526
+Cluster 0 : 89.4447144916
+Cluster 1 : 53.3838334448
+Cluster 2 : 21.2709665565
+Cluster 3 : 1.45685644082
+Overall (with clustering): 4.10088778057
+>>> execfile("noise_entropy.py")
+Total number of reads:  415158934.0
+Number of reads in cluster 0 : 2775398.0
+Number of reads in cluster 1 : 9890937.0
+Number of reads in cluster 2 : 31288311.0
+Number of reads in cluster 3 : 371204288.0
+
+0th order
+Overall (without clustering): 15.3269048803
+Cluster 0 : 156.196322949
+Cluster 1 : 102.371531646
+Cluster 2 : 40.4252096027
+Cluster 3 : 2.58166841985
+Overall (with clustering): 9.44032101552
+
+1st order entropy
+Overall (without clustering): 11.2070881756
+Cluster 0 : 153.116320788
+Cluster 1 : 98.8820410995
+Cluster 2 : 36.715611725
+Cluster 3 : 2.1979713595
+Overall (with clustering): 8.71394953588
+
+2nd order entropy
+Overall (without clustering): 9.45886751485
+Cluster 0 : 151.246725948
+Cluster 1 : 96.8389238381
+Cluster 2 : 34.821573492
+Cluster 3 : 2.08359048739
+Overall (with clustering): 8.40776043344
+>>> execfile("noise_entropy.py")
+Total number of reads:  3315742.0
+Number of reads in cluster 0 : 49913.0
+Number of reads in cluster 1 : 139099.0
+Number of reads in cluster 2 : 463017.0
+Number of reads in cluster 3 : 2663713.0
+
+0th order
+Overall (without clustering): 30.1380106783
+Cluster 0 : 158.758368619
+Cluster 1 : 101.575312887
+Cluster 2 : 50.8791761279
+Cluster 3 : 6.45482116916
+Overall (with clustering): 19.8748614551
+
+1st order entropy
+Overall (without clustering): 22.7600432268
+Cluster 0 : 155.933630595
+Cluster 1 : 97.9814748294
+Cluster 2 : 47.6216515891
+Cluster 3 : 5.10211259402
+Overall (with clustering): 18.1399836856
+
+2nd order entropy
+Overall (without clustering): 19.1580655446
+Cluster 0 : 154.007791778
+Cluster 1 : 95.8673574207
+Cluster 2 : 45.7127789191
+Cluster 3 : 4.55677598863
+Overall (with clustering): 17.3176468716
+>>> execfile("noise_entropy.py")
+Total number of reads:  15036699.0
+Number of reads in cluster 0 : 14063.0
+Number of reads in cluster 1 : 440955.0
+Number of reads in cluster 2 : 5121079.0
+Number of reads in cluster 3 : 9460602.0
+
+0th order
+Overall (without clustering): 6.77651975798
+Cluster 0 : 81.066560956
+Cluster 1 : 49.0081663784
+Cluster 2 : 8.5729302719
+Cluster 3 : 1.08575465522
+Overall (with clustering): 6.22436871847
+
+1st order entropy
+Overall (without clustering): 6.1273289922
+Cluster 0 : 80.6048020279
+Cluster 1 : 48.4544792261
+Cluster 2 : 8.13961041501
+Cluster 3 : 1.08297114796
+Overall (with clustering): 6.05837193236
+
+2nd order entropy
+Overall (without clustering): 5.73055098687
+Cluster 0 : 80.2728858348
+Cluster 1 : 48.0820965413
+Cluster 2 : 7.8921447941
+Cluster 3 : 1.08246573883
+Overall (with clustering): 5.96254343879
+>>> execfile("noise_entropy.py")
+Total number of reads:  69230235.0
+Number of reads in cluster 0 : 1150549.0
+Number of reads in cluster 1 : 1282703.0
+Number of reads in cluster 2 : 5354811.0
+Number of reads in cluster 3 : 61442172.0
+
+0th order
+Overall (without clustering): 8.71585177689
+Cluster 0 : 103.739038113
+Cluster 1 : 60.9786028796
+Cluster 2 : 17.1596654082
+Cluster 3 : 0.889573784901
+Overall (with clustering): 5.61389761207
+
+1st order entropy
+Overall (without clustering): 7.43587742424
+Cluster 0 : 103.605987946
+Cluster 1 : 60.2169387609
+Cluster 2 : 16.3268570773
+Cluster 3 : 0.861907977588
+Overall (with clustering): 5.50860477159
+
+2nd order entropy
+Overall (without clustering): 6.59661439877
+Cluster 0 : 103.470370432
+Cluster 1 : 59.6484006024
+Cluster 2 : 15.7687293405
+Cluster 3 : 0.848955941543
+Overall (with clustering): 5.44115201822
+>>>
+>>> execfile("noise_entropy.py")
+Total number of reads:  455018.0
+Number of reads in cluster 0 : 14063.0
+Number of reads in cluster 1 : 440955.0
+
+0th order
+Overall (without clustering): 50.6111016241
+Cluster 0 : 81.066560956
+Cluster 1 : 49.0081663784
+Overall (with clustering): 50.1978957623
+
+1st order entropy
+Overall (without clustering): 49.9027623491
+Cluster 0 : 80.6048020279
+Cluster 1 : 48.4544792261
+Overall (with clustering): 49.647049787
+
+2nd order entropy
+Overall (without clustering): 49.4291694766
+^CTraceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "noise_entropy.py", line 266, in <module>
+    entropy_2order_cluster[cluster] = compute_2order_entropy(qv_prob_2order_cluster[:,:,:,:,cluster], perpos_1order_entropy_cluster[:,cluster])
+  File "noise_entropy.py", line 197, in compute_2order_entropy
+    entropy += compute_N1N2N3_entropy(qv_N1N2N3_probs) - perpos_1order_entropy[i]
+  File "noise_entropy.py", line 154, in compute_N1N2N3_entropy
+    prob_s1s2s3[s1,s2,s3] = prob_S1S2S3(s1,s2,s3)
+  File "noise_entropy.py", line 147, in prob_S1S2S3
+    temp_prob += qv_N1N2N3_probs[i0,i1,i2]*qv_2_prob[s1,0,i0]*qv_2_prob[s2,0,i1]*qv_2_prob[s3,0,i2]
+KeyboardInterrupt
+>>> execfile("noise_entropy.py")
+Total number of reads:  15036699.0
+Number of reads in cluster 0 : 455018.0
+Number of reads in cluster 1 : 14581681.0
+
+0th order
+Overall (without clustering): 6.77651975798
+Cluster 0 : 50.6111016241
+Cluster 1 : 4.14569890293
+Overall (with clustering): 5.74746169392
+
+1st order entropy
+Overall (without clustering): 6.1273289922
+Cluster 0 : 49.9027623491
+Cluster 1 : 3.87978525345
+Overall (with clustering): 5.46816002468
+
+2nd order entropy
+Overall (without clustering): 5.73055098687
+Cluster 0 : 49.4291694766
+Cluster 1 : 3.73345328157
+Overall (with clustering): 5.31192497497
+>>> exit()
+/srv/data/shubham/readcompression/util(master ✗)
