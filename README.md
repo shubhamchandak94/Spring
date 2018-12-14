@@ -13,6 +13,7 @@ SPRING is a compression tool for Fastq files (containing up to 4.29 Billion read
 - Supports reordering of reads (while preserving read pairing information) to boost compression
 - Supports quantization of quality values using [QVZ](https://github.com/mikelhernaez/qvz/), [Illumina 8-level binning](https://www.illumina.com/documents/products/whitepapers/whitepaper_datacompression.pdf) and binary thresholding
 - Supports decompression of a subset of reads (random access)
+- Supports gzipped FASTQ input during compression
 - Tested on Linux and macOS
 
 ### Download
