@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
   namespace po = boost::program_options;
   bool help_flag = false, compress_flag = false, decompress_flag = false,
        pairing_only_flag = false, no_quality_flag = false, no_ids_flag = false,
-       long_flag = false;
+       long_flag = false, gzip_flag = false;
   std::vector<std::string> infile_vec, outfile_vec, quality_opts;
   std::vector<uint64_t> decompress_range_vec;
   std::string working_dir;
@@ -60,7 +60,9 @@ int main(int argc, char** argv) {
       "Use for compression of arbitrarily long read lengths. Can also provide "
       "better compression for reads with significant number of indels. "
       "-r disabled in this mode. For Illumina short "
-      "reads, compression is better without -l flag.");
+      "reads, compression is better without -l flag.")(
+      "gzipped_input,g", po::bool_switch(&gzip_flag),
+      "input fastq files are gzipped");
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
   po::notify(vm);
@@ -102,7 +104,7 @@ int main(int argc, char** argv) {
     if (compress_flag)
       spring::compress(temp_dir, infile_vec, outfile_vec, num_thr,
                        pairing_only_flag, no_quality_flag, no_ids_flag,
-                       quality_opts, long_flag);
+                       quality_opts, long_flag, gzip_flag);
     else
       spring::decompress(temp_dir, infile_vec, outfile_vec, num_thr, decompress_range_vec);
 

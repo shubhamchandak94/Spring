@@ -41,7 +41,7 @@ set(BOOST_LIBS_OPTIONAL
   fiber
   filesystem
 # graph
-# iostreams
+  iostreams
 # locale
   log
   math

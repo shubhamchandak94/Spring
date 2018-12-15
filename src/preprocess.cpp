@@ -7,6 +7,10 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <boost/iostreams/filtering_streambuf.hpp>
+#include <boost/iostreams/copy.hpp>
+#include <boost/iostreams/filter/gzip.hpp>
+
 #include "libbsc/bsc.h"
 #include "params.h"
 #include "util.h"
@@ -14,7 +18,7 @@
 namespace spring {
 
 void preprocess(const std::string &infile_1, const std::string &infile_2,
-                const std::string &temp_dir, compression_params &cp) {
+                const std::string &temp_dir, compression_params &cp, const bool &gzip_flag) {
   std::string infile[2] = {infile_1, infile_2};
   std::string outfileclean[2];
   std::string outfileN[2];
@@ -39,19 +43,27 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
   outfilereadlength[0] = basedir + "/readlength_1";
   outfilereadlength[1] = basedir + "/readlength_2";
 
-  std::ifstream fin[2];
+  std::ifstream fin_f[2];
   std::ofstream fout_clean[2];
   std::ofstream fout_N[2];
   std::ofstream fout_order_N[2];
   std::ofstream fout_id[2];
   std::ofstream fout_quality[2];
-  if (cp.long_flag) {
-    fin[0].open(infile_1);
-    if (cp.paired_end) fin[1].open(infile_2);
-  } else {
-    for (int j = 0; j < 2; j++) {
+  std::istream *fin[2] = {&fin_f[0], &fin_f[1]};
+  boost::iostreams::filtering_streambuf<boost::iostreams::input> *inbuf[2];
+
+  for (int j = 0; j < 2; j++) {
       if (j == 1 && !cp.paired_end) continue;
-      fin[j].open(infile[j]);
+      if (gzip_flag) {
+          fin_f[j].open(infile[j],std::ios_base::binary);
+          inbuf[j] = new boost::iostreams::filtering_streambuf<boost::iostreams::input>;
+          inbuf[j]->push(boost::iostreams::gzip_decompressor());
+          inbuf[j]->push(fin_f[j]);
+          fin[j] = new std::istream(inbuf[j]);
+      } else {
+        fin_f[j].open(infile[j]);
+      }
+      if(!cp.long_flag) {
       fout_clean[j].open(outfileclean[j]);
       fout_N[j].open(outfileN[j]);
       fout_order_N[j].open(outfileorderN[j], std::ios::binary);
@@ -59,7 +71,7 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
         if (cp.preserve_id) fout_id[j].open(outfileid[j]);
         if (cp.preserve_quality) fout_quality[j].open(outfilequality[j]);
       }
-    }
+      }
   }
 
   uint32_t max_readlen = 0;
@@ -79,17 +91,31 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
 
   // Check that we were able to open the input files and also look for
   // paired end matching ids if relevant
-  if (!fin[0].is_open()) throw std::runtime_error("Error opening input file");
+  if (!fin_f[0].is_open()) throw std::runtime_error("Error opening input file");
   if (cp.paired_end) {
-    if (!fin[1].is_open()) throw std::runtime_error("Error opening input file");
+    if (!fin_f[1].is_open()) throw std::runtime_error("Error opening input file");
     if (cp.preserve_id) {
       std::string id_1, id_2;
-      std::getline(fin[0], id_1);
-      std::getline(fin[1], id_2);
+      std::getline(*fin[0], id_1);
+      std::getline(*fin[1], id_2);
       paired_id_code = find_id_pattern(id_1, id_2);
       if (paired_id_code != 0) paired_id_match = true;
-      fin[0].seekg(0);
-      fin[1].seekg(0);
+      // bring back to start
+      if (gzip_flag) {
+          for (int j = 0; j< 2; j++) {
+          fin_f[j].close();
+          delete fin[j];
+          delete inbuf[j];
+          fin_f[j].open(infile[j],std::ios_base::binary);
+          inbuf[j] = new boost::iostreams::filtering_streambuf<boost::iostreams::input>;
+          inbuf[j]->push(boost::iostreams::gzip_decompressor());
+          inbuf[j]->push(fin_f[j]);
+          fin[j] = new std::istream(inbuf[j]);
+          }
+      } else {
+      fin_f[0].seekg(0);
+      fin_f[1].seekg(0);
+      }
     }
   }
   uint64_t num_reads_per_step = (uint64_t)cp.num_thr * num_reads_per_block;
@@ -289,14 +315,21 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
   delete[] read_lengths_array;
   delete[] quality_binning_table;
   delete[] paired_id_match_array;
+  if(gzip_flag) {
+  for (int j = 0; j < 2; j++) {
+    if (j == 1 && !cp.paired_end) continue;
+    delete fin[j];
+    delete inbuf[j];
+  }
+  }
   // close files
   if (cp.long_flag) {
-    fin[0].close();
-    if (cp.paired_end) fin[1].close();
+    fin_f[0].close();
+    if (cp.paired_end) fin_f[1].close();
   } else {
     for (int j = 0; j < 2; j++) {
       if (j == 1 && !cp.paired_end) continue;
-      fin[j].close();
+      fin_f[j].close();
       fout_clean[j].close();
       fout_N[j].close();
       fout_order_N[j].close();

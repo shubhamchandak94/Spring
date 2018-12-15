@@ -36,7 +36,7 @@ struct compression_params {
   int num_thr;
 };
 
-uint32_t read_fastq_block(std::ifstream &fin, std::string *id_array,
+uint32_t read_fastq_block(std::istream *fin, std::string *id_array,
                           std::string *read_array, std::string *quality_array,
                           const uint32_t &num_reads);
 

@@ -13,6 +13,7 @@ SPRING is a compression tool for Fastq files (containing up to 4.29 Billion read
 - Supports reordering of reads (while preserving read pairing information) to boost compression
 - Supports quantization of quality values using [QVZ](https://github.com/mikelhernaez/qvz/), [Illumina 8-level binning](https://www.illumina.com/documents/products/whitepapers/whitepaper_datacompression.pdf) and binary thresholding
 - Supports decompression of a subset of reads (random access)
+- Supports gzipped fastq files as input during compression
 - Tested on Linux and macOS
 
 ### Download
@@ -105,6 +106,7 @@ Allowed options:
                                   for reads with significant number of indels. 
                                   -r disabled in this mode. For Illumina short 
                                   reads, compression is better without -l flag.
+  -g [ --gzipped_input ]          input fastq files are gzipped
 ```
 
 ### Example Usage of SPRING
@@ -112,6 +114,10 @@ Allowed options:
 For compressing file_1.fastq and file_2.fastq losslessly using default 8 threads (Lossless).
 ```bash
 ./spring -c -i file_1.fastq file_2.fastq -o outputname
+```
+For compressing file_1.fastq.gz and file_2.fastq.gz (gzipped fastq files) losslessly using default 8 threads (Lossless).
+```bash
+./spring -c -i file_1.fastq.gz file_2.fastq.gz -o outputname -g
 ```
 Using 16 threads (Lossless).
 ```bash

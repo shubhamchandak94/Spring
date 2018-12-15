@@ -26,7 +26,7 @@ namespace spring {
 void compress(const std::string &temp_dir, const std::vector<std::string> &infile_vec,
               const std::vector<std::string> &outfile_vec, const int &num_thr,
               const bool &pairing_only_flag, const bool &no_quality_flag, const bool &no_ids_flag,
-              const std::vector<std::string> &quality_opts, const bool &long_flag) {
+              const std::vector<std::string> &quality_opts, const bool &long_flag, const bool &gzip_flag) {
   std::cout << "Starting compression...\n";
   auto compression_start = std::chrono::steady_clock::now();
 
@@ -114,7 +114,7 @@ void compress(const std::string &temp_dir, const std::vector<std::string> &infil
 
   std::cout << "Preprocessing ...\n";
   auto preprocess_start = std::chrono::steady_clock::now();
-  preprocess(infile_1, infile_2, temp_dir, cp);
+  preprocess(infile_1, infile_2, temp_dir, cp, gzip_flag);
   auto preprocess_end = std::chrono::steady_clock::now();
   std::cout << "Preprocessing done!\n";
   std::cout << "Time for this step: "
