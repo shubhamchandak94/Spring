@@ -34,8 +34,10 @@ uint32_t compute_num_digits(uint32_t x) {
     return 7;
   else if (x < 100000000)
     return 8;
-  else
+  else if (x < 1000000000)
     return 9;
+  else
+    return 10;
 }
 
 uint8_t decompress_uint8t(Arithmetic_stream as, stream_model model) {
@@ -116,23 +118,31 @@ int compress_id(Arithmetic_stream as, id_models models, char *id, char *prev_ID,
       }
 
     }
-    // Check if the token is a number smaller than (1<<30)
+    // Check if the token is a number smaller than (1<<32-1)
     else if (isdigit(*id_ptr)) {
       digit_value = (*id_ptr - '0');
+      bool prev_token_digit_flag =
+          true;  // true if corresponding token in previous read is a digit
       if (*prev_ID != 0) {
-        prev_digit = prev_ID[prev_tokens_ptr[token_ctr] + token_len - 1] - '0';
+        if (isdigit(prev_ID[prev_tokens_ptr[token_ctr] + token_len - 1]) &&
+            prev_ID[prev_tokens_ptr[token_ctr] + token_len - 1] != '0')
+          prev_digit =
+              prev_ID[prev_tokens_ptr[token_ctr] + token_len - 1] - '0';
+        else
+          prev_token_digit_flag = false;
       }
 
-      if (*prev_ID != 0) {
+      if (prev_token_digit_flag && *prev_ID != 0) {
         tmp = 1;
-        while (isdigit(prev_ID[prev_tokens_ptr[token_ctr] + tmp])) {
+        while (isdigit(prev_ID[prev_tokens_ptr[token_ctr] + tmp]) &&
+               prev_digit < (1 << 28)) {
           prev_digit = prev_digit * 10 +
                        (prev_ID[prev_tokens_ptr[token_ctr] + tmp] - '0');
           tmp++;
         }
       }
 
-      while (isdigit(*id_ptr_tok) && digit_value < (1 << 30)) {
+      while (isdigit(*id_ptr_tok) && digit_value < (1 << 28)) {
         digit_value = digit_value * 10 + (*id_ptr_tok - '0');
         // if (*prev_ID != 0){
         //    prev_digit = prev_digit * 10 + (prev_ID[prev_tokens_ptr[token_ctr]
@@ -143,13 +153,14 @@ int compress_id(Arithmetic_stream as, id_models models, char *id, char *prev_ID,
             (*id_ptr_tok == prev_ID[prev_tokens_ptr[token_ctr] + token_len]),
             token_len++, id_ptr_tok++;
       }
-      if (match_len == token_len &&
+      if (prev_token_digit_flag && match_len == token_len &&
           !isdigit(prev_ID[prev_tokens_ptr[token_ctr] + token_len])) {
         // The token is the same as last ID
         // Encode a token_type ID_MATCH
         compress_uint8t(as, models->token_type[token_ctr], ID_MATCH);
 
-      } else if ((delta = (digit_value - prev_digit)) < 256 && delta > 0) {
+      } else if (prev_token_digit_flag &&
+                 (delta = (digit_value - prev_digit)) < 256 && delta > 0) {
         compress_uint8t(as, models->token_type[token_ctr], ID_DELTA);
         compress_uint8t(as, models->delta[token_ctr], delta);
 
