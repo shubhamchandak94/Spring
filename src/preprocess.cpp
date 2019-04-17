@@ -175,8 +175,10 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
           for (uint32_t i = tid * num_reads_per_block;
                i < tid * num_reads_per_block + num_reads_thr; i++) {
             size_t len = read_array[i].size();
-            if (len == 0)
+            if (len == 0) {
+              std::cerr << "Read of length 0 detected. Aborting...\n";
               throw std::runtime_error("Read of length 0 detected.");
+            }
             if (cp.long_flag && len > MAX_READ_LEN_LONG) {
               std::cerr << "Max read length for long mode is "
                         << MAX_READ_LEN_LONG << ", but found read of length "
