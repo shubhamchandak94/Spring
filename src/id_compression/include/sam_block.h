@@ -33,7 +33,7 @@
 #include <string>
 
 #define MAX_READ_LENGTH 1024
-#define MAX_NUMBER_TOKENS_ID 128
+#define MAX_NUMBER_TOKENS_ID 1024
 
 // This limits us to chunks that aren't too big to fit into a modest amount of
 // memory at a time

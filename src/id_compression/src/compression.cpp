@@ -30,9 +30,9 @@ void *compress(void *thread_info) {
   // Allocs the different blocks and all the models for the Arithmetic
   sam_block samBlock =
       alloc_sam_models(info.id_array, info.f_order, info.numreads);
-  char prev_ID[1024] = {0};  // these were static before. That didn't play well
+  char prev_ID[MAX_NUMBER_TOKENS_ID] = {0};  // these were static before. That didn't play well
                              // with parallelization
-  uint32_t prev_tokens_ptr[1024] = {0};
+  uint32_t prev_tokens_ptr[MAX_NUMBER_TOKENS_ID] = {0};
   while (!load_sam_line(samBlock)) {
     compress_id(as, samBlock->IDs->models, *samBlock->IDs->IDs, prev_ID,
                 prev_tokens_ptr);
@@ -54,9 +54,9 @@ void *decompress(void *thread_info) {
 
   sam_block samBlock = alloc_sam_models(NULL, NULL, 0);
 
-  char prev_ID[1024] = {0};
-  uint32_t prev_tokens_ptr[1024] = {0};
-  uint32_t prev_tokens_len[1024] = {0};
+  char prev_ID[MAX_NUMBER_TOKENS_ID] = {0};
+  uint32_t prev_tokens_ptr[MAX_NUMBER_TOKENS_ID] = {0};
+  uint32_t prev_tokens_len[MAX_NUMBER_TOKENS_ID] = {0};
   struct sam_line_t sline;
   // Decompress the blocks
   for (uint32_t n = 0; n < info->numreads; n++) {
