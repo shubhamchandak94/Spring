@@ -410,10 +410,16 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
 #pragma omp critical
     {  // doing initial setup and first read
       current = firstread;
+      // some fix below to make sure no errors occurs when we have very few reads (comparable to num_threads).
+      // basically if read already taken, this thread just gives up
+      if (remainingreads[current] == 0) {
+          done = true;
+      } else {
+          remainingreads[current] = 0;
+          unmatched[tid]++;
+      }
       firstread +=
           rg.numreads / omp_get_num_threads();  // spread out first read equally
-      remainingreads[current] = 0;
-      unmatched[tid]++;
     }
 #pragma omp barrier
     updaterefcount<bitset_size>(read[current], ref, revref, count, true, false,
