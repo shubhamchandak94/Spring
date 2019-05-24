@@ -203,6 +203,9 @@ int compress_id(Arithmetic_stream as, id_models models, char *id, char *prev_ID,
   strcpy(prev_ID, id);
   compress_uint8t(as, models->token_type[token_ctr], ID_END);
 
+  // set rest of prev_tokens_ptr to 0. Otherwise we have bugs due to garbage value.
+  for (uint32_t i = token_ctr; i < MAX_NUMBER_TOKENS_ID; i++)
+      prev_tokens_ptr[i] = 0;
   return 1;
 }
 
