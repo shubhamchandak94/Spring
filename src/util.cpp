@@ -26,15 +26,18 @@ uint32_t read_fastq_block(std::istream *fin, std::string *id_array,
   std::string comment;
   for (; num_done < num_reads; num_done++) {
     if (!std::getline(*fin, id_array[num_done])) break;
+    remove_CR_from_end(id_array[num_done]);
     if (!std::getline(*fin, read_array[num_done]))
       throw std::runtime_error(
           "Invalid FASTQ file. Number of lines not multiple of 4");
+    remove_CR_from_end(read_array[num_done]);
     if (!std::getline(*fin, comment))
       throw std::runtime_error(
           "Invalid FASTQ file. Number of lines not multiple of 4");
     if (!std::getline(*fin, quality_array[num_done]))
       throw std::runtime_error(
           "Invalid FASTQ file. Number of lines not multiple of 4");
+    remove_CR_from_end(quality_array[num_done]);
   }
   return num_done;
 }
@@ -276,6 +279,12 @@ std::string reverse_complement(const std::string &s, const int readlen) {
   for (int j = 0; j < readlen; j++)
     s1[j] = chartorevchar[(uint8_t)s[readlen - j - 1]];
   return s1;
+}
+
+void remove_CR_from_end(std::string &str) {
+  if (str.size())
+    if (str[str.size()-1] == '\r')
+      str.resize(str.size()-1);
 }
 
 }  // namespace spring

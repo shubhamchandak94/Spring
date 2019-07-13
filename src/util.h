@@ -84,6 +84,8 @@ void reverse_complement(char *s, char *s1, const int readlen);
 
 std::string reverse_complement(const std::string &s, const int readlen);
 
+void remove_CR_from_end(std::string &str);
+
 }  // namespace spring
 
 #endif  // SPRING_UTIL_H_
