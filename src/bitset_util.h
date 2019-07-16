@@ -41,12 +41,13 @@ class bbhashdict {
     bphf = NULL;
     startpos = NULL;
     read_id = NULL;
+    empty_bin = NULL;
   }
   ~bbhashdict() {
-    delete[] startpos;
-    delete[] read_id;
-    delete[] empty_bin;
-    delete bphf;
+    if (startpos != NULL) delete[] startpos;
+    if (read_id != NULL) delete[] read_id;
+    if (empty_bin != NULL) delete[] empty_bin;
+    if (bphf != NULL) delete bphf;
   }
 };
 

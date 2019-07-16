@@ -69,6 +69,7 @@ void compress(const std::string &temp_dir, const std::vector<std::string> &infil
     throw std::runtime_error("Number of output files not equal to 1");
 
   compression_params *cp_ptr = new compression_params;
+  memset(cp_ptr, 0, sizeof(compression_params)); // remove valgrind error
   compression_params &cp = *cp_ptr;
   cp.paired_end = paired_end;
   cp.preserve_order = preserve_order;
@@ -145,7 +146,6 @@ void compress(const std::string &temp_dir, const std::vector<std::string> &infil
                                                                   reorder_start)
                      .count()
               << " s\n";
-
     std::cout << "Encoding ...\n";
     auto encoder_start = std::chrono::steady_clock::now();
     call_encoder(temp_dir, cp);

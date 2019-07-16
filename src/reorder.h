@@ -412,23 +412,27 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
       current = firstread;
       // some fix below to make sure no errors occurs when we have very few reads (comparable to num_threads).
       // basically if read already taken, this thread just gives up
-      if (remainingreads[current] == 0) {
-          done = true;
+      if (rg.numreads == 0) {
+        done = true;
+      } else if (remainingreads[current] == 0) {
+        done = true;
       } else {
-          remainingreads[current] = 0;
-          unmatched[tid]++;
+        remainingreads[current] = 0;
+        unmatched[tid]++;
       }
       firstread +=
           rg.numreads / omp_get_num_threads();  // spread out first read equally
     }
 #pragma omp barrier
-    updaterefcount<bitset_size>(read[current], ref, revref, count, true, false,
-                                0, read_lengths[current], ref_len, rg);
-    cur_read_pos = 0;
-    ref_pos = 0;
-    first_rid = current;
-    prev_unmatched = true;
-    prev = current;
+    if (!done) {
+      updaterefcount<bitset_size>(read[current], ref, revref, count, true, false,
+                                  0, read_lengths[current], ref_len, rg);
+      cur_read_pos = 0;
+      ref_pos = 0;
+      first_rid = current;
+      prev_unmatched = true;
+      prev = current;
+    }
     while (!done) {
       if (num_reads_thr % 1000000 == 0) {
         if (num_unmatched_past_1M_thr > STOP_CRITERIA_REORDER * 1000000) {
@@ -730,9 +734,11 @@ void reorder_main(const std::string &temp_dir, const compression_params &cp) {
   std::cout << "Reading file\n";
   readDnaFile<bitset_size>(read, read_lengths, rg);
 
-  std::cout << "Constructing dictionaries\n";
-  constructdictionary<bitset_size>(read, dict, read_lengths, rg.numdict,
-                                   rg.numreads, 2, rg.basedir, rg.num_thr);
+  if (rg.numreads > 0) {
+    std::cout << "Constructing dictionaries\n";
+    constructdictionary<bitset_size>(read, dict, read_lengths, rg.numdict,
+                                     rg.numreads, 2, rg.basedir, rg.num_thr);
+  }
   std::cout << "Reordering reads\n";
   reorder<bitset_size>(read, dict, read_lengths, rg);
   std::cout << "Writing to file\n";

@@ -161,6 +161,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
     std::ofstream f_readlength(
         eg.infile_readlength + '.' + std::to_string(tid) + ".tmp",
         std::ios::binary);
+
     int64_t dictidx[2];  // to store the start and end index (end not inclusive)
                          // in the dict read_id array
     uint64_t startposidx;  // index in startpos
@@ -205,11 +206,11 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
             (*current_contig_it).pos -= first_pos;
 
           ref = buildcontig(current_contig, list_size);
-          // try to align the singleton reads to ref
-          // first create bitsets from first readlen positions of ref
-          forward_bitset.reset();
-          reverse_bitset.reset();
-          if ((int64_t)ref.size() >= eg.max_readlen) {
+          if ((int64_t)ref.size() >= eg.max_readlen && (eg.numreads_s + eg.numreads_N > 0)) {
+            // try to align the singleton reads to ref
+            // first create bitsets from first readlen positions of ref
+            forward_bitset.reset();
+            reverse_bitset.reset();
             stringtobitset(ref.substr(0, eg.max_readlen), eg.max_readlen,
                            forward_bitset, egb.basemask);
             stringtobitset(reverse_complement(ref.substr(0, eg.max_readlen),
@@ -585,10 +586,10 @@ void encoder_main(const std::string &temp_dir, const compression_params &cp) {
     dict[1].start = 20 * eg.max_readlen / 50 + 1;
     dict[1].end = 41 * eg.max_readlen / 50;
   }
-
-  constructdictionary<bitset_size>(read, dict, read_lengths_s, eg.numdict_s,
-                                   eg.numreads_s + eg.numreads_N, 3, eg.basedir,
-                                   eg.num_thr);
+  if (eg.numreads_s + eg.numreads_N > 0)
+    constructdictionary<bitset_size>(read, dict, read_lengths_s, eg.numdict_s,
+                                     eg.numreads_s + eg.numreads_N, 3, eg.basedir,
+                                     eg.num_thr);
   encode<bitset_size>(read, dict, order_s, read_lengths_s, eg, egb);
   remove(eg.infile_N.c_str());
   delete[] read;
