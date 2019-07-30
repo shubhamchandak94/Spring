@@ -38,13 +38,13 @@ On Linux with cmake not installed or with version older than 3.9:
 cd SPRING
 mkdir build
 cd build
-wget https://cmake.org/files/v3.12/cmake-3.12.1.tar.gz
-tar -xzf cmake-3.12.1.tar.gz
-cd cmake-3.12.1
+wget https://cmake.org/files/v3.12/cmake-3.10.3.tar.gz
+tar -xzf cmake-3.10.3.tar.gz
+cd cmake-3.10.3
 ./configure
 make
 cd ..
-./cmake-3.12.1/bin/cmake ..
+./cmake-3.10.3/bin/cmake ..
 make
 ```
 
