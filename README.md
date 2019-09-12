@@ -1,7 +1,6 @@
 # SPRING
 
 [![Build Status](https://travis-ci.org/shubhamchandak94/Spring.svg?branch=master)](https://travis-ci.org/shubhamchandak94/Spring)
-
 ### [Bioinformatics publication](https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/bty1015/5232998?guestAccessKey=266a1378-4684-4f04-bb99-6febdf9d1fb9)
 
 SPRING is a compression tool for Fastq files (containing up to 4.29 Billion reads):
