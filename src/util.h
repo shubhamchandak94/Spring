@@ -1,12 +1,15 @@
 /*
-* Copyright 2018 University of Illinois Board of Trustees and Stanford University. All Rights Reserved.
-* Licensed under the “Non-exclusive Research Use License for SPRING Software” license (the "License");
+* Copyright 2018 University of Illinois Board of Trustees and Stanford
+University. All Rights Reserved.
+* Licensed under the “Non-exclusive Research Use License for SPRING Software”
+license (the "License");
 * You may not use this file except in compliance with the License.
 * The License is included in the distribution as license.pdf file.
- 
+
 * Software distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and limitations under the License.
+* See the License for the specific language governing permissions and
+limitations under the License.
 */
 
 #ifndef SPRING_UTIL_H_
@@ -53,7 +56,9 @@ uint32_t read_fastq_block(std::istream *fin, std::string *id_array,
 
 void write_fastq_block(std::ofstream &fout, std::string *id_array,
                        std::string *read_array, std::string *quality_array,
-                       const uint32_t &num_reads, const bool preserve_quality);
+                       const uint32_t &num_reads,
+                       const bool preserve_quality, const int &num_thr,
+                       const bool &gzip_flag);
 
 void compress_id_block(const char *outfile_name, std::string *id_array,
                        const uint32_t &num_ids);
@@ -64,11 +69,15 @@ void decompress_id_block(const char *infile_name, std::string *id_array,
 void quantize_quality(std::string *quality_array, const uint32_t &num_lines,
                       char *quantization_table);
 
-void quantize_quality_qvz(std::string *quality_array, const uint32_t &num_lines, uint32_t *str_len_array, double qv_ratio);
+void quantize_quality_qvz(std::string *quality_array, const uint32_t &num_lines,
+                          uint32_t *str_len_array, double qv_ratio);
 
 void generate_illumina_binning_table(char *illumina_binning_table);
 
-void generate_binary_binning_table(char *binary_binning_table, const unsigned int thr, const unsigned int high, const unsigned int low);
+void generate_binary_binning_table(char *binary_binning_table,
+                                   const unsigned int thr,
+                                   const unsigned int high,
+                                   const unsigned int low);
 
 uint8_t find_id_pattern(const std::string &id_1, const std::string &id_2);
 

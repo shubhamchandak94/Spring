@@ -60,6 +60,7 @@ set(source_files ${source_files} ${source_dir}/reorder_compress_streams.cpp)
 set(source_files ${source_files} ${source_dir}/pe_encode.cpp)
 set(source_files ${source_files} ${source_dir}/reorder_compress_quality_id.cpp)
 set(source_files ${source_files} ${source_dir}/decompress.cpp)
+set(source_files ${source_files} ${source_dir}/call_template_functions.cpp)
 
 # id compression
 set(source_files ${source_files} ${source_dir}/id_compression/src/Arithmetic_stream.cpp)

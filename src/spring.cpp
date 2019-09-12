@@ -1,12 +1,15 @@
 /*
-* Copyright 2018 University of Illinois Board of Trustees and Stanford University. All Rights Reserved.
-* Licensed under the “Non-exclusive Research Use License for SPRING Software” license (the "License");
+* Copyright 2018 University of Illinois Board of Trustees and Stanford
+University. All Rights Reserved.
+* Licensed under the “Non-exclusive Research Use License for SPRING Software”
+license (the "License");
 * You may not use this file except in compliance with the License.
 * The License is included in the distribution as license.pdf file.
- 
+
 * Software distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and limitations under the License.
+* See the License for the specific language governing permissions and
+limitations under the License.
 */
 
 #include <algorithm>
@@ -21,6 +24,7 @@
 #include <string>
 #include <vector>
 
+#include "call_template_functions.h"
 #include "decompress.h"
 #include "encoder.h"
 #include "params.h"
@@ -34,10 +38,20 @@
 
 namespace spring {
 
-void compress(const std::string &temp_dir, const std::vector<std::string> &infile_vec,
+void compress(const std::string &temp_dir,
+              const std::vector<std::string> &infile_vec,
               const std::vector<std::string> &outfile_vec, const int &num_thr,
-              const bool &pairing_only_flag, const bool &no_quality_flag, const bool &no_ids_flag,
-              const std::vector<std::string> &quality_opts, const bool &long_flag, const bool &gzip_flag) {
+              const bool &pairing_only_flag, const bool &no_quality_flag,
+              const bool &no_ids_flag,
+              const std::vector<std::string> &quality_opts,
+              const bool &long_flag, const bool &gzip_flag) {
+  //
+  // Ensure that omp parallel regions are executed with the requested
+  // #threads.
+  //
+  int omp_dyn_var = omp_get_dynamic();
+  omp_set_dynamic(0);
+
   std::cout << "Starting compression...\n";
   auto compression_start = std::chrono::steady_clock::now();
 
@@ -69,7 +83,7 @@ void compress(const std::string &temp_dir, const std::vector<std::string> &infil
     throw std::runtime_error("Number of output files not equal to 1");
 
   compression_params *cp_ptr = new compression_params;
-  memset(cp_ptr, 0, sizeof(compression_params)); // remove valgrind error
+  memset(cp_ptr, 0, sizeof(compression_params));  // remove valgrind error
   compression_params &cp = *cp_ptr;
   cp.paired_end = paired_end;
   cp.preserve_order = preserve_order;
@@ -80,46 +94,42 @@ void compress(const std::string &temp_dir, const std::vector<std::string> &infil
   cp.num_reads_per_block_long = NUM_READS_PER_BLOCK_LONG;
   cp.num_thr = num_thr;
 
-  if(preserve_quality) {
-    if(quality_opts.empty()) {
+  if (preserve_quality) {
+    if (quality_opts.empty()) {
       cp.qvz_flag = cp.ill_bin_flag = cp.bin_thr_flag = false;
-    }
-    else if(quality_opts[0] == "lossless") {
+    } else if (quality_opts[0] == "lossless") {
       cp.qvz_flag = cp.ill_bin_flag = cp.bin_thr_flag = false;
-    }
-    else if(quality_opts[0] == "qvz") {
-      if(quality_opts.size() != 2) {
+    } else if (quality_opts[0] == "qvz") {
+      if (quality_opts.size() != 2) {
         throw std::runtime_error("Invalid quality options.");
-      }
-      else {
+      } else {
         cp.qvz_ratio = atof(quality_opts[1].c_str());
-        if(cp.qvz_ratio == 0.0) {
+        if (cp.qvz_ratio == 0.0) {
           throw std::runtime_error("Invalid qvz ratio provided.");
         }
       }
       cp.qvz_flag = true;
       cp.ill_bin_flag = cp.bin_thr_flag = false;
-    }
-    else if(quality_opts[0] == "ill_bin") {
+    } else if (quality_opts[0] == "ill_bin") {
       cp.ill_bin_flag = true;
       cp.qvz_flag = cp.bin_thr_flag = false;
-    }
-    else if(quality_opts[0] == "binary") {
-      if(quality_opts.size() != 4) {
+    } else if (quality_opts[0] == "binary") {
+      if (quality_opts.size() != 4) {
         throw std::runtime_error("Invalid quality options.");
-      }
-      else {
+      } else {
         cp.bin_thr_thr = atoi(quality_opts[1].c_str());
         cp.bin_thr_high = atoi(quality_opts[2].c_str());
         cp.bin_thr_low = atoi(quality_opts[3].c_str());
-        if(cp.bin_thr_high < cp.bin_thr_thr || cp.bin_thr_low > cp.bin_thr_thr || cp.bin_thr_high < cp.bin_thr_low) {
-          throw std::runtime_error("Options do not satisfy low <= thr <= high.");
+        if (cp.bin_thr_high < cp.bin_thr_thr ||
+            cp.bin_thr_low > cp.bin_thr_thr ||
+            cp.bin_thr_high < cp.bin_thr_low) {
+          throw std::runtime_error(
+              "Options do not satisfy low <= thr <= high.");
         }
       }
       cp.qvz_flag = cp.ill_bin_flag = false;
       cp.bin_thr_flag = true;
-    }
-    else {
+    } else {
       throw std::runtime_error("Invalid quality options.");
     }
   }
@@ -258,8 +268,18 @@ void compress(const std::string &temp_dir, const std::vector<std::string> &infil
   return;
 }
 
-void decompress(const std::string &temp_dir, const std::vector<std::string> &infile_vec,
-                const std::vector<std::string> &outfile_vec, const int &num_thr, const std::vector<uint64_t> &decompress_range_vec) {
+void decompress(const std::string &temp_dir,
+                const std::vector<std::string> &infile_vec,
+                const std::vector<std::string> &outfile_vec, const int &num_thr,
+                const std::vector<uint64_t> &decompress_range_vec,
+                const bool &gzip_flag) {
+  //
+  // Ensure that omp parallel regions are executed with the requested
+  // #threads.
+  //
+  int omp_dyn_var = omp_get_dynamic();
+  omp_set_dynamic(0);
+
   std::cout << "Starting decompression...\n";
   auto decompression_start = std::chrono::steady_clock::now();
   compression_params *cp_ptr = new compression_params;
@@ -315,24 +335,28 @@ void decompress(const std::string &temp_dir, const std::vector<std::string> &inf
     default:
       throw std::runtime_error("Too many (>2) output files specified");
   }
-  uint64_t num_read_pairs = paired_end?cp.num_reads/2:cp.num_reads;
+  uint64_t num_read_pairs = paired_end ? cp.num_reads / 2 : cp.num_reads;
   uint64_t start_num = 0;
   uint64_t end_num = num_read_pairs;
-  if(decompress_range_vec.size() != 0) {
-    if(decompress_range_vec.size() != 2)
+  if (decompress_range_vec.size() != 0) {
+    if (decompress_range_vec.size() != 2)
       throw std::runtime_error("Invalid decompression range parameters.");
-    if(decompress_range_vec[0] == 0 || decompress_range_vec[0] > decompress_range_vec[1] || decompress_range_vec[0] > num_read_pairs || decompress_range_vec[1] > num_read_pairs)
+    if (decompress_range_vec[0] == 0 ||
+        decompress_range_vec[0] > decompress_range_vec[1] ||
+        decompress_range_vec[0] > num_read_pairs ||
+        decompress_range_vec[1] > num_read_pairs)
       throw std::runtime_error("Invalid decompression range parameters.");
     start_num = decompress_range_vec[0] - 1;
     end_num = decompress_range_vec[1];
   }
 
-
   std::cout << "Decompressing ...\n";
   if (long_flag)
-    decompress_long(temp_dir, outfile_1, outfile_2, cp, num_thr, start_num, end_num);
+    decompress_long(temp_dir, outfile_1, outfile_2, cp, num_thr, start_num,
+                    end_num, gzip_flag);
   else
-    decompress_short(temp_dir, outfile_1, outfile_2, cp, num_thr, start_num, end_num);
+    decompress_short(temp_dir, outfile_1, outfile_2, cp, num_thr, start_num,
+                     end_num, gzip_flag);
 
   delete cp_ptr;
   auto decompression_end = std::chrono::steady_clock::now();
@@ -342,142 +366,6 @@ void decompress(const std::string &temp_dir, const std::vector<std::string> &inf
                    decompression_end - decompression_start)
                    .count()
             << " s\n";
-}
-
-void call_reorder(const std::string &temp_dir, compression_params &cp) {
-  size_t bitset_size_reorder = (2 * cp.max_readlen - 1) / 64 * 64 + 64;
-  switch (bitset_size_reorder) {
-    case 64:
-      reorder_main<64>(temp_dir, cp);
-      break;
-    case 128:
-      reorder_main<128>(temp_dir, cp);
-      break;
-    case 192:
-      reorder_main<192>(temp_dir, cp);
-      break;
-    case 256:
-      reorder_main<256>(temp_dir, cp);
-      break;
-    case 320:
-      reorder_main<320>(temp_dir, cp);
-      break;
-    case 384:
-      reorder_main<384>(temp_dir, cp);
-      break;
-    case 448:
-      reorder_main<448>(temp_dir, cp);
-      break;
-    case 512:
-      reorder_main<512>(temp_dir, cp);
-      break;
-    case 576:
-      reorder_main<576>(temp_dir, cp);
-      break;
-    case 640:
-      reorder_main<640>(temp_dir, cp);
-      break;
-    case 704:
-      reorder_main<704>(temp_dir, cp);
-      break;
-    case 768:
-      reorder_main<768>(temp_dir, cp);
-      break;
-    case 832:
-      reorder_main<832>(temp_dir, cp);
-      break;
-    case 896:
-      reorder_main<896>(temp_dir, cp);
-      break;
-    case 960:
-      reorder_main<960>(temp_dir, cp);
-      break;
-    case 1024:
-      reorder_main<1024>(temp_dir, cp);
-      break;
-    default:
-      throw std::runtime_error("Wrong bitset size.");
-  }
-}
-
-void call_encoder(const std::string &temp_dir, compression_params &cp) {
-  size_t bitset_size_encoder = (3 * cp.max_readlen - 1) / 64 * 64 + 64;
-  switch (bitset_size_encoder) {
-    case 64:
-      encoder_main<64>(temp_dir, cp);
-      break;
-    case 128:
-      encoder_main<128>(temp_dir, cp);
-      break;
-    case 192:
-      encoder_main<192>(temp_dir, cp);
-      break;
-    case 256:
-      encoder_main<256>(temp_dir, cp);
-      break;
-    case 320:
-      encoder_main<320>(temp_dir, cp);
-      break;
-    case 384:
-      encoder_main<384>(temp_dir, cp);
-      break;
-    case 448:
-      encoder_main<448>(temp_dir, cp);
-      break;
-    case 512:
-      encoder_main<512>(temp_dir, cp);
-      break;
-    case 576:
-      encoder_main<576>(temp_dir, cp);
-      break;
-    case 640:
-      encoder_main<640>(temp_dir, cp);
-      break;
-    case 704:
-      encoder_main<704>(temp_dir, cp);
-      break;
-    case 768:
-      encoder_main<768>(temp_dir, cp);
-      break;
-    case 832:
-      encoder_main<832>(temp_dir, cp);
-      break;
-    case 896:
-      encoder_main<896>(temp_dir, cp);
-      break;
-    case 960:
-      encoder_main<960>(temp_dir, cp);
-      break;
-    case 1024:
-      encoder_main<1024>(temp_dir, cp);
-      break;
-    case 1088:
-      encoder_main<1088>(temp_dir, cp);
-      break;
-    case 1152:
-      encoder_main<1152>(temp_dir, cp);
-      break;
-    case 1216:
-      encoder_main<1216>(temp_dir, cp);
-      break;
-    case 1280:
-      encoder_main<1280>(temp_dir, cp);
-      break;
-    case 1344:
-      encoder_main<1344>(temp_dir, cp);
-      break;
-    case 1408:
-      encoder_main<1408>(temp_dir, cp);
-      break;
-    case 1472:
-      encoder_main<1472>(temp_dir, cp);
-      break;
-    case 1536:
-      encoder_main<1536>(temp_dir, cp);
-      break;
-    default:
-      throw std::runtime_error("Wrong bitset size.");
-  }
 }
 
 std::string random_string(size_t length) {

@@ -1,12 +1,15 @@
 /*
-* Copyright 2018 University of Illinois Board of Trustees and Stanford University. All Rights Reserved.
-* Licensed under the “Non-exclusive Research Use License for SPRING Software” license (the "License");
+* Copyright 2018 University of Illinois Board of Trustees and Stanford
+University. All Rights Reserved.
+* Licensed under the “Non-exclusive Research Use License for SPRING Software”
+license (the "License");
 * You may not use this file except in compliance with the License.
 * The License is included in the distribution as license.pdf file.
- 
+
 * Software distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and limitations under the License.
+* See the License for the specific language governing permissions and
+limitations under the License.
 */
 
 #ifndef SPRING_REORDER_H_
@@ -410,8 +413,9 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
 #pragma omp critical
     {  // doing initial setup and first read
       current = firstread;
-      // some fix below to make sure no errors occurs when we have very few reads (comparable to num_threads).
-      // basically if read already taken, this thread just gives up
+      // some fix below to make sure no errors occurs when we have very few
+      // reads (comparable to num_threads). basically if read already taken,
+      // this thread just gives up
       if (rg.numreads == 0) {
         done = true;
       } else if (remainingreads[current] == 0) {
@@ -425,8 +429,8 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
     }
 #pragma omp barrier
     if (!done) {
-      updaterefcount<bitset_size>(read[current], ref, revref, count, true, false,
-                                  0, read_lengths[current], ref_len, rg);
+      updaterefcount<bitset_size>(read[current], ref, revref, count, true,
+                                  false, 0, read_lengths[current], ref_len, rg);
       cur_read_pos = 0;
       ref_pos = 0;
       first_rid = current;

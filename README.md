@@ -2,7 +2,7 @@
 
 ![Build Status](https://travis-ci.org/shubhamchandak94/Spring.svg?branch=master)
 
-### [Bioinformatics](https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/bty1015/5232998?guestAccessKey=266a1378-4684-4f04-bb99-6febdf9d1fb9)
+### [Bioinformatics publication](https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/bty1015/5232998?guestAccessKey=266a1378-4684-4f04-bb99-6febdf9d1fb9)
 
 SPRING is a compression tool for Fastq files (containing up to 4.29 Billion reads):
 - Near-optimal compression ratios for single-end and paired-end datasets
@@ -13,7 +13,7 @@ SPRING is a compression tool for Fastq files (containing up to 4.29 Billion read
 - Supports reordering of reads (while preserving read pairing information) to boost compression
 - Supports quantization of quality values using [QVZ](https://github.com/mikelhernaez/qvz/), [Illumina 8-level binning](https://www.illumina.com/documents/products/whitepapers/whitepaper_datacompression.pdf) and binary thresholding
 - Supports decompression of a subset of reads (random access)
-- Supports gzipped fastq files as input during compression
+- Supports gzipped fastq files as input (output) during (de)compression
 - Tested on Linux and macOS
 
 ### Download
@@ -106,7 +106,9 @@ Allowed options:
                                   for reads with significant number of indels. 
                                   -r disabled in this mode. For Illumina short 
                                   reads, compression is better without -l flag.
-  -g [ --gzipped_input ]          input fastq files are gzipped
+  -g [ --gzipped_fastq ]          enable if compression input is gzipped fastq
+                                  or to output gzipped fastq during
+                                  decompression
 ```
 
 ### Example Usage of SPRING
@@ -166,6 +168,10 @@ Decompressing (paired end) to uncompressedfilename.1 and uncompressedfilename.2.
 Decompressing (paired end) to file_1.fastq and file_2.fastq.
 ```bash
 ./spring -d -i compressedfilename -o file_1.fastq file_2.fastq
+```
+Decompressing (paired end) to file_1.fastq.gz and file_2.fastq.gz.
+```bash
+./spring -d -i compressedfilename -o file_1.fastq.gz file_2.fastq.gz -g
 ```
 Decompressing (paired end) to file_1.fastq and file_2.fastq, only decompress pairs from 4000000 to 8000000.
 ```bash

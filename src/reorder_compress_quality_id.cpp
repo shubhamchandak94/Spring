@@ -1,12 +1,15 @@
 /*
-* Copyright 2018 University of Illinois Board of Trustees and Stanford University. All Rights Reserved.
-* Licensed under the “Non-exclusive Research Use License for SPRING Software” license (the "License");
+* Copyright 2018 University of Illinois Board of Trustees and Stanford
+University. All Rights Reserved.
+* Licensed under the “Non-exclusive Research Use License for SPRING Software”
+license (the "License");
 * You may not use this file except in compliance with the License.
 * The License is included in the distribution as license.pdf file.
- 
+
 * Software distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and limitations under the License.
+* See the License for the specific language governing permissions and
+limitations under the License.
 */
 
 #include <omp.h>
@@ -125,7 +128,8 @@ void reorder_compress(const std::string &file_name,
                       const uint32_t &num_reads_per_file, const int &num_thr,
                       const uint32_t &num_reads_per_block,
                       std::string *str_array, const uint32_t &str_array_size,
-                      uint32_t *order_array, const std::string &mode, const compression_params &cp) {
+                      uint32_t *order_array, const std::string &mode,
+                      const compression_params &cp) {
   for (uint32_t i = 0; i <= num_reads_per_file / str_array_size; i++) {
     uint32_t num_reads_bin = str_array_size;
     if (i == num_reads_per_file / str_array_size)
@@ -170,8 +174,9 @@ void reorder_compress(const std::string &file_name,
           // store lengths in array for quality compression
           for (uint64_t i = 0; i < num_reads_block; i++)
             read_lengths_array[i] = str_array[start_read_num + i].size();
-	  if(cp.qvz_flag)
-            quantize_quality_qvz(str_array + start_read_num, num_reads_block, read_lengths_array, cp.qvz_ratio);
+          if (cp.qvz_flag)
+            quantize_quality_qvz(str_array + start_read_num, num_reads_block,
+                                 read_lengths_array, cp.qvz_ratio);
           bsc::BSC_str_array_compress(outfile_name.c_str(),
                                       str_array + start_read_num,
                                       num_reads_block, read_lengths_array);

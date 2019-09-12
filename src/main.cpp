@@ -1,12 +1,15 @@
 /*
-* Copyright 2018 University of Illinois Board of Trustees and Stanford University. All Rights Reserved.
-* Licensed under the “Non-exclusive Research Use License for SPRING Software” license (the "License");
+* Copyright 2018 University of Illinois Board of Trustees and Stanford
+University. All Rights Reserved.
+* Licensed under the “Non-exclusive Research Use License for SPRING Software”
+license (the "License");
 * You may not use this file except in compliance with the License.
 * The License is included in the distribution as license.pdf file.
- 
+
 * Software distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and limitations under the License.
+* See the License for the specific language governing permissions and
+limitations under the License.
 */
 
 #include <boost/filesystem.hpp>
@@ -48,11 +51,18 @@ int main(int argc, char** argv) {
                      "produce help message")(
       "compress,c", po::bool_switch(&compress_flag), "compress")(
       "decompress,d", po::bool_switch(&decompress_flag), "decompress")(
-      "decompress-range", po::value<std::vector<uint64_t> >(&decompress_range_vec)->multitoken(),
-      "--decompress-range start end\n(optional) decompress only reads (or read pairs for PE datasets) from start to end (both inclusive) (1 <= start <= end <= num_reads (or num_read_pairs for PE)). If -r was specified during compression, the range of reads does not correspond to the original order of reads in the FASTQ file.")(
-      "input-file,i", po::value<std::vector<std::string> >(&infile_vec)->multitoken(),
+      "decompress-range",
+      po::value<std::vector<uint64_t> >(&decompress_range_vec)->multitoken(),
+      "--decompress-range start end\n(optional) decompress only reads (or read "
+      "pairs for PE datasets) from start to end (both inclusive) (1 <= start "
+      "<= end <= num_reads (or num_read_pairs for PE)). If -r was specified "
+      "during compression, the range of reads does not correspond to the "
+      "original order of reads in the FASTQ file.")(
+      "input-file,i",
+      po::value<std::vector<std::string> >(&infile_vec)->multitoken(),
       "input file name (two files for paired end)")(
-      "output-file,o", po::value<std::vector<std::string> >(&outfile_vec)->multitoken(),
+      "output-file,o",
+      po::value<std::vector<std::string> >(&outfile_vec)->multitoken(),
       "output file name (for paired end decompression, if only one file is "
       "specified, two output files will be created by suffixing .1 and .2.)")(
       "working-dir,w", po::value<std::string>(&working_dir)->default_value("."),
@@ -62,18 +72,24 @@ int main(int argc, char** argv) {
       "allow-read-reordering,r", po::bool_switch(&pairing_only_flag),
       "do not retain read order during compression (paired reads still remain "
       "paired)")("no-quality", po::bool_switch(&no_quality_flag),
-                  "do not retain quality values during compression")(
+                 "do not retain quality values during compression")(
       "no-ids", po::bool_switch(&no_ids_flag),
       "do not retain read identifiers during compression")(
-      "quality-opts,q", po::value<std::vector<std::string> >(&quality_opts)->multitoken(),
-      "quality mode: possible modes are\n1. -q lossless (default)\n2. -q qvz qv_ratio (QVZ lossy compression, parameter qv_ratio roughly corresponds to bits used per quality value)\n3. -q ill_bin (Illumina 8-level binning)\n4. -q binary thr high low (binary (2-level) thresholding, quality binned to high if >= thr and to low if < thr)")(
+      "quality-opts,q",
+      po::value<std::vector<std::string> >(&quality_opts)->multitoken(),
+      "quality mode: possible modes are\n1. -q lossless (default)\n2. -q qvz "
+      "qv_ratio (QVZ lossy compression, parameter qv_ratio roughly corresponds "
+      "to bits used per quality value)\n3. -q ill_bin (Illumina 8-level "
+      "binning)\n4. -q binary thr high low (binary (2-level) thresholding, "
+      "quality binned to high if >= thr and to low if < thr)")(
       "long,l", po::bool_switch(&long_flag),
       "Use for compression of arbitrarily long read lengths. Can also provide "
       "better compression for reads with significant number of indels. "
       "-r disabled in this mode. For Illumina short "
       "reads, compression is better without -l flag.")(
-      "gzipped_input,g", po::bool_switch(&gzip_flag),
-      "input fastq files are gzipped");
+      "gzipped-fastq,g", po::bool_switch(&gzip_flag),
+      "enable if compression input is gzipped fastq or to output gzipped fastq "
+      "during decompression");
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
   po::notify(vm);
@@ -117,7 +133,8 @@ int main(int argc, char** argv) {
                        pairing_only_flag, no_quality_flag, no_ids_flag,
                        quality_opts, long_flag, gzip_flag);
     else
-      spring::decompress(temp_dir, infile_vec, outfile_vec, num_thr, decompress_range_vec);
+      spring::decompress(temp_dir, infile_vec, outfile_vec, num_thr,
+                         decompress_range_vec, gzip_flag);
 
   }
   // Error handling

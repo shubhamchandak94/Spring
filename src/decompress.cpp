@@ -1,12 +1,15 @@
 /*
-* Copyright 2018 University of Illinois Board of Trustees and Stanford University. All Rights Reserved.
-* Licensed under the “Non-exclusive Research Use License for SPRING Software” license (the "License");
+* Copyright 2018 University of Illinois Board of Trustees and Stanford
+University. All Rights Reserved.
+* Licensed under the “Non-exclusive Research Use License for SPRING Software”
+license (the "License");
 * You may not use this file except in compliance with the License.
 * The License is included in the distribution as license.pdf file.
- 
+
 * Software distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and limitations under the License.
+* See the License for the specific language governing permissions and
+limitations under the License.
 */
 
 #include "decompress.h"
@@ -24,7 +27,9 @@ void set_dec_noise_array(char **dec_noise);
 
 void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
                       const std::string &outfile_2,
-                      const compression_params &cp, const int &num_thr, const uint64_t &start_num, const uint64_t &end_num) {
+                      const compression_params &cp, const int &num_thr,
+                      const uint64_t &start_num, const uint64_t &end_num,
+                      const bool &gzip_flag) {
   std::string basedir = temp_dir;
 
   std::string file_seq = basedir + "/read_seq.bin";
@@ -54,9 +59,16 @@ void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
   bool preserve_quality = cp.preserve_quality;
   bool preserve_order = cp.preserve_order;
 
+  std::string outfile[2] = {outfile_1, outfile_2};
   std::ofstream fout[2];
-  fout[0].open(outfile_1);
-  if (paired_end) fout[1].open(outfile_2);
+
+  for (int j = 0; j < 2; j++) {
+    if (j == 1 && !paired_end) continue;
+    if (gzip_flag)
+      fout[j].open(outfile[j], std::ios::binary);
+    else
+      fout[j].open(outfile[j]);
+  }
 
   // Check that we were able to open the output files
   if (!fout[0].is_open()) throw std::runtime_error("Error opening output file");
@@ -106,8 +118,10 @@ void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
   }
 
   bool done = false;
-  uint32_t num_blocks_done = start_num/num_reads_per_block;
-  uint32_t num_reads_done = num_blocks_done*num_reads_per_block;  // denotes number of pairs done for PE
+  uint32_t num_blocks_done = start_num / num_reads_per_block;
+  uint32_t num_reads_done =
+      num_blocks_done *
+      num_reads_per_block;  // denotes number of pairs done for PE
   while (!done) {
     uint32_t num_reads_cur_step = num_reads_per_step;
     if (paired_end) {
@@ -351,18 +365,22 @@ void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
       else
         read_array = read_array_2;
       uint32_t num_reads_cur_step_output = num_reads_cur_step;
-      if(num_reads_done + num_reads_cur_step_output >= end_num) {
+      if (num_reads_done + num_reads_cur_step_output >= end_num) {
         num_reads_cur_step_output = end_num - num_reads_done;
         done = true;
       }
-      if(num_blocks_done == start_num/num_reads_per_block) {
-	// first blocks
-	uint32_t shift = start_num%num_reads_per_block;
-        write_fastq_block(fout[j], id_array + shift, read_array + shift, quality_array + shift,
-                        num_reads_cur_step_output - shift, preserve_quality);
+
+      if (num_blocks_done == start_num / num_reads_per_block) {
+        // first blocks
+        uint32_t shift = start_num % num_reads_per_block;
+        write_fastq_block(fout[j], id_array + shift, read_array + shift,
+                          quality_array + shift,
+                          num_reads_cur_step_output - shift, preserve_quality,
+                          num_thr, gzip_flag);
       } else {
         write_fastq_block(fout[j], id_array, read_array, quality_array,
-                        num_reads_cur_step_output, preserve_quality);
+                          num_reads_cur_step_output, preserve_quality, num_thr,
+                          gzip_flag);
       }
     }
     num_reads_done += num_reads_cur_step;
@@ -384,7 +402,8 @@ void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
 
 void decompress_long(const std::string &temp_dir, const std::string &outfile_1,
                      const std::string &outfile_2, const compression_params &cp,
-                     const int &num_thr, const uint64_t &start_num, const uint64_t &end_num) {
+                     const int &num_thr, const uint64_t &start_num,
+                     const uint64_t &end_num, const bool &gzip_flag) {
   std::string infileread[2];
   std::string infilequality[2];
   std::string infileid[2];
@@ -407,9 +426,16 @@ void decompress_long(const std::string &temp_dir, const std::string &outfile_1,
   bool preserve_id = cp.preserve_id;
   bool preserve_quality = cp.preserve_quality;
 
+  std::string outfile[2] = {outfile_1, outfile_2};
   std::ofstream fout[2];
-  fout[0].open(outfile_1);
-  if (paired_end) fout[1].open(outfile_2);
+
+  for (int j = 0; j < 2; j++) {
+    if (j == 1 && !paired_end) continue;
+    if (gzip_flag)
+      fout[j].open(outfile[j], std::ios::binary);
+    else
+      fout[j].open(outfile[j]);
+  }
 
   // Check that we were able to open the output files
   if (!fout[0].is_open()) throw std::runtime_error("Error opening output file");
@@ -436,8 +462,10 @@ void decompress_long(const std::string &temp_dir, const std::string &outfile_1,
 
   bool done = false;
 
-  uint32_t num_blocks_done = start_num/num_reads_per_block;
-  uint32_t num_reads_done = num_blocks_done*num_reads_per_block;  // denotes number of pairs done for PE
+  uint32_t num_blocks_done = start_num / num_reads_per_block;
+  uint32_t num_reads_done =
+      num_blocks_done *
+      num_reads_per_block;  // denotes number of pairs done for PE
   while (!done) {
     uint32_t num_reads_cur_step = num_reads_per_step;
     if (paired_end) {
@@ -513,18 +541,21 @@ void decompress_long(const std::string &temp_dir, const std::string &outfile_1,
         }
       }  // end omp parallel
       uint32_t num_reads_cur_step_output = num_reads_cur_step;
-      if(num_reads_done + num_reads_cur_step_output >= end_num) {
+      if (num_reads_done + num_reads_cur_step_output >= end_num) {
         num_reads_cur_step_output = end_num - num_reads_done;
         done = true;
       }
-      if(num_blocks_done == start_num/num_reads_per_block) {
-	// first blocks
-	uint32_t shift = start_num%num_reads_per_block;
-        write_fastq_block(fout[j], id_array + shift, read_array + shift, quality_array + shift,
-                        num_reads_cur_step_output - shift, preserve_quality);
+      if (num_blocks_done == start_num / num_reads_per_block) {
+        // first blocks
+        uint32_t shift = start_num % num_reads_per_block;
+        write_fastq_block(fout[j], id_array + shift, read_array + shift,
+                          quality_array + shift,
+                          num_reads_cur_step_output - shift, preserve_quality,
+                          num_thr, gzip_flag);
       } else {
         write_fastq_block(fout[j], id_array, read_array, quality_array,
-                        num_reads_cur_step_output, preserve_quality);
+                          num_reads_cur_step_output, preserve_quality, num_thr,
+                          gzip_flag);
       }
     }
     num_reads_done += num_reads_cur_step;

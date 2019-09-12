@@ -1,12 +1,15 @@
 /*
-* Copyright 2018 University of Illinois Board of Trustees and Stanford University. All Rights Reserved.
-* Licensed under the “Non-exclusive Research Use License for SPRING Software” license (the "License");
+* Copyright 2018 University of Illinois Board of Trustees and Stanford
+University. All Rights Reserved.
+* Licensed under the “Non-exclusive Research Use License for SPRING Software”
+license (the "License");
 * You may not use this file except in compliance with the License.
 * The License is included in the distribution as license.pdf file.
- 
+
 * Software distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and limitations under the License.
+* See the License for the specific language governing permissions and
+limitations under the License.
 */
 
 #ifndef SPRING_ENCODER_H_
@@ -206,7 +209,8 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
             (*current_contig_it).pos -= first_pos;
 
           ref = buildcontig(current_contig, list_size);
-          if ((int64_t)ref.size() >= eg.max_readlen && (eg.numreads_s + eg.numreads_N > 0)) {
+          if ((int64_t)ref.size() >= eg.max_readlen &&
+              (eg.numreads_s + eg.numreads_N > 0)) {
             // try to align the singleton reads to ref
             // first create bitsets from first readlen positions of ref
             forward_bitset.reset();
@@ -588,8 +592,8 @@ void encoder_main(const std::string &temp_dir, const compression_params &cp) {
   }
   if (eg.numreads_s + eg.numreads_N > 0)
     constructdictionary<bitset_size>(read, dict, read_lengths_s, eg.numdict_s,
-                                     eg.numreads_s + eg.numreads_N, 3, eg.basedir,
-                                     eg.num_thr);
+                                     eg.numreads_s + eg.numreads_N, 3,
+                                     eg.basedir, eg.num_thr);
   encode<bitset_size>(read, dict, order_s, read_lengths_s, eg, egb);
   remove(eg.infile_N.c_str());
   delete[] read;
