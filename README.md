@@ -109,6 +109,7 @@ Allowed options:
                                   or to output gzipped fastq during
                                   decompression
 ```
+Note that the SPRING compressed files are tar archives consisting of the different compressed streams, although we recommend using the `.spring` extension as in the examples shown below.
 
 ### Example Usage of SPRING
 This section contains several examples for SPRING compression and decompression with various modes and options. The compressed SPRING file uses the `.spring` extension as a convention.
