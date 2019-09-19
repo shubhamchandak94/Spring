@@ -111,68 +111,69 @@ Allowed options:
 ```
 
 ### Example Usage of SPRING
+This section contains several examples for SPRING compression and decompression with various modes and options. The compressed SPRING file uses the `.spring` extension as a convention.
 
 For compressing file_1.fastq and file_2.fastq losslessly using default 8 threads (Lossless).
 ```bash
-./spring -c -i file_1.fastq file_2.fastq -o outputname
+./spring -c -i file_1.fastq file_2.fastq -o file.spring
 ```
 For compressing file_1.fastq.gz and file_2.fastq.gz (gzipped fastq files) losslessly using default 8 threads (Lossless).
 ```bash
-./spring -c -i file_1.fastq.gz file_2.fastq.gz -o outputname -g
+./spring -c -i file_1.fastq.gz file_2.fastq.gz -o file.spring -g
 ```
 Using 16 threads (Lossless).
 ```bash
-./spring -c -i file_1.fastq file_2.fastq -o outputname -t 16
+./spring -c -i file_1.fastq file_2.fastq -o file.spring -t 16
 ```
 Compressing with only paired end info preserved, ids not stored, qualities compressed after Illumina binning (Recommended lossy mode for older Illumina machines. For Novaseq files, lossless quality compression is recommmended).
 ```bash
-./spring -c -i file_1.fastq file_2.fastq -r --no-ids -q ill_bin -o outputname
+./spring -c -i file_1.fastq file_2.fastq -r --no-ids -q ill_bin -o file.spring
 ```
 Compressing with only paired end info preserved, ids not stored, qualities binary thresholded (qv < 20 binned to 6 and qv >= 20 binned to 40).
 ```bash
-./spring -c -i file_1.fastq file_2.fastq -r --no-ids -q binary 20 40 6 -o outputname
+./spring -c -i file_1.fastq file_2.fastq -r --no-ids -q binary 20 40 6 -o file.spring
 ```
 Compressing with only paired end info preserved, ids not stored, qualities quantized using qvz with approximately 1 bit used per quality value.
 ```bash
-./spring -c -i file_1.fastq file_2.fastq -r --no-ids -q qvz 1.0 -o outputname
+./spring -c -i file_1.fastq file_2.fastq -r --no-ids -q qvz 1.0 -o file.spring
 ```
 Compressing only reads and ids.
 ```bash
-./spring -c -i file_1.fastq file_2.fastq --no-quality -o outputname
+./spring -c -i file_1.fastq file_2.fastq --no-quality -o file.spring
 ```
 Compressing single-end long read Fastq losslessly.
 ```bash
-./spring -c -l -i file.fastq  -o outputname
+./spring -c -l -i file.fastq  -o file.spring
 ```
 For single end file, compressing without order preserved.
 ```bash
-./spring -c -i file.fastq -r -o outputname
+./spring -c -i file.fastq -r -o file.spring
 ```
 For single end file, compressing with order preserved (lossless).
 ```bash
-./spring -c -i file.fastq -o outputname
+./spring -c -i file.fastq -o file.spring
 ```
-Decompressing (single end) to uncompressedfilename.
+Decompressing (single end) to file.fastq.
 ```bash
-./spring -d -i compressedfilename -o uncompressedfilename
+./spring -d -i file.spring -o file.fastq
 ```
-Decompressing (single end) to uncompressedfilename, only decompress reads from 400 to 10000000.
+Decompressing (single end) to file.fastq, only decompress reads from 400 to 10000000.
 ```bash
-./spring -d -i compressedfilename -o uncompressedfilename --decompress-range 400 1000000
+./spring -d -i file.spring -o file.fastq --decompress-range 400 1000000
 ```
-Decompressing (paired end) to uncompressedfilename.1 and uncompressedfilename.2.
+Decompressing (paired end) to file.fastq.1 and file.fastq.2.
 ```bash
-./spring -d -i compressedfilename -o uncompressedfilename
+./spring -d -i file.spring -o file.fastq
 ```
 Decompressing (paired end) to file_1.fastq and file_2.fastq.
 ```bash
-./spring -d -i compressedfilename -o file_1.fastq file_2.fastq
+./spring -d -i file.spring -o file_1.fastq file_2.fastq
 ```
 Decompressing (paired end) to file_1.fastq.gz and file_2.fastq.gz.
 ```bash
-./spring -d -i compressedfilename -o file_1.fastq.gz file_2.fastq.gz -g
+./spring -d -i file.spring -o file_1.fastq.gz file_2.fastq.gz -g
 ```
 Decompressing (paired end) to file_1.fastq and file_2.fastq, only decompress pairs from 4000000 to 8000000.
 ```bash
-./spring -d -i compressedfilename -o file_1.fastq file_2.fastq --decompress-range 4000000 8000000
+./spring -d -i file.spring -o file_1.fastq file_2.fastq --decompress-range 4000000 8000000
 ```
