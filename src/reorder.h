@@ -25,6 +25,8 @@ limitations under the License.
 #include <iostream>
 #include <numeric>
 #include <string>
+#include <list>
+#include <utility>
 #include "bitset_util.h"
 #include "params.h"
 #include "util.h"
@@ -291,7 +293,7 @@ bool search_match(const std::bitset<bitset_size> &ref,
     if (startposidx >= dict[l].numkeys)  // not found
       continue;
     // check if any other thread is modifying same dictpos
-    omp_set_lock(&dict_lock[startposidx & 0xFFFFFF]);
+    if (!omp_test_lock(&dict_lock[startposidx & 0xFFFFFF])) continue;
     dict[l].findpos(dictidx, startposidx);
     if (dict[l].empty_bin[startposidx])  // bin is empty
     {
@@ -319,7 +321,7 @@ bool search_match(const std::bitset<bitset_size> &ref,
                            std::min<int>(ref_len + shift, read_lengths[rid])])
                   .count();
         if (hamming <= thresh) {
-          omp_set_lock(&read_lock[rid & 0xFFFFFF]);
+          if(!omp_test_lock(&read_lock[rid & 0xFFFFFF])) continue;
           if (remainingreads[rid]) {
             remainingreads[rid] = 0;
             k = rid;
@@ -343,9 +345,14 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
       NUM_LOCKS_REORDER;  // limits on number of locks (power of 2 for fast mod)
   omp_lock_t *dict_lock = new omp_lock_t[num_locks];
   omp_lock_t *read_lock = new omp_lock_t[num_locks];
+  omp_lock_t *remaining_read_lock = new omp_lock_t[num_locks];
+  // lock for preventing two threads trying to pick same read when search_match fails.
+  // for this lock we only test_lock because the thread currently in the region will
+  // either pick the read or the read is unavailable so it's safe to move on.
   for (unsigned int j = 0; j < num_locks; j++) {
     omp_init_lock(&dict_lock[j]);
     omp_init_lock(&read_lock[j]);
+    omp_init_lock(&remaining_read_lock[j]);
   }
   std::bitset<bitset_size> **mask =
       new std::bitset<bitset_size> *[rg.max_readlen];
@@ -382,6 +389,8 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
 
     int64_t first_rid;
     // first_rid represents first read of contig, used for left searching
+
+    std::list<std::pair<uint32_t,uint64_t>> *to_delete_from_bin = new std::list<std::pair<uint32_t,uint64_t>> [rg.numdict];
 
     // variables for early stopping
     bool stop_searching = false;
@@ -445,6 +454,22 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
         num_unmatched_past_1M_thr = 0;
       }
       num_reads_thr++;
+      // delete reads from the bins that could not be deleted earlier due to lock contention
+      for (int l = 0; l < rg.numdict; l++) {
+        for (auto it = to_delete_from_bin[l].begin(); it != to_delete_from_bin[l].end(); ) {
+          uint32_t rid = (*it).first;
+          uint64_t startposidx = (*it).second;
+          if (!omp_test_lock(&dict_lock[startposidx & 0xFFFFFF])) {
+            ++it;
+            continue;
+          }
+	  dict[l].findpos(dictidx, startposidx);
+	  dict[l].remove(dictidx, startposidx, rid);
+	  it = to_delete_from_bin[l].erase(it);
+	  omp_unset_lock(&dict_lock[startposidx & 0xFFFFFF]);
+	}
+      }
+
       // delete the read from the corresponding dictionary bins (unless we are
       // starting left search)
       if (!left_search_start) {
@@ -454,7 +479,10 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
           ull = (b >> 2 * dict[l].start).to_ullong();
           startposidx = dict[l].bphf->lookup(ull);
           // check if any other thread is modifying same dictpos
-          omp_set_lock(&dict_lock[startposidx & 0xFFFFFF]);
+          if (!omp_test_lock(&dict_lock[startposidx & 0xFFFFFF])) {
+            to_delete_from_bin[l].push_back(std::make_pair(current, startposidx));
+            continue;
+          }
           dict[l].findpos(dictidx, startposidx);
           dict[l].remove(dictidx, startposidx, current);
           omp_unset_lock(&dict_lock[startposidx & 0xFFFFFF]);
@@ -564,6 +592,7 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
           left_search = false;
           for (int64_t j = remainingpos; j >= 0; j--) {
             if (remainingreads[j] == 1) {
+              if(!omp_test_lock(&remaining_read_lock[j & 0xffffff])) continue;
               omp_set_lock(&read_lock[j & 0xffffff]);
               if (remainingreads[j])  // checking again inside critical block
               {
@@ -574,6 +603,7 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
                 unmatched[tid]++;
               }
               omp_unset_lock(&read_lock[j & 0xffffff]);
+              omp_unset_lock(&remaining_read_lock[j & 0xffffff]);
               if (flag == 1) break;
             }
           }
@@ -610,11 +640,13 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
     foutlength.close();
     for (int i = 0; i < 4; i++) delete[] count[i];
     delete[] count;
+    delete[] to_delete_from_bin;
   }  // parallel end
 
   delete[] remainingreads;
   delete[] dict_lock;
   delete[] read_lock;
+  delete[] remaining_read_lock;
   std::cout << "Reordering done, "
             << std::accumulate(unmatched, unmatched + rg.num_thr, 0)
             << " were unmatched\n";

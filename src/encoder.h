@@ -263,7 +263,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
                              mask[0][eg.max_readlen - read_lengths_s[rid]])
                                 .count();
                       if (hamming <= thresh_s) {
-                        omp_set_lock(&read_lock[rid]);
+                        if(!omp_test_lock(&read_lock[rid])) continue;
                         if (remainingreads[rid]) {
                           remainingreads[rid] = 0;
                           flag = 1;
