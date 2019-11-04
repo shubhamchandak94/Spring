@@ -200,8 +200,6 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
             if (cp.preserve_quality && (quality_array[i].size() != len))
               throw std::runtime_error(
                   "Read length does not match quality length.");
-            if (cp.preserve_id && (id_array[i].size() == 0))
-              throw std::runtime_error("Identifier of length 0 detected.");
             read_lengths_array[i] = (uint32_t)len;
 
             // mark reads with N

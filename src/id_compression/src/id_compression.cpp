@@ -285,6 +285,11 @@ int decompress_id(Arithmetic_stream as, id_models model, char *id,
   }
   id[i] = '\0';
   strcpy(prev_ID, id);
+  if (token_ctr == 0) {
+    // empty id, set prev_tokens_ptr array to all 0s
+    for (uint32_t i = 0; i < MAX_NUMBER_TOKENS_ID; i++)
+        prev_tokens_ptr[i] = 0;
+  }
   // for (kk=i;kk<=1024;kk++){
   //    prev_ID[kk]='\0';
   //}
