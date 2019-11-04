@@ -12,16 +12,24 @@ license (the "License");
 limitations under the License.
 */
 
-#ifndef SPRING_REORDER_COMPRESS_QUALITY_ID_H_
-#define SPRING_REORDER_COMPRESS_QUALITY_ID_H_
+#ifndef SPRING_GENERATE_REORDERED_FASTQ_H_
+#define SPRING_GENERATE_REORDERED_FASTQ_H_
 
 #include <string>
+#include <vector>
+
 #include "util.h"
 
 namespace spring {
 
-void reorder_compress_quality_id(const std::string &temp_dir,
-                                 const compression_params &cp);
+void generate_reordered_fastq(const std::string &temp_dir,
+                              const compression_params &cp,
+                              const std::vector<std::string> &infile_vector,
+                              const std::vector<std::string> &outfile_vector,
+                              const bool gzipped_output_flag,
+                              const bool gzipped_input_flag);
+
+
 
 void generate_order_pe(const std::string &file_order, uint32_t *order_array,
                        const uint32_t &numreads);
@@ -29,14 +37,6 @@ void generate_order_pe(const std::string &file_order, uint32_t *order_array,
 void generate_order_se(const std::string &file_order, uint32_t *order_array,
                        const uint32_t &numreads);
 
-void reorder_compress(const std::string &file_name,
-                      const uint32_t &num_reads_per_file, const int &num_thr,
-                      const uint32_t &num_reads_per_block,
-                      std::string *str_array, const uint32_t &str_array_size,
-                      uint32_t *order_array, const std::string &mode,
-                      const compression_params &cp);
-// mode can be "quality" or "id"
+} // namespace spring
 
-}  // namespace spring
-
-#endif  // SPRING_REORDER_COMPRESS_QUALITY_ID_H_
+# endif // SPRING_GENERATE_REORDERED_FASTQ_H_

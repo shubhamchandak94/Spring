@@ -65,15 +65,8 @@ struct encoder_global {
   std::string infile_RC;
   std::string infile_readlength;
   std::string infile_N;
-  std::string outfile_unaligned;
-  std::string outfile_seq;
-  std::string outfile_pos;
-  std::string outfile_noise;
-  std::string outfile_noisepos;
   std::string infile_order;
   std::string infile_order_N;
-
-  char enc_noise[128][128];
 };
 
 struct contig_reads {
@@ -86,15 +79,6 @@ struct contig_reads {
 
 std::string buildcontig(std::list<contig_reads> &current_contig,
                         const uint32_t &list_size);
-
-void writecontig(const std::string &ref,
-                 std::list<contig_reads> &current_contig, std::ofstream &f_seq,
-                 std::ofstream &f_pos, std::ofstream &f_noise,
-                 std::ofstream &f_noisepos, std::ofstream &f_order,
-                 std::ofstream &f_RC, std::ofstream &f_readlength,
-                 const encoder_global &eg, uint64_t &abs_pos);
-
-void pack_compress_seq(const encoder_global &eg, uint64_t *file_len_seq_thr);
 
 void getDataParams(encoder_global &eg, const compression_params &cp);
 
@@ -154,16 +138,8 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
     std::ifstream in_RC(eg.infile_RC + '.' + std::to_string(tid));
     std::ifstream in_readlength(
         eg.infile_readlength + '.' + std::to_string(tid), std::ios::binary);
-    std::ofstream f_seq(eg.outfile_seq + '.' + std::to_string(tid));
-    std::ofstream f_pos(eg.outfile_pos + '.' + std::to_string(tid));
-    std::ofstream f_noise(eg.outfile_noise + '.' + std::to_string(tid));
-    std::ofstream f_noisepos(eg.outfile_noisepos + '.' + std::to_string(tid));
     std::ofstream f_order(eg.infile_order + '.' + std::to_string(tid) + ".tmp",
                           std::ios::binary);
-    std::ofstream f_RC(eg.infile_RC + '.' + std::to_string(tid) + ".tmp");
-    std::ofstream f_readlength(
-        eg.infile_readlength + '.' + std::to_string(tid) + ".tmp",
-        std::ios::binary);
 
     int64_t dictidx[2];  // to store the start and end index (end not inclusive)
                          // in the dict read_id array
@@ -335,8 +311,9 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
           current_contig.sort([](const contig_reads &a, const contig_reads &b) {
             return a.pos < b.pos;
           });
-          writecontig(ref, current_contig, f_seq, f_pos, f_noise, f_noisepos,
-                      f_order, f_RC, f_readlength, eg, abs_pos);
+          for (auto current_contig_it = current_contig.begin();
+                current_contig_it != current_contig.end(); ++current_contig_it)
+            f_order.write((char *)&((*current_contig_it).order), sizeof(uint32_t));
         }
         if (!done) {
           current_contig = {{current, p, rc, ord, rl}};
@@ -354,82 +331,42 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
     in_order.close();
     in_RC.close();
     in_readlength.close();
-    f_seq.close();
-    f_pos.close();
-    f_noise.close();
-    f_noisepos.close();
     f_order.close();
-    f_readlength.close();
-    f_RC.close();
     delete[] deleted_rids;
   }  // end omp parallel
 
   // Combine files produced by the threads
   std::ofstream f_order(eg.infile_order);
-  std::ofstream f_readlength(eg.infile_readlength);
-  std::ofstream f_noisepos(eg.outfile_noisepos);
-  std::ofstream f_noise(eg.outfile_noise);
-  std::ofstream f_RC(eg.infile_RC);
-
   for (int tid = 0; tid < eg.num_thr; tid++) {
     std::ifstream in_order(eg.infile_order + '.' + std::to_string(tid) +
                            ".tmp");
-    std::ifstream in_readlength(eg.infile_readlength + '.' +
-                                std::to_string(tid) + ".tmp");
-    std::ifstream in_RC(eg.infile_RC + '.' + std::to_string(tid) + ".tmp");
-    std::ifstream in_noisepos(eg.outfile_noisepos + '.' + std::to_string(tid));
-    std::ifstream in_noise(eg.outfile_noise + '.' + std::to_string(tid));
     f_order << in_order.rdbuf();
     f_order.clear();  // clear error flag in case in_order is empty
-    f_noisepos << in_noisepos.rdbuf();
-    f_noisepos.clear();  // clear error flag in case in_noisepos is empty
-    f_noise << in_noise.rdbuf();
-    f_noise.clear();  // clear error flag in case in_noise is empty
-    f_readlength << in_readlength.rdbuf();
-    f_readlength.clear();  // clear error flag in case in_readlength is empty
-    f_RC << in_RC.rdbuf();
-    f_RC.clear();  // clear error flag in case in_RC is empty
 
     remove((eg.infile_order + '.' + std::to_string(tid)).c_str());
     remove((eg.infile_order + '.' + std::to_string(tid) + ".tmp").c_str());
     remove((eg.infile_readlength + '.' + std::to_string(tid)).c_str());
-    remove((eg.infile_readlength + '.' + std::to_string(tid) + ".tmp").c_str());
-    remove((eg.outfile_noisepos + '.' + std::to_string(tid)).c_str());
-    remove((eg.outfile_noise + '.' + std::to_string(tid)).c_str());
-    remove((eg.infile_RC + '.' + std::to_string(tid) + ".tmp").c_str());
     remove((eg.infile_RC + '.' + std::to_string(tid)).c_str());
     remove((eg.infile_flag + '.' + std::to_string(tid)).c_str());
     remove((eg.infile_pos + '.' + std::to_string(tid)).c_str());
     remove((eg.infile + '.' + std::to_string(tid)).c_str());
   }
   f_order.close();
-  f_readlength.close();
-  // write remaining singleton reads now
-  std::ofstream f_unaligned(eg.outfile_unaligned);
+  // write remaining singleton reads order now
   f_order.open(eg.infile_order, std::ios::binary | std::ofstream::app);
-  f_readlength.open(eg.infile_readlength,
-                    std::ios::binary | std::ofstream::app);
   uint32_t matched_s = eg.numreads_s;
   for (uint32_t i = 0; i < eg.numreads_s; i++)
     if (remainingreads[i] == 1) {
       matched_s--;
       f_order.write((char *)&order_s[i], sizeof(uint32_t));
-      f_readlength.write((char *)&read_lengths_s[i], sizeof(uint16_t));
-      f_unaligned << bitsettostring<bitset_size>(read[i], read_lengths_s[i],
-                                                 egb);
     }
   uint32_t matched_N = eg.numreads_N;
   for (uint32_t i = eg.numreads_s; i < eg.numreads_s + eg.numreads_N; i++)
     if (remainingreads[i] == 1) {
       matched_N--;
-      f_unaligned << bitsettostring<bitset_size>(read[i], read_lengths_s[i],
-                                                 egb);
       f_order.write((char *)&order_s[i], sizeof(uint32_t));
-      f_readlength.write((char *)&read_lengths_s[i], sizeof(uint16_t));
     }
   f_order.close();
-  f_readlength.close();
-  f_unaligned.close();
   delete[] remainingreads;
   delete[] dict_lock;
   delete[] read_lock;
@@ -437,30 +374,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
   delete[] mask;
   delete[] mask1;
 
-  // pack read_Seq and convert read_pos into 8 byte non-diff (absolute)
-  // positions
-  uint64_t *file_len_seq_thr = new uint64_t[eg.num_thr];
-  uint64_t abs_pos = 0;
-  uint64_t abs_pos_thr;
-  pack_compress_seq(eg, file_len_seq_thr);
-  std::ofstream fout_pos(eg.outfile_pos, std::ios::binary);
-  for (int tid = 0; tid < eg.num_thr; tid++) {
-    std::ifstream fin_pos(eg.outfile_pos + '.' + std::to_string(tid),
-                          std::ios::binary);
-    fin_pos.read((char *)&abs_pos_thr, sizeof(uint64_t));
-    while (!fin_pos.eof()) {
-      abs_pos_thr += abs_pos;
-      fout_pos.write((char *)&abs_pos_thr, sizeof(uint64_t));
-      fin_pos.read((char *)&abs_pos_thr, sizeof(uint64_t));
-    }
-    fin_pos.close();
-    remove((eg.outfile_pos + '.' + std::to_string(tid)).c_str());
-    abs_pos += file_len_seq_thr[tid];
-  }
-  fout_pos.close();
-  delete[] file_len_seq_thr;
-
-  std::cout << "Encoding done:\n";
+  std::cout << "Realigning singletons done:\n";
   std::cout << matched_s << " singleton reads were aligned\n";
   std::cout << matched_N << " reads with N were aligned\n";
   return;
@@ -487,27 +401,6 @@ void setglobalarrays(encoder_global &eg, encoder_global_b<bitset_size> &egb) {
     egb.basemask[i][(uint8_t)'N'][3 * i + 2] = 0;
   }
 
-  // enc_noise uses substitution statistics from Minoche et al.
-  eg.enc_noise[(uint8_t)'A'][(uint8_t)'C'] = '0';
-  eg.enc_noise[(uint8_t)'A'][(uint8_t)'G'] = '1';
-  eg.enc_noise[(uint8_t)'A'][(uint8_t)'T'] = '2';
-  eg.enc_noise[(uint8_t)'A'][(uint8_t)'N'] = '3';
-  eg.enc_noise[(uint8_t)'C'][(uint8_t)'A'] = '0';
-  eg.enc_noise[(uint8_t)'C'][(uint8_t)'G'] = '1';
-  eg.enc_noise[(uint8_t)'C'][(uint8_t)'T'] = '2';
-  eg.enc_noise[(uint8_t)'C'][(uint8_t)'N'] = '3';
-  eg.enc_noise[(uint8_t)'G'][(uint8_t)'T'] = '0';
-  eg.enc_noise[(uint8_t)'G'][(uint8_t)'A'] = '1';
-  eg.enc_noise[(uint8_t)'G'][(uint8_t)'C'] = '2';
-  eg.enc_noise[(uint8_t)'G'][(uint8_t)'N'] = '3';
-  eg.enc_noise[(uint8_t)'T'][(uint8_t)'G'] = '0';
-  eg.enc_noise[(uint8_t)'T'][(uint8_t)'C'] = '1';
-  eg.enc_noise[(uint8_t)'T'][(uint8_t)'A'] = '2';
-  eg.enc_noise[(uint8_t)'T'][(uint8_t)'N'] = '3';
-  eg.enc_noise[(uint8_t)'N'][(uint8_t)'A'] = '0';
-  eg.enc_noise[(uint8_t)'N'][(uint8_t)'G'] = '1';
-  eg.enc_noise[(uint8_t)'N'][(uint8_t)'C'] = '2';
-  eg.enc_noise[(uint8_t)'N'][(uint8_t)'T'] = '3';
   return;
 }
 
@@ -559,11 +452,6 @@ void encoder_main(const std::string &temp_dir, const compression_params &cp) {
   eg.infile_RC = eg.basedir + "/read_rev.txt";
   eg.infile_readlength = eg.basedir + "/read_lengths.bin";
   eg.infile_N = eg.basedir + "/input_N.dna";
-  eg.outfile_seq = eg.basedir + "/read_seq.bin";
-  eg.outfile_pos = eg.basedir + "/read_pos.bin";
-  eg.outfile_noise = eg.basedir + "/read_noise.txt";
-  eg.outfile_noisepos = eg.basedir + "/read_noisepos.bin";
-  eg.outfile_unaligned = eg.basedir + "/read_unaligned.txt";
 
   eg.max_readlen = cp.max_readlen;
   eg.num_thr = cp.num_thr;

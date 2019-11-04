@@ -45,7 +45,7 @@ matrix:
             - g++-7
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
-       
+
 before_install:
     - eval "${MATRIX_EVAL}"
 
@@ -61,4 +61,3 @@ script:
   - cd ..
   - ./cmake-3.10.3/bin/cmake ..
   - make
-  - ./../util/test_script.sh  

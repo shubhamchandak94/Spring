@@ -25,7 +25,7 @@ limitations under the License.
 #include <list>
 #include <string>
 #include <vector>
-#include "libbsc/bsc.h"
+
 namespace spring {
 
 std::string buildcontig(std::list<contig_reads> &current_contig,
@@ -70,88 +70,6 @@ std::string buildcontig(std::list<contig_reads> &current_contig,
     ref[i] = longtochar[indmax];
   }
   return ref;
-}
-
-void writecontig(const std::string &ref,
-                 std::list<contig_reads> &current_contig, std::ofstream &f_seq,
-                 std::ofstream &f_pos, std::ofstream &f_noise,
-                 std::ofstream &f_noisepos, std::ofstream &f_order,
-                 std::ofstream &f_RC, std::ofstream &f_readlength,
-                 const encoder_global &eg, uint64_t &abs_pos) {
-  f_seq << ref;
-  uint16_t pos_var;
-  long prevj = 0;
-  auto current_contig_it = current_contig.begin();
-  long currentpos;
-  uint64_t abs_current_pos;
-  for (; current_contig_it != current_contig.end(); ++current_contig_it) {
-    currentpos = (*current_contig_it).pos;
-    prevj = 0;
-    for (long j = 0; j < (*current_contig_it).read_length; j++)
-      if ((*current_contig_it).read[j] != ref[currentpos + j]) {
-        f_noise << eg.enc_noise[(uint8_t)ref[currentpos + j]]
-                               [(uint8_t)(*current_contig_it).read[j]];
-        pos_var = j - prevj;
-        f_noisepos.write((char *)&pos_var, sizeof(uint16_t));
-        prevj = j;
-      }
-    f_noise << "\n";
-    abs_current_pos = abs_pos + currentpos;
-    f_pos.write((char *)&abs_current_pos, sizeof(uint64_t));
-    f_order.write((char *)&((*current_contig_it).order), sizeof(uint32_t));
-    f_readlength.write((char *)&((*current_contig_it).read_length),
-                       sizeof(uint16_t));
-    f_RC << (*current_contig_it).RC;
-  }
-  abs_pos += ref.size();
-  return;
-}
-
-void pack_compress_seq(const encoder_global &eg, uint64_t *file_len_seq_thr) {
-#pragma omp parallel
-  {
-    int tid = omp_get_thread_num();
-    // seq
-    std::ifstream in_seq(eg.outfile_seq + '.' + std::to_string(tid));
-    std::ofstream f_seq(eg.outfile_seq + '.' + std::to_string(tid) + ".tmp",
-                        std::ios::binary);
-    std::ofstream f_seq_tail(eg.outfile_seq + '.' + std::to_string(tid) +
-                             ".tail");
-    uint64_t file_len = 0;
-    char c;
-    while (in_seq >> std::noskipws >> c) file_len++;
-    file_len_seq_thr[tid] = file_len;
-    uint8_t basetoint[128];
-    basetoint[(uint8_t)'A'] = 0;
-    basetoint[(uint8_t)'C'] = 1;
-    basetoint[(uint8_t)'G'] = 2;
-    basetoint[(uint8_t)'T'] = 3;
-
-    in_seq.close();
-    in_seq.open(eg.outfile_seq + '.' + std::to_string(tid));
-    char dnabase[8];
-    uint8_t dnabin;
-    for (uint64_t i = 0; i < file_len / 4; i++) {
-      in_seq.read(dnabase, 4);
-
-      dnabin = 64 * basetoint[(uint8_t)dnabase[3]] +
-               16 * basetoint[(uint8_t)dnabase[2]] +
-               4 * basetoint[(uint8_t)dnabase[1]] +
-               basetoint[(uint8_t)dnabase[0]];
-      f_seq.write((char *)&dnabin, sizeof(uint8_t));
-    }
-    f_seq.close();
-    in_seq.read(dnabase, file_len % 4);
-    for (unsigned int i = 0; i < file_len % 4; i++) f_seq_tail << dnabase[i];
-    f_seq_tail.close();
-    in_seq.close();
-    bsc::BSC_compress(
-        (eg.outfile_seq + '.' + std::to_string(tid) + ".tmp").c_str(),
-        (eg.outfile_seq + '.' + std::to_string(tid) + ".bsc").c_str());
-    remove((eg.outfile_seq + '.' + std::to_string(tid)).c_str());
-    remove((eg.outfile_seq + '.' + std::to_string(tid) + ".tmp").c_str());
-  }
-  return;
 }
 
 void getDataParams(encoder_global &eg, const compression_params &cp) {
