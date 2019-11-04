@@ -3,7 +3,8 @@
 [![Build Status](https://travis-ci.org/shubhamchandak94/Spring.svg?branch=reorder-only)](https://travis-ci.org/shubhamchandak94/Spring)
 ### [Bioinformatics publication](https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/bty1015/5232998?guestAccessKey=266a1378-4684-4f04-bb99-6febdf9d1fb9)
 
-reorder-only branch: Useful if you are only interested in obtaining the SPRING reordered FASTQ file (instead of the compressed file) when using the -r/--allow-read-reordering mode for SPRING. This can be useful for various applications since SPRING attempts to reorder reads according to their position in the genome. This produces a similar effect as compression (with -r flag) followed by decompression, but is faster. Works with single and paired datasets with at most 4.29 billion short reads of length up to 511 bases. Also supports gzipped input/output. The quality values and read identifiers are preserved and are reordered along with the read sequences. For paired data, the two output files have the paired reads in the same position.
+### reorder-only branch
+Useful if you are only interested in obtaining the SPRING reordered FASTQ file (instead of the compressed file) when using the -r/--allow-read-reordering mode for SPRING. This can be useful for various applications since SPRING attempts to reorder reads according to their position in the genome. This produces a similar effect as compression (with -r flag) followed by decompression, but is faster. Works with single and paired datasets with at most 4.29 billion short reads of length up to 511 bases. Also supports gzipped input/output. The quality values and read identifiers are preserved and are reordered along with the read sequences. For paired data, the two output files have the paired reads in the same position.
 
 ### Download
 ```bash
@@ -55,7 +56,6 @@ export CXX=g++-7
 ### Usage
 Run the spring-reorder executable ```/PATH/TO/spring-reorder``` with the options below:
 ```
-Allowed options:
 Allowed options:
   -h [ --help ]                 produce help message
   -i [ --input-file ] arg       input FASTQ file name (two files for paired
