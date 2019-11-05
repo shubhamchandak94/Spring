@@ -46,7 +46,6 @@ void spring_reorder(const std::string &temp_dir,
   //
   int omp_dyn_var = omp_get_dynamic();
   omp_set_dynamic(0);
-std::cout << gzipped_input_flag << "\n";
   std::cout << "Starting compression...\n";
   auto compression_start = std::chrono::steady_clock::now();
 
@@ -134,19 +133,6 @@ std::cout << gzipped_input_flag << "\n";
                                                                 encoder_start)
                    .count()
             << " s\n";
-
-  if (paired_end) {
-    std::cout << "Generating pairing order information ...\n";
-    auto pe_encode_start = std::chrono::steady_clock::now();
-    pe_encode(temp_dir, cp);
-    auto pe_encode_end = std::chrono::steady_clock::now();
-    std::cout << "Generating pairing order information done!\n";
-    std::cout << "Time for this step: "
-              << std::chrono::duration_cast<std::chrono::seconds>(
-                     pe_encode_end - pe_encode_start)
-                     .count()
-              << " s\n";
-  }
 
   std::cout << "Generating reordered FASTQ ...\n";
   auto grf_start = std::chrono::steady_clock::now();

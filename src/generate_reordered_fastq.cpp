@@ -38,8 +38,8 @@ void generate_reordered_fastq(const std::string &temp_dir,
     generate_order_se(file_order, order_array, cp.num_reads);
   if (!is_permutation(order_array, num_pairs)) throw std::runtime_error("order_array not permutation of 1...num_pairs.");
 
-  uint32_t str_array_size = num_pairs / 8 + 1;
-  // numreads/8+1 chosen so that these many FASTQ records can be stored in
+  uint32_t str_array_size = cp.paired_end ? num_pairs / 5 + 1 ? num_pairs / 10 + 1;
+  // chosen so that roughly these many FASTQ records can be stored in
   // memory without exceeding the RAM consumption of reordering stage
 
   std::string *read_array = new std::string[str_array_size];
