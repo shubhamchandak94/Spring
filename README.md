@@ -15,6 +15,8 @@ SPRING is a compression tool for Fastq files (containing up to 4.29 Billion read
 - Supports gzipped fastq files as input (output) during (de)compression
 - Tested on Linux and macOS
 
+**Note:** If you want to use SPRING only as a ***tool for reordering reads*** (approximately according to genome position), take a look at the [reorder-only branch](https://github.com/shubhamchandak94/Spring/tree/reorder-only).
+
 ### Download
 ```bash
 git clone https://github.com/shubhamchandak94/SPRING.git
