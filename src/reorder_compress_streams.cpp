@@ -174,6 +174,19 @@ void reorder_compress_streams(const std::string &temp_dir,
   // Now generate new streams and compress blocks in parallel
   omp_set_num_threads(num_thr);
   uint32_t num_reads_per_block = cp.num_reads_per_block;
+
+  // ***************
+  // rename some files to debug strange gcsfuse issue
+  // related to certain files being deleted and new files with same name
+  // being created.
+  std::string tmpfile_pos = basedir + "/a";
+  std::string tmpfile_noise = basedir + "/b";
+  std::string tmpfile_noisepos = basedir + "/c";
+  std::string tmpfile_RC = basedir + "/d";
+  std::string tmpfile_flag = basedir + "/e";
+  std::string tmpfile_unaligned = basedir + "/f";
+  std::string tmpfile_readlength = basedir + "/g";
+
 // this is actually number of read pairs per block for PE
 #pragma omp parallel
   {
@@ -197,17 +210,17 @@ void reorder_compress_streams(const std::string &temp_dir,
         }
       }
       // Open files
-      std::ofstream f_flag(file_flag + '.' + std::to_string(block_num));
-      std::ofstream f_noise(file_noise + '.' + std::to_string(block_num));
-      std::ofstream f_noisepos(file_noisepos + '.' + std::to_string(block_num),
+      std::ofstream f_flag(tmpfile_flag + '.' + std::to_string(block_num));
+      std::ofstream f_noise(tmpfile_noise + '.' + std::to_string(block_num));
+      std::ofstream f_noisepos(tmpfile_noisepos + '.' + std::to_string(block_num),
                                std::ios::binary);
-      std::ofstream f_pos(file_pos + '.' + std::to_string(block_num),
+      std::ofstream f_pos(tmpfile_pos + '.' + std::to_string(block_num),
                           std::ios::binary);
-      std::ofstream f_RC(file_RC + '.' + std::to_string(block_num));
-      std::ofstream f_unaligned(file_unaligned + '.' +
+      std::ofstream f_RC(tmpfile_RC + '.' + std::to_string(block_num));
+      std::ofstream f_unaligned(tmpfile_unaligned + '.' +
                                 std::to_string(block_num));
       std::ofstream f_readlength(
-          file_readlength + '.' + std::to_string(block_num), std::ios::binary);
+          tmpfile_readlength + '.' + std::to_string(block_num), std::ios::binary);
       std::ofstream f_pos_pair;
       std::ofstream f_RC_pair;
       if (paired_end) {
@@ -351,40 +364,40 @@ void reorder_compress_streams(const std::string &temp_dir,
       }
 
       // Compress files with.bsc and remove uncompressed files
-      std::string infile_bsc = file_flag + '.' + std::to_string(block_num);
-      std::string outfile_bsc = infile_bsc + ".bsc";
+      std::string infile_bsc = tmpfile_flag + '.' + std::to_string(block_num);
+      std::string outfile_bsc = file_flag + '.' + std::to_string(block_num) + ".bsc";
       bsc::BSC_compress(infile_bsc.c_str(), outfile_bsc.c_str());
       remove(infile_bsc.c_str());
 
       // TODO: Test impact of packing pos file into
       // minimum number of bits
-      infile_bsc = file_pos + '.' + std::to_string(block_num);
-      outfile_bsc = infile_bsc + ".bsc";
+      infile_bsc = tmpfile_pos + '.' + std::to_string(block_num);
+      outfile_bsc = file_pos + '.' + std::to_string(block_num) + ".bsc";
       bsc::BSC_compress(infile_bsc.c_str(), outfile_bsc.c_str());
       remove(infile_bsc.c_str());
 
-      infile_bsc = file_noise + '.' + std::to_string(block_num);
-      outfile_bsc = infile_bsc + ".bsc";
+      infile_bsc = tmpfile_noise + '.' + std::to_string(block_num);
+      outfile_bsc = file_noise + '.' + std::to_string(block_num) + ".bsc";
       bsc::BSC_compress(infile_bsc.c_str(), outfile_bsc.c_str());
       remove(infile_bsc.c_str());
 
-      infile_bsc = file_noisepos + '.' + std::to_string(block_num);
-      outfile_bsc = infile_bsc + ".bsc";
+      infile_bsc = tmpfile_noisepos + '.' + std::to_string(block_num);
+      outfile_bsc = file_noisepos + '.' + std::to_string(block_num) + ".bsc";
       bsc::BSC_compress(infile_bsc.c_str(), outfile_bsc.c_str());
       remove(infile_bsc.c_str());
 
-      infile_bsc = file_unaligned + '.' + std::to_string(block_num);
-      outfile_bsc = infile_bsc + ".bsc";
+      infile_bsc = tmpfile_unaligned + '.' + std::to_string(block_num);
+      outfile_bsc = file_unaligned + '.' + std::to_string(block_num) + ".bsc";
       bsc::BSC_compress(infile_bsc.c_str(), outfile_bsc.c_str());
       remove(infile_bsc.c_str());
 
-      infile_bsc = file_readlength + '.' + std::to_string(block_num);
-      outfile_bsc = infile_bsc + ".bsc";
+      infile_bsc = tmpfile_readlength + '.' + std::to_string(block_num);
+      outfile_bsc = file_readlength + '.' + std::to_string(block_num) + ".bsc";
       bsc::BSC_compress(infile_bsc.c_str(), outfile_bsc.c_str());
       remove(infile_bsc.c_str());
 
-      infile_bsc = file_RC + '.' + std::to_string(block_num);
-      outfile_bsc = infile_bsc + ".bsc";
+      infile_bsc = tmpfile_RC + '.' + std::to_string(block_num);
+      outfile_bsc = file_RC + '.' + std::to_string(block_num) + ".bsc";
       bsc::BSC_compress(infile_bsc.c_str(), outfile_bsc.c_str());
       remove(infile_bsc.c_str());
 
