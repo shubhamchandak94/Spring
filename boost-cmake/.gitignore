@@ -2,4 +2,3 @@
 *.tmp
 build*/
 boost/
-boost_*.tar.xz
