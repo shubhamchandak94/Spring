@@ -54,12 +54,12 @@ On macOS, install GCC compiler since Clang has issues with OpenMP library:
 - Install GCC (this step will be faster if Xcode command line tools are already installed using ```xcode-select --install```):
 ```bash
 brew update
-brew install gcc@7
+brew install gcc@9
 ```
 - Set environment variables:
 ```bash
-export CC=gcc-7
-export CXX=g++-7
+export CC=gcc-9
+export CXX=g++-9
 ```
 - Delete ```CMakeCache.txt``` (if present) from the build directory
 - Follow the steps above for Linux
