@@ -192,8 +192,9 @@ class bsc_str_array_class {
       throw std::runtime_error("BSC error.");
     }
 
-    BSC_FILEOFFSET fileSize =
-        std::accumulate(str_lengths, str_lengths + size_str_array, 0);
+    BSC_FILEOFFSET fileSize = 0;
+    for (uint32_t i = 0; i < size_str_array; i++)
+        fileSize += str_lengths[i];
 
     if (paramBlockSize > fileSize) {
       paramBlockSize = (int)fileSize;
