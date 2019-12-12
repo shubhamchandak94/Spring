@@ -76,4 +76,5 @@ sort tmp.2 > tmp.sorted
 sort ../util/test_2.fastq > tmp_1.sorted 
 cmp tmp.sorted tmp_1.sorted
 
+echo "Tests successful!"
 rm abcd tmp*

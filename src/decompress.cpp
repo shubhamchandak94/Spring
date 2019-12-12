@@ -108,13 +108,15 @@ void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
   for (int tid_e = 0; tid_e < num_thr_e; tid_e++) {
     uint64_t prev_len = seq.size();
     uint64_t file_len;
-    std::ifstream in_seq(file_seq + '.' + std::to_string(tid_e));
+    std::string infile_seq = file_seq + '.' + std::to_string(tid_e);
+    std::ifstream in_seq(infile_seq);
     in_seq.seekg(0, in_seq.end);
     file_len = in_seq.tellg();
     in_seq.seekg(0);
     seq.resize(prev_len + file_len);
     in_seq.read(&seq[prev_len], file_len);
     in_seq.close();
+    remove(infile_seq.c_str());
   }
 
   bool done = false;
@@ -153,39 +155,48 @@ void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
                 file_flag + '.' + std::to_string(block_num);
             std::string infile_bsc = outfile_bsc + ".bsc";
             bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
+            remove(infile_bsc.c_str());
 
             outfile_bsc = file_pos + '.' + std::to_string(block_num);
             infile_bsc = outfile_bsc + ".bsc";
             bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
+            remove(infile_bsc.c_str());
 
             outfile_bsc = file_noise + '.' + std::to_string(block_num);
             infile_bsc = outfile_bsc + ".bsc";
             bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
+            remove(infile_bsc.c_str());
 
             outfile_bsc = file_noisepos + '.' + std::to_string(block_num);
             infile_bsc = outfile_bsc + ".bsc";
             bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
+            remove(infile_bsc.c_str());
 
             outfile_bsc = file_unaligned + '.' + std::to_string(block_num);
             infile_bsc = outfile_bsc + ".bsc";
             bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
+            remove(infile_bsc.c_str());
 
             outfile_bsc = file_readlength + '.' + std::to_string(block_num);
             infile_bsc = outfile_bsc + ".bsc";
             bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
+            remove(infile_bsc.c_str());
 
             outfile_bsc = file_RC + '.' + std::to_string(block_num);
             infile_bsc = outfile_bsc + ".bsc";
             bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
+            remove(infile_bsc.c_str());
 
             if (paired_end) {
               outfile_bsc = file_pos_pair + '.' + std::to_string(block_num);
               infile_bsc = outfile_bsc + ".bsc";
               bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
+              remove(infile_bsc.c_str());
 
               outfile_bsc = file_RC_pair + '.' + std::to_string(block_num);
               infile_bsc = outfile_bsc + ".bsc";
               bsc::BSC_decompress(infile_bsc.c_str(), outfile_bsc.c_str());
+              remove(infile_bsc.c_str());
             }
             // Open files
             std::ifstream f_flag(file_flag + '.' + std::to_string(block_num));
@@ -320,6 +331,28 @@ void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
               f_pos_pair.close();
               f_RC_pair.close();
             }
+	    // remove temporary files
+	    outfile_bsc = file_flag + '.' + std::to_string(block_num);
+	    remove(outfile_bsc.c_str());
+	    outfile_bsc = file_pos + '.' + std::to_string(block_num);
+	    remove(outfile_bsc.c_str());
+	    outfile_bsc = file_noise + '.' + std::to_string(block_num);
+	    remove(outfile_bsc.c_str());
+	    outfile_bsc = file_noisepos + '.' + std::to_string(block_num);
+	    remove(outfile_bsc.c_str());
+	    outfile_bsc = file_unaligned + '.' + std::to_string(block_num);
+	    remove(outfile_bsc.c_str());
+	    outfile_bsc = file_readlength + '.' + std::to_string(block_num);
+	    remove(outfile_bsc.c_str());
+	    outfile_bsc = file_RC + '.' + std::to_string(block_num);
+	    remove(outfile_bsc.c_str());
+	    if (paired_end) {
+              outfile_bsc = file_pos_pair + '.' + std::to_string(block_num);
+	      remove(outfile_bsc.c_str());
+	      outfile_bsc = file_RC_pair + '.' + std::to_string(block_num);
+	      remove(outfile_bsc.c_str());
+	    }
+
           }
           // Decompress ids and quality
           uint32_t *read_lengths_array;
@@ -335,6 +368,7 @@ void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
             bsc::BSC_str_array_decompress(
                 infile_name.c_str(), quality_array + tid * num_reads_per_block,
                 num_reads_thr, read_lengths_array + tid * num_reads_per_block);
+	    remove(infile_name.c_str());
           }
           if (!preserve_id) {
             // Fill id array with fake ids
@@ -355,6 +389,7 @@ void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
               decompress_id_block(infile_name.c_str(),
                                   id_array + tid * num_reads_per_block,
                                   num_reads_thr);
+	      remove(infile_name.c_str());
             }
           }
         }
@@ -495,12 +530,14 @@ void decompress_long(const std::string &temp_dir, const std::string &outfile_1,
           std::string outfile_name =
               infilereadlength[j] + "." + std::to_string(num_blocks_done + tid);
           bsc::BSC_decompress(infile_name.c_str(), outfile_name.c_str());
+	  remove(infile_name.c_str());
           std::ifstream fin_readlength(outfile_name, std::ios::binary);
           for (uint32_t i = tid * num_reads_per_block;
                i < tid * num_reads_per_block + num_reads_thr; i++)
             fin_readlength.read((char *)&read_lengths_array[i],
                                 sizeof(uint32_t));
           fin_readlength.close();
+	  remove(outfile_name.c_str());
 
           // Decompress reads
           infile_name =
@@ -508,6 +545,7 @@ void decompress_long(const std::string &temp_dir, const std::string &outfile_1,
           bsc::BSC_str_array_decompress(
               infile_name.c_str(), read_array + tid * num_reads_per_block,
               num_reads_thr, read_lengths_array + tid * num_reads_per_block);
+          remove(infile_name.c_str());
 
           if (preserve_quality) {
             // Decompress qualities
@@ -516,6 +554,7 @@ void decompress_long(const std::string &temp_dir, const std::string &outfile_1,
             bsc::BSC_str_array_decompress(
                 infile_name.c_str(), quality_array + tid * num_reads_per_block,
                 num_reads_thr, read_lengths_array + tid * num_reads_per_block);
+	    remove(infile_name.c_str());
           }
           if (!preserve_id) {
             // Fill id array with fake ids
@@ -536,6 +575,7 @@ void decompress_long(const std::string &temp_dir, const std::string &outfile_1,
               decompress_id_block(infile_name.c_str(),
                                   id_array + tid * num_reads_per_block,
                                   num_reads_thr);
+	      remove(infile_name.c_str());
             }
           }
         }
@@ -581,7 +621,8 @@ void decompress_unpack_seq(const std::string &infile_seq, const int &num_thr_e,
       bsc::BSC_decompress(
           (infile_seq + '.' + std::to_string(tid_e) + ".bsc").c_str(),
           (infile_seq + '.' + std::to_string(tid_e)).c_str());
-
+      std::string infile_bsc = infile_seq + '.' + std::to_string(tid_e) + ".bsc";
+      remove(infile_bsc.c_str());
       std::ofstream f_seq(infile_seq + '.' + std::to_string(tid_e) + ".tmp");
       std::ifstream in_seq(infile_seq + '.' + std::to_string(tid_e),
                            std::ios::binary);
