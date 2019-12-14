@@ -15,6 +15,7 @@ limitations under the License.
 #include <omp.h>
 #include <cmath>  // abs
 #include <cstdio>
+#include <cstring> // memcpy
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
@@ -141,12 +142,21 @@ void reorder_compress_streams(const std::string &temp_dir,
 
   // Now start with unaligned reads
   num_reads_unaligned = num_reads - num_reads_aligned;
-  std::ifstream f_unaligned(file_unaligned);
-  f_unaligned.seekg(0, f_unaligned.end);
-  uint64_t unaligned_array_size = f_unaligned.tellg();
-  f_unaligned.seekg(0, f_unaligned.beg);
+  std::string file_unaligned_count = file_unaligned+".count";
+  std::ifstream f_unaligned_count(file_unaligned_count);
+  uint64_t unaligned_array_size;
+  f_unaligned_count.read((char*)&unaligned_array_size, sizeof(uint64_t));
+  f_unaligned_count.close();
+  remove(file_unaligned_count.c_str());
   char *unaligned_arr = new char[unaligned_array_size];
-  f_unaligned.read(unaligned_arr, unaligned_array_size);
+  std::ifstream f_unaligned(file_unaligned, std::ios::binary);
+  std::string unaligned_read;
+  uint64_t pos_in_unaligned_arr = 0;
+  for (uint32_t i = 0; i < num_reads_unaligned; i++) {
+    read_dnaN_from_bits(unaligned_read, f_unaligned);
+    std::memcpy(unaligned_arr+pos_in_unaligned_arr, &unaligned_read[0], unaligned_read.size());
+    pos_in_unaligned_arr += unaligned_read.size();
+  }
   f_unaligned.close();
   uint64_t current_pos_in_unaligned_arr = 0;
   for (uint32_t i = 0; i < num_reads_unaligned; i++) {

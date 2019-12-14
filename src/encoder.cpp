@@ -26,6 +26,7 @@ limitations under the License.
 #include <string>
 #include <vector>
 #include "libbsc/bsc.h"
+
 namespace spring {
 
 std::string buildcontig(std::list<contig_reads> &current_contig,
@@ -159,11 +160,11 @@ void getDataParams(encoder_global &eg, const compression_params &cp) {
   numreads_clean = cp.num_reads_clean[0] + cp.num_reads_clean[1];
   numreads_total = cp.num_reads;
 
-  std::ifstream myfile_s(eg.infile + ".singleton", std::ifstream::in);
-  eg.numreads_s = 0;
-  std::string line;
-  while (std::getline(myfile_s, line)) ++eg.numreads_s;
-  myfile_s.close();
+  std::ifstream myfile_s_count(eg.infile + ".singleton"+".count", std::ifstream::in);
+  myfile_s_count.read((char*)&eg.numreads_s, sizeof(uint32_t));
+  myfile_s_count.close();
+  std::string file_s_count = eg.infile + ".singleton"+".count";
+  remove(file_s_count.c_str());
   eg.numreads = numreads_clean - eg.numreads_s;
   eg.numreads_N = numreads_total - numreads_clean;
 

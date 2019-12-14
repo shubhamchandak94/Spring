@@ -18,6 +18,9 @@ limitations under the License.
 #include <omp.h>
 #include <algorithm>
 #include <bitset>
+#include <boost/iostreams/filter/gzip.hpp>
+#include <boost/iostreams/filtering_stream.hpp>
+#include <boost/iostreams/device/file.hpp>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -219,44 +222,20 @@ void updaterefcount(std::bitset<bitset_size> &cur,
 template <size_t bitset_size>
 void readDnaFile(std::bitset<bitset_size> *read, uint16_t *read_lengths,
                  const reorder_global<bitset_size> &rg) {
-#pragma omp parallel
-  {
-    uint32_t tid = omp_get_thread_num();
-    std::ifstream f(rg.infile[0], std::ifstream::in);
-    std::string s;
-    uint32_t i = 0;
-    while (std::getline(f, s)) {
-      if (i % rg.num_thr == tid) {
-        read_lengths[i] = (uint16_t)s.length();
-        stringtobitset<bitset_size>(s, read_lengths[i], read[i], rg.basemask);
-        i++;
-      } else {
-        i++;
-        continue;
-      }
-    }
-    f.close();
+  std::ifstream f(rg.infile[0], std::ifstream::in|std::ios::binary);
+  for (uint32_t i = 0; i < rg.numreads_array[0]; i++) {
+    f.read((char*)&read_lengths[i],sizeof(uint16_t));
+    uint16_t num_bytes_to_read = ((uint32_t)read_lengths[i]+4-1)/4;
+    f.read((char*)&read[i],num_bytes_to_read);
   }
+  f.close();
   remove(rg.infile[0].c_str());
   if (rg.paired_end) {
-#pragma omp parallel
-    {
-      uint32_t tid = omp_get_thread_num();
-      std::ifstream f(rg.infile[1], std::ifstream::in);
-      std::string s;
-      uint32_t i = 0;
-      while (std::getline(f, s)) {
-        if (i % rg.num_thr == tid) {
-          read_lengths[rg.numreads_array[0] + i] = (uint16_t)s.length();
-          stringtobitset<bitset_size>(s, read_lengths[rg.numreads_array[0] + i],
-                                      read[rg.numreads_array[0] + i],
-                                      rg.basemask);
-          i++;
-        } else {
-          i++;
-          continue;
-        }
-      }
+    std::ifstream f(rg.infile[1], std::ifstream::in|std::ios::binary);
+    for (uint32_t i = rg.numreads_array[0]; i < rg.numreads_array[0] + rg.numreads_array[1]; i++) {
+      f.read((char*)&read_lengths[i],sizeof(uint16_t));
+      uint16_t num_bytes_to_read = ((uint32_t)read_lengths[i]+4-1)/4;
+      f.read((char*)&read[i],num_bytes_to_read);
       f.close();
     }
     remove(rg.infile[1].c_str());
@@ -373,16 +352,20 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
   {
     int tid = omp_get_thread_num();
     std::string tid_str = std::to_string(tid);
-    std::ofstream foutRC(rg.outfileRC + '.' + tid_str, std::ofstream::out);
-    std::ofstream foutflag(rg.outfileflag + '.' + tid_str, std::ofstream::out);
-    std::ofstream foutpos(rg.outfilepos + '.' + tid_str,
-                          std::ofstream::out | std::ios::binary);
-    std::ofstream foutorder(rg.outfileorder + '.' + tid_str,
-                            std::ofstream::out | std::ios::binary);
-    std::ofstream foutorder_s(rg.outfileorder + ".singleton." + tid_str,
-                              std::ofstream::out | std::ios::binary);
-    std::ofstream foutlength(rg.outfilereadlength + '.' + tid_str,
-                             std::ofstream::out | std::ios::binary);
+    boost::iostreams::filtering_ostream foutRC;
+    foutRC.push(boost::iostreams::gzip_compressor());
+    foutRC.push(boost::iostreams::file_sink(rg.outfileRC + '.' + tid_str));
+    boost::iostreams::filtering_ostream foutflag;
+    foutflag.push(boost::iostreams::gzip_compressor());
+    foutflag.push(boost::iostreams::file_sink(rg.outfileflag + '.' + tid_str));
+    boost::iostreams::filtering_ostream foutpos;
+    foutpos.push(boost::iostreams::gzip_compressor());
+    foutpos.push(boost::iostreams::file_sink(rg.outfilepos + '.' + tid_str, std::ios::binary));
+    std::ofstream foutorder(rg.outfileorder + '.' + tid_str, std::ios::binary);
+    std::ofstream foutorder_s(rg.outfileorder + ".singleton." + tid_str, std::ios::binary);
+    boost::iostreams::filtering_ostream foutlength;
+    foutlength.push(boost::iostreams::gzip_compressor());
+    foutlength.push(boost::iostreams::file_sink(rg.outfilereadlength + '.' + tid_str, std::ios::binary));
 
     unmatched[tid] = 0;
     std::bitset<bitset_size> ref, revref, b;
@@ -519,14 +502,14 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
               foutorder.write((char *)&prev, sizeof(uint32_t));
               foutflag << 0;  // for unmatched
               int64_t zero = 0;
-              foutpos.write((char *)&zero, sizeof(int64_t));
+              foutpos.write((char*)&zero, sizeof(int64_t));
               foutlength.write((char *)&read_lengths[prev], sizeof(uint16_t));
             }
             foutRC << (left_search ? 'r' : 'd');
             foutorder.write((char *)&current, sizeof(uint32_t));
             foutflag << 1;  // for matched
-            foutpos.write((char *)&cur_read_pos, sizeof(int64_t));
-            foutlength.write((char *)&read_lengths[current], sizeof(uint16_t));
+	    foutpos.write((char*)&cur_read_pos, sizeof(int64_t));
+	    foutlength.write((char *)&read_lengths[current], sizeof(uint16_t));
 
             prev_unmatched = false;
             break;
@@ -557,13 +540,13 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
               foutorder.write((char *)&prev, sizeof(uint32_t));
               foutflag << 0;  // for unmatched
               int64_t zero = 0;
-              foutpos.write((char *)&zero, sizeof(int64_t));
+	      foutpos.write((char*)&zero, sizeof(int64_t));
               foutlength.write((char *)&read_lengths[prev], sizeof(uint16_t));
             }
             foutRC << (left_search ? 'd' : 'r');
             foutorder.write((char *)&current, sizeof(uint32_t));
             foutflag << 1;  // for matched
-            foutpos.write((char *)&cur_read_pos, sizeof(int64_t));
+	    foutpos.write((char*)&cur_read_pos, sizeof(int64_t));
             foutlength.write((char *)&read_lengths[current], sizeof(uint16_t));
 
             prev_unmatched = false;
@@ -632,12 +615,12 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
       }
     }  // while (!done) end
 
-    foutRC.close();
+    foutRC.pop();
     foutorder.close();
-    foutflag.close();
-    foutpos.close();
+    foutflag.pop();
+    foutpos.pop();
     foutorder_s.close();
-    foutlength.close();
+    foutlength.pop();
     for (int i = 0; i < 4; i++) delete[] count[i];
     delete[] count;
     delete[] to_delete_from_bin;
@@ -660,15 +643,20 @@ void reorder(std::bitset<bitset_size> *read, bbhashdict *dict,
 template <size_t bitset_size>
 void writetofile(std::bitset<bitset_size> *read, uint16_t *read_lengths,
                  reorder_global<bitset_size> &rg) {
+  std::vector<uint32_t> numreads_s_thr(rg.num_thr, 0);
 // convert bitset to string for all num_thr files in parallel
 #pragma omp parallel
   {
     int tid = omp_get_thread_num();
     std::string tid_str = std::to_string(tid);
-    std::ofstream fout(rg.outfile + '.' + tid_str, std::ofstream::out);
+    std::ofstream fout(rg.outfile + '.' + tid_str, std::ofstream::out|std::ios::binary);
     std::ofstream fout_s(rg.outfile + ".singleton." + tid_str,
-                         std::ofstream::out);
+                         std::ofstream::out|std::ios::binary);
     std::ifstream finRC(rg.outfileRC + '.' + tid_str, std::ifstream::in);
+    boost::iostreams::filtering_streambuf<boost::iostreams::input> inbufRC;
+    inbufRC.push(boost::iostreams::gzip_decompressor());
+    inbufRC.push(finRC);
+    std::istream inRC(&inbufRC);
     std::ifstream finorder(rg.outfileorder + '.' + tid_str,
                            std::ifstream::in | std::ios::binary);
     std::ifstream finorder_s(rg.outfileorder + ".singleton." + tid_str,
@@ -676,24 +664,27 @@ void writetofile(std::bitset<bitset_size> *read, uint16_t *read_lengths,
     char s[MAX_READ_LEN + 1], s1[MAX_READ_LEN + 1];
     uint32_t current;
     char c;
-    while (finRC >> std::noskipws >> c)  // read character by character
-    {
+    while (inRC >> std::noskipws >> c)  // read character by character
+    {  
       finorder.read((char *)&current, sizeof(uint32_t));
-      bitsettostring<bitset_size>(read[current], s, read_lengths[current], rg);
       if (c == 'd') {
-        fout << s << "\n";
+        uint16_t num_bytes_to_write = ((uint32_t)read_lengths[current] + 4 - 1)/4;
+	fout.write((char*)&read_lengths[current],sizeof(uint16_t));
+	fout.write((char*)&read[current], num_bytes_to_write);
       } else {
-        reverse_complement(s, s1, read_lengths[current]);
-        fout << s1 << "\n";
+	bitsettostring<bitset_size>(read[current], s, read_lengths[current], rg);
+	reverse_complement(s, s1, read_lengths[current]);
+	write_dna_in_bits(s1, fout);
       }
     }
     finorder_s.read((char *)&current, sizeof(uint32_t));
     while (!finorder_s.eof()) {
-      bitsettostring<bitset_size>(read[current], s, read_lengths[current], rg);
-      fout_s << s << "\n";
+      numreads_s_thr[tid]++;
+      uint16_t num_bytes_to_write = ((uint32_t)read_lengths[current] + 4 - 1)/4;
+      fout_s.write((char*)&read_lengths[current],sizeof(uint16_t));
+      fout_s.write((char*)&read[current], num_bytes_to_write);
       finorder_s.read((char *)&current, sizeof(uint32_t));
     }
-
     fout.close();
     fout_s.close();
     finRC.close();
@@ -701,14 +692,22 @@ void writetofile(std::bitset<bitset_size> *read, uint16_t *read_lengths,
     finorder_s.close();
   }
 
+  uint32_t numreads_s = 0;
+  for (int i = 0; i < rg.num_thr; i++)
+    numreads_s += numreads_s_thr[i];
+  // write numreads_s to a file
+  std::ofstream fout_s_count(rg.outfile + ".singleton"+".count", std::ofstream::out|std::ios::binary);
+  fout_s_count.write((char*)&numreads_s, sizeof(uint32_t));
+  fout_s_count.close();
+
   // Now combine the num_thr order files
-  std::ofstream fout_s(rg.outfile + ".singleton", std::ofstream::out);
+  std::ofstream fout_s(rg.outfile + ".singleton", std::ofstream::out|std::ios::binary);
   std::ofstream foutorder_s(rg.outfileorder + ".singleton",
                             std::ofstream::out | std::ios::binary);
   for (int tid = 0; tid < rg.num_thr; tid++) {
     std::string tid_str = std::to_string(tid);
     std::ifstream fin_s(rg.outfile + ".singleton." + tid_str,
-                        std::ifstream::in);
+                        std::ifstream::in|std::ios::binary);
     std::ifstream finorder_s(rg.outfileorder + ".singleton." + tid_str,
                              std::ifstream::in | std::ios::binary);
 

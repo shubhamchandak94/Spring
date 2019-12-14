@@ -17,6 +17,7 @@ limitations under the License.
 #include <boost/iostreams/device/back_inserter.hpp>
 #include <boost/iostreams/filter/gzip.hpp>
 #include <boost/iostreams/filtering_stream.hpp>
+#include <boost/filesystem.hpp>
 #include <fstream>
 #include <stdexcept>
 #include <string>
@@ -71,7 +72,7 @@ void write_fastq_block(std::ofstream &fout, std::string *id_array,
     uint64_t *end_read_num = new uint64_t[num_thr];
     uint64_t num_reads_per_thread =
         1 + ((num_reads - 1) / num_thr);  // ceiling function
-    for (uint32_t i = 0; i < num_thr; i++) {
+    for (uint32_t i = 0; i < (uint32_t)num_thr; i++) {
       if (i == 0)
         start_read_num[i] = 0;
       else
@@ -98,7 +99,7 @@ void write_fastq_block(std::ofstream &fout, std::string *id_array,
       boost::iostreams::close(out);
 
     }  // end omp parallel
-    for (uint32_t i = 0; i < num_thr; i++)
+    for (uint32_t i = 0; i < (uint32_t)num_thr; i++)
       fout.write(&(gzip_compressed[i][0]), gzip_compressed[i].size());
     delete[] gzip_compressed;
     delete[] start_read_num;
@@ -265,63 +266,110 @@ void modify_id(std::string &id, const uint8_t paired_id_code) {
 void write_dna_in_bits(const std::string &read, std::ofstream &fout) {
   uint8_t dna2int[128];
   dna2int[(uint8_t)'A'] = 0;
-  dna2int[(uint8_t)'C'] = 1;
-  dna2int[(uint8_t)'G'] = 2;
+  dna2int[(uint8_t)'C'] = 2; // chosen to align with the bitset representation
+  dna2int[(uint8_t)'G'] = 1;
   dna2int[(uint8_t)'T'] = 3;
+  uint8_t bitarray[128];
+  uint8_t pos_in_bitarray = 0;
   uint16_t readlen = read.size();
   fout.write((char *)&readlen, sizeof(uint16_t));
-  uint8_t byte;
   for (int i = 0; i < readlen / 4; i++) {
-    byte = 0;
+    bitarray[pos_in_bitarray] = 0;
     for (int j = 0; j < 4; j++)
-      byte = byte * 4 + dna2int[(uint8_t)read[4 * i + j]];
-    fout.write((char *)&byte, sizeof(uint8_t));
+      bitarray[pos_in_bitarray] |= (dna2int[(uint8_t)read[4 * i + j]]<<(2*j)); 
+    pos_in_bitarray++;
   }
   if (readlen % 4 != 0) {
     int i = readlen / 4;
-    byte = 0;
+    bitarray[pos_in_bitarray] = 0;
     for (int j = 0; j < readlen % 4; j++)
-      byte = byte * 4 + dna2int[(uint8_t)read[4 * i + j]];
-    fout.write((char *)&byte, sizeof(uint8_t));
+      bitarray[pos_in_bitarray] |= (dna2int[(uint8_t)read[4 * i + j]]<<(2*j)); 
+    pos_in_bitarray++;
   }
+  fout.write((char *)&bitarray[0], pos_in_bitarray);
   return;
 }
 
 void read_dna_from_bits(std::string &read, std::ifstream &fin) {
   uint16_t readlen;
+  uint8_t bitarray[128];
+  const char int2dna[4] = {'A','G','C','T'};
   fin.read((char *)&readlen, sizeof(uint16_t));
   read.resize(readlen);
-  uint8_t byte;
+  uint16_t num_bytes_to_read = ((uint32_t)readlen+4-1)/4;
+  fin.read((char*)&bitarray[0],num_bytes_to_read);
+  uint8_t pos_in_bitarray = 0;
   for (int i = 0; i < readlen / 4; i++) {
-    fin.read((char *)&byte, sizeof(uint8_t));
     for (int j = 0; j < 4; j++) {
-      if (byte % 4 == 0)
-        read[4 * i + 3 - j] = 'A';
-      else if (byte % 4 == 1)
-        read[4 * i + 3 - j] = 'C';
-      else if (byte % 4 == 2)
-        read[4 * i + 3 - j] = 'G';
-      else if (byte % 4 == 3)
-        read[4 * i + 3 - j] = 'T';
-      byte /= 4;
+      read[4 * i + j] = int2dna[bitarray[pos_in_bitarray] & 3];
+      bitarray[pos_in_bitarray]>>=2;
     }
+    pos_in_bitarray++;
   }
-  if (readlen / 4 != 0) {
+  if (readlen % 4 != 0) {
     int i = readlen / 4;
-    fin.read((char *)&byte, sizeof(uint8_t));
     for (int j = 0; j < readlen % 4; j++) {
-      if (byte % 4 == 0)
-        read[4 * i + readlen % 4 - 1 - j] = 'A';
-      else if (byte % 4 == 1)
-        read[4 * i + readlen % 4 - 1 - j] = 'C';
-      else if (byte % 4 == 2)
-        read[4 * i + readlen % 4 - 1 - j] = 'G';
-      else if (byte % 4 == 3)
-        read[4 * i + readlen % 4 - 1 - j] = 'T';
-      byte /= 4;
+      read[4 * i + j] = int2dna[bitarray[pos_in_bitarray] & 3];
+      bitarray[pos_in_bitarray]>>=2;
     }
+    pos_in_bitarray++;
   }
 }
+
+void write_dnaN_in_bits(const std::string &read, std::ofstream &fout) {
+  uint8_t dna2int[128];
+  dna2int[(uint8_t)'A'] = 0;
+  dna2int[(uint8_t)'C'] = 2; // chosen to align with the bitset representation
+  dna2int[(uint8_t)'G'] = 1;
+  dna2int[(uint8_t)'T'] = 3;
+  dna2int[(uint8_t)'N'] = 4;
+  uint8_t bitarray[256];
+  uint8_t pos_in_bitarray = 0;
+  uint16_t readlen = read.size();
+  fout.write((char *)&readlen, sizeof(uint16_t));
+  for (int i = 0; i < readlen / 2; i++) {
+    bitarray[pos_in_bitarray] = 0;
+    for (int j = 0; j < 2; j++)
+      bitarray[pos_in_bitarray] |= (dna2int[(uint8_t)read[2 * i + j]]<<(4*j)); 
+    pos_in_bitarray++;
+  }
+  if (readlen % 2 != 0) {
+    int i = readlen / 2;
+    bitarray[pos_in_bitarray] = 0;
+    for (int j = 0; j < readlen % 2; j++)
+      bitarray[pos_in_bitarray] |= (dna2int[(uint8_t)read[2 * i + j]]<<(4*j));
+    pos_in_bitarray++;
+  }
+  fout.write((char *)&bitarray[0], pos_in_bitarray);
+  return;
+}
+
+void read_dnaN_from_bits(std::string &read, std::ifstream &fin) {
+  uint16_t readlen;
+  uint8_t bitarray[256];
+  const char int2dna[5] = {'A','G','C','T','N'};
+  fin.read((char *)&readlen, sizeof(uint16_t));
+  read.resize(readlen);
+  uint16_t num_bytes_to_read = ((uint32_t)readlen+2-1)/2;
+  fin.read((char*)&bitarray[0],num_bytes_to_read);
+  uint8_t pos_in_bitarray = 0;
+  for (int i = 0; i < readlen / 2; i++) {
+    for (int j = 0; j < 2; j++) {
+      read[2 * i + j] = int2dna[bitarray[pos_in_bitarray] & 15];
+      bitarray[pos_in_bitarray]>>=4;
+    }
+    pos_in_bitarray++;
+  }
+  if (readlen % 2 != 0) {
+    int i = readlen / 2;
+    for (int j = 0; j < readlen % 2; j++) {
+      read[2 * i + j] = int2dna[bitarray[pos_in_bitarray] & 15];
+      bitarray[pos_in_bitarray]>>=4;
+    }
+    pos_in_bitarray++;
+  }
+}
+
 void reverse_complement(char *s, char *s1, const int readlen) {
   for (int j = 0; j < readlen; j++)
     s1[j] = chartorevchar[(uint8_t)s[readlen - j - 1]];
@@ -340,6 +388,53 @@ std::string reverse_complement(const std::string &s, const int readlen) {
 void remove_CR_from_end(std::string &str) {
   if (str.size())
     if (str[str.size() - 1] == '\r') str.resize(str.size() - 1);
+}
+
+size_t get_directory_size(const std::string &temp_dir) {
+  namespace fs = boost::filesystem;
+  size_t size = 0;
+  fs::path p{temp_dir};
+  fs::directory_iterator itr{p};
+  for (; itr != fs::directory_iterator{}; ++itr) {
+    size += fs::file_size(itr->path());
+  }
+  return size;
+}
+
+// below functions based on code at https://github.com/sean-/postgresql-varint/blob/trunk/src/varint.c
+// also on https://github.com/shubhamchandak94/CDTC/blob/master/src/util.cpp
+
+// Used to pack some temporary files efficiently
+uint64_t zigzag_encode64(const int64_t n) {
+  return (n << 1) ^ (n >> 63);
+}
+
+int64_t zigzag_decode64(const uint64_t n) {
+  return (n >> 1) ^ -((int64_t)(n & 1));
+}
+
+void write_var_int64(const int64_t val, std::ofstream &fout) {
+  uint64_t uval = zigzag_encode64(val);
+  uint8_t byte;
+  while (uval > 127) {
+    byte = (uint8_t)(uval & 0x7f) | 0x80;
+    fout.write((char*)&byte, sizeof(uint8_t));
+    uval >>= 7;
+  }
+  byte = (uint8_t)(uval & 0x7f);
+  fout.write((char*)&byte, sizeof(uint8_t));
+}
+
+int64_t read_var_int64(std::ifstream &fin) {
+  uint64_t uval = 0;
+  uint8_t byte;
+  uint8_t shift = 0;
+  do {
+    fin.read((char*)&byte, sizeof(uint8_t));
+    uval |= ((byte & 0x7f) << shift);
+    shift += 7;
+  } while(byte & 0x80);
+  return zigzag_decode64(uval);
 }
 
 }  // namespace spring

@@ -89,11 +89,22 @@ void modify_id(std::string &id, const uint8_t paired_id_code);
 void write_dna_in_bits(const std::string &read, std::ofstream &fout);
 
 void read_dna_from_bits(std::string &read, std::ifstream &fin);
+
+void write_dnaN_in_bits(const std::string &read, std::ofstream &fout);
+
+void read_dnaN_from_bits(std::string &read, std::ifstream &fin);
+
 void reverse_complement(char *s, char *s1, const int readlen);
 
 std::string reverse_complement(const std::string &s, const int readlen);
 
 void remove_CR_from_end(std::string &str);
+
+size_t get_directory_size(const std::string &temp_dir);
+
+void write_var_int64(const int64_t val, std::ofstream &fout);
+
+int64_t read_var_int64(std::ifstream &fin);
 
 }  // namespace spring
 

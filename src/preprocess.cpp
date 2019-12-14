@@ -80,8 +80,8 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
       fin_f[j].open(infile[j]);
     }
     if (!cp.long_flag) {
-      fout_clean[j].open(outfileclean[j]);
-      fout_N[j].open(outfileN[j]);
+      fout_clean[j].open(outfileclean[j],std::ios::binary);
+      fout_N[j].open(outfileN[j],std::ios::binary);
       fout_order_N[j].open(outfileorderN[j], std::ios::binary);
       if (!cp.preserve_order) {
         if (cp.preserve_id) fout_id[j].open(outfileid[j]);
@@ -294,12 +294,12 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
         // write reads and read_order_N to respective files
         for (uint32_t i = 0; i < num_reads_read; i++) {
           if (!read_contains_N_array[i]) {
-            fout_clean[j] << read_array[i] << "\n";
+            write_dna_in_bits(read_array[i],fout_clean[j]);
             num_reads_clean[j]++;
           } else {
             uint32_t pos_N = num_reads[j] + i;
             fout_order_N[j].write((char *)&pos_N, sizeof(uint32_t));
-            fout_N[j] << read_array[i] << "\n";
+	    write_dnaN_in_bits(read_array[i],fout_N[j]);
           }
         }
         if (!cp.preserve_order) {
@@ -361,8 +361,8 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
 
   if (!cp.long_flag && cp.paired_end) {
     // merge input_N and input_order_N for the two files
-    std::ofstream fout_N(outfileN[0], std::ios::app);
-    std::ifstream fin_N(outfileN[1]);
+    std::ofstream fout_N(outfileN[0], std::ios::app|std::ios::binary);
+    std::ifstream fin_N(outfileN[1],std::ios::binary);
     fout_N << fin_N.rdbuf();
     fout_N.close();
     fin_N.close();
