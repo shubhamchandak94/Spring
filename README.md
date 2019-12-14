@@ -64,9 +64,6 @@ export CXX=g++-9
 - Delete ```CMakeCache.txt``` (if present) from the build directory
 - Follow the steps above for Linux
 
-### Resource usage
-For the memory and CPU performance for SPRING, please see the paper and the associated supplementary material. Note that SPRING uses some temporary disk space, and can fail if the disk space is not sufficient. Assuming that qualities and ids are not being discarded and SPRING is operating in the short read mode, the additional temporary disk usage is around 10-30% of the original uncompressed file (on the lower end when quality values are from newer Illumina machines and are more compressible) when -r flag is not specified. When -r flag is specified, SPRING writes all the quality values and read ids to a temporary file leading to significantly higher temporary disk usage - closer to 70-80% of the original file size. Note that these figures are approximate and include the space needed for the final compressed file. 
-
 ### Usage
 Run the spring executable ```/PATH/TO/spring``` with the options below:
 ```
@@ -115,6 +112,9 @@ Allowed options:
                                   decompression
 ```
 Note that the SPRING compressed files are tar archives consisting of the different compressed streams, although we recommend using the `.spring` extension as in the examples shown below.
+
+### Resource usage
+For the memory and CPU performance for SPRING, please see the paper and the associated supplementary material. Note that SPRING uses some temporary disk space, and can fail if the disk space is not sufficient. Assuming that qualities and ids are not being discarded and SPRING is operating in the short read mode, the additional temporary disk usage is around 10-30% of the original uncompressed file (on the lower end when quality values are from newer Illumina machines and are more compressible) when -r flag is not specified (i.e., default lossless mode). When -r flag is specified, SPRING writes all the quality values and read ids to a temporary file leading to significantly higher temporary disk usage - closer to 70-80% of the original file size. Note that these figures are approximate and include the space needed for the final compressed file. 
 
 ### Example Usage of SPRING
 This section contains several examples for SPRING compression and decompression with various modes and options. The compressed SPRING file uses the `.spring` extension as a convention.
