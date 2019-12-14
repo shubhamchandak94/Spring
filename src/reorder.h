@@ -236,8 +236,8 @@ void readDnaFile(std::bitset<bitset_size> *read, uint16_t *read_lengths,
       f.read((char*)&read_lengths[i],sizeof(uint16_t));
       uint16_t num_bytes_to_read = ((uint32_t)read_lengths[i]+4-1)/4;
       f.read((char*)&read[i],num_bytes_to_read);
-      f.close();
     }
+    f.close();
     remove(rg.infile[1].c_str());
   }
   return;
