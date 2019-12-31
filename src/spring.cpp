@@ -143,8 +143,8 @@ void compress(const std::string &temp_dir,
                    preprocess_end - preprocess_start)
                    .count()
             << " s\n";
-  std::cout << "temp_dir size: " << get_directory_size(temp_dir) << "\n";
-  
+  std::cout << "Temporary directory size: " << get_directory_size(temp_dir) << "\n";
+
   if (!long_flag) {
     std::cout << "Reordering ...\n";
     auto reorder_start = std::chrono::steady_clock::now();
@@ -157,7 +157,8 @@ void compress(const std::string &temp_dir,
                      .count()
               << " s\n";
 
-  std::cout << "temp_dir size: " << get_directory_size(temp_dir) << "\n";
+    std::cout << "temp_dir size: " << get_directory_size(temp_dir) << "\n";
+
     std::cout << "Encoding ...\n";
     auto encoder_start = std::chrono::steady_clock::now();
     call_encoder(temp_dir, cp);
@@ -168,7 +169,7 @@ void compress(const std::string &temp_dir,
                                                                   encoder_start)
                      .count()
               << " s\n";
-  std::cout << "temp_dir size: " << get_directory_size(temp_dir) << "\n";
+    std::cout << "Temporary directory size: " << get_directory_size(temp_dir) << "\n";
 
     if (!preserve_order && (preserve_quality || preserve_id)) {
       std::cout << "Reordering and compressing quality and/or ids ...\n";
@@ -181,7 +182,7 @@ void compress(const std::string &temp_dir,
                                                                     rcqi_start)
                        .count()
                 << " s\n";
-  std::cout << "temp_dir size: " << get_directory_size(temp_dir) << "\n";
+      std::cout << "Temporary directory size: " << get_directory_size(temp_dir) << "\n";
     }
 
     if (!preserve_order && paired_end) {
@@ -195,7 +196,7 @@ void compress(const std::string &temp_dir,
                        pe_encode_end - pe_encode_start)
                        .count()
                 << " s\n";
-  std::cout << "temp_dir size: " << get_directory_size(temp_dir) << "\n";
+      std::cout << "Temporary directory size: " << get_directory_size(temp_dir) << "\n";
     }
 
     std::cout << "Reordering and compressing streams ...\n";
@@ -208,7 +209,7 @@ void compress(const std::string &temp_dir,
                                                                   rcs_start)
                      .count()
               << " s\n";
-  std::cout << "temp_dir size: " << get_directory_size(temp_dir) << "\n";
+    std::cout << "Temporary directory size: " << get_directory_size(temp_dir) << "\n";
   }
 
   // Write compression params to a file
