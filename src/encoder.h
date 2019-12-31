@@ -18,6 +18,8 @@ limitations under the License.
 #include <omp.h>
 #include <algorithm>
 #include <bitset>
+#include <boost/iostreams/filter/gzip.hpp>
+#include <boost/iostreams/filtering_stream.hpp>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -129,15 +131,31 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
 #pragma omp parallel
   {
     int tid = omp_get_thread_num();
-    std::ifstream f(eg.infile + '.' + std::to_string(tid));
-    std::ifstream in_flag(eg.infile_flag + '.' + std::to_string(tid));
-    std::ifstream in_pos(eg.infile_pos + '.' + std::to_string(tid),
+    std::ifstream f(eg.infile + '.' + std::to_string(tid),std::ios::binary);
+    std::ifstream fin_flag(eg.infile_flag + '.' + std::to_string(tid));
+    boost::iostreams::filtering_streambuf<boost::iostreams::input> inbuf_flag;
+    inbuf_flag.push(boost::iostreams::gzip_decompressor());
+    inbuf_flag.push(fin_flag);
+    std::istream in_flag(&inbuf_flag);
+    std::ifstream fin_pos(eg.infile_pos + '.' + std::to_string(tid),
                          std::ios::binary);
+    boost::iostreams::filtering_streambuf<boost::iostreams::input> inbuf_pos;
+    inbuf_pos.push(boost::iostreams::gzip_decompressor());
+    inbuf_pos.push(fin_pos);
+    std::istream in_pos(&inbuf_pos);
     std::ifstream in_order(eg.infile_order + '.' + std::to_string(tid),
                            std::ios::binary);
-    std::ifstream in_RC(eg.infile_RC + '.' + std::to_string(tid));
-    std::ifstream in_readlength(
+    std::ifstream fin_RC(eg.infile_RC + '.' + std::to_string(tid));
+    boost::iostreams::filtering_streambuf<boost::iostreams::input> inbuf_RC;
+    inbuf_RC.push(boost::iostreams::gzip_decompressor());
+    inbuf_RC.push(fin_RC);
+    std::istream in_RC(&inbuf_RC);
+    std::ifstream fin_readlength(
         eg.infile_readlength + '.' + std::to_string(tid), std::ios::binary);
+    boost::iostreams::filtering_streambuf<boost::iostreams::input> inbuf_readlength;
+    inbuf_readlength.push(boost::iostreams::gzip_decompressor());
+    inbuf_readlength.push(fin_readlength);
+    std::istream in_readlength(&inbuf_readlength);
     std::ofstream f_order(eg.infile_order + '.' + std::to_string(tid) + ".tmp",
                           std::ios::binary);
 
@@ -163,7 +181,7 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
     while (!done) {
       if (!(in_flag >> c)) done = true;
       if (!done) {
-        std::getline(f, current);
+        read_dna_from_bits(current,f);
         rc = in_RC.get();
         in_pos.read((char *)&p, sizeof(int64_t));
         in_order.read((char *)&ord, sizeof(uint32_t));
@@ -326,20 +344,20 @@ void encode(std::bitset<bitset_size> *read, bbhashdict *dict, uint32_t *order_s,
       }
     }
     f.close();
-    in_flag.close();
-    in_pos.close();
+    fin_flag.close();
+    fin_pos.close();
     in_order.close();
-    in_RC.close();
-    in_readlength.close();
+    fin_RC.close();
+    fin_readlength.close();
     f_order.close();
     delete[] deleted_rids;
   }  // end omp parallel
 
   // Combine files produced by the threads
-  std::ofstream f_order(eg.infile_order);
+  std::ofstream f_order(eg.infile_order, std::ios::binary);
   for (int tid = 0; tid < eg.num_thr; tid++) {
     std::ifstream in_order(eg.infile_order + '.' + std::to_string(tid) +
-                           ".tmp");
+                           ".tmp", std::ios::binary);
     f_order << in_order.rdbuf();
     f_order.clear();  // clear error flag in case in_order is empty
 
@@ -409,18 +427,18 @@ void readsingletons(std::bitset<bitset_size> *read, uint32_t *order_s,
                     uint16_t *read_lengths_s, const encoder_global &eg,
                     const encoder_global_b<bitset_size> &egb) {
   // not parallelized right now since these are very small number of reads
-  std::ifstream f(eg.infile + ".singleton", std::ifstream::in);
+  std::ifstream f(eg.infile + ".singleton", std::ifstream::in | std::ios::binary);
   std::string s;
   for (uint32_t i = 0; i < eg.numreads_s; i++) {
-    std::getline(f, s);
+    read_dna_from_bits(s,f);
     read_lengths_s[i] = s.length();
     stringtobitset<bitset_size>(s, read_lengths_s[i], read[i], egb.basemask);
   }
   f.close();
   remove((eg.infile + ".singleton").c_str());
-  f.open(eg.infile_N);
+  f.open(eg.infile_N, std::ios::binary);
   for (uint32_t i = eg.numreads_s; i < eg.numreads_s + eg.numreads_N; i++) {
-    std::getline(f, s);
+    read_dnaN_from_bits(s,f);
     read_lengths_s[i] = s.length();
     stringtobitset<bitset_size>(s, read_lengths_s[i], read[i], egb.basemask);
   }
@@ -464,6 +482,7 @@ void encoder_main(const std::string &temp_dir, const compression_params &cp) {
   uint32_t *order_s = new uint32_t[eg.numreads_s + eg.numreads_N];
   uint16_t *read_lengths_s = new uint16_t[eg.numreads_s + eg.numreads_N];
   readsingletons<bitset_size>(read, order_s, read_lengths_s, eg, egb);
+  remove(eg.infile_N.c_str());
   correct_order(order_s, eg);
 
   bbhashdict *dict = new bbhashdict[eg.numdict_s];
@@ -483,7 +502,6 @@ void encoder_main(const std::string &temp_dir, const compression_params &cp) {
                                      eg.numreads_s + eg.numreads_N, 3,
                                      eg.basedir, eg.num_thr);
   encode<bitset_size>(read, dict, order_s, read_lengths_s, eg, egb);
-  remove(eg.infile_N.c_str());
   delete[] read;
   delete[] dict;
   delete[] order_s;

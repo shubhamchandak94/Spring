@@ -44,7 +44,6 @@ void spring_reorder(const std::string &temp_dir,
   // Ensure that omp parallel regions are executed with the requested
   // #threads.
   //
-  int omp_dyn_var = omp_get_dynamic();
   omp_set_dynamic(0);
   std::cout << "Starting compression...\n";
   auto compression_start = std::chrono::steady_clock::now();
@@ -111,6 +110,7 @@ void spring_reorder(const std::string &temp_dir,
                    preprocess_end - preprocess_start)
                    .count()
             << " s\n";
+  std::cout << "Temporary directory size: " << get_directory_size(temp_dir) << "\n";
 
   std::cout << "Reordering ...\n";
   auto reorder_start = std::chrono::steady_clock::now();
@@ -122,6 +122,7 @@ void spring_reorder(const std::string &temp_dir,
                                                                 reorder_start)
                    .count()
             << " s\n";
+  std::cout << "Temporary directory size: " << get_directory_size(temp_dir) << "\n";
 
   std::cout << "Realigning singletons ...\n";
   auto encoder_start = std::chrono::steady_clock::now();
@@ -133,6 +134,7 @@ void spring_reorder(const std::string &temp_dir,
                                                                 encoder_start)
                    .count()
             << " s\n";
+  std::cout << "Temporary directory size: " << get_directory_size(temp_dir) << "\n";
 
   std::cout << "Generating reordered FASTQ ...\n";
   auto grf_start = std::chrono::steady_clock::now();
@@ -147,6 +149,7 @@ void spring_reorder(const std::string &temp_dir,
                                                                 grf_start)
                    .count()
             << " s\n";
+  std::cout << "Temporary directory size: " << get_directory_size(temp_dir) << "\n";
 
   delete cp_ptr;
   auto compression_end = std::chrono::steady_clock::now();

@@ -54,6 +54,16 @@ void remove_CR_from_end(std::string &str);
 
 bool is_permutation(uint32_t *order_array, const uint32_t &numreads);
 
+void write_dna_in_bits(const std::string &read, std::ofstream &fout);
+
+void read_dna_from_bits(std::string &read, std::ifstream &fin);
+
+void write_dnaN_in_bits(const std::string &read, std::ofstream &fout);
+
+void read_dnaN_from_bits(std::string &read, std::ifstream &fin);
+
+size_t get_directory_size(const std::string &temp_dir);
+
 }  // namespace spring
 
 #endif  // SPRING_UTIL_H_
