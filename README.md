@@ -71,6 +71,9 @@ Allowed options:
 ```
 Note that several of the compression related options are not relevant here.
 
+### Temporary disk usage
+Note that SPRING uses some temporary disk space, and can fail if the disk space is not sufficient. The additional temporary disk usage in this mode is around 10-20% of the original uncompressed file. The memory usage in this mode is similar to the memory usage for short-read compression in the usual Spring mode (master branch).
+
 ### Example Usage
 For reordering file_1.fastq and file_2.fastq to file_1.reordered.fastq and file_2.reordered.fastq using default 8 threads.
 ```bash
