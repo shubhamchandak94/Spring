@@ -52,7 +52,7 @@ struct compression_params {
 
 uint32_t read_fastq_block(std::istream *fin, std::string *id_array,
                           std::string *read_array, std::string *quality_array,
-                          const uint32_t &num_reads);
+                          const uint32_t &num_reads, const bool &fasta_flag);
 
 void write_fastq_block(std::ofstream &fout, std::string *id_array,
                        std::string *read_array, std::string *quality_array,

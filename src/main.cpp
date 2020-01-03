@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
   namespace po = boost::program_options;
   bool help_flag = false, compress_flag = false, decompress_flag = false,
        pairing_only_flag = false, no_quality_flag = false, no_ids_flag = false,
-       long_flag = false, gzip_flag = false;
+       long_flag = false, gzip_flag = false, fasta_flag = false;
   std::vector<std::string> infile_vec, outfile_vec, quality_opts;
   std::vector<uint64_t> decompress_range_vec;
   std::string working_dir;
@@ -89,7 +89,9 @@ int main(int argc, char** argv) {
       "reads, compression is better without -l flag.")(
       "gzipped-fastq,g", po::bool_switch(&gzip_flag),
       "enable if compression input is gzipped fastq or to output gzipped fastq "
-      "during decompression");
+      "during decompression")(
+      "fasta-input", po::bool_switch(&fasta_flag),
+      "enable if compression input is fasta file (i.e., no qualities)");
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
   po::notify(vm);
@@ -131,7 +133,7 @@ int main(int argc, char** argv) {
     if (compress_flag)
       spring::compress(temp_dir, infile_vec, outfile_vec, num_thr,
                        pairing_only_flag, no_quality_flag, no_ids_flag,
-                       quality_opts, long_flag, gzip_flag);
+                       quality_opts, long_flag, gzip_flag, fasta_flag);
     else
       spring::decompress(temp_dir, infile_vec, outfile_vec, num_thr,
                          decompress_range_vec, gzip_flag);

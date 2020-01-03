@@ -30,7 +30,7 @@ namespace spring {
 
 uint32_t read_fastq_block(std::istream *fin, std::string *id_array,
                           std::string *read_array, std::string *quality_array,
-                          const uint32_t &num_reads) {
+                          const uint32_t &num_reads, const bool &fasta_flag) {
   uint32_t num_done = 0;
   std::string comment;
   for (; num_done < num_reads; num_done++) {
@@ -38,14 +38,16 @@ uint32_t read_fastq_block(std::istream *fin, std::string *id_array,
     remove_CR_from_end(id_array[num_done]);
     if (!std::getline(*fin, read_array[num_done]))
       throw std::runtime_error(
-          "Invalid FASTQ file. Number of lines not multiple of 4");
+          "Invalid FASTQ(A) file. Number of lines not multiple of 4(2)");
     remove_CR_from_end(read_array[num_done]);
+    if (fasta_flag)
+      continue;
     if (!std::getline(*fin, comment))
       throw std::runtime_error(
-          "Invalid FASTQ file. Number of lines not multiple of 4");
+          "Invalid FASTQ(A) file. Number of lines not multiple of 4(2)");
     if (!std::getline(*fin, quality_array[num_done]))
       throw std::runtime_error(
-          "Invalid FASTQ file. Number of lines not multiple of 4");
+          "Invalid FASTQ(A) file. Number of lines not multiple of 4(2)");
     remove_CR_from_end(quality_array[num_done]);
   }
   return num_done;
@@ -276,14 +278,14 @@ void write_dna_in_bits(const std::string &read, std::ofstream &fout) {
   for (int i = 0; i < readlen / 4; i++) {
     bitarray[pos_in_bitarray] = 0;
     for (int j = 0; j < 4; j++)
-      bitarray[pos_in_bitarray] |= (dna2int[(uint8_t)read[4 * i + j]]<<(2*j)); 
+      bitarray[pos_in_bitarray] |= (dna2int[(uint8_t)read[4 * i + j]]<<(2*j));
     pos_in_bitarray++;
   }
   if (readlen % 4 != 0) {
     int i = readlen / 4;
     bitarray[pos_in_bitarray] = 0;
     for (int j = 0; j < readlen % 4; j++)
-      bitarray[pos_in_bitarray] |= (dna2int[(uint8_t)read[4 * i + j]]<<(2*j)); 
+      bitarray[pos_in_bitarray] |= (dna2int[(uint8_t)read[4 * i + j]]<<(2*j));
     pos_in_bitarray++;
   }
   fout.write((char *)&bitarray[0], pos_in_bitarray);
@@ -330,7 +332,7 @@ void write_dnaN_in_bits(const std::string &read, std::ofstream &fout) {
   for (int i = 0; i < readlen / 2; i++) {
     bitarray[pos_in_bitarray] = 0;
     for (int j = 0; j < 2; j++)
-      bitarray[pos_in_bitarray] |= (dna2int[(uint8_t)read[2 * i + j]]<<(4*j)); 
+      bitarray[pos_in_bitarray] |= (dna2int[(uint8_t)read[2 * i + j]]<<(4*j));
     pos_in_bitarray++;
   }
   if (readlen % 2 != 0) {

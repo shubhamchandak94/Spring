@@ -33,7 +33,7 @@ namespace spring {
 
 void preprocess(const std::string &infile_1, const std::string &infile_2,
                 const std::string &temp_dir, compression_params &cp,
-                const bool &gzip_flag) {
+                const bool &gzip_flag, const bool &fasta_flag) {
   std::string infile[2] = {infile_1, infile_2};
   std::string outfileclean[2];
   std::string outfileN[2];
@@ -158,7 +158,7 @@ void preprocess(const std::string &infile_1, const std::string &infile_2,
       done[j] = false;
       std::string *id_array = (j == 0) ? id_array_1 : id_array_2;
       uint32_t num_reads_read = read_fastq_block(
-          fin[j], id_array, read_array, quality_array, num_reads_per_step);
+          fin[j], id_array, read_array, quality_array, num_reads_per_step, fasta_flag);
       if (num_reads_read < num_reads_per_step) done[j] = true;
       if (num_reads_read == 0) continue;
       if (num_reads[0] + num_reads[1] + num_reads_read > MAX_NUM_READS) {

@@ -44,7 +44,7 @@ void compress(const std::string &temp_dir,
               const bool &pairing_only_flag, const bool &no_quality_flag,
               const bool &no_ids_flag,
               const std::vector<std::string> &quality_opts,
-              const bool &long_flag, const bool &gzip_flag) {
+              const bool &long_flag, const bool &gzip_flag, const bool &fasta_flag) {
   //
   // Ensure that omp parallel regions are executed with the requested
   // #threads.
@@ -60,6 +60,8 @@ void compress(const std::string &temp_dir,
   preserve_order = !pairing_only_flag;
   preserve_id = !no_ids_flag;
   preserve_quality = !no_quality_flag;
+  if (fasta_flag)
+    preserve_quality = false;
   switch (infile_vec.size()) {
     case 0:
       throw std::runtime_error("No input file specified");
@@ -135,7 +137,7 @@ void compress(const std::string &temp_dir,
 
   std::cout << "Preprocessing ...\n";
   auto preprocess_start = std::chrono::steady_clock::now();
-  preprocess(infile_1, infile_2, temp_dir, cp, gzip_flag);
+  preprocess(infile_1, infile_2, temp_dir, cp, gzip_flag, fasta_flag);
   auto preprocess_end = std::chrono::steady_clock::now();
   std::cout << "Preprocessing done!\n";
   std::cout << "Time for this step: "
