@@ -39,7 +39,8 @@ namespace spring {
 void spring_reorder(const std::string &temp_dir,
               const std::vector<std::string> &infile_vec,
               const std::vector<std::string> &outfile_vec, const int &num_thr,
-              const bool &gzipped_input_flag, const bool &gzipped_output_flag) {
+              const bool &gzipped_input_flag, const bool &gzipped_output_flag,
+              const bool &fasta_flag) {
   //
   // Ensure that omp parallel regions are executed with the requested
   // #threads.
@@ -102,7 +103,7 @@ void spring_reorder(const std::string &temp_dir,
 
   std::cout << "Preprocessing ...\n";
   auto preprocess_start = std::chrono::steady_clock::now();
-  preprocess(infile_1, infile_2, temp_dir, cp, gzipped_input_flag);
+  preprocess(infile_1, infile_2, temp_dir, cp, gzipped_input_flag, fasta_flag);
   auto preprocess_end = std::chrono::steady_clock::now();
   std::cout << "Preprocessing done!\n";
   std::cout << "Time for this step: "
@@ -141,7 +142,7 @@ void spring_reorder(const std::string &temp_dir,
   std::vector<std::string> infile_vector = {infile_1, infile_2};
   std::vector<std::string> outfile_vector = {outfile_1, outfile_2};
   generate_reordered_fastq(temp_dir, cp, infile_vector, outfile_vector,
-                           gzipped_output_flag, gzipped_input_flag);
+                           gzipped_output_flag, gzipped_input_flag, fasta_flag);
   auto grf_end = std::chrono::steady_clock::now();
   std::cout << "Generating reordered FASTQ done!\n";
   std::cout << "Time for this step: "

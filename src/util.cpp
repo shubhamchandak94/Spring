@@ -28,7 +28,7 @@ namespace spring {
 
 uint32_t read_fastq_block(std::istream *fin, std::string *id_array,
                           std::string *read_array, std::string *quality_array,
-                          const uint32_t &num_reads) {
+                          const uint32_t &num_reads, const bool &fasta_flag) {
   uint32_t num_done = 0;
   std::string comment;
   for (; num_done < num_reads; num_done++) {
@@ -36,11 +36,13 @@ uint32_t read_fastq_block(std::istream *fin, std::string *id_array,
     remove_CR_from_end(id_array[num_done]);
     if (!std::getline(*fin, read_array[num_done]))
       throw std::runtime_error(
-          "Invalid FASTQ file. Number of lines not multiple of 4");
+          "Invalid FASTQ(A) file. Number of lines not multiple of 4");
     remove_CR_from_end(read_array[num_done]);
+    if (fasta_flag)
+      continue;
     if (!std::getline(*fin, comment))
       throw std::runtime_error(
-          "Invalid FASTQ file. Number of lines not multiple of 4");
+          "Invalid FASTQ(A) file. Number of lines not multiple of 4");
     if (!std::getline(*fin, quality_array[num_done]))
       throw std::runtime_error(
           "Invalid FASTQ file. Number of lines not multiple of 4");

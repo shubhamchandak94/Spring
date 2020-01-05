@@ -27,7 +27,8 @@ void generate_reordered_fastq(const std::string &temp_dir,
                               const std::vector<std::string> &infile_vector,
                               const std::vector<std::string> &outfile_vector,
                               const bool gzipped_output_flag,
-                              const bool gzipped_input_flag);
+                              const bool gzipped_input_flag,
+                              const bool fasta_flag);
 
 
 

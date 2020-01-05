@@ -39,7 +39,8 @@ int main(int argc, char** argv) {
   // register signal SIGINT and signal handler
   signal(SIGINT, signalHandler);
   namespace po = boost::program_options;
-  bool help_flag = false, gzipped_input_flag = false, gzipped_output_flag = false;
+  bool help_flag = false, gzipped_input_flag = false, gzipped_output_flag = false,
+        fasta_flag = false;
   std::vector<std::string> infile_vec, outfile_vec;
   std::string working_dir;
   int num_thr;
@@ -60,7 +61,9 @@ int main(int argc, char** argv) {
       "gzipped-input", po::bool_switch(&gzipped_input_flag),
       "enable if compression input is gzipped fastq")(
       "gzipped-output", po::bool_switch(&gzipped_output_flag),
-      "enable to output gzipped fastq ");
+      "enable to output gzipped fastq ")(
+      "fasta-input", po::bool_switch(&fasta_flag),
+      "enable if input is fasta file (i.e., no qualities)");
 
   po::variables_map vm;
   po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -87,7 +90,7 @@ int main(int argc, char** argv) {
 
   try {
     spring::spring_reorder(temp_dir, infile_vec, outfile_vec, num_thr,
-                         gzipped_input_flag, gzipped_output_flag);
+                         gzipped_input_flag, gzipped_output_flag, fasta_flag);
   }
   // Error handling
   catch (std::runtime_error& e) {

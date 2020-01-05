@@ -68,6 +68,7 @@ Allowed options:
   -t [ --num-threads ] arg (=8) number of threads (default 8)
   --gzipped-input               enable if compression input is gzipped fastq
   --gzipped-output              enable to output gzipped fastq
+  --fasta-input                 enable if input is fasta file (i.e., no qualities)
 ```
 Note that several of the compression related options are not relevant here.
 
@@ -93,4 +94,9 @@ Gzipped input file:
 Produce gzipped output FASTQ files:
 ```bash
 ./spring-reorder -c -i file_1.fastq file_2.fastq -o file_1.reordered.fastq.gz file_2.reordered.fastq.gz --gzipped-output
+```
+
+For reordering file_1.fasta and file_2.fasta to file_1.reordered.fasta and file_2.reordered.fasta (Note: fasta files have no quality values).
+```bash
+./spring-reorder -c -i file_1.fasta file_2.fasta -o file_1.reordered.fasta file_2.reordered.fasta --fasta-input
 ```

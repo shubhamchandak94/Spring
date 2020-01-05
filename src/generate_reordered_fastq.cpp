@@ -27,7 +27,8 @@ void generate_reordered_fastq(const std::string &temp_dir,
                               const std::vector<std::string> &infile_vector,
                               const std::vector<std::string> &outfile_vector,
                               const bool gzipped_output_flag,
-                              const bool gzipped_input_flag) {
+                              const bool gzipped_input_flag,
+                              const bool fasta_flag) {
   uint32_t num_pairs = cp.paired_end?cp.num_reads/2:cp.num_reads;
   uint8_t num_files = cp.paired_end?2:1;
   uint32_t *order_array = new uint32_t[num_pairs];
@@ -99,8 +100,10 @@ void generate_reordered_fastq(const std::string &temp_dir,
       for (uint32_t j = 0; j < num_pairs; j++) {
           std::getline(*fin[file_num], cur_id);
           std::getline(*fin[file_num], cur_read);
-          std::getline(*fin[file_num], cur_comment);
-          std::getline(*fin[file_num], cur_quality);
+          if (!fasta_flag) {
+            std::getline(*fin[file_num], cur_comment);
+            std::getline(*fin[file_num], cur_quality);
+          }
           if (order_array[j] >= start_read_bin && order_array[j] < end_read_bin) {
               uint32_t index = order_array[j] - start_read_bin;
               read_array[index] = cur_read;
@@ -110,7 +113,7 @@ void generate_reordered_fastq(const std::string &temp_dir,
       }
 
       write_fastq_block(fout_fastq, id_array, read_array, quality_array,
-                        num_reads_bin, true, cp.num_thr, gzipped_output_flag);
+                        num_reads_bin, !fasta_flag, cp.num_thr, gzipped_output_flag);
     }
     fout_fastq.close();
   }

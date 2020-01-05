@@ -23,7 +23,8 @@ namespace spring {
 void spring_reorder(const std::string &temp_dir,
               const std::vector<std::string> &infile_vec,
               const std::vector<std::string> &outfile_vec, const int &num_thr,
-              const bool &gzipped_input_flag, const bool &gzipped_output_flag);
+              const bool &gzipped_input_flag, const bool &gzipped_output_flag,
+              const bool &fasta_flag);
 
 std::string random_string(size_t length);
 
