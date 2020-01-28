@@ -17,6 +17,18 @@ SPRING is a compression tool for Fastq files (containing up to 4.29 Billion read
 
 **Note:** If you want to use SPRING only as a ***tool for reordering reads*** (approximately according to genome position), take a look at the [reorder-only branch](https://github.com/shubhamchandak94/Spring/tree/reorder-only).
 
+### Install with conda on Linux
+To install directly from source or to install on OSX, follow the instructions in the next section.
+
+Spring is now available on conda via the bioconda channel. See [this](https://bioconda.github.io/user/install.html) page for installation instructions for conda. Once conda is installed, do the following to install spring.
+```bash
+conda config --add channels defaults
+conda config --add channels bioconda
+conda config --add channels conda-forge
+conda install spring
+```
+Note that if spring is installed this way, it should be invoked with the command `spring` rather than `./spring`. The bioconda [help page](https://bioconda.github.io/user/install.html) shows the commands needed for installing in an environment.
+
 ### Download
 ```bash
 git clone https://github.com/shubhamchandak94/SPRING.git
@@ -65,7 +77,7 @@ export CXX=g++-9
 - Follow the steps above for Linux
 
 ### Usage
-Run the spring executable ```/PATH/TO/spring``` with the options below:
+Run the spring executable ```/PATH/TO/spring``` (or just ```spring``` if installed with conda) with the options below:
 ```
 Allowed options:
   -h [ --help ]                   produce help message
@@ -119,7 +131,7 @@ Note that the SPRING compressed files are tar archives consisting of the differe
 For the memory and CPU performance for SPRING, please see the paper and the associated supplementary material. Note that SPRING uses some temporary disk space, and can fail if the disk space is not sufficient. Assuming that qualities and ids are not being discarded and SPRING is operating in the short read mode, the additional temporary disk usage is around 10-30% of the original uncompressed file (on the lower end when quality values are from newer Illumina machines and are more compressible) when -r flag is not specified (i.e., default lossless mode). When -r flag is specified, SPRING writes all the quality values and read ids to a temporary file leading to significantly higher temporary disk usage - closer to 70-80% of the original file size. Note that these figures are approximate and include the space needed for the final compressed file.
 
 ### Example Usage of SPRING
-This section contains several examples for SPRING compression and decompression with various modes and options. The compressed SPRING file uses the `.spring` extension as a convention.
+This section contains several examples for SPRING compression and decompression with various modes and options. The compressed SPRING file uses the `.spring` extension as a convention. If installed using conda, use the command `spring` instead of `./spring`.
 
 For compressing file_1.fastq and file_2.fastq losslessly using default 8 threads (Lossless).
 ```bash
