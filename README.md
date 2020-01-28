@@ -27,7 +27,7 @@ conda config --add channels bioconda
 conda config --add channels conda-forge
 conda install spring
 ```
-Note that if spring is installed this way, it should be invoked with the command `spring` rather than `./spring`. The bioconda [help page](https://bioconda.github.io/user/install.html) shows the commands needed for installing in an environment.
+Note that if spring is installed this way, it should be invoked with the command `spring` rather than `./spring`. The bioconda [help page](https://bioconda.github.io/user/install.html) shows the commands if you wish to install spring in an environment.
 
 ### Download
 ```bash
