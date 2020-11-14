@@ -27,7 +27,7 @@ conda config --add channels bioconda
 conda config --add channels conda-forge
 conda install spring
 ```
-Note that if spring is installed this way, it should be invoked with the command `spring` rather than `./spring`. The bioconda [help page](https://bioconda.github.io/user/install.html) shows the commands if you wish to install spring in an environment.
+Note that if spring is installed this way, it should be invoked with the command `spring` rather than `./spring`. The bioconda [help page](https://bioconda.github.io/user/install.html) shows the commands if you wish to install spring in an environment. Also note that the bioconda version is compiled using SSE4.1 instruction set to allow portability across machines. You might get slightly better performance by compiling using the instructions below that use all available instructions on the target machine. Also, for older processors that don't support SSE4.1 instructions, you might get Illegal instruction error. In such cases, please use the instructions below.
 
 ### Download
 ```bash
@@ -35,7 +35,7 @@ git clone https://github.com/shubhamchandak94/SPRING.git
 ```
 
 ### Install
-The instructions below will create the spring executable in the build directory inside SPRING. If you plan to build and run SPRING on separate architectures, then you might need to remove/comment the line ```set(FLAGS "${FLAGS} -march=native")``` in CMakeLists.txt (or use flags based on the target architecture).
+The instructions below will create the spring executable in the build directory inside SPRING. If you plan to build and run SPRING on separate architectures, then you might need to remove/comment the line ```set(FLAGS "${FLAGS} -march=native")``` in CMakeLists.txt (or use flags based on the target architecture). You can also use the `-Dspring_optimize_for_portability=ON` option for `cmake` that enables only the SSE4.1 instructions that should work on most processors.
 
 On Linux with cmake installed and version at least 3.9 (check using ```cmake --version```):
 ```bash
