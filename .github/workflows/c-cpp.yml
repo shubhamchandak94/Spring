@@ -9,8 +9,9 @@ on:
 jobs:
     build_test:
         runs-on: ubuntu-latest
-        matrix:
-            cpp-version: [gcc-4.9, gcc-5, gcc-6, gcc-7, gcc-8, gcc-9]
+        strategy:
+            matrix:
+                cpp-version: [gcc-4.9, gcc-5, gcc-6, gcc-7, gcc-8, gcc-9]
         steps:
             - uses: actions/checkout@v3
             - name: Spring build and test
