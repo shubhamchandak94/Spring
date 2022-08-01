@@ -63,7 +63,11 @@ execute_process(
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/cloudflare_zlib/
 )
 execute_process(
-    COMMAND make
+    COMMAND make clean
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/cloudflare_zlib/
+)
+execute_process(
+    COMMAND make static
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/cloudflare_zlib/
 )
 
