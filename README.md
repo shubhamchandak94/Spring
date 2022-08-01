@@ -1,6 +1,6 @@
 # SPRING
 
-[![Build Status](https://travis-ci.org/shubhamchandak94/Spring.svg?branch=master)](https://travis-ci.org/shubhamchandak94/Spring)
+[![C/C++ CI](https://github.com/shubhamchandak94/Spring/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/shubhamchandak94/Spring/actions/workflows/c-cpp.yml)
 ### [Bioinformatics publication](https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/bty1015/5232998?guestAccessKey=266a1378-4684-4f04-bb99-6febdf9d1fb9)
 #### Check out specialized tool for compressing nanopore long reads: https://github.com/qm2/NanoSpring
 
@@ -47,18 +47,18 @@ cmake ..
 make
 ```
 
-On Linux with cmake not installed or with version older than 3.9:
+On Linux with cmake not installed or with version older than 3.12:
 ```bash
 cd SPRING
 mkdir build
 cd build
-wget https://cmake.org/files/v3.10/cmake-3.10.3.tar.gz
-tar -xzf cmake-3.10.3.tar.gz
-cd cmake-3.10.3
+wget https://cmake.org/files/v3.12/cmake-3.12.4.tar.gz
+tar -xzf cmake-3.12.4.tar.gz
+cd cmake-3.12.4
 ./configure
 make
 cd ..
-./cmake-3.10.3/bin/cmake ..
+./cmake-3.12.4/bin/cmake ..
 make
 ```
 
