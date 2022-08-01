@@ -29,7 +29,7 @@ void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
                       const std::string &outfile_2,
                       const compression_params &cp, const int &num_thr,
                       const uint64_t &start_num, const uint64_t &end_num,
-                      const bool &gzip_flag) {
+                      const bool &gzip_flag, const int &gzip_level) {
   std::string basedir = temp_dir;
 
   std::string file_seq = basedir + "/read_seq.bin";
@@ -411,11 +411,11 @@ void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
         write_fastq_block(fout[j], id_array + shift, read_array + shift,
                           quality_array + shift,
                           num_reads_cur_step_output - shift, preserve_quality,
-                          num_thr, gzip_flag);
+                          num_thr, gzip_flag, gzip_level);
       } else {
         write_fastq_block(fout[j], id_array, read_array, quality_array,
                           num_reads_cur_step_output, preserve_quality, num_thr,
-                          gzip_flag);
+                          gzip_flag, gzip_level);
       }
     }
     num_reads_done += num_reads_cur_step;
@@ -438,7 +438,8 @@ void decompress_short(const std::string &temp_dir, const std::string &outfile_1,
 void decompress_long(const std::string &temp_dir, const std::string &outfile_1,
                      const std::string &outfile_2, const compression_params &cp,
                      const int &num_thr, const uint64_t &start_num,
-                     const uint64_t &end_num, const bool &gzip_flag) {
+                     const uint64_t &end_num, const bool &gzip_flag,
+                     const int &gzip_level) {
   std::string infileread[2];
   std::string infilequality[2];
   std::string infileid[2];
@@ -591,11 +592,11 @@ void decompress_long(const std::string &temp_dir, const std::string &outfile_1,
         write_fastq_block(fout[j], id_array + shift, read_array + shift,
                           quality_array + shift,
                           num_reads_cur_step_output - shift, preserve_quality,
-                          num_thr, gzip_flag);
+                          num_thr, gzip_flag, gzip_level);
       } else {
         write_fastq_block(fout[j], id_array, read_array, quality_array,
                           num_reads_cur_step_output, preserve_quality, num_thr,
-                          gzip_flag);
+                          gzip_flag, gzip_level);
       }
     }
     num_reads_done += num_reads_cur_step;

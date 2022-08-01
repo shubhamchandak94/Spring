@@ -32,7 +32,7 @@ void decompress(const std::string &temp_dir,
                 const std::vector<std::string> &infile_vec,
                 const std::vector<std::string> &outfile_vec, const int &num_thr,
                 const std::vector<uint64_t> &decompress_range_vec,
-                const bool &gzip_flag);
+                const bool &gzip_flag, const int &gzip_level);
 
 std::string random_string(size_t length);
 

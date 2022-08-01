@@ -58,7 +58,7 @@ void write_fastq_block(std::ofstream &fout, std::string *id_array,
                        std::string *read_array, std::string *quality_array,
                        const uint32_t &num_reads,
                        const bool preserve_quality, const int &num_thr,
-                       const bool &gzip_flag);
+                       const bool &gzip_flag, const int &gzip_level);
 
 void compress_id_block(const char *outfile_name, std::string *id_array,
                        const uint32_t &num_ids);

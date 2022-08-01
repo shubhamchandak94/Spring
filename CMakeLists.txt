@@ -26,8 +26,8 @@ option(spring_optimize_for_native "Build spoa with -march=native" ON)
 option(spring_optimize_for_portability "Build spoa with -msse4.1" OFF)
 
 message(STATUS "Setting compiler flags")
-#set(FLAGS "${FLAGS} -g")
-#set(FLAGS "${FLAGS} -Wextra")
+set(FLAGS "${FLAGS} -g")
+##set(FLAGS "${FLAGS} -Wextra")
 #set(FLAGS "${FLAGS} -Wpedantic")
 #set(FLAGS "${FLAGS} -Wall")
 set(FLAGS "${FLAGS} -O3")
@@ -50,6 +50,23 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
 
 message(STATUS "** CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
 message(STATUS "** CMAKE_C_FLAGS: ${CMAKE_C_FLAGS}")
+
+#######################################################
+# build cloudflare zlib and set environment variable ZLIB_ROOT
+# the build runs during configuration time so boost can use the
+# correct zlib
+
+message(STATUS "Building zlib")
+message(STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
+execute_process(
+    COMMAND ./configure
+    COMMAND make
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/cloudflare_zlib/
+)
+
+set( ENV{ZLIB_ROOT} ${CMAKE_SOURCE_DIR}/cloudflare_zlib/ )
+
+#######################################################
 
 add_subdirectory(boost-cmake)
 

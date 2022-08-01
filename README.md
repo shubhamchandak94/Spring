@@ -123,6 +123,8 @@ Allowed options:
   -g [ --gzipped_fastq ]          enable if compression input is gzipped fastq
                                   or to output gzipped fastq during
                                   decompression
+  --gzip-level arg (=6)           gzip level (0-9) to use during decompression 
+                                  if -g flag is specified (default: 6)
   --fasta-input                   enable if compression input is fasta file
                                   (i.e., no qualities)                                
 ```

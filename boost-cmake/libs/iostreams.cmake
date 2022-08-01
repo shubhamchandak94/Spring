@@ -23,6 +23,9 @@ if(BOOST_IOSTREAMS_ENABLE_BZIP2)
 endif()
 
 if(BOOST_IOSTREAMS_ENABLE_ZLIB)
+  # this makes sure we use the provided value of ZLIB_ROOT
+  cmake_policy(SET CMP0074 NEW)
+
   find_package(ZLIB)
   if(ZLIB_FOUND)
     target_sources(Boost_iostreams PRIVATE

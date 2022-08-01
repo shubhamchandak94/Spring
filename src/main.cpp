@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
   std::vector<std::string> infile_vec, outfile_vec, quality_opts;
   std::vector<uint64_t> decompress_range_vec;
   std::string working_dir;
-  int num_thr;
+  int num_thr, gzip_level;
   po::options_description desc("Allowed options");
   desc.add_options()("help,h", po::bool_switch(&help_flag),
                      "produce help message")(
@@ -90,6 +90,8 @@ int main(int argc, char** argv) {
       "gzipped-fastq,g", po::bool_switch(&gzip_flag),
       "enable if compression input is gzipped fastq or to output gzipped fastq "
       "during decompression")(
+      "gzip-level", po::value<int>(&gzip_level)->default_value(6),
+      "gzip level (0-9) to use during decompression if -g flag is specified (default: 6)")(
       "fasta-input", po::bool_switch(&fasta_flag),
       "enable if compression input is fasta file (i.e., no qualities)");
   po::variables_map vm;
@@ -136,7 +138,7 @@ int main(int argc, char** argv) {
                        quality_opts, long_flag, gzip_flag, fasta_flag);
     else
       spring::decompress(temp_dir, infile_vec, outfile_vec, num_thr,
-                         decompress_range_vec, gzip_flag);
+                         decompress_range_vec, gzip_flag, gzip_level);
 
   }
   // Error handling

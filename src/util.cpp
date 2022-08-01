@@ -56,7 +56,8 @@ uint32_t read_fastq_block(std::istream *fin, std::string *id_array,
 void write_fastq_block(std::ofstream &fout, std::string *id_array,
                        std::string *read_array, std::string *quality_array,
                        const uint32_t &num_reads, const bool preserve_quality,
-                       const int &num_thr, const bool &gzip_flag) {
+                       const int &num_thr, const bool &gzip_flag,
+                       const int &gzip_level) {
   if (!gzip_flag) {
     for (uint32_t i = 0; i < num_reads; i++) {
       fout << id_array[i] << "\n";
@@ -87,7 +88,7 @@ void write_fastq_block(std::ofstream &fout, std::string *id_array,
     {
       int tid = omp_get_thread_num();
       boost::iostreams::filtering_ostream out;
-      out.push(boost::iostreams::gzip_compressor());
+      out.push(boost::iostreams::gzip_compressor(boost::iostreams::gzip_params(gzip_level)));
       out.push(boost::iostreams::back_inserter(gzip_compressed[tid]));
 
       for (uint64_t i = start_read_num[tid]; i < end_read_num[tid]; i++) {

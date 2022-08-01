@@ -281,7 +281,7 @@ void decompress(const std::string &temp_dir,
                 const std::vector<std::string> &infile_vec,
                 const std::vector<std::string> &outfile_vec, const int &num_thr,
                 const std::vector<uint64_t> &decompress_range_vec,
-                const bool &gzip_flag) {
+                const bool &gzip_flag, const int &gzip_level) {
   //
   // Ensure that omp parallel regions are executed with the requested
   // #threads.
@@ -361,10 +361,10 @@ void decompress(const std::string &temp_dir,
   std::cout << "Decompressing ...\n";
   if (long_flag)
     decompress_long(temp_dir, outfile_1, outfile_2, cp, num_thr, start_num,
-                    end_num, gzip_flag);
+                    end_num, gzip_flag, gzip_level);
   else
     decompress_short(temp_dir, outfile_1, outfile_2, cp, num_thr, start_num,
-                     end_num, gzip_flag);
+                     end_num, gzip_flag, gzip_level);
 
   delete cp_ptr;
   auto decompression_end = std::chrono::steady_clock::now();
