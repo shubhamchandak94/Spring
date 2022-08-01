@@ -60,6 +60,9 @@ message(STATUS "Building zlib")
 message(STATUS "CMAKE_SOURCE_DIR: ${CMAKE_SOURCE_DIR}")
 execute_process(
     COMMAND ./configure
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/cloudflare_zlib/
+)
+execute_process(
     COMMAND make
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/cloudflare_zlib/
 )
