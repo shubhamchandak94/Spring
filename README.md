@@ -47,18 +47,18 @@ cmake ..
 make
 ```
 
-On Linux with cmake not installed or with version older than 3.9:
+On Linux with cmake not installed or with version older than 3.12:
 ```bash
 cd SPRING
 mkdir build
 cd build
-wget https://cmake.org/files/v3.10/cmake-3.10.3.tar.gz
-tar -xzf cmake-3.10.3.tar.gz
-cd cmake-3.10.3
+wget https://cmake.org/files/v3.12/cmake-3.12.4.tar.gz
+tar -xzf cmake-3.12.4.tar.gz
+cd cmake-3.12.4
 ./configure
 make
 cd ..
-./cmake-3.10.3/bin/cmake ..
+./cmake-3.12.4/bin/cmake ..
 make
 ```
 
