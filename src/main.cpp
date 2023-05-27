@@ -114,10 +114,16 @@ int main(int argc, char** argv) {
   while (true) {
     std::string random_str = "tmp." + spring::random_string(10);
     temp_dir = working_dir + "/" + random_str + '/';
-    if (!boost::filesystem::exists(temp_dir)) break;
-  }
-  if (!boost::filesystem::create_directory(temp_dir)) {
-    throw std::runtime_error("Cannot create temporary directory.");
+    if (!boost::filesystem::exists(temp_dir)) {
+      if (boost::filesystem::create_directory(temp_dir)) {
+        // successfully created directory, break
+        break;
+      }
+      // otherwise keep trying (it is possible the creation failed because another 
+      // process created the directory in that very instant)
+      // Note that boost will throw a runtime error if the creation fails due to
+      // permission issue      
+    }
   }
   std::cout << "Temporary directory: " << temp_dir << "\n";
 
