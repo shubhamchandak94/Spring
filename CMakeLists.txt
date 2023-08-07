@@ -130,6 +130,7 @@ set(source_files ${source_files} ${source_dir}/qvz/src/util.cpp)
 set(source_files ${source_files} ${source_dir}/qvz/src/well.cpp)
 
 add_executable (spring ${source_files})
+install(TARGETS spring DESTINATION bin)
 
 target_include_directories(spring PRIVATE ${include_dir})
 target_link_libraries(spring PUBLIC Boost::filesystem)
