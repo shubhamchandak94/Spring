@@ -1,8 +1,15 @@
+#project (SPRING VERSION 1.0.1) # this cause problem
 project (SPRING)
-cmake_minimum_required (VERSION 3.9)
+cmake_minimum_required (VERSION 3.16)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# look somewhere the version is set to 0.0.1
+set(PROJECT_VERSION 1.0.1)
+set(PROJECT_VERSION_MAJOR 1)
+set(PROJECT_VERSION_MINOR 0)
+set(PROJECT_VERSION_PATCH 1)
 include(CheckIPOSupported)
+## TODO: add library to be used in other C++ projects directly
 
 if (NOT UNIX)
 	message(FATAL_ERROR "Non Unix platforms not supported currently.")
@@ -133,6 +140,14 @@ add_executable (spring ${source_files})
 install(TARGETS spring DESTINATION bin)
 
 target_include_directories(spring PRIVATE ${include_dir})
+# TODO: the boost filesytem has been part of C++17, so can remove the need
 target_link_libraries(spring PUBLIC Boost::filesystem)
 target_link_libraries(spring PUBLIC Boost::program_options)
 target_link_libraries(spring PUBLIC Boost::iostreams)
+#set(CPACK_SOURCE_GENERATOR "SOURCE_TGZ")
+set(CPACK_SOURCE_GENERATOR "TGZ")
+set(CPAKC_PACKAGE_VENDOR "Predicine")
+set(CPAKC_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
+set(CPAKC_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})
+set(CPAKC_PACKAGE_VERSION_PATCH ${PROJECT_VERSION_PATCH})
+include(CPack)
