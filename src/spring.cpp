@@ -51,7 +51,7 @@ void compress(const std::string &temp_dir,
   //
   omp_set_dynamic(0);
 
-  std::cout << "Starting compression...\n";
+  std::cout << __FILE__ << ":" __LINE__ << ":DEBUG Starting compression...\n";
   auto compression_start = std::chrono::steady_clock::now();
 
   std::string infile_1, infile_2, outfile;
@@ -80,8 +80,10 @@ void compress(const std::string &temp_dir,
   }
   if (outfile_vec.size() == 1)
     outfile = outfile_vec[0];
-  else
+  else {
+     std::cerr << __LINE__ << ": For compression you must provide single output file\n";
     throw std::runtime_error("Number of output files not equal to 1");
+  }
 
   compression_params *cp_ptr = new compression_params;
   memset(cp_ptr, 0, sizeof(compression_params));  // remove valgrind error
@@ -135,7 +137,7 @@ void compress(const std::string &temp_dir,
     }
   }
 
-  std::cout << "Preprocessing ...\n";
+  std::cout << __LINE__ << ": Preprocessing ...\n";
   auto preprocess_start = std::chrono::steady_clock::now();
   preprocess(infile_1, infile_2, temp_dir, cp, gzip_flag, fasta_flag);
   auto preprocess_end = std::chrono::steady_clock::now();

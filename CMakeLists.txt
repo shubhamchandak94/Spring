@@ -1,7 +1,7 @@
 #project (SPRING VERSION 1.0.1) # this cause problem
 project (SPRING)
 cmake_minimum_required (VERSION 3.16)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # look somewhere the version is set to 0.0.1
 set(PROJECT_VERSION 1.0.1)
@@ -146,7 +146,15 @@ target_link_libraries(spring PUBLIC Boost::program_options)
 target_link_libraries(spring PUBLIC Boost::iostreams)
 #set(CPACK_SOURCE_GENERATOR "SOURCE_TGZ")
 set(CPACK_SOURCE_GENERATOR "TGZ")
-set(CPACK_SOURCE_IGNORE_FILES .git *.o dist .*build*. \\\\.DS_Store)
+# example: /CVS/;/\\.svn/;\\.swp$;\\.#;/#;.*~;cscope.*
+#set(CPACK_SOURCE_IGNORE_FILES /.git /*\\\\.o /*.o /dist /.*build*. /\\\\.DS_Store)
+# adding /*.o cause empty tar.gz file to be created
+#set(CPACK_SOURCE_IGNORE_FILES /.git /*\\\\.o /dist /.*build*. /\\\\.DS_Store)
+# above is missing distortion.cpp file, but directory is there
+# SPRING-0.1.1-Source/src/qvz/src
+# the problem is the /dist pattern!
+# /.*build*. removes some source files!
+set(CPACK_SOURCE_IGNORE_FILES /.git /*\\\\.o /build/)
 set(CPAKC_PACKAGE_VENDOR "Predicine")
 set(CPAKC_PACKAGE_VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
 set(CPAKC_PACKAGE_VERSION_MINOR ${PROJECT_VERSION_MINOR})

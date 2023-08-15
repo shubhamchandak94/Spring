@@ -12,7 +12,7 @@ license (the "License");
 limitations under the License.
 */
 
-#include <boost/filesystem.hpp>
+//#include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
 #include <csignal>
 #include <cstdio>
@@ -21,6 +21,10 @@ limitations under the License.
 #include <string>
 #include <vector>
 #include "spring.h"
+// use std instead of boost
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 std::string temp_dir_global;  // for interrupt handling
 bool temp_dir_flag_global = false;
@@ -30,7 +34,8 @@ void signalHandler(int signum) {
   std::cout << "Program terminated unexpectedly\n";
   if (temp_dir_flag_global) {
     std::cout << "Deleting temporary directory:" << temp_dir_global << "\n";
-    boost::filesystem::remove_all(temp_dir_global);
+    //boost::filesystem::remove_all(temp_dir_global);
+    fs::remove_all(temp_dir_global);
   }
   exit(signum);
 }
@@ -47,28 +52,30 @@ int main(int argc, char** argv) {
   std::string working_dir;
   int num_thr, gzip_level;
   po::options_description desc("Allowed options");
-  desc.add_options()("help,h", po::bool_switch(&help_flag),
-                     "produce help message")(
-      "compress,c", po::bool_switch(&compress_flag), "compress")(
-      "decompress,d", po::bool_switch(&decompress_flag), "decompress")(
-      "decompress-range",
+  desc.add_options()
+     ("help,h", po::bool_switch(&help_flag),
+                     "produce help message")
+     ("compress,c", po::bool_switch(&compress_flag), "compress")
+     ("decompress,d", po::bool_switch(&decompress_flag), "decompress")
+     ("decompress-range",
       po::value<std::vector<uint64_t> >(&decompress_range_vec)->multitoken(),
       "--decompress-range start end\n(optional) decompress only reads (or read "
       "pairs for PE datasets) from start to end (both inclusive) (1 <= start "
       "<= end <= num_reads (or num_read_pairs for PE)). If -r was specified "
       "during compression, the range of reads does not correspond to the "
-      "original order of reads in the FASTQ file.")(
-      "input-file,i",
+      "original order of reads in the FASTQ file.")
+     ("input-file,i",
       po::value<std::vector<std::string> >(&infile_vec)->multitoken(),
-      "input file name (two files for paired end)")(
-      "output-file,o",
+      "input file name (two files for paired end)")
+     ("output-file,o",
       po::value<std::vector<std::string> >(&outfile_vec)->multitoken(),
       "output file name (for paired end decompression, if only one file is "
-      "specified, two output files will be created by suffixing .1 and .2.)")(
-      "working-dir,w", po::value<std::string>(&working_dir)->default_value("."),
-      "directory to create temporary files (default current directory)")(
-      "num-threads,t", po::value<int>(&num_thr)->default_value(8),
-      "number of threads (default 8)")(
+      "specified, two output files will be created by suffixing .1 and .2.). For compression must provide single file.")
+     ("working-dir,w", po::value<std::string>(&working_dir)->default_value("."),
+      "directory to create temporary files (default current directory)")
+     ("num-threads,t", po::value<int>(&num_thr)->default_value(8),
+      "number of threads (default 8)")
+     (
       "allow-read-reordering,r", po::bool_switch(&pairing_only_flag),
       "do not retain read order during compression (paired reads still remain "
       "paired)")("no-quality", po::bool_switch(&no_quality_flag),
@@ -114,8 +121,9 @@ int main(int argc, char** argv) {
   while (true) {
     std::string random_str = "tmp." + spring::random_string(10);
     temp_dir = working_dir + "/" + random_str + '/';
-    if (!boost::filesystem::exists(temp_dir)) {
-      if (boost::filesystem::create_directory(temp_dir)) {
+    //if (!boost::filesystem::exists(temp_dir)) {
+    if (!fs::exists(temp_dir)) {
+      if (fs::create_directory(temp_dir)) {
         // successfully created directory, break
         break;
       }
@@ -125,7 +133,7 @@ int main(int argc, char** argv) {
       // permission issue      
     }
   }
-  std::cout << "Temporary directory: " << temp_dir << "\n";
+  std::cout << __LINE__ << ":INFO Temporary directory: " << temp_dir << "\n";
 
   temp_dir_global = temp_dir;
   temp_dir_flag_global = true;
@@ -147,24 +155,33 @@ int main(int argc, char** argv) {
                          decompress_range_vec, gzip_flag, gzip_level);
 
   }
-  // Error handling
   catch (std::runtime_error& e) {
-    std::cout << "Program terminated unexpectedly with error: " << e.what()
-              << "\n";
+    std::cout << __FILE__ << ":" << __LINE__ << ":ERROR ";
+    if (compress_flag) {
+       std::cout << " when compress ";
+    }
+    else {
+       std::cout << " when decompress";
+    }
+    std::cout << " terminated unexpectedly with error: " << e.what() << endl;
     std::cout << "Deleting temporary directory...\n";
-    boost::filesystem::remove_all(temp_dir);
+    //boost::filesystem::remove_all(temp_dir);
+    fs::remove_all(temp_dir);
     temp_dir_flag_global = false;
     std::cout << desc << "\n";
-    return 1;
+    throw;
+    //return 1;
   } catch (...) {
-    std::cout << "Program terminated unexpectedly\n";
+    std::cout << __LINE__ << ":ERROR Program terminated unexpectedly\n";
     std::cout << "Deleting temporary directory...\n";
-    boost::filesystem::remove_all(temp_dir);
+    //boost::filesystem::remove_all(temp_dir);
+    fs::remove_all(temp_dir);
     temp_dir_flag_global = false;
     std::cout << desc << "\n";
     return 1;
   }
-  boost::filesystem::remove_all(temp_dir);
+  //boost::filesystem::remove_all(temp_dir);
+  fs::remove_all(temp_dir);
   temp_dir_flag_global = false;
   return 0;
 }

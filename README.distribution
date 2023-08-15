@@ -1,0 +1,4 @@
+cmake --build build --target package_source
+
+in the top directory with above command, the
+tar.gz fill will be created for source distribuiton.
