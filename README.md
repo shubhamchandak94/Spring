@@ -2,7 +2,19 @@
 
 [![C/C++ CI](https://github.com/shubhamchandak94/Spring/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/shubhamchandak94/Spring/actions/workflows/c-cpp.yml)
 ### [Bioinformatics publication](https://academic.oup.com/bioinformatics/advance-article/doi/10.1093/bioinformatics/bty1015/5232998?guestAccessKey=266a1378-4684-4f04-bb99-6febdf9d1fb9)
-#### Check out specialized tool for compressing nanopore long reads: https://github.com/qm2/NanoSpring
+
+#### Check out specialized tool for compressing nanopore long reads: <https://github.com/qm2/NanoSpring>
+
+> **Note:** SPRING is now succeeded by **[SPRING2](https://github.com/thisisamirv/SPRING2)**, a modernized C++20 rewrite. SPRING2 can decompress existing `.spring` archives created by this tool, and adds:
+>
+> - Grouped-lane support for `R1`/`R2`/`R3`/`I1`/`I2` (e.g. sc-ATAC, sc-RNA)
+> - Assay-aware preprocessing: Tn5/Nextera adapter stripping, bisulfite C/T-aware matching, cell-barcode prefix extraction for sc-RNA, and poly-A/T tail stripping for RNA-seq
+> - A scoring-based assay auto-detection system (`--assay auto`)
+> - Archive integrity auditing and `--preview` without full decompression
+> - Automatic memory-aware compression that scales to very large datasets without manual tuning
+> - Full cross-platform builds (Windows, Linux, macOS; x86/ARM) and conda packaging
+>
+> For standard paired-end datasets, compression ratio and speed are comparable to SPRING; for large, multi-lane, or assay-specific datasets, SPRING2 is generally faster and more memory-efficient. See the [SPRING2 documentation](https://spring2.readthedocs.io/) for details.
 
 SPRING is a compression tool for Fastq files (containing up to 4.29 Billion reads):
 - Near-optimal compression ratios for single-end and paired-end datasets
